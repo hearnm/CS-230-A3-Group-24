@@ -1,4 +1,4 @@
-
+import java.util.*;
 /**
  * UserProfile.java
  * @author Tom Durman
@@ -7,6 +7,8 @@
 
 public class UserProfile {
 
+	private static int userCount = 1;
+	
 	private int userId;
 	private String username;
 	private String firstName;
@@ -14,7 +16,10 @@ public class UserProfile {
 	private String street;
 	private String postcode;
 	private String cityTown;
-	private Integer phoneNumber;
+	private int phoneNumber;
+	
+	private static ArrayList<UserProfile> profiles = new ArrayList<UserProfile>();
+	
 	
 	/**
 	 * Constructor for UserProfile which creates new Users.
@@ -27,7 +32,7 @@ public class UserProfile {
 	 * @param phoneNumber The Users current phone number.
 	 */
 	public UserProfile(String username, String firstName, String lastName, String street,
-			 		   String postcode, String cityTown, Integer phoneNumber) {
+			 		   String postcode, String cityTown, int phoneNumber) {
 		
 		this.username = username;
 		this.firstName = firstName;
@@ -36,6 +41,8 @@ public class UserProfile {
 		this.postcode = postcode;
 		this.cityTown = cityTown;
 		this.phoneNumber = phoneNumber;
+		this.userId = userCount++;
+		profiles.add(this);
 	}
 
 	/**
@@ -165,18 +172,4 @@ public class UserProfile {
 	public void setPhoneNumber(Integer phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	
-
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
