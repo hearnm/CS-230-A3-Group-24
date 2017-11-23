@@ -2,7 +2,7 @@ import java.util.*;
 /**
  * UserProfile.java
  * @author Tom Durman
- *
+ * This class will be used to create instances of a User Profile.
  */
 
 public class UserProfile {
