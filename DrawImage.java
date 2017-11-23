@@ -56,22 +56,31 @@ public class DrawImage extends Application {
 	private Pane buildGUI() {
 
 		BorderPane root = new BorderPane();
-				
+		
+		// Create a new Canvas
 		canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
 		root.setCenter(canvas);
 		
+		// Create a new VBox side bar
 	    VBox sideBar = new VBox(200);
 	    
+	    // Adjust spacing and padding
 	    sideBar.setSpacing(15);
 	    sideBar.setPadding(new Insets(20,20,20,20));
 	    
+	    // Create reset button and add it into the side bar VBox
 	    Button reset = new Button("Reset Cavnas");
-	    sideBar.getChildren().add(reset);
+	    Button changeColour = new Button("Change Colour");
+	    reset.setMaxWidth(Double.MAX_VALUE);
+	    changeColour.setMaxWidth(Double.MAX_VALUE);
+	    sideBar.getChildren().addAll(reset, changeColour);
 	    
+	    // Set action when clicked for the reset button
 	    reset.setOnAction(e -> {
 	    	resetCanvas(); 	
 	    });
-	    
+	        
+	    // Create a slider
 	    Slider slider = new Slider();
 	    slider.setMin(0);
 	    slider.setMax(100);
@@ -82,9 +91,9 @@ public class DrawImage extends Application {
 	    slider.setMinorTickCount(5);
 	    slider.setBlockIncrement(10);
 	    
+	    // Add the slider to the side \bar.
 	    sideBar.getChildren().add(slider);
-	    
-	    reset.setMaxWidth(Double.MAX_VALUE);
+	  
 	    
 	    root.setLeft(sideBar);
 
@@ -125,6 +134,8 @@ public class DrawImage extends Application {
 		
 		gc.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
 	}
+	
+	
 	
 	
 	
