@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -19,11 +20,9 @@ import javafx.stage.Stage;
 public class DrawImage extends Application {
 	
 	private static final int STAGE_WIDTH = 600;		// Width of the Stage
-	private static final int STAGE_HEIGHT= 600;		// Height of the Stage
+	private static final int STAGE_HEIGHT= 400;		// Height of the Stage
 	private static final int CANVAS_WIDTH = 350;	// Width of the Canvas
 	private static final int CANVAS_HEIGHT = 350;	// Height of the Canvas
-	private static final int CIRCLE_WIDTH = 10;		// Width of the draw line
-	private static final int CIRCLE_HEIGHT = 10;	// Height of the draw line
 	
 	private Canvas canvas;
 	private double mouseX = 0.0;	// Mouse X Coordinate
@@ -73,6 +72,18 @@ public class DrawImage extends Application {
 	    	resetCanvas(); 	
 	    });
 	    
+	    Slider slider = new Slider();
+	    slider.setMin(0);
+	    slider.setMax(100);
+	    slider.setValue(20);
+	    slider.setShowTickLabels(true);
+	    slider.setShowTickMarks(true);
+	    slider.setMajorTickUnit(50);
+	    slider.setMinorTickCount(5);
+	    slider.setBlockIncrement(10);
+	    
+	    sideBar.getChildren().add(slider);
+	    
 	    reset.setMaxWidth(Double.MAX_VALUE);
 	    
 	    root.setLeft(sideBar);
@@ -81,12 +92,12 @@ public class DrawImage extends Application {
 		canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				mouseX = event.getX();
-				mouseY = event.getY();
+				mouseX = event.getX() - 10;
+				mouseY = event.getY() - 10;
 				
 				GraphicsContext gc = canvas.getGraphicsContext2D();
 				
-				gc.fillOval(mouseX, mouseY, 10, 10);
+				gc.fillOval(mouseX, mouseY, slider.getValue(), slider.getValue());
 			}
 		});	
 		
@@ -94,12 +105,12 @@ public class DrawImage extends Application {
 		canvas.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				mouseX = event.getX();
-				mouseY = event.getY();
+				mouseX = event.getX() - 10;
+				mouseY = event.getY() - 10;
 				
 				GraphicsContext gc = canvas.getGraphicsContext2D();
 				
-				gc.fillOval(mouseX, mouseY, CIRCLE_WIDTH, CIRCLE_HEIGHT);
+				gc.fillOval(mouseX, mouseY, slider.getValue(), slider.getValue());
 			}
 		});	
 		
