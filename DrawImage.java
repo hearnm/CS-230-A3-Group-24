@@ -17,6 +17,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -31,7 +32,7 @@ import javafx.stage.Stage;
 public class DrawImage extends Application {
 	
 	private static final int STAGE_WIDTH = 600;		// Width of the Stage
-	private static final int STAGE_HEIGHT= 500;		// Height of the Stage
+	private static final int STAGE_HEIGHT= 550;		// Height of the Stage
 	private static final int CANVAS_WIDTH = 350;	// Width of the Canvas
 	private static final int CANVAS_HEIGHT = 350;	// Height of the Canvas
 	
@@ -81,12 +82,16 @@ public class DrawImage extends Application {
 		// Create a new VBox's
 	    VBox sideBar = new VBox(200);
 	    VBox topBar = new VBox(200);
+	    HBox bottomBar = new HBox(200);
 	    
 	    sideBar.setSpacing(15);
 	    sideBar.setPadding(new Insets(20,20,20,20));
 	    
 	    topBar.setSpacing(15);
 	    topBar.setPadding(new Insets(20,20,20,20));
+	    
+	    bottomBar.setSpacing(15);
+	    bottomBar.setPadding(new Insets(20,20,20,20));
 	    
 	    Label title = new Label("Custom Avatar Drawing");
 	    Label sizeModifer = new Label("Pen Size Modifer");
@@ -108,6 +113,8 @@ public class DrawImage extends Application {
 	    Button colorBlue = new Button("Toggle Blue");
 	    Button colorGreen = new Button("Toggle Green");
 	    Button colorYellow = new Button("Toggle Yellow");
+	    Button saveImage = new Button("Save Image");
+	    Button back = new Button("Back");
 	    
 	    
 	    reset.setMaxWidth(Double.MAX_VALUE);
@@ -116,6 +123,8 @@ public class DrawImage extends Application {
 	    colorBlue.setMaxWidth(Double.MAX_VALUE);
 	    colorGreen.setMaxWidth(Double.MAX_VALUE);
 	    colorYellow.setMaxWidth(Double.MAX_VALUE);
+	    saveImage.setMaxWidth(Double.MAX_VALUE);
+	    back.setMaxWidth(Double.MAX_VALUE);
 	    
 	    
 	    // Set action when clicked for the reset button
@@ -164,11 +173,11 @@ public class DrawImage extends Application {
 	    topBar.getChildren().add(title);
 	    sideBar.getChildren().addAll(colorSelection, colorBlack, colorRed, colorBlue, colorGreen,
 	    							 colorYellow, reset, sizeModifer, slider);
+	    bottomBar.getChildren().addAll(back, saveImage);
 	    root.setTop(topBar);
 	    root.setLeft(sideBar);
+	    root.setBottom(bottomBar);
 
-	    
-	    
 	    
 	    // Creates a small circle at cursor when clicked.
 		canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
