@@ -46,9 +46,21 @@ public class DrawImage extends Application {
 				GraphicsContext gc = canvas.getGraphicsContext2D();
 				
 				gc.fillOval(mouseX, mouseY, 10, 10);
-				
 			}
-		});		
+		});	
+		
+		canvas.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				double mouseX = event.getX();
+				double mouseY = event.getY();
+				
+				GraphicsContext gc = canvas.getGraphicsContext2D();
+				
+				gc.fillOval(mouseX, mouseY, 10, 10);
+			}
+		});	
+		
 		
 		return root;
 	}
