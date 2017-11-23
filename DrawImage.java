@@ -1,8 +1,10 @@
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -35,23 +37,20 @@ public class DrawImage extends Application {
 		canvas = new Canvas(250, 250);
 		root.setCenter(canvas);
 		
-		root.setOnMousePressed(e -> {
-			drawImage();
+		canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				double mouseX = event.getX();
+				double mouseY = event.getY();
+				
+				GraphicsContext gc = canvas.getGraphicsContext2D();
+				
+				gc.fillOval(mouseX, mouseY, 10, 10);
+				
+			}
 		});		
 		
 		return root;
 	}
 	
-
-	private void drawImage() {
-		
-		int x = 0;
-		int y = 0;
-	
-		GraphicsContext gc = canvas.getGraphicsContext2D();
-
-		gc.fillOval(x, y, 10, 10);
-		
-	
-	}	
 }
