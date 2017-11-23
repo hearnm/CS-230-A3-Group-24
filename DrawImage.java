@@ -90,7 +90,7 @@ public class DrawImage extends Application {
 	    
 	    Label title = new Label("Custom Avatar Drawing");
 	    Label sizeModifer = new Label("Pen Size Modifer");
-	    Label colorSelection = new Label("Color Selection");
+	    Label colorSelection = new Label("Current Color: BLACK");
 	    
 	    title.setScaleX(3);
 	    title.setScaleY(3);
@@ -120,26 +120,32 @@ public class DrawImage extends Application {
 	    
 	    // Set action when clicked for the reset button
 	    reset.setOnAction(e -> {
+	  
 	    	resetCanvas(); 	
 	    });
 	    
 	    colorRed.setOnAction(e -> {
+	    	colorSelection.setText("Current Color: RED");
 	    	setColorRed();
 	    });
 	    
 	    colorBlue.setOnAction(e -> {
+	    	colorSelection.setText("Current Color: BLUE");
 	    	setColorBlue();
 	    });
 	    
 	    colorGreen.setOnAction(e -> {
+	    	colorSelection.setText("Current Color: GREEN");
 	    	setColorGreen();
 	    });
 	    
 	    colorYellow.setOnAction(e -> {
+	    	colorSelection.setText("Current Color: BLACK");
 	    	setColorYellow();
 	    });
 	    
 	    colorBlack.setOnAction(e -> {
+	    	colorSelection.setText("Current Color: BLACK");
 	    	setColorBlack();
 	    });
 	    
@@ -155,7 +161,6 @@ public class DrawImage extends Application {
 	    slider.setMinorTickCount(5);
 	    slider.setBlockIncrement(10);
 	    
-
 	    topBar.getChildren().add(title);
 	    sideBar.getChildren().addAll(colorSelection, colorBlack, colorRed, colorBlue, colorGreen,
 	    							 colorYellow, reset, sizeModifer, slider);
