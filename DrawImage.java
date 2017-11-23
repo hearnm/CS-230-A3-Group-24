@@ -31,7 +31,7 @@ import javafx.stage.Stage;
 public class DrawImage extends Application {
 	
 	private static final int STAGE_WIDTH = 600;		// Width of the Stage
-	private static final int STAGE_HEIGHT= 400;		// Height of the Stage
+	private static final int STAGE_HEIGHT= 500;		// Height of the Stage
 	private static final int CANVAS_WIDTH = 350;	// Width of the Canvas
 	private static final int CANVAS_HEIGHT = 350;	// Height of the Canvas
 	
@@ -82,7 +82,6 @@ public class DrawImage extends Application {
 	    VBox sideBar = new VBox(200);
 	    VBox topBar = new VBox(200);
 	    
-	    // Adjust spacing and padding
 	    sideBar.setSpacing(15);
 	    sideBar.setPadding(new Insets(20,20,20,20));
 	    
@@ -90,21 +89,33 @@ public class DrawImage extends Application {
 	    topBar.setPadding(new Insets(20,20,20,20));
 	    
 	    Label title = new Label("Custom Avatar Drawing");
+	    Label sizeModifer = new Label("Pen Size Modifer");
+	    Label colorSelection = new Label("Color Selection");
+	    
 	    title.setScaleX(3);
 	    title.setScaleY(3);
 	    title.setPadding(new Insets(10,10,10,100));
 	    title.autosize();
-	    Label sizeModifer = new Label("Size modifer");
-	    sizeModifer.setPadding(new Insets(100,5,5,5));
 	    
-	    topBar.getChildren().add(title);
+	    sizeModifer.setPadding(new Insets(30,5,5,5));
+	    
+	    
 	    
 	    // Create reset button and add it into the side bar VBox
 	    Button reset = new Button("Reset Cavnas");
+	    Button colorBlack = new Button("Toggle Black");
 	    Button colorRed = new Button("Toggle Red");
+	    Button colorBlue = new Button("Toggle Blue");
+	    Button colorGreen = new Button("Toggle Green");
+	    Button colorYellow = new Button("Toggle Yellow");
+	    
+	    
 	    reset.setMaxWidth(Double.MAX_VALUE);
+	    colorBlack.setMaxWidth(Double.MAX_VALUE);
 	    colorRed.setMaxWidth(Double.MAX_VALUE);
-	   
+	    colorBlue.setMaxWidth(Double.MAX_VALUE);
+	    colorGreen.setMaxWidth(Double.MAX_VALUE);
+	    colorYellow.setMaxWidth(Double.MAX_VALUE);
 	    
 	    
 	    // Set action when clicked for the reset button
@@ -114,6 +125,22 @@ public class DrawImage extends Application {
 	    
 	    colorRed.setOnAction(e -> {
 	    	setColorRed();
+	    });
+	    
+	    colorBlue.setOnAction(e -> {
+	    	setColorBlue();
+	    });
+	    
+	    colorGreen.setOnAction(e -> {
+	    	setColorGreen();
+	    });
+	    
+	    colorYellow.setOnAction(e -> {
+	    	setColorYellow();
+	    });
+	    
+	    colorBlack.setOnAction(e -> {
+	    	setColorBlack();
 	    });
 	    
 	        
@@ -128,19 +155,22 @@ public class DrawImage extends Application {
 	    slider.setMinorTickCount(5);
 	    slider.setBlockIncrement(10);
 	    
-	    // Add the slider to the side \bar.
-	    
-	    
-	    sideBar.getChildren().addAll(reset, colorRed, sizeModifer, slider);
+
+	    topBar.getChildren().add(title);
+	    sideBar.getChildren().addAll(colorSelection, colorBlack, colorRed, colorBlue, colorGreen,
+	    							 colorYellow, reset, sizeModifer, slider);
 	    root.setTop(topBar);
 	    root.setLeft(sideBar);
 
+	    
+	    
+	    
 	    // Creates a small circle at cursor when clicked.
 		canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				mouseX = event.getX() - 10;
-				mouseY = event.getY() - 10;
+				mouseX = event.getX() - (slider.getValue() / 2);
+				mouseY = event.getY() - (slider.getValue() / 2);
 				
 				GraphicsContext gc = canvas.getGraphicsContext2D();
 				
@@ -152,8 +182,8 @@ public class DrawImage extends Application {
 		canvas.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				mouseX = event.getX() - 10;
-				mouseY = event.getY() - 10;
+				mouseX = event.getX() - (slider.getValue() / 2);
+				mouseY = event.getY() - (slider.getValue() / 2);
 				
 				GraphicsContext gc = canvas.getGraphicsContext2D();
 				
@@ -178,6 +208,38 @@ public class DrawImage extends Application {
 	public void setColorRed() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.setFill(Color.RED);
+	}
+	
+	/**
+	 * Method to set the pen color to red
+	 */
+	public void setColorBlue() {
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		gc.setFill(Color.BLUE);
+	}
+	
+	/**
+	 * Method to set the pen color to red
+	 */
+	public void setColorGreen() {
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		gc.setFill(Color.GREEN);
+	}
+	
+	/**
+	 * Method to set the pen color to red
+	 */
+	public void setColorYellow() {
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		gc.setFill(Color.YELLOW);
+	}
+	
+	/**
+	 * Method to set the pen color to red
+	 */
+	public void setColorBlack() {
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		gc.setFill(Color.BLACK);
 	}
 		
 }
