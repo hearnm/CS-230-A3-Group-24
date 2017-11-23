@@ -2,7 +2,7 @@ import java.util.*;
 /**
  * UserProfile.java
  * @author Tom Durman
- * This class will be used to create instances of a User Profile.
+ * Class to create and store User Profiles.
  */
 
 public class UserProfile {
@@ -19,6 +19,7 @@ public class UserProfile {
 	private int phoneNumber;
 	
 	private static ArrayList<UserProfile> profiles = new ArrayList<UserProfile>();
+	private ArrayList<UserProfile> favoriteUsers = new ArrayList<UserProfile>();
 	
 	
 	/**
