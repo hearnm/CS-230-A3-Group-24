@@ -5,11 +5,22 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -57,28 +68,54 @@ public class DrawImage extends Application {
 
 		BorderPane root = new BorderPane();
 		
+		BackgroundFill myBF = new BackgroundFill(Color.ALICEBLUE, new CornerRadii(1),
+		         new Insets(0.0,0.0,0.0,0.0));// or null for the padding
+		//then you set to your node or container or layout
+		root.setBackground(new Background(myBF));
+		
+		
 		// Create a new Canvas
 		canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
 		root.setCenter(canvas);
 		
-		// Create a new VBox side bar
+		// Create a new VBox's
 	    VBox sideBar = new VBox(200);
+	    VBox topBar = new VBox(200);
 	    
 	    // Adjust spacing and padding
 	    sideBar.setSpacing(15);
 	    sideBar.setPadding(new Insets(20,20,20,20));
 	    
+	    topBar.setSpacing(15);
+	    topBar.setPadding(new Insets(20,20,20,20));
+	    
+	    Label title = new Label("Custom Avatar Drawing");
+	    title.setScaleX(3);
+	    title.setScaleY(3);
+	    title.setPadding(new Insets(10,10,10,100));
+	    title.autosize();
+	    Label sizeModifer = new Label("Size modifer");
+	    sizeModifer.setPadding(new Insets(100,5,5,5));
+	    
+	    topBar.getChildren().add(title);
+	    
 	    // Create reset button and add it into the side bar VBox
 	    Button reset = new Button("Reset Cavnas");
-	    Button changeColour = new Button("Change Colour");
+	    Button colorRed = new Button("Toggle Red");
 	    reset.setMaxWidth(Double.MAX_VALUE);
-	    changeColour.setMaxWidth(Double.MAX_VALUE);
-	    sideBar.getChildren().addAll(reset, changeColour);
+	    colorRed.setMaxWidth(Double.MAX_VALUE);
+	   
+	    
 	    
 	    // Set action when clicked for the reset button
 	    reset.setOnAction(e -> {
 	    	resetCanvas(); 	
 	    });
+	    
+	    colorRed.setOnAction(e -> {
+	    	setColorRed();
+	    });
+	    
 	        
 	    // Create a slider
 	    Slider slider = new Slider();
@@ -92,9 +129,10 @@ public class DrawImage extends Application {
 	    slider.setBlockIncrement(10);
 	    
 	    // Add the slider to the side \bar.
-	    sideBar.getChildren().add(slider);
-	  
 	    
+	    
+	    sideBar.getChildren().addAll(reset, colorRed, sizeModifer, slider);
+	    root.setTop(topBar);
 	    root.setLeft(sideBar);
 
 	    // Creates a small circle at cursor when clicked.
@@ -131,12 +169,15 @@ public class DrawImage extends Application {
 	 */
 	public void resetCanvas() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		
 		gc.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
 	}
 	
-	
-	
-	
-	
+	/**
+	 * Method to set the pen color to red
+	 */
+	public void setColorRed() {
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		gc.setFill(Color.RED);
+	}
+		
 }
