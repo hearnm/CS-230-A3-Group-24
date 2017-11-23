@@ -11,24 +11,35 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-
+/**
+ * DrawImage.java
+ * @author Tom Durman
+ * This class will construct a window and allow for drawing with the mouse.
+ */
 public class DrawImage extends Application {
 	
-	private static final int STAGE_WIDTH = 600;
-	private static final int STAGE_HEIGHT= 600;
-	private static final int CANVAS_WIDTH = 350;
-	private static final int CANVAS_HEIGHT = 350;
-	private static final int CIRCLE_WIDTH = 10;
-	private static final int CIRCLE_HEIGHT = 10;
+	private static final int STAGE_WIDTH = 600;		// Width of the Stage
+	private static final int STAGE_HEIGHT= 600;		// Height of the Stage
+	private static final int CANVAS_WIDTH = 350;	// Width of the Canvas
+	private static final int CANVAS_HEIGHT = 350;	// Height of the Canvas
+	private static final int CIRCLE_WIDTH = 10;		// Width of the draw line
+	private static final int CIRCLE_HEIGHT = 10;	// Height of the draw line
 	
 	private Canvas canvas;
-	private double mouseX = 0.0;
-	private double mouseY = 0.0;
+	private double mouseX = 0.0;	// Mouse X Coordinate
+	private double mouseY = 0.0;	// Mouse Y Coordinate
 	
+	/**
+	 * Main Method to launch the GUI
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
 	
+	/**
+	 * Method to get and show the GUI.
+	 */
 	public void start(Stage primaryStage) {
 		
 		Pane root = buildGUI();
@@ -39,6 +50,10 @@ public class DrawImage extends Application {
 		primaryStage.show();
 	}
 	
+	/**
+	 * Method to build the GUI, containing all of the GUI elements
+	 * @return The Pane to be displayed
+	 */
 	private Pane buildGUI() {
 
 		BorderPane root = new BorderPane();
@@ -62,6 +77,7 @@ public class DrawImage extends Application {
 	    
 	    root.setLeft(sideBar);
 
+	    // Creates a small circle at cursor when clicked.
 		canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -74,6 +90,7 @@ public class DrawImage extends Application {
 			}
 		});	
 		
+		// Creates a number of small circles at cursor when dragged.
 		canvas.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -89,6 +106,9 @@ public class DrawImage extends Application {
 		return root;
 	}
 	
+	/**
+	 * Method to reset the canvas
+	 */
 	public void resetCanvas() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		
