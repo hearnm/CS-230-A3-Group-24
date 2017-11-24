@@ -107,7 +107,7 @@ public class DrawImage extends Application {
 	    
 	    
 	    // Create reset button and add it into the side bar VBox
-	    Button reset = new Button("Reset Cavnas");
+	    Button reset = new Button("Reset Canvas");
 	    Button colorBlack = new Button("Toggle Black");
 	    Button colorRed = new Button("Toggle Red");
 	    Button colorBlue = new Button("Toggle Blue");
