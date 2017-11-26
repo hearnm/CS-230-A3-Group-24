@@ -77,12 +77,12 @@ public class DrawImage extends Application {
 		root.setCenter(canvas);
 		
 		// Create a new VBox's
-	    VBox sideBar = new VBox(200);
-	    VBox topBar = new VBox(200);
-	    HBox bottomBar = new HBox(200);
+	    VBox sideBar = new VBox();
+	    VBox topBar = new VBox();
+	    HBox bottomBar = new HBox();
 	    
 	   // sideBar.setStyle("-fx-background-color: Aqua");
-	    sideBar.setSpacing(15);
+	    sideBar.setSpacing(7);
 	    sideBar.setPadding(new Insets(20,20,20,20));
 	    topBar.setSpacing(15);
 	    topBar.setPadding(new Insets(20,20,20,20));
@@ -92,21 +92,26 @@ public class DrawImage extends Application {
 	    
 	    Label title = new Label("Custom Avatar Drawing");
 	    Label sizeModifer = new Label("Pen Size Modifer");
-	    Label colorSelection = new Label("Color Selection Menu");
+	    Label options = new Label("Pen Style Options:");
+	    Label color = new Label("Color");
+	    Label shape = new Label("Shape");
 	    
 	    title.setScaleX(3);
 	    title.setScaleY(3);
-	    title.setPadding(new Insets(10,10,10,100));
-	    title.autosize();
+	    title.setPadding(new Insets(10,10,10,120));
 	    
-	    sizeModifer.setPadding(new Insets(30,5,5,5));
+	    options.setScaleX(1.5);
+	    options.setScaleY(1.5);
+	    options.setPadding(new Insets(1,1,1,15));
+
+
 
 	    // Create reset button and add it into the side bar VBox
 	    Button reset = new Button("Reset Canvas");
 	    Button saveImage = new Button("Save Image");
 	    Button back = new Button("Back");
 	    
-	    
+	 
 	    reset.setMaxWidth(Double.MAX_VALUE);
 	    back.setMaxWidth(Double.MAX_VALUE);
 	    
@@ -142,7 +147,7 @@ public class DrawImage extends Application {
 	    slider.setBlockIncrement(10);
 	    
 	    topBar.getChildren().add(title);
-	    sideBar.getChildren().addAll(colorSelection, colorOptions, shapeOptions, reset, sizeModifer, slider);
+	    sideBar.getChildren().addAll(options, color, colorOptions, shape, shapeOptions,sizeModifer, slider, reset);
 	    bottomBar.getChildren().addAll(back, saveImage);
 	    root.setTop(topBar);
 	    root.setLeft(sideBar);
