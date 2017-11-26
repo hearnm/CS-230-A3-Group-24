@@ -13,6 +13,14 @@ public class Artwork {
 	private String artTimeDate;
 	private int numBidsAllowed;
 	
+	/**
+	 * Constructor of Artwork objects
+	 * @param title
+	 * @param creator
+	 * @param artCreationYear
+	 * @param reservePrice
+	 * @param numBidsAllowed
+	 */
 	public Artwork(String title, String creator, int artCreationYear, double reservePrice, int numBidsAllowed) {
 		this.title = title;
 		this.creator = creator;
@@ -20,6 +28,24 @@ public class Artwork {
 		this.reservePrice = reservePrice;
 		this.numBidsAllowed = numBidsAllowed;
 	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	
 	
 	
 }
