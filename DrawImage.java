@@ -8,19 +8,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -34,8 +30,8 @@ public class DrawImage extends Application {
 	
 	private static final int STAGE_WIDTH = 600;		// Width of the Stage
 	private static final int STAGE_HEIGHT= 550;		// Height of the Stage
-	private static final int CANVAS_WIDTH = 350;	// Width of the Canvas
-	private static final int CANVAS_HEIGHT = 350;	// Height of the Canvas
+	private static final int CANVAS_WIDTH = 435;	// Width of the Canvas
+	private static final int CANVAS_HEIGHT = 415;	// Height of the Canvas
 	
 	private Canvas canvas;
 	private double mouseX = 0.0;	// Mouse X Coordinate
@@ -54,6 +50,7 @@ public class DrawImage extends Application {
 	 */
 	public void start(Stage primaryStage) {
 		
+		primaryStage.setResizable(false);
 		Pane root = buildGUI();
 		
 		Scene scene = new Scene(root, STAGE_WIDTH, STAGE_HEIGHT);
@@ -70,20 +67,32 @@ public class DrawImage extends Application {
 
 		BorderPane root = new BorderPane();
 		
-		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #d4d4d4); ");
+		
+		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899); ");
 		
 		// Create a new Canvas
 		canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
-		root.setCenter(canvas);
-		
+		//root.setCenter(canvas);
+
 		// Create a new VBox's
 	    VBox sideBar = new VBox();
 	    VBox topBar = new VBox();
 	    HBox bottomBar = new HBox();
+	    Pane middleSection = new Pane();
 	    
-	   // sideBar.setStyle("-fx-background-color: Aqua");
+	    middleSection.setBorder(new Border(new BorderStroke(Color.BLACK, 
+	            BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+	    
+	    root.setBorder(new Border(new BorderStroke(Color.BLACK, 
+	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+	    
+	    //sideBar.setBorder(new Border(new BorderStroke(Color.BLACK, 
+	    //		BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));	    
 	    sideBar.setSpacing(7);
 	    sideBar.setPadding(new Insets(20,20,20,20));
+	  
+	  
+	    
 	    topBar.setSpacing(15);
 	    topBar.setPadding(new Insets(20,20,20,20));
 	    
@@ -149,9 +158,13 @@ public class DrawImage extends Application {
 	    topBar.getChildren().add(title);
 	    sideBar.getChildren().addAll(options, color, colorOptions, shape, shapeOptions,sizeModifer, slider, reset);
 	    bottomBar.getChildren().addAll(back, saveImage);
+	    
+	    
+	    middleSection.getChildren().add(canvas);
 	    root.setTop(topBar);
 	    root.setLeft(sideBar);
 	    root.setBottom(bottomBar);
+	    root.setCenter(middleSection);
 
 	    
 	    // Creates a small circle at cursor when clicked.
