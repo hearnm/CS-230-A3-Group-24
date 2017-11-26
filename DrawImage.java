@@ -111,7 +111,7 @@ public class DrawImage extends Application {
 	    back.setMaxWidth(Double.MAX_VALUE);
 	    
 	    ChoiceBox<String> colorOptions = new ChoiceBox<>();
-	    //ChoiceBox<String> shapeOptions = new ChoiceBox<>();
+	    ChoiceBox<String> shapeOptions = new ChoiceBox<>();
 	    
 	    colorOptions.getItems().add("Black");
 	    colorOptions.getItems().add("Red");
@@ -120,18 +120,12 @@ public class DrawImage extends Application {
 	    colorOptions.getItems().add("Yellow");
 	    colorOptions.setValue("Black");
 	    
-	    /*
 	    shapeOptions.getItems().add("Circle");
 	    shapeOptions.getItems().add("Square");
-	    shapeOptions.getItems().add("");
-	    */
-	   
-	   
+	    shapeOptions.setValue("Circle");
 	    
-	    // Set action when clicked for the reset button
-	    
+	    // Resets the canvas on click event
 	    reset.setOnAction(e -> {
-	  
 	    	resetCanvas(); 	
 	    });
 	    
@@ -148,7 +142,7 @@ public class DrawImage extends Application {
 	    slider.setBlockIncrement(10);
 	    
 	    topBar.getChildren().add(title);
-	    sideBar.getChildren().addAll(colorSelection, colorOptions, reset, sizeModifer, slider);
+	    sideBar.getChildren().addAll(colorSelection, colorOptions, shapeOptions, reset, sizeModifer, slider);
 	    bottomBar.getChildren().addAll(back, saveImage);
 	    root.setTop(topBar);
 	    root.setLeft(sideBar);
@@ -159,12 +153,18 @@ public class DrawImage extends Application {
 		canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
+				String shape = shapeChoice(shapeOptions);
 				mouseX = event.getX() - (slider.getValue() / 2);
 				mouseY = event.getY() - (slider.getValue() / 2);
 				
 				GraphicsContext gc = canvas.getGraphicsContext2D();
 				getColorChoice(colorOptions);
-				gc.fillOval(mouseX, mouseY, slider.getValue(), slider.getValue());
+				
+				if(shape == "Circle") {
+					gc.fillOval(mouseX, mouseY, slider.getValue(), slider.getValue());
+					} else if(shape == "Square") {
+						gc.fillRect(mouseX, mouseY, slider.getValue(), slider.getValue());
+					}
 			}
 		});	
 		
@@ -172,12 +172,18 @@ public class DrawImage extends Application {
 		canvas.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
+				String shape = shapeChoice(shapeOptions);
 				mouseX = event.getX() - (slider.getValue() / 2);
 				mouseY = event.getY() - (slider.getValue() / 2);
-				
+			
 				GraphicsContext gc = canvas.getGraphicsContext2D();
 				getColorChoice(colorOptions);
-				gc.fillOval(mouseX, mouseY, slider.getValue(), slider.getValue());
+				
+				if(shape == "Circle") {
+					gc.fillOval(mouseX, mouseY, slider.getValue(), slider.getValue());
+					} else if(shape == "Square") {
+						gc.fillRect(mouseX, mouseY, slider.getValue(), slider.getValue());
+					}
 			}
 		});	
 		
@@ -211,16 +217,16 @@ public class DrawImage extends Application {
 		}
 	}
 	
-	/*
-	private void shapeChoice(ChoiceBox<String> shapeOption) {
+	
+	private String shapeChoice(ChoiceBox<String> shapeOption) {
 		String shapeChoice = shapeOption.getValue();
 		
-		GraphicsContext gc = canvas.getGraphicsContext2D();
-		
 		if(shapeChoice == "Circle") {
-			
+			return "Circle";
+		} else if(shapeChoice == "Square") {
+			return "Square";
 		}
+		return null;
 	}
-	*/
 		
 }
