@@ -45,7 +45,21 @@ public class Artwork {
 		return description;
 	}
 	
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
 	
+	public String getCreator() {
+		return creator;
+	}
+	
+	public void setArtCreationYear(int artCreationYear) {
+		this.artCreationYear = artCreationYear;
+	}
+	
+	public int getArtCreationYear() {
+		return artCreationYear;
+	}
 	
 	
 }
