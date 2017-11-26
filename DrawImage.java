@@ -214,6 +214,7 @@ public class DrawImage extends Application {
 	public void resetCanvas() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+		drawErase = true;
 	}
 	
 	
