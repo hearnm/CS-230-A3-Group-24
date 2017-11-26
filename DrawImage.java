@@ -114,8 +114,8 @@ public class DrawImage extends Application {
 
 	    // Create reset button and add it into the side bar VBox
 	    Button reset = new Button("Reset Canvas");
-	    Button saveImage = new Button("Save Image");
-	    Button back = new Button("Back");
+	    Button saveImage = new Button("Set Image as Avatar");
+	    Button back = new Button("Return to Profile");
 	    Button draw = new Button("Draw");
 	    Button erase = new Button("Eraser");
 	   
@@ -184,6 +184,9 @@ public class DrawImage extends Application {
 			}
 		});	
 		
+		
+		
+		
 		// Creates a number of small circles at cursor when dragged.
 		canvas.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
@@ -201,7 +204,6 @@ public class DrawImage extends Application {
 					} else if(shape == "Square") {
 						gc.fillRect(mouseX, mouseY, slider.getValue(), slider.getValue());
 					}
-			
 			}
 		});	
 		
