@@ -36,6 +36,7 @@ public class DrawImage extends Application {
 	private Canvas canvas;
 	private double mouseX = 0.0;	// Mouse X Coordinate
 	private double mouseY = 0.0;	// Mouse Y Coordinate
+	private boolean drawErase = true; // True if drawing, false if eraser
 	
 	/**
 	 * Main Method to launch the GUI
@@ -66,38 +67,36 @@ public class DrawImage extends Application {
 	private Pane buildGUI() {
 
 		BorderPane root = new BorderPane();
-		
-		
+
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899); ");
 		
-		// Create a new Canvas
 		canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
-		//root.setCenter(canvas);
 
-		// Create a new VBox's
-	    VBox sideBar = new VBox();
+		// Create Pane Sections
 	    VBox topBar = new VBox();
+	    VBox sideBar = new VBox();
 	    HBox bottomBar = new HBox();
+	    HBox topLeftBar = new HBox();
 	    Pane middleSection = new Pane();
-	    
-	    middleSection.setBorder(new Border(new BorderStroke(Color.BLACK, 
-	            BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 	    
 	    root.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-	    
-	    //sideBar.setBorder(new Border(new BorderStroke(Color.BLACK, 
-	    //		BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));	    
-	    sideBar.setSpacing(7);
-	    sideBar.setPadding(new Insets(20,20,20,20));
-	  
-	  
-	    
+	      
 	    topBar.setSpacing(15);
 	    topBar.setPadding(new Insets(20,20,20,20));
 	    
+	    sideBar.setSpacing(7);
+	    sideBar.setPadding(new Insets(20,20,20,20));
+	    
 	    bottomBar.setSpacing(15);
 	    bottomBar.setPadding(new Insets(20,20,20,20));
+	    
+	    topLeftBar.setSpacing(15);
+	    topLeftBar.setPadding(new Insets(5,5,1,1));
+	    
+	    
+	    middleSection.setBorder(new Border(new BorderStroke(Color.BLACK, 
+	            BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 	    
 	    Label title = new Label("Custom Avatar Drawing");
 	    Label sizeModifer = new Label("Pen Size Modifer");
@@ -113,14 +112,13 @@ public class DrawImage extends Application {
 	    options.setScaleY(1.5);
 	    options.setPadding(new Insets(1,1,1,15));
 
-
-
 	    // Create reset button and add it into the side bar VBox
 	    Button reset = new Button("Reset Canvas");
 	    Button saveImage = new Button("Save Image");
 	    Button back = new Button("Back");
-	    
-	 
+	    Button draw = new Button("Draw");
+	    Button erase = new Button("Eraser");
+	   
 	    reset.setMaxWidth(Double.MAX_VALUE);
 	    back.setMaxWidth(Double.MAX_VALUE);
 	    
@@ -138,12 +136,10 @@ public class DrawImage extends Application {
 	    shapeOptions.getItems().add("Square");
 	    shapeOptions.setValue("Circle");
 	    
-	    // Resets the canvas on click event
-	    reset.setOnAction(e -> {
-	    	resetCanvas(); 	
-	    });
+	    reset.setOnAction(e -> {resetCanvas();} );
+	    draw.setOnAction(e -> {drawErase = true;} );	    
+	    erase.setOnAction(e -> {drawErase = false;} );
 	    
-   
 	    // Create a slider
 	    Slider slider = new Slider();
 	    slider.setMin(0);
@@ -155,12 +151,12 @@ public class DrawImage extends Application {
 	    slider.setMinorTickCount(5);
 	    slider.setBlockIncrement(10);
 	    
+	    topLeftBar.getChildren().addAll(draw, erase);
 	    topBar.getChildren().add(title);
-	    sideBar.getChildren().addAll(options, color, colorOptions, shape, shapeOptions,sizeModifer, slider, reset);
+	    sideBar.getChildren().addAll(options, topLeftBar, color, colorOptions, shape, shapeOptions,sizeModifer, slider, reset);
 	    bottomBar.getChildren().addAll(back, saveImage);
-	    
-	    
 	    middleSection.getChildren().add(canvas);
+	   
 	    root.setTop(topBar);
 	    root.setLeft(sideBar);
 	    root.setBottom(bottomBar);
@@ -178,7 +174,9 @@ public class DrawImage extends Application {
 				GraphicsContext gc = canvas.getGraphicsContext2D();
 				getColorChoice(colorOptions);
 				
-				if(shape == "Circle") {
+				if(drawErase == false) {
+					gc.clearRect(mouseX, mouseY, slider.getValue(), slider.getValue());
+					} else if(shape == "Circle") {
 					gc.fillOval(mouseX, mouseY, slider.getValue(), slider.getValue());
 					} else if(shape == "Square") {
 						gc.fillRect(mouseX, mouseY, slider.getValue(), slider.getValue());
@@ -196,12 +194,14 @@ public class DrawImage extends Application {
 			
 				GraphicsContext gc = canvas.getGraphicsContext2D();
 				getColorChoice(colorOptions);
-				
-				if(shape == "Circle") {
+				if(drawErase == false) {
+					gc.clearRect(mouseX, mouseY, slider.getValue(), slider.getValue());
+					} else if(shape == "Circle") {
 					gc.fillOval(mouseX, mouseY, slider.getValue(), slider.getValue());
 					} else if(shape == "Square") {
 						gc.fillRect(mouseX, mouseY, slider.getValue(), slider.getValue());
 					}
+			
 			}
 		});	
 		
@@ -235,7 +235,6 @@ public class DrawImage extends Application {
 		}
 	}
 	
-	
 	private String shapeChoice(ChoiceBox<String> shapeOption) {
 		String shapeChoice = shapeOption.getValue();
 		
@@ -245,6 +244,5 @@ public class DrawImage extends Application {
 			return "Square";
 		}
 		return null;
-	}
-		
+	}	
 }
