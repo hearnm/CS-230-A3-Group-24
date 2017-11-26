@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
@@ -69,11 +70,7 @@ public class DrawImage extends Application {
 
 		BorderPane root = new BorderPane();
 		
-		BackgroundFill myBF = new BackgroundFill(Color.ALICEBLUE, new CornerRadii(1),
-		         new Insets(0.0,0.0,0.0,0.0));// or null for the padding
-		//then you set to your node or container or layout
-		root.setBackground(new Background(myBF));
-		
+		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #d4d4d4); ");
 		
 		// Create a new Canvas
 		canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -84,9 +81,9 @@ public class DrawImage extends Application {
 	    VBox topBar = new VBox(200);
 	    HBox bottomBar = new HBox(200);
 	    
+	   // sideBar.setStyle("-fx-background-color: Aqua");
 	    sideBar.setSpacing(15);
 	    sideBar.setPadding(new Insets(20,20,20,20));
-	    
 	    topBar.setSpacing(15);
 	    topBar.setPadding(new Insets(20,20,20,20));
 	    
@@ -95,7 +92,7 @@ public class DrawImage extends Application {
 	    
 	    Label title = new Label("Custom Avatar Drawing");
 	    Label sizeModifer = new Label("Pen Size Modifer");
-	    Label colorSelection = new Label("Current Color: BLACK");
+	    Label colorSelection = new Label("Color Selection Menu");
 	    
 	    title.setScaleX(3);
 	    title.setScaleY(3);
@@ -103,62 +100,42 @@ public class DrawImage extends Application {
 	    title.autosize();
 	    
 	    sizeModifer.setPadding(new Insets(30,5,5,5));
-	    
-	    
-	    
+
 	    // Create reset button and add it into the side bar VBox
 	    Button reset = new Button("Reset Canvas");
-	    Button colorBlack = new Button("Toggle Black");
-	    Button colorRed = new Button("Toggle Red");
-	    Button colorBlue = new Button("Toggle Blue");
-	    Button colorGreen = new Button("Toggle Green");
-	    Button colorYellow = new Button("Toggle Yellow");
 	    Button saveImage = new Button("Save Image");
 	    Button back = new Button("Back");
 	    
 	    
 	    reset.setMaxWidth(Double.MAX_VALUE);
-	    colorBlack.setMaxWidth(Double.MAX_VALUE);
-	    colorRed.setMaxWidth(Double.MAX_VALUE);
-	    colorBlue.setMaxWidth(Double.MAX_VALUE);
-	    colorGreen.setMaxWidth(Double.MAX_VALUE);
-	    colorYellow.setMaxWidth(Double.MAX_VALUE);
-	    saveImage.setMaxWidth(Double.MAX_VALUE);
 	    back.setMaxWidth(Double.MAX_VALUE);
 	    
+	    ChoiceBox<String> colorOptions = new ChoiceBox<>();
+	    //ChoiceBox<String> shapeOptions = new ChoiceBox<>();
+	    
+	    colorOptions.getItems().add("Black");
+	    colorOptions.getItems().add("Red");
+	    colorOptions.getItems().add("Blue");
+	    colorOptions.getItems().add("Green");
+	    colorOptions.getItems().add("Yellow");
+	    colorOptions.setValue("Black");
+	    
+	    /*
+	    shapeOptions.getItems().add("Circle");
+	    shapeOptions.getItems().add("Square");
+	    shapeOptions.getItems().add("");
+	    */
+	   
+	   
 	    
 	    // Set action when clicked for the reset button
+	    
 	    reset.setOnAction(e -> {
 	  
 	    	resetCanvas(); 	
 	    });
 	    
-	    colorRed.setOnAction(e -> {
-	    	colorSelection.setText("Current Color: RED");
-	    	setColorRed();
-	    });
-	    
-	    colorBlue.setOnAction(e -> {
-	    	colorSelection.setText("Current Color: BLUE");
-	    	setColorBlue();
-	    });
-	    
-	    colorGreen.setOnAction(e -> {
-	    	colorSelection.setText("Current Color: GREEN");
-	    	setColorGreen();
-	    });
-	    
-	    colorYellow.setOnAction(e -> {
-	    	colorSelection.setText("Current Color: BLACK");
-	    	setColorYellow();
-	    });
-	    
-	    colorBlack.setOnAction(e -> {
-	    	colorSelection.setText("Current Color: BLACK");
-	    	setColorBlack();
-	    });
-	    
-	        
+   
 	    // Create a slider
 	    Slider slider = new Slider();
 	    slider.setMin(0);
@@ -171,8 +148,7 @@ public class DrawImage extends Application {
 	    slider.setBlockIncrement(10);
 	    
 	    topBar.getChildren().add(title);
-	    sideBar.getChildren().addAll(colorSelection, colorBlack, colorRed, colorBlue, colorGreen,
-	    							 colorYellow, reset, sizeModifer, slider);
+	    sideBar.getChildren().addAll(colorSelection, colorOptions, reset, sizeModifer, slider);
 	    bottomBar.getChildren().addAll(back, saveImage);
 	    root.setTop(topBar);
 	    root.setLeft(sideBar);
@@ -187,7 +163,7 @@ public class DrawImage extends Application {
 				mouseY = event.getY() - (slider.getValue() / 2);
 				
 				GraphicsContext gc = canvas.getGraphicsContext2D();
-				
+				getColorChoice(colorOptions);
 				gc.fillOval(mouseX, mouseY, slider.getValue(), slider.getValue());
 			}
 		});	
@@ -200,7 +176,7 @@ public class DrawImage extends Application {
 				mouseY = event.getY() - (slider.getValue() / 2);
 				
 				GraphicsContext gc = canvas.getGraphicsContext2D();
-				
+				getColorChoice(colorOptions);
 				gc.fillOval(mouseX, mouseY, slider.getValue(), slider.getValue());
 			}
 		});	
@@ -216,44 +192,35 @@ public class DrawImage extends Application {
 		gc.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
 	}
 	
-	/**
-	 * Method to set the pen color to red
-	 */
-	public void setColorRed() {
+	
+	private void getColorChoice(ChoiceBox<String> colorOption) {
+		String colorChoice = colorOption.getValue();
+		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		gc.setFill(Color.RED);
+		
+		if(colorChoice == "Black") {
+			gc.setFill(Color.BLACK);
+		} else if(colorChoice == "Red") {
+			gc.setFill(Color.RED);		
+		} if(colorChoice == "Blue") {
+			gc.setFill(Color.BLUE);	
+		} else if(colorChoice == "Green") {
+			gc.setFill(Color.GREEN);	
+		} if(colorChoice == "Yellow") {
+			gc.setFill(Color.YELLOW);
+		}
 	}
 	
-	/**
-	 * Method to set the pen color to red
-	 */
-	public void setColorBlue() {
+	/*
+	private void shapeChoice(ChoiceBox<String> shapeOption) {
+		String shapeChoice = shapeOption.getValue();
+		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		gc.setFill(Color.BLUE);
+		
+		if(shapeChoice == "Circle") {
+			
+		}
 	}
-	
-	/**
-	 * Method to set the pen color to red
-	 */
-	public void setColorGreen() {
-		GraphicsContext gc = canvas.getGraphicsContext2D();
-		gc.setFill(Color.GREEN);
-	}
-	
-	/**
-	 * Method to set the pen color to red
-	 */
-	public void setColorYellow() {
-		GraphicsContext gc = canvas.getGraphicsContext2D();
-		gc.setFill(Color.YELLOW);
-	}
-	
-	/**
-	 * Method to set the pen color to red
-	 */
-	public void setColorBlack() {
-		GraphicsContext gc = canvas.getGraphicsContext2D();
-		gc.setFill(Color.BLACK);
-	}
+	*/
 		
 }
