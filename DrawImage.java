@@ -1,4 +1,6 @@
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -32,8 +34,10 @@ public class DrawImage extends Application {
 	private static final int STAGE_HEIGHT= 565;		// Height of the Stage
 	private static final int CANVAS_WIDTH = 435;	// Width of the Canvas
 	private static final int CANVAS_HEIGHT = 443;	// Height of the Canvas
-	private static final int PREVIEW_CANVAS_WIDTH = 100;
-	private static final int PREVIEW_CANVAS_HEIGHT = 100;
+	private static final int PREVIEW_CANVAS_WIDTH = 150;
+	private static final int PREVIEW_CANVAS_HEIGHT = 102;
+	private static final int PREVIEW_CANVAS_DRAW_X = 25;
+	private static final int PREVIEW_CANVAS_DRAW_Y = 2;
 	
 	
 	private Canvas canvas;
@@ -41,7 +45,7 @@ public class DrawImage extends Application {
 	private double mouseX = 0.0;	// Mouse X Coordinate
 	private double mouseY = 0.0;	// Mouse Y Coordinate
 	private boolean drawErase = true; // True if drawing, false if eraser
-	private double sliderValue;
+	private double sliderValue = 20;
 	
 	/**
 	 * Main Method to launch the GUI
@@ -49,6 +53,7 @@ public class DrawImage extends Application {
 	 */
 	public static void main(String[] args) {
 		launch(args);
+		
 	}
 	
 	/**
@@ -77,7 +82,8 @@ public class DrawImage extends Application {
 		
 		canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
 		previewCanvas = new Canvas(PREVIEW_CANVAS_WIDTH, PREVIEW_CANVAS_HEIGHT);
-
+		initialisePreview();
+		
 		// Create Pane Sections
 	    VBox topBar = new VBox();
 	    VBox sideBar = new VBox();
@@ -148,6 +154,10 @@ public class DrawImage extends Application {
 	    shapeOptions.getItems().add("Square");
 	    shapeOptions.setValue("Circle");
 	    
+	    
+	    
+	    shapeOptions.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> drawPreview(colorOptions.getValue(), newValue));
+	    colorOptions.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> drawPreview(newValue, shapeOptions.getValue()));
 	    reset.setOnAction(e -> {resetCanvas();} );
 	    draw.setOnAction(e -> {drawErase = true;} );	    
 	    erase.setOnAction(e -> {drawErase = false;} );
@@ -163,6 +173,16 @@ public class DrawImage extends Application {
 	    slider.setMinorTickCount(5);
 	    slider.setBlockIncrement(10);
 	    
+	    slider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                Number old_val, Number new_val) {
+            	sliderValue = (double) new_val;
+            	drawPreview(colorOptions.getValue(), shapeOptions.getValue());
+            	
+            }
+	    });
+	    
+	
 	    previewSection.getChildren().add(previewCanvas);
 	    topLeftBar.getChildren().addAll(draw, erase);
 	    topBar.getChildren().add(title);
@@ -175,8 +195,9 @@ public class DrawImage extends Application {
 	    root.setBottom(bottomBar);
 	    root.setCenter(middleSection);
 
+
 	    
-	   
+	    
 		canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -248,17 +269,42 @@ public class DrawImage extends Application {
 		String colorChoice = colorOption.getValue();
 		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
+		GraphicsContext gc2 = previewCanvas.getGraphicsContext2D();
 		
 		if(colorChoice == "Black") {
 			gc.setFill(Color.BLACK);
+			gc2.setFill(Color.BLACK);
 		} else if(colorChoice == "Red") {
 			gc.setFill(Color.RED);
+			gc2.setFill(Color.RED);
 		} if(colorChoice == "Blue") {
 			gc.setFill(Color.BLUE);	
+			gc2.setFill(Color.BLUE);
 		} else if(colorChoice == "Green") {
 			gc.setFill(Color.GREEN);
+			gc2.setFill(Color.GREEN);
 		} if(colorChoice == "Yellow") {
 			gc.setFill(Color.YELLOW);
+			gc2.setFill(Color.YELLOW);
+		}
+	}
+	
+	private void getPreviewColorChoice(String colorOption) {
+		String colorChoice = colorOption;
+		
+		
+		GraphicsContext gc2 = previewCanvas.getGraphicsContext2D();
+		
+		if(colorChoice == "Black") {
+			gc2.setFill(Color.BLACK);
+		} else if(colorChoice == "Red") {			
+			gc2.setFill(Color.RED);
+		} if(colorChoice == "Blue") {			
+			gc2.setFill(Color.BLUE);
+		} else if(colorChoice == "Green") {			
+			gc2.setFill(Color.GREEN);
+		} if(colorChoice == "Yellow") {
+			gc2.setFill(Color.YELLOW);
 		}
 	}
 	
@@ -273,6 +319,23 @@ public class DrawImage extends Application {
 		return null;
 	}
 	
+	private void drawPreview(String colorOption, String shapeOption) {
+		GraphicsContext gc2 = previewCanvas.getGraphicsContext2D();
+		
+		getPreviewColorChoice(colorOption);
+		gc2.clearRect(0, 0, PREVIEW_CANVAS_WIDTH, PREVIEW_CANVAS_HEIGHT);
+		
+		if(shapeOption == "Circle") {
+			gc2.fillOval(PREVIEW_CANVAS_DRAW_X, PREVIEW_CANVAS_DRAW_Y, sliderValue, sliderValue);
+		} else if (shapeOption == "Square") {
+			gc2.fillRect(PREVIEW_CANVAS_DRAW_X, PREVIEW_CANVAS_DRAW_Y, sliderValue, sliderValue);
+		}
+	}
 	
+	private void initialisePreview() {
+		GraphicsContext gc2 = previewCanvas.getGraphicsContext2D();
+		gc2.setFill(Color.BLACK);
+		gc2.fillOval(PREVIEW_CANVAS_DRAW_X, PREVIEW_CANVAS_DRAW_Y, sliderValue, sliderValue);
+	}
 	
 }
