@@ -1,6 +1,11 @@
+import java.io.File;
+
+import javax.imageio.ImageIO;
+
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -10,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
@@ -34,18 +40,19 @@ public class DrawImage extends Application {
 	private static final int STAGE_HEIGHT= 565;		// Height of the Stage
 	private static final int CANVAS_WIDTH = 435;	// Width of the Canvas
 	private static final int CANVAS_HEIGHT = 443;	// Height of the Canvas
-	private static final int PREVIEW_CANVAS_WIDTH = 150;
-	private static final int PREVIEW_CANVAS_HEIGHT = 102;
-	private static final int PREVIEW_CANVAS_DRAW_X = 25;
-	private static final int PREVIEW_CANVAS_DRAW_Y = 2;
+	private static final int PREVIEW_CANVAS_WIDTH = 150;	// Width of the Preview Canvas
+	private static final int PREVIEW_CANVAS_HEIGHT = 102; 	// Height of the Preview Canvas
+	private static final int PREVIEW_CANVAS_DRAW_X = 25;	// Draw Preview Location X
+	private static final int PREVIEW_CANVAS_DRAW_Y = 2;		// Draw Preview Location Y
 	
-	
+	private static int fileNum = 1;
 	private Canvas canvas;
 	private Canvas previewCanvas;
 	private double mouseX = 0.0;	// Mouse X Coordinate
 	private double mouseY = 0.0;	// Mouse Y Coordinate
 	private boolean drawErase = true; // True if drawing, false if eraser
 	private double sliderValue = 20;
+	
 	
 	/**
 	 * Main Method to launch the GUI
@@ -132,7 +139,7 @@ public class DrawImage extends Application {
 
 	    // Create reset button and add it into the side bar VBox
 	    Button reset = new Button("Reset Canvas");
-	    Button setImage = new Button("Set Image as Avatar");
+	    Button setImage = new Button("Save and Use Image");
 	    Button back = new Button("Return to Profile");
 	    Button draw = new Button("Draw");
 	    Button erase = new Button("Eraser");
@@ -161,6 +168,7 @@ public class DrawImage extends Application {
 	    reset.setOnAction(e -> {resetCanvas();} );
 	    draw.setOnAction(e -> {drawErase = true;} );	    
 	    erase.setOnAction(e -> {drawErase = false;} );
+	    setImage.setOnAction(e -> {saveImage();});
 	    
 	    // Create a slider
 	    Slider slider = new Slider();
@@ -195,9 +203,6 @@ public class DrawImage extends Application {
 	    root.setBottom(bottomBar);
 	    root.setCenter(middleSection);
 
-
-	    
-	    
 		canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -227,13 +232,13 @@ public class DrawImage extends Application {
 	/**
 	 * Method to reset the canvas
 	 */
-	public void resetCanvas() {
+	private void resetCanvas() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
 		drawErase = true;
 	}
 	
-	public void drawOnClick(String shape, ChoiceBox<String> colorOption) {
+	private void drawOnClick(String shape, ChoiceBox<String> colorOption) {
 		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		getColorChoice(colorOption);
@@ -248,9 +253,7 @@ public class DrawImage extends Application {
 	}
 	
 	
-	
-	
-	public void drawOnDrag(String shape, ChoiceBox<String> colorOption) {
+	private void drawOnDrag(String shape, ChoiceBox<String> colorOption) {
 		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		getColorChoice(colorOption);
@@ -291,7 +294,6 @@ public class DrawImage extends Application {
 	
 	private void getPreviewColorChoice(String colorOption) {
 		String colorChoice = colorOption;
-		
 		
 		GraphicsContext gc2 = previewCanvas.getGraphicsContext2D();
 		
@@ -337,5 +339,21 @@ public class DrawImage extends Application {
 		gc2.setFill(Color.BLACK);
 		gc2.fillOval(PREVIEW_CANVAS_DRAW_X, PREVIEW_CANVAS_DRAW_Y, sliderValue, sliderValue);
 	}
+	
+	private void saveImage() {
+		
+		String saveName = "Test" + fileNum + ".png";
+		fileNum++;
+		
+		File file = new File(saveName);
+		WritableImage wim = new WritableImage(CANVAS_WIDTH, CANVAS_HEIGHT);
+		canvas.snapshot(null, wim);
+		try {
+            ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+        } catch (Exception s) {
+        }
+		
+	}
+	
 	
 }
