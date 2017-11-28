@@ -53,6 +53,7 @@ public class DrawImage extends Application {
 	private boolean drawErase = true; // True if drawing, false if eraser
 	private double sliderValue = 20;
 	
+	//akfenjf
 	
 	/**
 	 * Main Method to launch the GUI
