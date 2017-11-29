@@ -53,6 +53,7 @@ public class SystemGUI extends Application {
 		loginBox.setPadding(new Insets(10,10,10,10));
 		
 		loginBox.setMinSize(200, 150);
+		loginBox.setMaxHeight(200);
 		
 		Button loginButton = new Button("Login");
 		Button signupButton  = new Button("Sign up");
