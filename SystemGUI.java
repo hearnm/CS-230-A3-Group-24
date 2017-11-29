@@ -57,7 +57,7 @@ public class SystemGUI extends Application {
 		
 		loginButton.setMaxWidth(100);
 		
-        Text text = new Text("Artewea\n");
+        Text text = new Text("Artatawe\n");
         Text text2 = new Text("\n\nLogin Screen\n");
         Text usernameLogin = new Text("\nUsername");
         TextField usernameInput = new TextField();
