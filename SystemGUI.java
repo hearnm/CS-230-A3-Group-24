@@ -52,6 +52,8 @@ public class SystemGUI extends Application {
 		innerMid.setPadding(new Insets(100,100,100,100));
 		loginBox.setPadding(new Insets(10,10,10,10));
 		
+		loginBox.setMinSize(200, 150);
+		
 		Button loginButton = new Button("Login");
 		Button signupButton  = new Button("Sign up");
 		
