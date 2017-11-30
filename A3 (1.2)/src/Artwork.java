@@ -61,5 +61,20 @@ public class Artwork {
 		return artCreationYear;
 	}
 	
+	public void setReservePrice(double reservePrice) {
+		this.reservePrice = reservePrice;
+	}
+	
+	public double getReservePrice() {
+		return reservePrice;
+	}
+	
+	public void setNumBidAllowed(int numBidsAllowed) {
+		this.numBidsAllowed = numBidsAllowed;
+	}
+	
+	public int getNumBidAllowed() {
+		return numBidsAllowed;
+	}
 	
 }
