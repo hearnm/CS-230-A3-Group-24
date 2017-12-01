@@ -3,16 +3,22 @@
  * and Painting.
  * @author Emily Fothergill
  */
+
+import java.util.Date;
+
 public class Artwork {
-	private int artworkID;
-	private String title;
-	private String description;
-	private String creator;
-	private int artCreationYear;
-	private double reservePrice;
-	private String artTimeDate;
-	private int numBidsAllowed;
-	private String mainImagePath;
+	protected int artworkID;
+	protected String title;
+	protected String description;
+	protected String creator;
+	protected int artCreationYear;
+	protected double reservePrice;
+	protected String artTimeDate;
+	protected int numBidsAllowed;
+	protected String mainImagePath;
+	protected double height;
+	protected double width;
+	protected String artType;
 	
 	/**
 	 * Constructor of Artwork objects.
@@ -127,22 +133,54 @@ public class Artwork {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Method to generate the time and date the Artwork 
+	 * goes on the system.
+	 * @return artTimeDate
 	 */
 	private String generateTimeDate() {
-		String date;
-		String time;
-		//artTimeDate = date + time;
+		Date d = new Date();
+		artTimeDate = d.toString();
 		return artTimeDate;
 	}
 	
 	/**
-	 * 
-	 * @param artTimeDate
+	 * Method to change the height.
+	 * @param height
 	 */
-	public void assignTimeDate(String artTimeDate) {
-		
+	public void setHeight(double height) {
+		this.height = height;
 	}
 	
+	/**
+	 * Method to retrieve height.
+	 * @return height
+	 */
+	public double getHeight() {
+		return height;
+	}
+	
+	/**
+	 * Method to change the width.
+	 * @param width
+	 */
+	public void setWidth(double width) {
+		this.width = width;
+	}
+	
+	/**
+	 * Method to retrieve the width.
+	 * @return width
+	 */
+	public double getWidth() {
+		return width;
+	}
+	
+	/**
+	 * Method to set the type of Artwork.
+	 * @param artType
+	 */
+	public void setArtType(String artType) {
+		this.artType = artType;
+	}
 }
+	
