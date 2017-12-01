@@ -60,7 +60,7 @@ public class Auction {
 	* @param newBid The speculative new bid to be added to the auction.
 	*/
 	public void attemptNewBid(String newBidder, double newBid) {
-		if(checkIfBidValid) {
+		if(checkIfBidValid(newBid)) {
 			setCurrentBidder(newBidder);
 			setCurrentBid(newBid);
 			this.remainingBids -= 1;
