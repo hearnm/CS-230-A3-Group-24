@@ -176,20 +176,27 @@ public class UserProfile {
 	
 	/** 
 	 * Method to search for an existing profile by Username
-	 * 
-	 * NOTE: This will probably return "int" in the future for seeing who logged on (and validate logins)
-	 * 
 	 * @param username The username of the profile to be searched for
-	 * @return Whether the user was found or not.
+	 * @return The User object if found, else null.
 	 */
-	public static String searchForUser(String username) {
+	public static UserProfile searchForUser(String username) {
 		
 		for(int i = 0; i < profiles.size(); i++) {
 			if(username.equalsIgnoreCase(profiles.get(i).getUsername())) {
-				return "User Found, their UserId and Name are: " + profiles.get(i).getUserId() + " " + profiles.get(i).getFirstName() 
-						+ " " + profiles.get(i).getLastName() + "\n";
+				return profiles.get(i);
 			}
 		}
-		return "User Not Found!";
+		return null;
 	}
+	
+	/**
+	 * Method to add Users to Favorite List
+	 * @param Username The username of the user to be added to favorites
+	 */
+	public void addFavoriteUser(String Username) {
+		this.favoriteUsers.add(searchForUser(username));
+	}
+	
+	
+	
 }
