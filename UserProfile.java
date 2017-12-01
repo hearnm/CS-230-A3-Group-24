@@ -173,4 +173,23 @@ public class UserProfile {
 	public void setPhoneNumber(Integer phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+	
+	/** 
+	 * Method to search for an existing profile by Username
+	 * 
+	 * NOTE: This will probably return "int" in the future for seeing who logged on (and validate logins)
+	 * 
+	 * @param username The username of the profile to be searched for
+	 * @return Whether the user was found or not.
+	 */
+	public static String searchForUser(String username) {
+		
+		for(int i = 0; i < profiles.size(); i++) {
+			if(username.equalsIgnoreCase(profiles.get(i).getUsername())) {
+				return "User Found, their UserId and Name are: " + profiles.get(i).getUserId() + " " + profiles.get(i).getFirstName() 
+						+ " " + profiles.get(i).getLastName() + "\n";
+			}
+		}
+		return "User Not Found!";
+	}
 }
