@@ -1,176 +1,55 @@
 import java.util.*;
 /**
- * UserProfile.java
- * @author Tom Durman
- * Class to create and store User Profiles.
+ * BidHistory.java
+ * @author James Shoemark-Smith
+ * Class to view bidding history.
  */
 
-public class UserProfile {
-
-	private static int userCount = 1;
+public class BidHistory {
 	
-	private int userId;
-	private String username;
-	private String firstName;
-	private String lastName;
-	private String street;
-	private String postcode;
-	private String cityTown;
-	private int phoneNumber;
+	private int bidHistoryID;
+	private int bidTime;
+	private String bidDate;
+	private String bidArtwork;
+	private String currentBidder
+	private double bidAmount;
 	
-	private static ArrayList<UserProfile> profiles = new ArrayList<UserProfile>();
-	private ArrayList<UserProfile> favoriteUsers = new ArrayList<UserProfile>();
-	
-	
-	/**
-	 * Constructor for UserProfile which creates new Users.
-	 * @param username The username of the User.
-	 * @param firstName The first name of the User.
-	 * @param lastName The last name of the User.
-	 * @param street The Users current street address.
-	 * @param cityTown The Users city or town.
-	 * @param postcode The Users current postcode.
-	 * @param phoneNumber The Users current phone number.
-	 */
-	public UserProfile(String username, String firstName, String lastName, String street,
-			 		   String postcode, String cityTown, int phoneNumber) {
-		
-		this.username = username;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.street = street;
-		this.postcode = postcode;
-		this.cityTown = cityTown;
-		this.phoneNumber = phoneNumber;
-		this.userId = userCount++;
-		profiles.add(this);
+	public BidHistory(){ 
 	}
 
-	/**
-	 * Method to get the userId.
-	 * @return the userId
-	 */
-	public int getUserId() {
-		return userId;
-	}
-
-	/**
-	 * Method to set a new userId.
-	 * @param userId the userId to set
-	 */
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
-	/**
-	 * Method to get the username.
-	 * @return the username
-	 */
-	public String getUsername() {
+	private String getUsername(){
 		return username;
 	}
 
-	/**
-	 * Method to set a new username.
-	 * @param username the username to set
-	 */
-	public void setUsername(String username) {
-		this.username = username;
+	private String getDate(){
+		return bidDate;
 	}
 
-	/**
-	 * Method to get the first name.
-	 * @return the firstName
-	 */
-	public String getFirstName() {
-		return firstName;
+	private int getAmount(){
+		return bidAmount;
 	}
 
-	/**
-	 * Method to set a new first name.
-	 * @param firstName the firstName to set
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	private String getArtwork(){
+		return bidArtwork;
 	}
 
-	/**
-	 * Method to get the last name.
-	 * @return the lastName
-	 */
-	public String getLastName() {
-		return lastName;
+	private String getTime(){
+		return bidTime;
 	}
 
-	/**
-	 * Method to set a new last name.
-	 * @param lastName the lastName to set
-	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	private void setDate(String bidDate){
+		this.bidDate = bidDate;
 	}
 
-	/**
-	 * Method to get the street.
-	 * @return the street
-	 */
-	public String getStreet() {
-		return street;
+	private void setAmount(int bidAmount){
+		this.bidAmount = bidAmount;
 	}
 
-	/**
-	 * Method to set a new street address.
-	 * @param street the street to set
-	 */
-	public void setStreet(String street) {
-		this.street = street;
+	private void setArtwork(String bidArtwork){
+		this.bidArtwork = bidArtwork;
 	}
 
-	/**
-	 * Method to get the postcode.
-	 * @return the postcode
-	 */
-	public String getPostcode() {
-		return postcode;
-	}
-
-	/**
-	 * Method to set a new postcode.
-	 * @param postcode the postcode to set
-	 */
-	public void setPostcode(String postcode) {
-		this.postcode = postcode;
-	}
-
-	/**
-	 * Method to get the city / town.
-	 * @return the cityTown
-	 */
-	public String getCityTown() {
-		return cityTown;
-	}
-
-	/**
-	 * Method to set a new city / town.
-	 * @param cityTown the cityTown to set
-	 */
-	public void setCityTown(String cityTown) {
-		this.cityTown = cityTown;
-	}
-
-	/**
-	 * Method to get the phone number.
-	 * @return the phoneNumber
-	 */
-	public Integer getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	/**
-	 * Method to set a new phone number.
-	 * @param phoneNumber the phoneNumber to set
-	 */
-	public void setPhoneNumber(Integer phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	private void setTime(int bidTime){
+		this.bidTime = bidTime;
 	}
 }
