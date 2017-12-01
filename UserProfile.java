@@ -197,6 +197,13 @@ public class UserProfile {
 		this.favoriteUsers.add(searchForUser(username));
 	}
 	
+	/**
+	 * Method to get all of the Favorite users for the given instance.
+	 * @return favoriteUsers An ArrayList of Users that are marked as favorite by this instance of the User.
+	 */
+	public ArrayList<UserProfile> getFavoriteUsers() {
+		return this.favoriteUsers;
+	}
 	
 	
 }
