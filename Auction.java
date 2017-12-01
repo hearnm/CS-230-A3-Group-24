@@ -1,17 +1,18 @@
 /**
- * The class that contains information pertaining to an auction of an item of artwork.
+ * Auction.java
  * @author Matthew
- *
+ * The class that contains information pertaining to an auction of an item of artwork.
  */
 
 public class Auction {
-	private static int nextId = 0;
+	
+	private static int nextId = 1;
 	private final int AUCTION_ID;
-	Artwork auctionedArtwork;
-	double currentBid;
-	String currentBidder;
-	int remainingBids;
-	double reserveBid;
+	private Artwork auctionedArtwork;
+	private double currentBid;
+	private String currentBidder;
+	private int remainingBids;
+	private double reserveBid;
 	//IMPLEMENT BIDHISTORY
 	
 	/**
@@ -21,7 +22,7 @@ public class Auction {
 	* @param reserveBid The minimum bid that may be placed.
 	*/
 	public Auction(Artwork auctionedArtwork, int maxBids, double reserveBid) {
-		this.AUCTION_ID = this.nextId;
+		this.AUCTION_ID = nextId;
 		nextId++;
 		this.auctionedArtwork = auctionedArtwork;
 		this.currentBid = 0.0;
@@ -30,8 +31,7 @@ public class Auction {
 		
 		if(reserveBid > 0.0) {
 			this.reserveBid = reserveBid;
-		}
-		else {
+		} else {
 			this.reserveBid = 0.0;
 		}
 	}
