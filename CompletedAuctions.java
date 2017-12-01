@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 /**
  * @author nikolina
- *
+ * Shows a list with all the artworks which have successfully been auctioned.
  */
 public class CompletedAuctions {
 	private ArrayList<Artwork> listOfArtworks;
@@ -15,7 +15,7 @@ public class CompletedAuctions {
 	}
 
 	/**
-	 * @return
+	 * @return a list of artworks
 	 */
 	public ArrayList<Artwork> getListOfArtworks() {
 		return listOfArtworks;
@@ -29,7 +29,7 @@ public class CompletedAuctions {
 	}
 
 	/**
-	 * @return
+	 * @return the name of the artwork
 	 */
 	public String getArtworkName() {
 		return artworkName;
@@ -43,7 +43,7 @@ public class CompletedAuctions {
 	}
 
 	/**
-	 * @return
+	 * @return the winning bid
 	 */
 	public double getWinningBid() {
 		return winningBid;
@@ -57,7 +57,7 @@ public class CompletedAuctions {
 	}
 
 	/**
-	 * @return
+	 * @return the winning bidder
 	 */
 	public String getWinningBidder() {
 		return winningBidder;
