@@ -80,6 +80,10 @@ public class SystemGUI extends Application {
 	private Line  currentLine ;		// Line to be used to draw straight lines on a canvas
 	private Image profImg;			// Currently selected Profile image for a profile.
 	
+	private UserProfile user;
+	
+	
+	
 	/**
 	 * Main Method to start the GUI
 	 * @param args
@@ -95,13 +99,13 @@ public class SystemGUI extends Application {
 		
 		window = primaryStage;	
 		
-		Pane root = buildProfileGUI();
+		Pane root = buildLoginGUI();
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		
-		profile = new Scene(root, MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+		login = new Scene(root, MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
 		
 		window.setTitle("Artatawe Application");
-		window.setScene(profile);
+		window.setScene(login);
 		window.show();
 	}
 	
@@ -153,6 +157,24 @@ public class SystemGUI extends Application {
         StackPane.setAlignment(usernameInput, Pos.CENTER);
         StackPane.setAlignment(loginButton, Pos.BOTTOM_CENTER);
 		
+        loginButton.setOnAction(e -> {
+        	UserProfile x1 = new UserProfile("Durman2008", "Tom", "Durman", "23 Westbury Street", "CF62 HA8", "Swansea", 1464159);
+        	UserProfile x2 = new UserProfile("Durman2009", "Tom", "Durman", "23 Westbury Street", "CF62 HA8", "Swansea", 1464159);
+        	UserProfile x3 = new UserProfile("Durman2010", "Tom", "Durman", "23 Westbury Street", "CF62 HA8", "Swansea", 1464159);
+        	
+        	
+        	if(validateLogin(usernameInput.getText()) == true) {
+        		usernameInput.setText("Login Successful");
+        	} else {
+        		usernameInput.setText("Login Unsuccessful");
+        	}
+        	
+        });
+        
+    
+        
+        
+        
         loginBox.getChildren().addAll(usernameLogin, usernameInput, loginButton);
 		title.getChildren().addAll(text, text2);
 	
@@ -245,6 +267,26 @@ public class SystemGUI extends Application {
 		
 		return root;
 	}
+	
+	private boolean validateLogin(String username) {
+		
+		String x = UserProfile.searchForUser(username);
+		
+		if(username.equalsIgnoreCase(x)) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	/**

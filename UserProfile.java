@@ -67,7 +67,7 @@ public class UserProfile {
 	 * @return the username
 	 */
 	public String getUsername() {
-		return username;
+		return this.username;
 	}
 
 	/**
@@ -179,23 +179,27 @@ public class UserProfile {
 	 * @param username The username of the profile to be searched for
 	 * @return The User object if found, else null.
 	 */
-	public static UserProfile searchForUser(String username) {
+	public static String searchForUser(String username) {
 		
 		for(int i = 0; i < profiles.size(); i++) {
 			if(username.equalsIgnoreCase(profiles.get(i).getUsername())) {
-				return profiles.get(i);
+				return profiles.get(i).getUsername();
 			}
 		}
 		return null;
 	}
 	
+	
+	
 	/**
 	 * Method to add Users to Favorite List
 	 * @param Username The username of the user to be added to favorites
 	 */
+	/*
 	public void addFavoriteUser(String Username) {
 		this.favoriteUsers.add(searchForUser(username));
 	}
+	*/
 	
 	/**
 	 * Method to get all of the Favorite users for the given instance.
