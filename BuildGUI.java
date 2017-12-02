@@ -48,19 +48,23 @@ public class BuildGUI extends Application {
 		
 		//Create elements that are needed for top VBox
 		Text title = new Text("Artatawe");
-		Button auctions = new Button("Auctions");
-		Button paintings = new Button("Paintings");
-		Button sculptures = new Button("Sculptures");
+		Button auctionsButton = new Button("Auctions");
+		Button paintingsButton = new Button("Paintings");
+		Button sculpturesButton = new Button("Sculptures");
 		
+		auctionsButton.setMinWidth(70);
+		paintingsButton.setMinWidth(70);
+		sculpturesButton.setMinWidth(80);
+
 		//Postion title text
 		title.setScaleX(4);
 		title.setScaleY(4);
 		title.setTextAlignment(TextAlignment.LEFT);
 		
 		//Position buttons
-		auctions.resize(87,80);
-		paintings.resize(87, 20);
-		sculptures.resize(87, 20);
+		auctionsButton.resize(87,80);
+		paintingsButton.resize(87, 20);
+		sculpturesButton.resize(87, 20);
 		
 		//Create elements that are needed for bottom VBox
 		ScrollPane scroll = new ScrollPane();
@@ -76,7 +80,7 @@ public class BuildGUI extends Application {
 		logOut.resize(87,20);
 		
 		//Add elements to the top VBox
-		buttonBar.getChildren().addAll(auctions,paintings,sculptures);
+		buttonBar.getChildren().addAll(auctionsButton,paintingsButton,sculpturesButton);
 		titleBar.setAlignment(Pos.BASELINE_CENTER);
 		titleBar.getChildren().add(title);
 		top.getChildren().addAll(titleBar,buttonBar);
