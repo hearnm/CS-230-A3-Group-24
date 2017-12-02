@@ -92,9 +92,7 @@ public class SystemGUI extends Application {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
 		launch(args);
-		
 	}
 	
 	

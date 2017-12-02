@@ -1,31 +1,32 @@
 import java.util.*;
+
 /**
  * UserProfile.java
  * @author Tom Durman
  * Class to create and store User Profiles.
  */
-
 public class UserProfile {
 
-	private static int userCount = 1;
-	private static int currentUserId = -1;
+	private static int userCount = 1;		// Static attribute to ensure unique user Id creation
+	private static int currentUserId = -1;	// The current userId that is logged into the system
 	
-	private int userId;
-	private String username;
-	private String firstName;
-	private String lastName;
-	private String street;
-	private String postcode;
-	private String cityTown;
-	private int phoneNumber;
-	private boolean newAccount;
+	private int userId;			// The unique User identifier
+	private String username;	// The unique Username associated with the profile
+	private String firstName;	// The First name of the user
+	private String lastName;	// The Last name of the user
+	private String street;		// The Street the user lives on
+	private String postcode;	// The Postcode of the users address
+	private String cityTown;	// The City or Town the User lives at
+	private int phoneNumber;	// A Valid UK Phone number (NOTE: this needs to be an Integer)
+	private boolean newAccount;	// A check to see if an account is new or pre-existing
 	
-	private static ArrayList<UserProfile> profiles = new ArrayList<UserProfile>();
-	private ArrayList<UserProfile> favoriteUsers = new ArrayList<UserProfile>();
+	private static ArrayList<UserProfile> profiles = new ArrayList<UserProfile>();  // An ArrayList of all profiles in the system
+	private ArrayList<UserProfile> favoriteUsers = new ArrayList<UserProfile>();	// An Array of users marked as favorite by one instance of a user
 	
 	
 	/**
 	 * Constructor for UserProfile which creates new Users.
+	 * When a User Profile is created a check is made to see if they are a pre-existing user or new and saves to the system
 	 * @param username The username of the User.
 	 * @param firstName The first name of the User.
 	 * @param lastName The last name of the User.
@@ -49,29 +50,43 @@ public class UserProfile {
 		
 		if(this.newAccount == true) {
 			profiles.add(this);
-			saveProfile(this.username);
+			saveProfile();
 			this.newAccount = false;
-
 		} else {
 			profiles.add(this);
 		}
 	}
 
+	/**
+	 * Method to get the newAccount Attribute
+	 * @return newAccount True if new account, false if pre-existing.
+	 */
 	public boolean getNewAccount() {
 		return this.newAccount;
 	}
-	public static void saveProfile(String username) {
-		SaveData.saveSystemData(username);
+	
+	/**
+	 * Method to Save the current Users data
+	 */
+	public void saveProfile() {
+		SaveData.saveSystemData(this.username);
 	}
 	
+	/**
+	 * Static Method to set a current user id (logged on)
+	 * @param newCurrentUserId The current users' ID
+	 */
 	public static void setCurrentUserID(int newCurrentUserId) {
 		currentUserId = newCurrentUserId;
 	}
 	
+	/**
+	 * Static Method to get the current users' id
+	 * @return currentUserId The logged on users Id.
+	 */
 	public static int getCurrentUserId() {
 		return currentUserId;
 	}
-	
 	
 	/**
 	 * Method to get the userId.

@@ -6,24 +6,31 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 
+/**
+ * SaveData.java
+ * @author Tom Durman
+ *  This class obtains data currently on the system and saves it to a file.
+ *  If the file does not exist, it will be created automatically.
+ */
 public class SaveData {
 
-	private static final String filename = "artatawe.txt";
-	private PrintWriter x;
-	private static UserProfile currentUser;
+	// *************************************
+	// BugList
+	// ***********
+	// 1. The profile can be created on the system but not saved to the datafile (If the phone number too long or contains anything but a int)
+	// ***************************************
+	
+	private static final String filename = "artatawe.txt";  // The File path to save all the data to.
+	private static UserProfile currentUser;					// The current user object that is logged onto the system
 
 	
+	/**
+	 * Static Method that will save the system according to a given Username
+	 * @param username The username of the current or any other saved in the system.
+	 */
 	public static void saveSystemData(String username) {
 		currentUser = UserProfile.getCurrentUserObject(username);
 		openFile();
-		
-	}
-	
-	public static void saveSystemData() {
-		currentUser = UserProfile.getCurrentUserObject(UserProfile.getCurrentUserId());
-		openFile();
-		
-		
 	}
 		
 	/**
@@ -73,9 +80,5 @@ public class SaveData {
 		
 		closeFile(outputStream);
 	}
-	
-	
-	
-	
-	
+
 }
