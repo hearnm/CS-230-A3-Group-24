@@ -111,6 +111,10 @@ public class Auction {
 	public boolean checkIfBidValid(double speculativeBid) {
 		return(speculativeBid > this.currentBid && speculativeBid >= reserveBid);
 	}
+	
+	/**
+	 * @return a list of the completed Auction
+	 */
 	public ArrayList<Auction> getCompletedAuctions(){
 		return completedAuctions;
 	}
