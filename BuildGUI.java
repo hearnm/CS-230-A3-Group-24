@@ -4,10 +4,16 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -55,7 +61,16 @@ public class BuildGUI extends Application {
 		auctionsButton.setMinWidth(70);
 		paintingsButton.setMinWidth(70);
 		sculpturesButton.setMinWidth(80);
-
+		
+		auctionsButton.setMaxWidth(Double.MAX_VALUE);
+		paintingsButton.setMaxWidth(Double.MAX_VALUE);
+		sculpturesButton.setMaxWidth(Double.MAX_VALUE);
+		
+		auctionsButton.setPrefWidth(1500);
+		paintingsButton.setPrefWidth(1500);
+		sculpturesButton.setPrefWidth(1500);
+		
+		
 		//Postion title text
 		title.setScaleX(4);
 		title.setScaleY(4);
