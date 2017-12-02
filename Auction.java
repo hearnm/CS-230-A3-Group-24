@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Auction.java
  * @author Matthew
@@ -13,6 +15,7 @@ public class Auction {
 	private String currentBidder;
 	private int remainingBids;
 	private double reserveBid;
+	public static ArrayList<Auction> completedAuctions;
 	//IMPLEMENT BIDHISTORY
 	
 	/**
@@ -107,6 +110,9 @@ public class Auction {
 	
 	public boolean checkIfBidValid(double speculativeBid) {
 		return(speculativeBid > this.currentBid && speculativeBid >= reserveBid);
+	}
+	public ArrayList<Auction> getCompletedAuctions(){
+		return completedAuctions;
 	}
 	
 }
