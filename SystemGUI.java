@@ -83,6 +83,7 @@ public class SystemGUI extends Application {
 	private Line  currentLine ;		// Line to be used to draw straight lines on a canvas
 	private Image profImg;			// Currently selected Profile image for a profile.
 	
+	private static LoadData load = new LoadData();
 	private UserProfile user;
 	
 	
@@ -91,8 +92,11 @@ public class SystemGUI extends Application {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
 		launch(args);
+		
 	}
+	
 	
 	/**
 	 * Method to initialize the GUI.
@@ -109,6 +113,8 @@ public class SystemGUI extends Application {
 		window.setTitle("Artatawe Application");
 		window.setScene(login);
 		window.show();
+		LoadData.loadSystemData();
+		
 	}
 	
 	/**
@@ -161,9 +167,12 @@ public class SystemGUI extends Application {
         StackPane.setAlignment(loginButton, Pos.BOTTOM_CENTER);
 		
         loginButton.setOnAction(e -> {
-      
+        	
+        	
         	if(validateLogin(usernameInput.getText()) == true) {
+        	
         		UserProfile.setCurrentUserID(UserProfile.getCurrentUserId(usernameInput.getText()));
+        		
         		usernameInput.setText("Login Successful");
         	} else {
         		usernameInput.setText("Login Unsuccessful");
@@ -289,7 +298,7 @@ public class SystemGUI extends Application {
 
     	back.setOnAction(e -> {
     		Pane draw = buildLoginGUI();
-    		login = new Scene(draw, MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+    		login = new Scene(draw, LOGIN_STAGE_WIDTH, LOGIN_STAGE_HEIGHT);
     		window.setResizable(true);
     		window.setScene(login);
     	});
@@ -301,7 +310,7 @@ public class SystemGUI extends Application {
         		int intPhoneNo = Integer.parseInt(stringPhoneNo);
     			UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
     									postcodeBox.getText(), cityTownBox.getText(), intPhoneNo);
-
+    		
     			
     		} else {
     			System.out.println("Username taken, choose another!");
@@ -344,10 +353,7 @@ public class SystemGUI extends Application {
 			return true;
 		}
 	}
-	
-	
-	
-	
+		
 	
 	
 	/**

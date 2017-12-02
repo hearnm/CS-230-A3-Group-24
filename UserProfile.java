@@ -45,11 +45,11 @@ public class UserProfile {
 		this.phoneNumber = phoneNumber;
 		this.userId = userCount++;
 		profiles.add(this);
-		saveProfile();
+
 	}
 
-	public void saveProfile() {
-		SaveData x = new SaveData(this.username);
+	public static void saveProfile(String username) {
+		SaveData.saveSystemData(username);
 	}
 	
 	public static void setCurrentUserID(int newCurrentUserId) {

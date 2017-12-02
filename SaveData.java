@@ -10,17 +10,19 @@ public class SaveData {
 
 	private static final String filename = "artatawe.txt";
 	private PrintWriter x;
-	private UserProfile currentUser;
+	private static UserProfile currentUser;
 
 	
-	public SaveData(String username) {
+	public static String saveSystemData(String username) {
 		currentUser = UserProfile.getCurrentUserObject(username);
 		openFile();
+		return "mep";
 	}
 	
-	public SaveData() {
+	public static String saveSystemData() {
 		currentUser = UserProfile.getCurrentUserObject(UserProfile.getCurrentUserId());
 		openFile();
+		return "mep";
 		
 	}
 		
@@ -29,7 +31,7 @@ public class SaveData {
 	 * @param filename Absolute or relative path to a file
 	 * @return The file path opened by filename
 	 */
-	private void openFile(){
+	private static void openFile(){
 		
 		try {
 			File dataFile = new File(filename);
@@ -49,12 +51,12 @@ public class SaveData {
 	 * Method to close the file path
 	 * @param x the output stream
 	 */
-	private void closeFile(PrintWriter x) {
+	private static void closeFile(PrintWriter x) {
 		x.close();
 	}
 	
 	
-	private void addData(PrintWriter outputStream) {
+	private static void addData(PrintWriter outputStream) {
 		
 		int userId = currentUser.getUserId();
 		String username = currentUser.getUsername();
@@ -65,8 +67,8 @@ public class SaveData {
 		String cityTown = currentUser.getCityTown();
 		int phoneNo = currentUser.getPhoneNumber();
 		
-		outputStream.println(userId + " " + username + " " + firstname + " " + lastname + " " + street 
-					   		  + " " + postcode + " " + cityTown + " " + phoneNo);
+		outputStream.println(userId + "," + username + "," + firstname + "," + lastname + "," + street 
+					   		  + "," + postcode + "," + cityTown + "," + phoneNo + ",");
 		
 		closeFile(outputStream);
 	}
