@@ -295,6 +295,20 @@ public class SystemGUI extends Application {
     		window.setResizable(true);
     		window.setScene(login);
     	});
+    	
+    	createProfile.setOnAction(e -> {
+    		
+    		if(validateSignUpDetails(usernameBox.getText(), phoneNoBox.getText()) == true) {
+    			String stringPhoneNo = phoneNoBox.getText();
+        		int intPhoneNo = Integer.parseInt(stringPhoneNo);
+    			UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
+    									postcodeBox.getText(), cityTown.getText(), intPhoneNo);
+    					
+    		} else {
+    			System.out.println("Username taken, choose another!");
+    		}
+    		
+    	});
     
     
     
@@ -321,6 +335,20 @@ public class SystemGUI extends Application {
 	
     	return root;
 	}
+	
+	private boolean validateSignUpDetails(String username, String phoneNo) {
+		
+		String x = UserProfile.searchForUser(username);
+		
+		if(username.equalsIgnoreCase(x)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	
+	
 	
 	
 	
