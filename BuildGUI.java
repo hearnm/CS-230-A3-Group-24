@@ -40,7 +40,7 @@ public class BuildGUI extends Application {
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		
 		VBox top = new VBox();
-		HBox titleBar = new HBox();
+		VBox titleBar = new VBox();
 		HBox buttonBar = new HBox();
 		VBox bottom = new VBox();
 		HBox homepage = new HBox();
@@ -53,7 +53,8 @@ public class BuildGUI extends Application {
 		buttonBar.setPadding(new Insets(40,20,0,40));
 		
 		//Create elements that are needed for top VBox
-		Text title = new Text("Artatawe");
+		Text title = new Text("Artatawe\n");
+		Text subTitle = new Text("Home Page");
 		Button auctionsButton = new Button("Auctions");
 		Button paintingsButton = new Button("Paintings");
 		Button sculpturesButton = new Button("Sculptures");
@@ -74,6 +75,8 @@ public class BuildGUI extends Application {
 		//Postion title text
 		title.setScaleX(4);
 		title.setScaleY(4);
+		subTitle.setScaleX(2.5);
+		subTitle.setScaleY(2.5);
 		title.setTextAlignment(TextAlignment.LEFT);
 		
 		//Position buttons
@@ -85,10 +88,11 @@ public class BuildGUI extends Application {
 		ScrollPane scroll = new ScrollPane();
 		Button logOut = new Button("Log out");
 		
-//		for(Artwork a : Artwork){
-//			homepage.getChildren().add(a.getTitle(),a.getDescription());
-//			
-//		}
+		/*
+		for(Artwork a : Artwork){
+			homepage.getChildren().add(a.getTitle(),a.getDescription());
+		}
+		*/
 		
 		
 		//Position button
@@ -97,11 +101,10 @@ public class BuildGUI extends Application {
 		//Add elements to the top VBox
 		buttonBar.getChildren().addAll(auctionsButton,paintingsButton,sculpturesButton);
 		titleBar.setAlignment(Pos.BASELINE_CENTER);
-		titleBar.getChildren().add(title);
+		titleBar.getChildren().addAll(title, subTitle);
 		top.getChildren().addAll(titleBar,buttonBar);
 		
 		//Add elements to the bottom VBox
-		
 		
 		root.setTop(top);
 		
