@@ -309,9 +309,8 @@ public class SystemGUI extends Application {
     			String stringPhoneNo = phoneNoBox.getText();
         		int intPhoneNo = Integer.parseInt(stringPhoneNo);
     			UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
-    									postcodeBox.getText(), cityTownBox.getText(), intPhoneNo);
-    		
-    			
+    									postcodeBox.getText(), cityTownBox.getText(), intPhoneNo, true);
+
     		} else {
     			System.out.println("Username taken, choose another!");
     		}

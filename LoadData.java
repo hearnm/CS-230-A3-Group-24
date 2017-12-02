@@ -36,9 +36,9 @@ public class LoadData {
 			String postcode = inputStream.next();
 			String cityTown = inputStream.next();
 			int phoneNo = inputStream.nextInt();
+			inputStream.nextLine();
 			
-			
-			UserProfile x = new UserProfile(username, firstname, lastname, street, postcode, cityTown, phoneNo);
+			UserProfile x = new UserProfile(username, firstname, lastname, street, postcode, cityTown, phoneNo, false);
 			
 			}
 		

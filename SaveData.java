@@ -13,16 +13,16 @@ public class SaveData {
 	private static UserProfile currentUser;
 
 	
-	public static String saveSystemData(String username) {
+	public static void saveSystemData(String username) {
 		currentUser = UserProfile.getCurrentUserObject(username);
 		openFile();
-		return "mep";
+		
 	}
 	
-	public static String saveSystemData() {
+	public static void saveSystemData() {
 		currentUser = UserProfile.getCurrentUserObject(UserProfile.getCurrentUserId());
 		openFile();
-		return "mep";
+		
 		
 	}
 		
@@ -66,9 +66,10 @@ public class SaveData {
 		String postcode = currentUser.getPostcode();
 		String cityTown = currentUser.getCityTown();
 		int phoneNo = currentUser.getPhoneNumber();
+		boolean newAccount = currentUser.getNewAccount();
 		
 		outputStream.println(userId + "," + username + "," + firstname + "," + lastname + "," + street 
-					   		  + "," + postcode + "," + cityTown + "," + phoneNo + ",");
+					   		  + "," + postcode + "," + cityTown + "," + phoneNo + "," + newAccount + ",");
 		
 		closeFile(outputStream);
 	}

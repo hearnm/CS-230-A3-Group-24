@@ -18,6 +18,7 @@ public class UserProfile {
 	private String postcode;
 	private String cityTown;
 	private int phoneNumber;
+	private boolean newAccount;
 	
 	private static ArrayList<UserProfile> profiles = new ArrayList<UserProfile>();
 	private ArrayList<UserProfile> favoriteUsers = new ArrayList<UserProfile>();
@@ -34,7 +35,7 @@ public class UserProfile {
 	 * @param phoneNumber The Users current phone number.
 	 */
 	public UserProfile(String username, String firstName, String lastName, String street,
-			 		   String postcode, String cityTown, int phoneNumber) {
+			 		   String postcode, String cityTown, int phoneNumber, boolean newAccount) {
 		
 		this.username = username;
 		this.firstName = firstName;
@@ -44,10 +45,21 @@ public class UserProfile {
 		this.cityTown = cityTown;
 		this.phoneNumber = phoneNumber;
 		this.userId = userCount++;
-		profiles.add(this);
+		this.newAccount = newAccount;
+		
+		if(this.newAccount == true) {
+			profiles.add(this);
+			saveProfile(this.username);
+			this.newAccount = false;
 
+		} else {
+			profiles.add(this);
+		}
 	}
 
+	public boolean getNewAccount() {
+		return this.newAccount;
+	}
 	public static void saveProfile(String username) {
 		SaveData.saveSystemData(username);
 	}
