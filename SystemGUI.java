@@ -52,6 +52,8 @@ public class SystemGUI extends Application {
 	private static final int MAIN_STAGE_HEIGHT= 500;		// Height of the Main Scene
 	private static final int LOGIN_STAGE_WIDTH = 700;		// Width of the Login Scene
 	private static final int LOGIN_STAGE_HEIGHT= 450;		// Height of the Login Scene
+	private static final int SIGNUP_STAGE_WIDTH = 600;		// Width of the Main Scene
+	private static final int SIGNUP_STAGE_HEIGHT= 600;		// Height of the Main Scene
 	private static final int P_DRAW_IMG_STAGE_WIDTH = 600;	// Width of the Draw Image Scene
 	private static final int P_DRAW_IMG_STAGE_HEIGHT= 580;	// Height of the Draw Image Scene
 	private static final int CANVAS_WIDTH = 384;			// Width of the Canvas
@@ -74,6 +76,7 @@ public class SystemGUI extends Application {
 	
 	private Stage window;			// The main stage, displaying the current Scene
 	private Scene login;			// The Scene to hold the login Page GUI
+	private Scene signUp;
 	private Scene profile;			// The Scene to hold the Profile Page GUI
 	private Scene profileDrawImg;	// The Scene to hold the Profile Draw Image GUI
 	private Scene profileAvatars;	// The Scene to hold the Profile Default Avatars GUI
@@ -81,7 +84,6 @@ public class SystemGUI extends Application {
 	private Image profImg;			// Currently selected Profile image for a profile.
 	
 	private UserProfile user;
-	
 	
 	
 	/**
@@ -139,6 +141,7 @@ public class SystemGUI extends Application {
         Text usernameLogin = new Text("\nUsername");
         TextField usernameInput = new TextField();
         
+
         text.setScaleX(4);
         text.setScaleY(4);
         text2.setScaleX(2);
@@ -158,10 +161,9 @@ public class SystemGUI extends Application {
         StackPane.setAlignment(loginButton, Pos.BOTTOM_CENTER);
 		
         loginButton.setOnAction(e -> {
-        	UserProfile x1 = new UserProfile("Durman2008", "Tom", "Durman", "23 Westbury Street", "CF62 HA8", "Swansea", 1464159);
-        	UserProfile x2 = new UserProfile("Durman2009", "Tom", "Durman", "23 Westbury Street", "CF62 HA8", "Swansea", 1464159);
-        	UserProfile x3 = new UserProfile("Durman2010", "Tom", "Durman", "23 Westbury Street", "CF62 HA8", "Swansea", 1464159);
-        	
+        	//UserProfile x1 = new UserProfile("Durman2008", "Tom", "Durman", "23 Westbury Street", "CF62 HA8", "Swansea", 1464159);
+        	//UserProfile x2 = new UserProfile("Durman2009", "Tom", "Durman", "23 Westbury Street", "CF62 HA8", "Swansea", 1464159);
+        	//UserProfile x3 = new UserProfile("Durman2010", "Tom", "Durman", "23 Westbury Street", "CF62 HA8", "Swansea", 1464159);
         	
         	if(validateLogin(usernameInput.getText()) == true) {
         		usernameInput.setText("Login Successful");
@@ -169,6 +171,13 @@ public class SystemGUI extends Application {
         		usernameInput.setText("Login Unsuccessful");
         	}
         	
+        });
+        
+        signupButton.setOnAction(e -> {
+        	Pane draw = buildSignUpGUI();
+			signUp = new Scene(draw, SIGNUP_STAGE_WIDTH, SIGNUP_STAGE_HEIGHT);
+			window.setResizable(false);
+			window.setScene(signUp);
         });
         
     
@@ -188,6 +197,132 @@ public class SystemGUI extends Application {
 		
 		return root;
 	}
+	
+	
+	private boolean validateLogin(String username) {
+		
+		String x = UserProfile.searchForUser(username);
+		
+		if(username.equalsIgnoreCase(x)) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+
+
+	private Pane buildSignUpGUI() {
+		BorderPane root = new BorderPane();
+		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+	
+		BorderPane innerMid = new BorderPane();
+		StackPane title = new StackPane();
+		StackPane midSection = new StackPane();
+		VBox details = new VBox();
+		HBox innerDetails1 = new HBox();
+		HBox innerDetails2 = new HBox();
+		HBox innerDetails3 = new HBox();
+		HBox innerDetails4 = new HBox();
+		HBox innerDetails5 = new HBox();
+		HBox innerDetails6 = new HBox();
+		HBox innerDetails7 = new HBox();
+		VBox bottomBar = new VBox();
+	
+		root.setPadding(new Insets(10,10,10,10));
+		innerMid.setPadding(new Insets(50,100,1,100));
+		midSection.setPadding(new Insets(10,10,10,10));
+		bottomBar.setPadding(new Insets(20,100,1,100));
+		details.setPadding(new Insets(1,1,1,1));
+		details.setSpacing(20);
+		innerDetails1.setSpacing(10);
+		innerDetails2.setSpacing(10);
+		innerDetails3.setSpacing(10);
+		innerDetails4.setSpacing(10);
+		innerDetails5.setSpacing(10);
+		innerDetails6.setSpacing(10);
+		innerDetails7.setSpacing(10);
+		bottomBar.setSpacing(20);
+	
+		midSection.setBorder(new Border(new BorderStroke(Color.BLACK, 
+				BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+	
+		midSection.setMinSize(200, 150);
+		midSection.setMaxHeight(320);
+		midSection.setMaxWidth(250);
+	
+
+		Text text = new Text("Artatawe\n");
+		Text text2 = new Text("\n\nSign-Up Screen\n\n");
+		Text username = new Text("Username\t");
+		Text firstname = new Text("First name\t");
+		Text lastname = new Text("Last name\t");
+		Text street = new Text("Street\t\t");
+		Text postcode = new Text("Postcode\t\t");
+		Text cityTown = new Text("City/Town\t");
+		Text phoneNo = new Text("Phone Number");
+    
+		TextField usernameBox = new TextField();
+		TextField firstnameBox = new TextField();
+		TextField lastnameBox = new TextField();
+		TextField streetBox = new TextField();
+		TextField postcodeBox = new TextField();
+		TextField cityTownBox = new TextField();
+		TextField phoneNoBox = new TextField();
+   
+		Button createProfile = new Button("Create Account");
+		Button back = new Button("Back");
+    
+		createProfile.setMaxWidth(Double.MAX_VALUE);
+		back.setMaxWidth(Double.MAX_VALUE);
+    
+		text.setScaleX(4);
+		text.setScaleY(4);
+		text2.setScaleX(2);
+    	text2.setScaleY(2);
+
+    	text2.setTextAlignment(TextAlignment.CENTER);
+    	text.setTextAlignment(TextAlignment.CENTER);
+   
+    
+    	StackPane.setAlignment(text, Pos.CENTER);
+    	StackPane.setAlignment(text2, Pos.CENTER);
+
+
+    	back.setOnAction(e -> {
+    		Pane draw = buildLoginGUI();
+    		login = new Scene(draw, MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+    		window.setResizable(true);
+    		window.setScene(login);
+    	});
+    
+    
+    
+    
+    	innerDetails1.getChildren().addAll(username, usernameBox);
+    	innerDetails2.getChildren().addAll(firstname, firstnameBox);
+    	innerDetails3.getChildren().addAll(lastname, lastnameBox);
+    	innerDetails4.getChildren().addAll(street, streetBox);
+    	innerDetails5.getChildren().addAll(postcode, postcodeBox);
+    	innerDetails6.getChildren().addAll(cityTown, cityTownBox);
+    	innerDetails7.getChildren().addAll(phoneNo, phoneNoBox);
+    
+    	details.getChildren().addAll(innerDetails1, innerDetails2, innerDetails3, innerDetails4, innerDetails5, innerDetails6, innerDetails7);
+    	midSection.getChildren().addAll(details);
+    	title.getChildren().addAll(text, text2);
+    	bottomBar.getChildren().addAll(createProfile, back);
+	
+    	innerMid.setCenter(midSection);
+    	innerMid.setTop(title);
+    	innerMid.setBottom(bottomBar);
+	
+    	root.setCenter(innerMid);
+	
+	
+    	return root;
+	}
+	
+	
 	
 	/**
 	 * Method to build the Profile GUI window
@@ -268,27 +403,6 @@ public class SystemGUI extends Application {
 		return root;
 	}
 	
-	private boolean validateLogin(String username) {
-		
-		String x = UserProfile.searchForUser(username);
-		
-		if(username.equalsIgnoreCase(x)) {
-			return true;
-		} else {
-			return false;
-		}
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * Method to set the Profile image of the current user
 	 * @param imagePath The directory path to the image
@@ -303,6 +417,8 @@ public class SystemGUI extends Application {
 		}
 	}
 	
+	
+
 	/**
 	 * Method to build the Profile Draw Image GUI window
 	 * @return root The Constructed Pane with all the Profile Draw Image GUI elements
