@@ -1,0 +1,92 @@
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
+
+public class BuildGUI extends Application {
+
+	public static void main(String[] args) {
+		launch(args);
+	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+
+		Pane root = buildSearchArtworkGUI();
+		Scene scene = new Scene(root,700,500);
+		primaryStage.setTitle("Artatawe Application");
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
+
+	private Pane buildSearchArtworkGUI(){
+		
+		BorderPane root = new BorderPane();
+		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+		
+		VBox top = new VBox();
+		HBox titleBar = new HBox();
+		HBox buttonBar = new HBox();
+		VBox bottom = new VBox();
+		HBox homepage = new HBox();
+		HBox bottomBar = new HBox();
+		
+		top.setSpacing(15);
+		top.setPadding(new Insets(50,20,20,0));
+		
+		buttonBar.setSpacing(170);
+		buttonBar.setPadding(new Insets(40,20,0,40));
+		
+		//Create elements that are needed for top VBox
+		Text title = new Text("Artatawe");
+		Button auctions = new Button("Auctions");
+		Button paintings = new Button("Paintings");
+		Button sculptures = new Button("Sculptures");
+		
+		//Postion title text
+		title.setScaleX(4);
+		title.setScaleY(4);
+		title.setTextAlignment(TextAlignment.LEFT);
+		
+		//Position buttons
+		auctions.resize(87,80);
+		paintings.resize(87, 20);
+		sculptures.resize(87, 20);
+		
+		//Create elements that are needed for bottom VBox
+		ScrollPane scroll = new ScrollPane();
+		Button logOut = new Button("Log out");
+		
+//		for(Artwork a : Artwork){
+//			homepage.getChildren().add(a.getTitle(),a.getDescription());
+//			
+//		}
+		
+		
+		//Position button
+		logOut.resize(87,20);
+		
+		//Add elements to the top VBox
+		buttonBar.getChildren().addAll(auctions,paintings,sculptures);
+		titleBar.setAlignment(Pos.BASELINE_CENTER);
+		titleBar.getChildren().add(title);
+		top.getChildren().addAll(titleBar,buttonBar);
+		
+		//Add elements to the bottom VBox
+		
+		
+		root.setTop(top);
+		
+		
+		return root;
+	}
+}
