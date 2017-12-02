@@ -1,19 +1,27 @@
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 
 public class SaveData {
 
-
+	private static final String filename = "artatawe.txt";
 	private PrintWriter x;
+	private UserProfile currentUser;
 
+	
+	public SaveData(String username) {
+		currentUser = UserProfile.getCurrentUserObject(username);
+		openFile();
+	}
 	
 	public SaveData() {
-	
-		x = openFile("ArtataweData.txt");
-		addData();
-		closeFile(x);
+		currentUser = UserProfile.getCurrentUserObject(UserProfile.getCurrentUserId());
+		openFile();
+		
 	}
 		
 	/**
@@ -21,14 +29,18 @@ public class SaveData {
 	 * @param filename Absolute or relative path to a file
 	 * @return The file path opened by filename
 	 */
-	private PrintWriter openFile(String filename){
+	private void openFile(){
 		
 		try {
-			PrintWriter outputStream = new PrintWriter(filename);
-			return outputStream;
-			} catch (FileNotFoundException e) {
-				System.out.println(filename + " Not found!");
-				return null;
+			File dataFile = new File(filename);
+			FileWriter fileWriter = new FileWriter(dataFile, true);
+			BufferedWriter buffer = new BufferedWriter(fileWriter);
+			PrintWriter printWriter = new PrintWriter(buffer);
+			
+			addData(printWriter);
+			
+			} catch (IOException e) {
+				System.out.println("error occured with file");
 			}
 		
 	}
@@ -42,8 +54,21 @@ public class SaveData {
 	}
 	
 	
-	private void addData() {
+	private void addData(PrintWriter outputStream) {
 		
+		int userId = currentUser.getUserId();
+		String username = currentUser.getUsername();
+		String firstname = currentUser.getFirstName();
+		String lastname = currentUser.getLastName();
+		String street = currentUser.getStreet();
+		String postcode = currentUser.getPostcode();
+		String cityTown = currentUser.getCityTown();
+		int phoneNo = currentUser.getPhoneNumber();
+		
+		outputStream.println(userId + " " + username + " " + firstname + " " + lastname + " " + street 
+					   		  + " " + postcode + " " + cityTown + " " + phoneNo);
+		
+		closeFile(outputStream);
 	}
 	
 	

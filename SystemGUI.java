@@ -161,11 +161,9 @@ public class SystemGUI extends Application {
         StackPane.setAlignment(loginButton, Pos.BOTTOM_CENTER);
 		
         loginButton.setOnAction(e -> {
-        	//UserProfile x1 = new UserProfile("Durman2008", "Tom", "Durman", "23 Westbury Street", "CF62 HA8", "Swansea", 1464159);
-        	//UserProfile x2 = new UserProfile("Durman2009", "Tom", "Durman", "23 Westbury Street", "CF62 HA8", "Swansea", 1464159);
-        	//UserProfile x3 = new UserProfile("Durman2010", "Tom", "Durman", "23 Westbury Street", "CF62 HA8", "Swansea", 1464159);
-        	
+      
         	if(validateLogin(usernameInput.getText()) == true) {
+        		UserProfile.setCurrentUserID(UserProfile.getCurrentUserId(usernameInput.getText()));
         		usernameInput.setText("Login Successful");
         	} else {
         		usernameInput.setText("Login Unsuccessful");
@@ -302,8 +300,9 @@ public class SystemGUI extends Application {
     			String stringPhoneNo = phoneNoBox.getText();
         		int intPhoneNo = Integer.parseInt(stringPhoneNo);
     			UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
-    									postcodeBox.getText(), cityTown.getText(), intPhoneNo);
-    					
+    									postcodeBox.getText(), cityTownBox.getText(), intPhoneNo);
+
+    			
     		} else {
     			System.out.println("Username taken, choose another!");
     		}
@@ -331,7 +330,6 @@ public class SystemGUI extends Application {
     	innerMid.setBottom(bottomBar);
 	
     	root.setCenter(innerMid);
-	
 	
     	return root;
 	}

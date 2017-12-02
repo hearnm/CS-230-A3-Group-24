@@ -8,6 +8,7 @@ import java.util.*;
 public class UserProfile {
 
 	private static int userCount = 1;
+	private static int currentUserId = -1;
 	
 	private int userId;
 	private String username;
@@ -44,8 +45,22 @@ public class UserProfile {
 		this.phoneNumber = phoneNumber;
 		this.userId = userCount++;
 		profiles.add(this);
+		saveProfile();
 	}
 
+	public void saveProfile() {
+		SaveData x = new SaveData(this.username);
+	}
+	
+	public static void setCurrentUserID(int newCurrentUserId) {
+		currentUserId = newCurrentUserId;
+	}
+	
+	public static int getCurrentUserId() {
+		return currentUserId;
+	}
+	
+	
 	/**
 	 * Method to get the userId.
 	 * @return the userId
@@ -177,7 +192,7 @@ public class UserProfile {
 	/** 
 	 * Method to search for an existing profile by Username
 	 * @param username The username of the profile to be searched for
-	 * @return The User object if found, else null.
+	 * @return The username of the user.
 	 */
 	public static String searchForUser(String username) {
 		
@@ -189,7 +204,45 @@ public class UserProfile {
 		return null;
 	}
 	
+	/** 
+	 * Method to search for an existing profile by Username
+	 * @param username The username of the profile to be searched for
+	 * @return The Users UserID
+	 */
+	public static int getCurrentUserId(String username) {
+		
+		for(int i = 0; i < profiles.size(); i++) {
+			if(username.equalsIgnoreCase(profiles.get(i).getUsername())) {
+				return profiles.get(i).getUserId();
+			}
+		}
+		return -1;
+	}
 	
+	/** 
+	 * Method to search for an existing profile by Username
+	 * @param username The username of the profile to be searched for
+	 * @return The Users UserID
+	 */
+	public static UserProfile getCurrentUserObject(int currentUserId) {
+		
+		for(int i = 0; i < profiles.size(); i++) {
+			if(currentUserId == profiles.get(i).getUserId()) {
+				return profiles.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public static UserProfile getCurrentUserObject(String username) {
+		
+		for(int i = 0; i < profiles.size(); i++) {
+			if(username == profiles.get(i).getUsername()) {
+				return profiles.get(i);
+			}
+		}
+		return null;
+	}
 	
 	/**
 	 * Method to add Users to Favorite List
