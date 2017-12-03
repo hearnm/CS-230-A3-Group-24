@@ -300,9 +300,6 @@ public class SystemGUI extends Application {
 
 
     	back.setOnAction(e -> {
-    		Pane draw = buildLoginGUI();
-    		login = new Scene(draw, LOGIN_STAGE_WIDTH, LOGIN_STAGE_HEIGHT);
-    		window.setResizable(true);
     		window.setScene(login);
     	});
     	
@@ -313,9 +310,9 @@ public class SystemGUI extends Application {
         		int intPhoneNo = Integer.parseInt(stringPhoneNo);
     			UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
     									postcodeBox.getText(), cityTownBox.getText(), intPhoneNo, true);
-
     		} else {
-    			System.out.println("Username taken, choose another!");
+    			notificationBox("Input Error", "Username taken!");
+    			usernameBox.setText("");
     		}
     		
     	});
@@ -441,21 +438,21 @@ public class SystemGUI extends Application {
 			profile = new Scene(draw, MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
 			window.setScene(profile);
 		} else if(selection == "Logout") {
-			popUpBox("Logout Confirmation", "Are you sure you want to logout?");
+			logoutConfirmation();
 		}
 		
 	}
 	
 	
-	private void popUpBox(String title, String message) {
+	private void logoutConfirmation() {
 		Stage popup = new Stage();
 		
 		popup.initModality(Modality.APPLICATION_MODAL);
-		popup.setTitle(title);
+		popup.setTitle("Logout Confirmation");
 		popup.setMinWidth(250);
 		
 		Label msg = new Label();
-		msg.setText(message);
+		msg.setText("Are you sure you want to logout?");
 		Button logout = new Button("Logout");
 		Button cancle = new Button("Cancle");
 		
@@ -477,6 +474,36 @@ public class SystemGUI extends Application {
 		popup.setScene(popupScene);
 		popup.showAndWait();
 		
+	}
+	
+	
+	private void notificationBox(String title, String message) {
+		Stage popup = new Stage();
+		
+		popup.initModality(Modality.APPLICATION_MODAL);
+		popup.setTitle(title);
+		popup.setMinWidth(250);
+		
+		Label msg = new Label();
+		msg.setText(message);
+		Button close = new Button("Okay");
+
+		close.setOnAction(e -> popup.close());
+		
+		VBox layoutMain = new VBox(10);
+		HBox layoutOptions = new HBox(25);
+		
+		layoutMain.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+		
+		layoutOptions.getChildren().add(close);
+		layoutOptions.setAlignment(Pos.CENTER);
+		layoutMain.getChildren().addAll(msg, layoutOptions);
+		layoutMain.setAlignment(Pos.CENTER);
+		
+		
+		Scene popupScene = new Scene(layoutMain, 300, 150);
+		popup.setScene(popupScene);
+		popup.showAndWait();
 	}
 	
 	
