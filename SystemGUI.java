@@ -57,8 +57,6 @@ public class SystemGUI extends Application {
 	
 	private static final int MAIN_STAGE_WIDTH = 700;		// Width of the Main Scene
 	private static final int MAIN_STAGE_HEIGHT= 500;		// Height of the Main Scene
-	private static final int LOGIN_STAGE_WIDTH = 700;		// Width of the Login Scene
-	private static final int LOGIN_STAGE_HEIGHT= 450;		// Height of the Login Scene
 	private static final int SIGNUP_STAGE_WIDTH = 600;		// Width of the Main Scene
 	private static final int SIGNUP_STAGE_HEIGHT= 600;		// Height of the Main Scene
 	private static final int P_DRAW_IMG_STAGE_WIDTH = 600;	// Width of the Draw Image Scene
@@ -71,6 +69,7 @@ public class SystemGUI extends Application {
 	private static final int PREVIEW_CANVAS_DRAW_Y = 2;		// Draw Preview Location Y
 	
 	private static int fileNum = 1;			// File number setter
+	
 	private Canvas canvas;					// The canvas which the user can draw an image
 	private Canvas previewCanvas;			// The canvas which shows the current pen style
 	private double mouseX = 0.0;			// Mouse Coordinate X
@@ -80,7 +79,6 @@ public class SystemGUI extends Application {
 	private boolean drawEraser = false;		// True if using an eraser
 	private double sliderValue = 20;		// Value of the Draw image slider
 	
-	
 	private Stage window;			// The main stage, displaying the current Scene
 	private Scene login;			// The Scene to hold the login Page GUI
 	private Scene signUp;
@@ -88,11 +86,7 @@ public class SystemGUI extends Application {
 	private Scene profile;			// The Scene to hold the Profile Page GUI
 	private Scene profileDrawImg;	// The Scene to hold the Profile Draw Image GUI
 	private Scene profileAvatars;	// The Scene to hold the Profile Default Avatars GUI
-	private Line  currentLine ;		// Line to be used to draw straight lines on a canvas
 	private Image profImg;			// Currently selected Profile image for a profile.
-	
-	private static LoadData load = new LoadData();
-	private UserProfile user;
 	
 	
 	/**
@@ -102,7 +96,6 @@ public class SystemGUI extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
 	
 	/**
 	 * Method to initialize the GUI.
@@ -187,6 +180,7 @@ public class SystemGUI extends Application {
         		window.setScene(home);
         		usernameInput.setText("");
         	} else {
+        		notificationBox("Login Error", "Username not found");
         		usernameInput.setText("");
         	}
         	
@@ -213,7 +207,11 @@ public class SystemGUI extends Application {
 		return root;
 	}
 	
-	
+	/**
+	 * Method to validate login credentials 
+	 * @param username The username input to the system to be checked
+	 * @return True if username exists, false if username does not
+	 */
 	private boolean validateLogin(String username) {
 		
 		if(username.length() > 0) {
@@ -229,7 +227,10 @@ public class SystemGUI extends Application {
 		
 	}
 
-	
+	/**
+	 * Method to build the Sign Up GUI window
+	 * @return root The Constructed Pane with all the Signup GUI elements
+	 */
 	private Pane buildSignUpGUI() {
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
@@ -325,9 +326,6 @@ public class SystemGUI extends Application {
     		
     	});
     
-    
-    
-    
     	innerDetails1.getChildren().addAll(username, usernameBox);
     	innerDetails2.getChildren().addAll(firstname, firstnameBox);
     	innerDetails3.getChildren().addAll(lastname, lastnameBox);
@@ -351,10 +349,17 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * To be added
 	 * @param username
 	 * @param phoneNo
 	 * @return
+=======
+	 * Method to validate the details entered on the sign up window
+	 * @param username The username entered by the user
+	 * @param phoneNo The phone number entered by the user
+	 * @return True if details are valid, False if details are invalid
+>>>>>>> 813a6e3b846c7a03e29ec75eb2eb5ea220ccba34
 	 */
 	private boolean validateSignUpDetails(String username, String phoneNo) {
 		String regexUkPhoneNumber = "[0-9]{11}";	//Test
@@ -374,7 +379,10 @@ public class SystemGUI extends Application {
 		}
 	}
 
-	
+	/**
+	 * Method to build the Home Page GUI window
+	 * @return root The Constructed Pane with all the Home Page GUI elements
+	 */
 	private Pane buildHomePageGUI(){
 		
 		BorderPane root = new BorderPane();
@@ -451,7 +459,10 @@ public class SystemGUI extends Application {
 		return root;
 	}
 	
-	
+	/**
+	 * Method to carry out the functionality of what was selected in the options menu
+	 * @param selection The seleced option
+	 */
 	private void optionsMenuSelection(String selection) {
 		
 		if(selection == "My Account") {
@@ -464,7 +475,9 @@ public class SystemGUI extends Application {
 		
 	}
 	
-	
+	/**
+	 * Method to construct a new stage to carry out functionality of signing out or canceling
+	 */
 	private void logoutConfirmation() {
 		Stage popup = new Stage();
 		
@@ -497,7 +510,11 @@ public class SystemGUI extends Application {
 		
 	}
 	
-	
+	/**
+	 * Method to create a general purpose notification box
+	 * @param title The title of the notification box
+	 * @param message The message of the notification box
+	 */
 	private void notificationBox(String title, String message) {
 		Stage popup = new Stage();
 		
@@ -526,7 +543,6 @@ public class SystemGUI extends Application {
 		popup.setScene(popupScene);
 		popup.showAndWait();
 	}
-	
 	
 	/**
 	 * Method to build the Profile GUI window

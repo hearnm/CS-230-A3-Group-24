@@ -7,6 +7,8 @@
 
 import java.util.Date;
 
+import javafx.collections.ObservableList;
+
 public class Artwork {
 	protected int artworkID;		// The Unique ID of an artwork piece
 	protected String title;			// The Title of the Artwork
@@ -20,6 +22,7 @@ public class Artwork {
 	protected double height;		// The Height Dimension of the Artwork
 	protected double width;			// The Width Dimension of the Artwork
 	protected String artType;		// The Type of the Artwork (Sculpture / Painting)
+	private static ObservableList<Artwork> artworks;
 	
 	/**
 	 * Constructor of Artwork objects.
@@ -194,6 +197,20 @@ public class Artwork {
 	public void generateTimeDate() {
 		Date generatedDate = new Date();
 		artTimeDate = generatedDate.toString();
+	}
+	
+	/**
+	 * @return a list with all the artworks
+	 */
+	public static ObservableList<Artwork> getArtworks() {
+		return artworks;
+	}
+
+	/**
+	 * @param artworks
+	 */
+	public static void setArtworks(ObservableList<Artwork> artworks) {
+		Artwork.artworks = artworks;
 	}
 }
 	
