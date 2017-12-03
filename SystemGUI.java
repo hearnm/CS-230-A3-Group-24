@@ -36,9 +36,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 /**
@@ -176,9 +180,9 @@ public class SystemGUI extends Application {
         		Pane draw = buildHomePageGUI();
         		home = new Scene(draw, MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
         		window.setScene(home);
-        		
+        		usernameInput.setText("");
         	} else {
-        		usernameInput.setText("Login Unsuccessful");
+        		usernameInput.setText("");
         	}
         	
         });
@@ -189,11 +193,7 @@ public class SystemGUI extends Application {
 			window.setResizable(false);
 			window.setScene(signUp);
         });
-        
-    
-        
-        
-        
+
         loginBox.getChildren().addAll(usernameLogin, usernameInput, loginButton);
 		title.getChildren().addAll(text, text2);
 	
@@ -221,7 +221,7 @@ public class SystemGUI extends Application {
 		
 	}
 
-
+	
 	private Pane buildSignUpGUI() {
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
@@ -362,22 +362,30 @@ public class SystemGUI extends Application {
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		
-		VBox top = new VBox();
-		VBox titleBar = new VBox();
+		HBox mainTop = new HBox();
+		VBox titleBlock = new VBox();
+		VBox titleSection = new VBox();
+		VBox optionsBlock = new VBox();
 		HBox buttonBar = new HBox();
+		
 		VBox bottom = new VBox();
 		HBox homepage = new HBox();
 		HBox bottomBar = new HBox();
 		
-		top.setSpacing(15);
-		top.setPadding(new Insets(50,20,20,0));
+		root.setPadding(new Insets(25,10,10,10));
 		
-		buttonBar.setSpacing(170);
-		buttonBar.setPadding(new Insets(40,20,0,40));
+		mainTop.setSpacing(15);
+		mainTop.setPadding(new Insets(25,10,10,10));
+		
+		optionsBlock.setSpacing(4);
+		
+		buttonBar.setSpacing(10);
+		buttonBar.setPadding(new Insets(25,10,10,10));
 		
 		//Create elements that are needed for top VBox
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("Home Page");
+		Text options = new Text("Options Menu");
 		Button auctionsButton = new Button("Auctions");
 		Button paintingsButton = new Button("Paintings");
 		Button sculpturesButton = new Button("Sculptures");
@@ -402,37 +410,73 @@ public class SystemGUI extends Application {
 		subTitle.setScaleY(2.5);
 		title.setTextAlignment(TextAlignment.LEFT);
 		
-		//Position buttons
-		auctionsButton.resize(87,80);
-		paintingsButton.resize(87, 20);
-		sculpturesButton.resize(87, 20);
+		ChoiceBox<String> optionsMenu = new ChoiceBox<>();
 		
-		//Create elements that are needed for bottom VBox
-		ScrollPane scroll = new ScrollPane();
-		Button logOut = new Button("Log out");
+		optionsMenu.getItems().add("Select an Option");
+		optionsMenu.getItems().add("My Account");
+		optionsMenu.getItems().add("My Favorite Users");
+		optionsMenu.getItems().add("Logout");
+		optionsMenu.setValue("Select an Option");
 		
-		/*
-		for(Artwork a : Artwork){
-			homepage.getChildren().add(a.getTitle(),a.getDescription());
-		}
-		*/
+		optionsMenu.setMinWidth(120);
+		optionsMenu.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {optionsMenuSelection(newValue); optionsMenu.setValue("Select an Option");});
 		
 		
-		//Position button
-		logOut.resize(87,20);
-		
-		//Add elements to the top VBox
+		titleBlock.setAlignment(Pos.BASELINE_CENTER);
 		buttonBar.getChildren().addAll(auctionsButton,paintingsButton,sculpturesButton);
-		titleBar.setAlignment(Pos.BASELINE_CENTER);
-		titleBar.getChildren().addAll(title, subTitle);
-		top.getChildren().addAll(titleBar,buttonBar);
+		optionsBlock.getChildren().addAll(options, optionsMenu);
+		titleBlock.getChildren().addAll(title, subTitle, buttonBar);
+		mainTop.getChildren().addAll(titleBlock, optionsBlock);
 		
-		//Add elements to the bottom VBox
-		
-		root.setTop(top);
-		
-		
+		root.setTop(mainTop);
+
 		return root;
+	}
+	
+	
+	private void optionsMenuSelection(String selection) {
+		
+		if(selection == "My Account") {
+			Pane draw = buildProfileGUI();
+			profile = new Scene(draw, MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+			window.setScene(profile);
+		} else if(selection == "Logout") {
+			popUpBox("Logout Confirmation", "Are you sure you want to logout?");
+		}
+		
+	}
+	
+	
+	private void popUpBox(String title, String message) {
+		Stage popup = new Stage();
+		
+		popup.initModality(Modality.APPLICATION_MODAL);
+		popup.setTitle(title);
+		popup.setMinWidth(250);
+		
+		Label msg = new Label();
+		msg.setText(message);
+		Button logout = new Button("Logout");
+		Button cancle = new Button("Cancle");
+		
+		logout.setOnAction(e ->  {window.setScene(login); popup.close();});
+		cancle.setOnAction(e -> popup.close());
+		
+		VBox layoutMain = new VBox(10);
+		HBox layoutOptions = new HBox(25);
+		
+		layoutMain.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+		
+		layoutOptions.getChildren().addAll(logout, cancle);
+		layoutOptions.setAlignment(Pos.CENTER);
+		layoutMain.getChildren().addAll(msg, layoutOptions);
+		layoutMain.setAlignment(Pos.CENTER);
+		
+		
+		Scene popupScene = new Scene(layoutMain, 300, 150);
+		popup.setScene(popupScene);
+		popup.showAndWait();
+		
 	}
 	
 	
