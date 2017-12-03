@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import java.util.regex.*;
+
 import javax.imageio.ImageIO;
 
 import javafx.application.Application;
@@ -172,8 +174,11 @@ public class SystemGUI extends Application {
 		
         loginButton.setOnAction(e -> {
         	
+        	if(usernameInput.getText().length() == 0) {
+        		notificationBox("Input Error", "Login field cannot be left blank");
+        	}
         	
-        	if(validateLogin(usernameInput.getText()) == true) {
+        	else if(validateLogin(usernameInput.getText()) == true) {
         	
         		UserProfile.setCurrentUserID(UserProfile.getCurrentUserId(usernameInput.getText()));
         		
@@ -211,8 +216,11 @@ public class SystemGUI extends Application {
 	
 	private boolean validateLogin(String username) {
 		
-		String x = UserProfile.searchForUser(username);
-		
+		if(username.length() > 0) {
+			String x = UserProfile.searchForUser(username);
+		} else {
+			return false;
+		}
 		if(username.equalsIgnoreCase(x)) {
 			return true;
 		} else {
@@ -342,14 +350,27 @@ public class SystemGUI extends Application {
     	return root;
 	}
 	
+	/**
+	 * To be added
+	 * @param username
+	 * @param phoneNo
+	 * @return
+	 */
 	private boolean validateSignUpDetails(String username, String phoneNo) {
+		String regexUkPhoneNumber = "[0-9]{11}";	//Test
+		Pattern phoneNoChecker = Pattern.compile(regexUkPhoneNumber);
+		Matcher phoneNoMatcher = phoneNoChecker.matcher(phoneNo);
 		
 		String x = UserProfile.searchForUser(username);
 		
 		if(username.equalsIgnoreCase(x)) {
 			return false;
 		} else {
-			return true;
+			if(username.length() > 1) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 
