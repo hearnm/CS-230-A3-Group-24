@@ -217,7 +217,8 @@ public class SystemGUI extends Application {
 	private boolean validateLogin(String username) {
 		String x = "";
 		if(username.length() > 0) {
-			 x = UserProfile.searchForUser(username);
+
+			x = UserProfile.searchForUser(username);
 		} else {
 			return false;
 		}
