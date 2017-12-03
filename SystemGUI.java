@@ -215,15 +215,14 @@ public class SystemGUI extends Application {
 	 * @return True if username exists, false if username does not
 	 */
 	private boolean validateLogin(String username) {
-		String x = "";
+		
 		if(username.length() > 0) {
-
-			x = UserProfile.searchForUser(username);
-		} else {
-			return false;
-		}
-		if(username.equalsIgnoreCase(x)) {
-			return true;
+			String x = UserProfile.searchForUser(username);
+			if(username.equalsIgnoreCase(x)) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}
@@ -392,6 +391,7 @@ public class SystemGUI extends Application {
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		
 		HBox mainTop = new HBox();
+		HBox searchBlock = new HBox();
 		VBox titleBlock = new VBox();
 		VBox titleSection = new VBox();
 		VBox optionsBlock = new VBox();
@@ -400,16 +400,26 @@ public class SystemGUI extends Application {
 		VBox bottom = new VBox();
 		HBox homepage = new HBox();
 		HBox bottomBar = new HBox();
-
+		
 		root.setPadding(new Insets(25,10,10,10));
 		
 		mainTop.setSpacing(15);
 		mainTop.setPadding(new Insets(25,10,10,10));
 		
+		searchBlock.setSpacing(10);
+		searchBlock.setPadding(new Insets(20,10,10,10));
+		
 		optionsBlock.setSpacing(4);
 		
 		buttonBar.setSpacing(10);
-		buttonBar.setPadding(new Insets(25,10,10,10));
+		buttonBar.setPadding(new Insets(0,10,10,10));
+		
+		//Create elements for search bar
+		TextField search = new TextField();
+		Button searchBtn = new Button("Search");
+		search.setMinWidth(150);
+		
+		
 		
 		//Create elements that are needed for top VBox
 		Text title = new Text("Artatawe\n");
@@ -419,14 +429,17 @@ public class SystemGUI extends Application {
 		Button paintingsButton = new Button("Paintings");
 		Button sculpturesButton = new Button("Sculptures");
 		
+		searchBtn.setMinWidth(70);
 		auctionsButton.setMinWidth(70);
 		paintingsButton.setMinWidth(70);
 		sculpturesButton.setMinWidth(80);
 		
+		searchBtn.setMaxWidth(Double.MAX_VALUE);
 		auctionsButton.setMaxWidth(Double.MAX_VALUE);
 		paintingsButton.setMaxWidth(Double.MAX_VALUE);
 		sculpturesButton.setMaxWidth(Double.MAX_VALUE);
 		
+		searchBtn.setPrefWidth(150);
 		auctionsButton.setPrefWidth(1500);
 		paintingsButton.setPrefWidth(1500);
 		sculpturesButton.setPrefWidth(1500);
@@ -453,8 +466,9 @@ public class SystemGUI extends Application {
 		
 		titleBlock.setAlignment(Pos.BASELINE_CENTER);
 		buttonBar.getChildren().addAll(auctionsButton,paintingsButton,sculpturesButton);
+		searchBlock.getChildren().addAll(search,searchBtn);
 		optionsBlock.getChildren().addAll(options, optionsMenu);
-		titleBlock.getChildren().addAll(title, subTitle, buttonBar);
+		titleBlock.getChildren().addAll(title, subTitle, searchBlock,buttonBar);
 		mainTop.getChildren().addAll(titleBlock, optionsBlock);
 		
 		root.setTop(mainTop);
@@ -558,31 +572,31 @@ public class SystemGUI extends Application {
 		root.setPadding(new Insets(10,10,10,10));
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		
-		HBox mainTop = new HBox(20);
+		HBox mainTop = new HBox();
 		VBox titleBlock = new VBox();
 		VBox titleSection = new VBox();
-		VBox lSideBar = new VBox(15);
-		VBox midSection = new VBox(15);
-		VBox rSideBar = new VBox(20);
+		VBox lSideBar = new VBox();
+		VBox midSection = new VBox();
+		VBox rSideBar = new VBox();
 		Pane profPicBox = new Pane();
 		
-		root.setPadding(new Insets(50,20,20,20));
+		root.setPadding(new Insets(50,0,0,0));
 		
-		lSideBar.setPadding(new Insets(10,10,10,0));
-		rSideBar.setPadding(new Insets(30,0,0,10));
+		lSideBar.setSpacing(20);
+		lSideBar.setPadding(new Insets(10,10,10,10));
 		
+		midSection.setSpacing(15);
 		midSection.setPadding(new Insets(50,10,10,50));
 		
 
-		String t = "street";
-		
+		mainTop.setSpacing(20);
 		mainTop.setPadding(new Insets(0,0,0,0));
 
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("Home Page");
 		Label firstName = new Label("John Doe");
 		Label details = new Label("Details");
-		Label street = new Label("Street: " + t);
+		Label street = new Label("Street: ");
 		Label postcode = new Label("Postcode: ");
 		Label cityTown = new Label("City/Town: ");
 		Label phoneNo = new Label("Phone Number: ");
@@ -598,17 +612,12 @@ public class SystemGUI extends Application {
 		
 		Button changePicButton = new Button("Change Profile Picture");
 		Button updateProfileButton = new Button("Update Personal Info");
-		Button back = new Button("Return to Home Page");
-		
 		
 		changePicButton.setOnAction(e -> {
 			Pane draw = buildDrawImgGUI();
 			profileDrawImg = new Scene(draw, P_DRAW_IMG_STAGE_WIDTH, P_DRAW_IMG_STAGE_HEIGHT);
 			window.setScene(profileDrawImg);
 		});
-		
-		back.setOnAction(e -> window.setScene(home));
-
 		
 		
 		changePicButton.setMaxWidth(Double.MAX_VALUE);
@@ -622,14 +631,10 @@ public class SystemGUI extends Application {
 		TableView myAuctions = new TableView();
 		TableColumn artworkName = new TableColumn("Artwork");
         TableColumn currentBid = new TableColumn("Bid");
-        TableColumn remainingBids = new TableColumn("Remaining\nBids");
+        TableColumn remainingBids = new TableColumn("Remaining");
         myAuctions.getColumns().addAll(artworkName, currentBid, remainingBids);
-        
-        TableView myBids = new TableView();
-		TableColumn artworkName2 = new TableColumn("Artwork");
-        TableColumn currentBid2 = new TableColumn("Current Bid");
-        TableColumn myBid = new TableColumn("My Bid");
-        myBids.getColumns().addAll(artworkName2, currentBid2, myBid);
+		
+		
 		
 		mainTop.setAlignment(Pos.BASELINE_CENTER);
 		
@@ -640,13 +645,12 @@ public class SystemGUI extends Application {
 		profPicBox.getChildren().addAll(imageView);
 		midSection.getChildren().addAll(firstName,street,postcode,cityTown,phoneNo);
 		lSideBar.getChildren().addAll(profPicBox, changePicButton, updateProfileButton);
-		rSideBar.getChildren().addAll(myAuctions, myBids);
+		rSideBar.getChildren().addAll(myAuctions);
 		
 		root.setTop(mainTop);
 		root.setLeft(lSideBar);
 		root.setRight(rSideBar);
 		root.setCenter(midSection);
-		root.setBottom(back);
 		
 		return root;
 	}
