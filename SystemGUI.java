@@ -216,11 +216,11 @@ public class SystemGUI extends Application {
 		
 		if(username.length() > 0) {
 			String x = UserProfile.searchForUser(username);
-		} else {
-			return false;
-		}
-		if(username.equalsIgnoreCase(x)) {
-			return true;
+			if(username.equalsIgnoreCase(x)) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}
@@ -573,7 +573,7 @@ public class SystemGUI extends Application {
 		topBar.setSpacing(20);
 		topBar.setPadding(new Insets(10,10,50,10));
 		
-		Label title = new Label("Artetawe");
+		Label title = new Label("Artatawe");
 		Label firstName = new Label("John Doe");
 		Label details = new Label("Details");
 		Label street = new Label("Street: ");
