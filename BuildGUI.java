@@ -1,24 +1,23 @@
+import java.util.ArrayList;
+
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class BuildGUI extends Application {
 	Stage window;
-	//Scene auctionScene,paintingScene,sculptureScene;
+	ListView<Artwork> listOfArtworks;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -52,6 +51,11 @@ public class BuildGUI extends Application {
 		buttonBar.setSpacing(170);
 		buttonBar.setPadding(new Insets(40,20,0,40));
 		
+		homepage.setPadding(new Insets(0,100,60,100));
+		
+		bottom.setSpacing(15);
+		bottom.setPadding(new Insets(0,0,0,0));
+		
 		//Create elements that are needed for top VBox
 		Text title = new Text("Artatawe");
 		Button auctions = new Button("Auctions");
@@ -72,24 +76,29 @@ public class BuildGUI extends Application {
 		auctions.setOnAction(e -> window.setScene(getAuctionScene()));
 		paintings.setOnAction(e -> window.setScene(getPaintingScene()));
 		sculptures.setOnAction(e -> window.setScene(getSculptureScene()));
-				
-		//Create elements that are needed for bottom VBox
-		ScrollPane scroll = new ScrollPane();
-		Button logOut = new Button("Log out");
-		
-		//Resize button
-		logOut.resize(87,20);
-		
+					
 		//Add elements to the top VBox
 		buttonBar.getChildren().addAll(auctions,paintings,sculptures);
 		titleBar.setAlignment(Pos.BASELINE_CENTER);
 		titleBar.getChildren().add(title);
 		top.getChildren().addAll(titleBar,buttonBar);
 		
+		//Create elements that are needed for bottom VBox
+		Button logOut = new Button("Log out");
+		
+		listOfArtworks = new ListView<>();
+		listOfArtworks.setItems(Artwork.getArtworks());
+
+		//Resize button
+		logOut.resize(87,20);
+
 		//Add elements to the bottom VBox
+		homepage.getChildren().add(listOfArtworks);
+		bottom.getChildren().add(homepage);
 	
 		//Set root
 		root.setTop(top);
+		root.setBottom(bottom);
 		
 		Scene scene = new Scene(root,700,500);
 		return scene;
@@ -125,11 +134,15 @@ public class BuildGUI extends Application {
 		//Resize buttons
 		back.resize(87,80);
 		
+		//Set top VBox
 		buttonBar.getChildren().add(back);
 		titleBar.setAlignment(Pos.BASELINE_CENTER);
 		titleBar.getChildren().add(title);
 		top.getChildren().addAll(titleBar,buttonBar);
+		
+		//Set root
 		root.setTop(top);
+		
 		Scene scene = new Scene(root,700,500);
 		return scene;
 	}
