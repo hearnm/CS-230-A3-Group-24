@@ -391,6 +391,7 @@ public class SystemGUI extends Application {
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		
 		HBox mainTop = new HBox();
+		HBox searchBlock = new HBox();
 		VBox titleBlock = new VBox();
 		VBox titleSection = new VBox();
 		VBox optionsBlock = new VBox();
@@ -400,19 +401,23 @@ public class SystemGUI extends Application {
 		HBox homepage = new HBox();
 		HBox bottomBar = new HBox();
 		
-		
-		
-		
-		
 		root.setPadding(new Insets(25,10,10,10));
 		
 		mainTop.setSpacing(15);
 		mainTop.setPadding(new Insets(25,10,10,10));
 		
+		searchBlock.setSpacing(10);
+		searchBlock.setPadding(new Insets(20,10,10,10));
+		
 		optionsBlock.setSpacing(4);
 		
 		buttonBar.setSpacing(10);
-		buttonBar.setPadding(new Insets(25,10,10,10));
+		buttonBar.setPadding(new Insets(0,10,10,10));
+		
+		//Create elements for search bar
+		TextField search = new TextField();
+		Button searchBtn = new Button("Search");
+		search.setMinWidth(150);
 		
 		//Create elements that are needed for top VBox
 		Text title = new Text("Artatawe\n");
@@ -422,14 +427,17 @@ public class SystemGUI extends Application {
 		Button paintingsButton = new Button("Paintings");
 		Button sculpturesButton = new Button("Sculptures");
 		
+		searchBtn.setMinWidth(70);
 		auctionsButton.setMinWidth(70);
 		paintingsButton.setMinWidth(70);
 		sculpturesButton.setMinWidth(80);
 		
+		searchBtn.setMaxWidth(Double.MAX_VALUE);
 		auctionsButton.setMaxWidth(Double.MAX_VALUE);
 		paintingsButton.setMaxWidth(Double.MAX_VALUE);
 		sculpturesButton.setMaxWidth(Double.MAX_VALUE);
 		
+		searchBtn.setPrefWidth(150);
 		auctionsButton.setPrefWidth(1500);
 		paintingsButton.setPrefWidth(1500);
 		sculpturesButton.setPrefWidth(1500);
@@ -456,8 +464,9 @@ public class SystemGUI extends Application {
 		
 		titleBlock.setAlignment(Pos.BASELINE_CENTER);
 		buttonBar.getChildren().addAll(auctionsButton,paintingsButton,sculpturesButton);
+		searchBlock.getChildren().addAll(search,searchBtn);
 		optionsBlock.getChildren().addAll(options, optionsMenu);
-		titleBlock.getChildren().addAll(title, subTitle, buttonBar);
+		titleBlock.getChildren().addAll(title, subTitle, searchBlock,buttonBar);
 		mainTop.getChildren().addAll(titleBlock, optionsBlock);
 		
 		root.setTop(mainTop);
