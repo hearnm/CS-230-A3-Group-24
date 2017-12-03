@@ -577,15 +577,12 @@ public class SystemGUI extends Application {
 		midSection.setSpacing(15);
 		midSection.setPadding(new Insets(50,10,10,50));
 		
-<<<<<<< HEAD
-		Label title = new Label("Artatawe");
-=======
+
 		mainTop.setSpacing(20);
 		mainTop.setPadding(new Insets(0,0,0,0));
 
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("Home Page");
->>>>>>> 9990262a5598b3785b7c5ac88e6cb7dbb30674d0
 		Label firstName = new Label("John Doe");
 		Label details = new Label("Details");
 		Label street = new Label("Street: ");
