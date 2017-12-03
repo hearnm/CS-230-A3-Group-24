@@ -182,6 +182,7 @@ public class SystemGUI extends Application {
         		window.setScene(home);
         		usernameInput.setText("");
         	} else {
+        		notificationBox("Login Error", "Username not found");
         		usernameInput.setText("");
         	}
         	
@@ -208,7 +209,11 @@ public class SystemGUI extends Application {
 		return root;
 	}
 	
-	
+	/**
+	 * Method to validate login credentials 
+	 * @param username The username input to the system to be checked
+	 * @return True if username exists, false if username does not
+	 */
 	private boolean validateLogin(String username) {
 		
 		String x = UserProfile.searchForUser(username);
@@ -222,6 +227,10 @@ public class SystemGUI extends Application {
 	}
 
 	
+	/**
+	 * Method to build the Sign Up GUI window
+	 * @return root The Constructed Pane with all the Signup GUI elements
+	 */
 	private Pane buildSignUpGUI() {
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
@@ -317,9 +326,6 @@ public class SystemGUI extends Application {
     		
     	});
     
-    
-    
-    
     	innerDetails1.getChildren().addAll(username, usernameBox);
     	innerDetails2.getChildren().addAll(firstname, firstnameBox);
     	innerDetails3.getChildren().addAll(lastname, lastnameBox);
@@ -342,6 +348,12 @@ public class SystemGUI extends Application {
     	return root;
 	}
 	
+	/**
+	 * Method to validate the details entered on the sign up window
+	 * @param username The username entered by the user
+	 * @param phoneNo The phone number entered by the user
+	 * @return True if details are valid, False if details are invalid
+	 */
 	private boolean validateSignUpDetails(String username, String phoneNo) {
 		
 		String x = UserProfile.searchForUser(username);
@@ -353,7 +365,10 @@ public class SystemGUI extends Application {
 		}
 	}
 
-	
+	/**
+	 * Method to build the Home Page GUI window
+	 * @return root The Constructed Pane with all the Home Page GUI elements
+	 */
 	private Pane buildHomePageGUI(){
 		
 		BorderPane root = new BorderPane();
@@ -430,7 +445,10 @@ public class SystemGUI extends Application {
 		return root;
 	}
 	
-	
+	/**
+	 * Method to carry out the functionality of what was selected in the options menu
+	 * @param selection The seleced option
+	 */
 	private void optionsMenuSelection(String selection) {
 		
 		if(selection == "My Account") {
@@ -443,7 +461,9 @@ public class SystemGUI extends Application {
 		
 	}
 	
-	
+	/**
+	 * Method to construct a new stage to carry out functionality of signing out or canceling
+	 */
 	private void logoutConfirmation() {
 		Stage popup = new Stage();
 		
@@ -476,7 +496,11 @@ public class SystemGUI extends Application {
 		
 	}
 	
-	
+	/**
+	 * Method to create a general purpose notification box
+	 * @param title The title of the notification box
+	 * @param message The message of the notification box
+	 */
 	private void notificationBox(String title, String message) {
 		Stage popup = new Stage();
 		
