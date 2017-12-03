@@ -20,6 +20,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -376,6 +378,10 @@ public class SystemGUI extends Application {
 		HBox homepage = new HBox();
 		HBox bottomBar = new HBox();
 		
+		
+		
+		
+		
 		root.setPadding(new Insets(25,10,10,10));
 		
 		mainTop.setSpacing(15);
@@ -533,25 +539,27 @@ public class SystemGUI extends Application {
 		root.setPadding(new Insets(10,10,10,10));
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		
-		HBox topBar = new HBox();
+		HBox mainTop = new HBox();
+		VBox titleBlock = new VBox();
+		VBox titleSection = new VBox();
 		VBox lSideBar = new VBox();
+		VBox midSection = new VBox();
 		VBox rSideBar = new VBox();
 		Pane profPicBox = new Pane();
 		
-		topBar.setBorder(new Border(new BorderStroke(Color.BLACK, 
-	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-		
+		root.setPadding(new Insets(50,0,0,0));
 		
 		lSideBar.setSpacing(20);
 		lSideBar.setPadding(new Insets(10,10,10,10));
 		
-		rSideBar.setSpacing(15);
-		rSideBar.setPadding(new Insets(30,10,10,50));
+		midSection.setSpacing(15);
+		midSection.setPadding(new Insets(50,10,10,50));
 		
-		topBar.setSpacing(20);
-		topBar.setPadding(new Insets(10,10,50,10));
-		
-		Label title = new Label("Artetawe");
+		mainTop.setSpacing(20);
+		mainTop.setPadding(new Insets(0,0,0,0));
+
+		Text title = new Text("Artatawe\n");
+		Text subTitle = new Text("Home Page");
 		Label firstName = new Label("John Doe");
 		Label details = new Label("Details");
 		Label street = new Label("Street: ");
@@ -559,12 +567,13 @@ public class SystemGUI extends Application {
 		Label cityTown = new Label("City/Town: ");
 		Label phoneNo = new Label("Phone Number: ");
 		
-		 title.setScaleX(3);
-		 title.setScaleY(3);
-		 title.setPadding(new Insets(10,10,10,30));
-		
-		 firstName.setScaleX(1.9);
-		 firstName.setScaleY(1.9);
+		title.setScaleX(4);
+		title.setScaleY(4);
+		subTitle.setScaleX(2.5);
+		subTitle.setScaleY(2.5);
+		title.setTextAlignment(TextAlignment.LEFT);
+		firstName.setScaleX(1.9);
+		firstName.setScaleY(1.9);
 		
 		
 		Button changePicButton = new Button("Change Profile Picture");
@@ -580,23 +589,34 @@ public class SystemGUI extends Application {
 		changePicButton.setMaxWidth(Double.MAX_VALUE);
 		updateProfileButton.setMaxWidth(Double.MAX_VALUE);
 		
-		
-		
 		ImageView imageView = new ImageView();
 		imageView.setImage(profImg);
 		imageView.setFitWidth(150);
 		imageView.setFitHeight(150);
 		
+		TableView myAuctions = new TableView();
+		TableColumn artworkName = new TableColumn("Artwork");
+        TableColumn currentBid = new TableColumn("Bid");
+        TableColumn remainingBids = new TableColumn("Remaining");
+        myAuctions.getColumns().addAll(artworkName, currentBid, remainingBids);
+		
+		
+		
+		mainTop.setAlignment(Pos.BASELINE_CENTER);
 		
 
-		topBar.getChildren().addAll(title);
-		profPicBox.getChildren().addAll(imageView);
-		rSideBar.getChildren().addAll(firstName,street,postcode,cityTown,phoneNo);
-		lSideBar.getChildren().addAll(profPicBox, changePicButton, updateProfileButton);
 		
-		root.setTop(topBar);
+		titleBlock.getChildren().addAll(title, subTitle);
+		mainTop.getChildren().addAll(titleBlock);
+		profPicBox.getChildren().addAll(imageView);
+		midSection.getChildren().addAll(firstName,street,postcode,cityTown,phoneNo);
+		lSideBar.getChildren().addAll(profPicBox, changePicButton, updateProfileButton);
+		rSideBar.getChildren().addAll(myAuctions);
+		
+		root.setTop(mainTop);
 		root.setLeft(lSideBar);
-		root.setCenter(rSideBar);
+		root.setRight(rSideBar);
+		root.setCenter(midSection);
 		
 		return root;
 	}
