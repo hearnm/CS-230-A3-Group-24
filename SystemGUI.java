@@ -1,7 +1,7 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-
+import java.util.Optional;
 import java.util.regex.*;
 
 import javax.imageio.ImageIO;
@@ -21,6 +21,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
@@ -636,35 +637,15 @@ public class SystemGUI extends Application {
 	 * Method to construct a new stage to carry out functionality of signing out or canceling
 	 */
 	private void logoutConfirmation() {
-		Stage popup = new Stage();
-		
-		popup.initModality(Modality.APPLICATION_MODAL);
-		popup.setTitle("Logout Confirmation");
-		popup.setMinWidth(250);
-		
-		Label msg = new Label();
-		msg.setText("Are you sure you want to logout?");
-		Button logout = new Button("Logout");
-		Button cancle = new Button("Cancle");
-		
-		logout.setOnAction(e ->  {window.setScene(login); popup.close();});
-		cancle.setOnAction(e -> popup.close());
-		
-		VBox layoutMain = new VBox(10);
-		HBox layoutOptions = new HBox(25);
-		
-		layoutMain.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
-		
-		layoutOptions.getChildren().addAll(logout, cancle);
-		layoutOptions.setAlignment(Pos.CENTER);
-		layoutMain.getChildren().addAll(msg, layoutOptions);
-		layoutMain.setAlignment(Pos.CENTER);
-		
-		
-		Scene popupScene = new Scene(layoutMain, 300, 150);
-		popup.setScene(popupScene);
-		popup.showAndWait();
-		
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Logout Confirmation");
+		alert.setHeaderText("You are about to logout of the system");
+		alert.setContentText("Are you sure you would like to logout?");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+		    window.setScene(login);
+		}
 	}
 	
 	/**
