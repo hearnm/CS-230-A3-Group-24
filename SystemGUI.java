@@ -49,7 +49,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
@@ -335,8 +334,8 @@ public class SystemGUI extends Application {
     				Integer intPhoneNo = Integer.parseInt(phoneNoInput);
     				
 
-    				UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
-    								postcodeBox.getText().replaceAll("\\s+",""), cityTownBox.getText(), intPhoneNo, true);
+    				UserProfile newUser = new UserProfile(usernameInput, firstnameInput, lastnameInput, streetInput, 
+    								postcodeInput, cityTownInput, intPhoneNo, true);
     				allUsers.add(newUser);
     				notificationBox("Account Creation", "Account Creation Successful", "Congratulations you now have an Artatawe Account!\nYour username is: " + usernameBox.getText());
     				window.setScene(login);
@@ -480,7 +479,6 @@ public class SystemGUI extends Application {
 		
 		title.setScaleX(4);
 		title.setScaleY(4);
-		title.setFont(Font.font("Cathedral", 20));
 		subTitle.setScaleX(2.5);
 		subTitle.setScaleY(2.5);
 		title.setTextAlignment(TextAlignment.LEFT);
