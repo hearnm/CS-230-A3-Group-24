@@ -216,7 +216,6 @@ public class SystemGUI extends Application {
 		
 		root.setCenter(innerMid);
 		
-		
 		return root;
 	}
 	
@@ -333,16 +332,16 @@ public class SystemGUI extends Application {
     		if(inputExistenceCheck(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
     							postcodeBox.getText(), cityTownBox.getText(), phoneNoBox.getText()) == true) {
     			if(validateSignUpDetails(usernameBox.getText(), phoneNoBox.getText()) == true) {
-    				
     				String stringPhoneNo = phoneNoBox.getText();
     				int intPhoneNo = Integer.parseInt(stringPhoneNo);
+    				
     				UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
     								postcodeBox.getText(), cityTownBox.getText(), intPhoneNo, true);
-    			} else {
-    				usernameBox.setText("");
-    		}
-    	}
-    		
+    					notificationBox("Account Creation", "Account Creation Successful", "Congratulations you now have an Artatawe Account!\nYour username is: " + usernameBox.getText());
+    					window.setScene(login);
+    		    		window.setResizable(true);
+    			}
+    		} 
     	});
     
     	innerDetails1.getChildren().addAll(username, usernameBox);
@@ -471,7 +470,12 @@ public class SystemGUI extends Application {
 		optionsMenu.getItems().add("Logout");
 		optionsMenu.setValue("Select an Option");
 		optionsMenu.setMinWidth(120);
-		optionsMenu.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {optionsMenuSelection(newValue); optionsMenu.setValue("Select an Option");});
+		
+		optionsMenu.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+			optionsMenuSelection(newValue); 
+			optionsMenu.setValue("Select an Option"); 
+			
+		});
 		
 		auctionsButton.setOnAction(e -> window.setScene(new Scene(getAuctionScene())));
 		paintingsButton.setOnAction(e -> window.setScene(new Scene(getPaintingScene())));
@@ -724,6 +728,8 @@ public class SystemGUI extends Application {
 		changePicButton.setMaxWidth(Double.MAX_VALUE);
 		updateProfileButton.setMaxWidth(Double.MAX_VALUE);
 		
+	
+		
 		ImageView imageView = new ImageView();
 		imageView.setImage(profImg);
 		imageView.setFitWidth(150);
@@ -771,6 +777,7 @@ public class SystemGUI extends Application {
 			profImg = new Image(new FileInputStream(imagePath));
 		} catch (FileNotFoundException e) {
 			System.out.println("User does not have profile Image yet");
+			profImg = null;
 		}
 	}
 	
@@ -1067,7 +1074,9 @@ public class SystemGUI extends Application {
 		canvas.snapshot(null, wim);
 		try {
             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
+            notificationBox("Profile Updated", "Profile Image Update", "Your profile image has been updated, enjoy!");
         } catch (Exception s) {
+        	 notificationBox("Error", "Profile Image Update Error", "An unknow error has occured, User profile Image not updated!");
         }
 		
 		
