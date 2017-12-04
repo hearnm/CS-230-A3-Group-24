@@ -80,6 +80,7 @@ public class SystemGUI extends Application {
 	private boolean drawLine = false;		// True if drawing a Straight Line
 	private boolean drawEraser = false;		// True if using an eraser
 	private double sliderValue = 20;		// Value of the Draw image slider
+	private String currentUser = "";
 	
 	private Stage window;			// The main stage, displaying the current Scene
 	private Scene login;			// The Scene to hold the login Page GUI
@@ -176,6 +177,7 @@ public class SystemGUI extends Application {
         	else if(validateLogin(usernameInput.getText()) == true) {
         	
         		UserProfile.setCurrentUserID(UserProfile.getCurrentUserId(usernameInput.getText()));
+        		currentUser = usernameInput.getText();
         		
         		Pane draw = buildHomePageGUI();
         		home = new Scene(draw, MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
@@ -740,6 +742,10 @@ public class SystemGUI extends Application {
 		firstName.setScaleY(1.9);
 		
 		
+		setProfileImage(currentUser + "_" + ".png");
+		
+		
+		
 		Button changePicButton = new Button("Change Profile Picture");
 		Button updateProfileButton = new Button("Update Personal Info");
 		Button back = new Button("Return to Home Page");
@@ -763,6 +769,7 @@ public class SystemGUI extends Application {
 		imageView.setFitWidth(150);
 		imageView.setFitHeight(150);
 		
+		
 		TableView myAuctions = new TableView();
 		TableColumn artworkName = new TableColumn("Artwork");
         TableColumn currentBid = new TableColumn("Bid");
@@ -778,7 +785,6 @@ public class SystemGUI extends Application {
 		mainTop.setAlignment(Pos.BASELINE_CENTER);
 		
 
-		
 		titleBlock.getChildren().addAll(title, subTitle);
 		mainTop.getChildren().addAll(titleBlock);
 		profPicBox.getChildren().addAll(imageView);
@@ -804,8 +810,7 @@ public class SystemGUI extends Application {
 		try {
 			profImg = new Image(new FileInputStream(imagePath));
 		} catch (FileNotFoundException e) {
-			
-			e.printStackTrace();
+			System.out.println("User does not have profile Image yet");
 		}
 	}
 	
@@ -903,8 +908,11 @@ public class SystemGUI extends Application {
 	    draw.setOnAction(e -> {drawParticle = true; drawLine = false; drawEraser = false;} );
 	    line.setOnAction(e -> {drawLine = true; drawParticle = false; drawEraser = false;} );
 	    erase.setOnAction(e -> {drawEraser = true; drawParticle = false; drawLine = false;} );
+	    
 	    setImage.setOnAction(e -> {
 	    	saveImage();
+	    	setProfileImage(currentUser + "_" + ".png");
+	    	
 	    	});
 	    back.setOnAction(e -> {
 			Pane profilePane = buildProfileGUI();
@@ -1115,8 +1123,10 @@ public class SystemGUI extends Application {
 	 */
 	private void saveImage() {
 		
-		String saveName = "Test" + fileNum + ".png";
-		fileNum++;
+		
+		
+		String saveName = currentUser + "_" + ".png";
+
 		
 		File file = new File(saveName);
 		WritableImage wim = new WritableImage(CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -1125,5 +1135,8 @@ public class SystemGUI extends Application {
             ImageIO.write(SwingFXUtils.fromFXImage(wim, null), "png", file);
         } catch (Exception s) {
         }
+		
+		
+		
 	}
 }

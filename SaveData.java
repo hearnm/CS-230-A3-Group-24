@@ -33,10 +33,7 @@ public class SaveData {
 		openProfileFile();
 	}
 	
-	public static void saveProfileImage() {
-		
-	}
-		
+
 	/**
 	 * 
 	 * @param filename Absolute or relative path to a file
