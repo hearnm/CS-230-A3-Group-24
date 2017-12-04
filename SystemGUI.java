@@ -86,7 +86,6 @@ public class SystemGUI extends Application {
 	private boolean drawLine = false;		// True if drawing a Straight Line
 	private boolean drawEraser = false;		// True if using an eraser
 	private double sliderValue = 20;		// Value of the Draw image slider
-	private String currentUser = "";
 	
 	private Stage window;			// The main stage, displaying the current Scene
 	private Scene login;			// The Scene to hold the login Page GUI
@@ -728,7 +727,7 @@ public class SystemGUI extends Application {
 		firstName.setScaleX(1.9);
 		firstName.setScaleY(1.9);
 		
-		setProfileImage(currentUser + "_" + ".png");
+		setProfileImage(currentUserObject.getUsername() + "_" + ".png");
 
 		Button changePicButton = new Button("Change Profile Picture");
 		Button updateProfileButton = new Button("Update Personal Info");
@@ -889,7 +888,7 @@ public class SystemGUI extends Application {
 	    
 	    setImage.setOnAction(e -> {
 	    	saveImage();
-	    	setProfileImage(currentUser + "_" + ".png");
+	    	setProfileImage(currentUserObject.getUsername() + "_" + ".png");
 	    	profile = new Scene(buildProfileGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
 	    	window.setScene(profile);
 	    	window.setResizable(true);
@@ -1084,7 +1083,7 @@ public class SystemGUI extends Application {
 	 * Method to save a drawn image
 	 */
 	private void saveImage() {
-		String saveName = currentUser + "_" + ".png";
+		String saveName = currentUserObject.getUsername() + "_" + ".png";
 		
 		File file = new File(saveName);
 		WritableImage wim = new WritableImage(CANVAS_WIDTH, CANVAS_HEIGHT);
