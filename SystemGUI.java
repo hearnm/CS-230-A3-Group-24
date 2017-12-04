@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,6 +20,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
@@ -90,6 +92,8 @@ public class SystemGUI extends Application {
 	private Scene profileDrawImg;	// The Scene to hold the Profile Draw Image GUI
 	private Scene profileAvatars;	// The Scene to hold the Profile Default Avatars GUI
 	private Image profImg;			// Currently selected Profile image for a profile.
+	private UserProfile currentUserP;
+	
 	
 	
 	/**
@@ -178,6 +182,8 @@ public class SystemGUI extends Application {
         	
         		UserProfile.setCurrentUserID(UserProfile.getCurrentUserId(usernameInput.getText()));
         		currentUser = usernameInput.getText();
+        		currentUserP = UserProfile.getCurrentUserObject(usernameInput.getText());
+        		
         		
         		Pane draw = buildHomePageGUI();
         		home = new Scene(draw, MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
@@ -719,16 +725,13 @@ public class SystemGUI extends Application {
 		
 		midSection.setPadding(new Insets(50,10,10,50));
 		
-
-		String t = "street";
-		
 		mainTop.setPadding(new Insets(0,0,0,0));
 
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("Home Page");
 		Label firstName = new Label("John Doe");
 		Label details = new Label("Details");
-		Label street = new Label("Street: " + t);
+		Label street = new Label("Street: ");
 		Label postcode = new Label("Postcode: ");
 		Label cityTown = new Label("City/Town: ");
 		Label phoneNo = new Label("Phone Number: ");
@@ -741,11 +744,8 @@ public class SystemGUI extends Application {
 		firstName.setScaleX(1.9);
 		firstName.setScaleY(1.9);
 		
-		
 		setProfileImage(currentUser + "_" + ".png");
-		
-		
-		
+
 		Button changePicButton = new Button("Change Profile Picture");
 		Button updateProfileButton = new Button("Update Personal Info");
 		Button back = new Button("Return to Home Page");
@@ -886,24 +886,16 @@ public class SystemGUI extends Application {
 	    reset.setMaxWidth(Double.MAX_VALUE);
 	    back.setMaxWidth(Double.MAX_VALUE);
 	    
-	    ChoiceBox<String> colorOptions = new ChoiceBox<>();
+	    ColorPicker colorOption = new ColorPicker();
+	    colorOption.setValue(Color.BLACK);
+	    colorOption.setMinHeight(25);
+	    
 	    ChoiceBox<String> shapeOptions = new ChoiceBox<>();
-	    
-	    colorOptions.getItems().add("Black");
-	    colorOptions.getItems().add("Red");
-	    colorOptions.getItems().add("Blue");
-	    colorOptions.getItems().add("Green");
-	    colorOptions.getItems().add("Yellow");
-	    colorOptions.setValue("Black");
-	    
 	    shapeOptions.getItems().add("Circle");
 	    shapeOptions.getItems().add("Square");
 	    shapeOptions.setValue("Circle");
 	    
-	    
-	    
-	    shapeOptions.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> drawPreview(colorOptions.getValue(), newValue));
-	    colorOptions.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> drawPreview(newValue, shapeOptions.getValue()));
+	    shapeOptions.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> drawPreview(colorOption.getValue(), newValue));
 	    reset.setOnAction(e -> {resetCanvas();} );
 	    draw.setOnAction(e -> {drawParticle = true; drawLine = false; drawEraser = false;} );
 	    line.setOnAction(e -> {drawLine = true; drawParticle = false; drawEraser = false;} );
@@ -912,8 +904,8 @@ public class SystemGUI extends Application {
 	    setImage.setOnAction(e -> {
 	    	saveImage();
 	    	setProfileImage(currentUser + "_" + ".png");
-	    	
 	    	});
+	    
 	    back.setOnAction(e -> {
 			Pane profilePane = buildProfileGUI();
 			profile = new Scene(profilePane, MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
@@ -935,25 +927,16 @@ public class SystemGUI extends Application {
             public void changed(ObservableValue<? extends Number> ov,
                 Number old_val, Number new_val) {
             	sliderValue = (double) new_val;
-            	drawPreview(colorOptions.getValue(), shapeOptions.getValue());
-            	
+            	drawPreview(colorOption.getValue(), shapeOptions.getValue());
             }
 	    });
 	    
+	    colorOption.setOnAction(new EventHandler() {
+	    	public void handle(Event t) {
+	    		drawPreview(colorOption.getValue(), shapeOptions.getValue());
+	    	}
+	    });
 	
-	    previewSection.getChildren().add(previewCanvas);
-	    topLeftBar.getChildren().addAll(draw, line, erase);
-	    topBar.getChildren().add(title);
-	    sideBar.getChildren().addAll(options, topLeftBar, color, colorOptions, shape, shapeOptions,sizeModifer, slider, reset, drawPreview, previewSection);
-	    bottomBar.getChildren().addAll(back, setImage);
-	    middleSection.getChildren().add(canvas);
-	   
-	    root.setRight(whiteSpaceRight);
-	    root.setTop(topBar);
-	    root.setLeft(sideBar);
-	    root.setBottom(bottomBar);
-	    root.setCenter(middleSection);
-
 		canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -961,9 +944,7 @@ public class SystemGUI extends Application {
 				mouseX = event.getX() - (slider.getValue() / 2);
 				mouseY = event.getY() - (slider.getValue() / 2);
 				sliderValue = slider.getValue();
-
-				drawOnClick(shape, colorOptions);
-				
+				drawOnClick(shape, colorOption);
 			}
 		});	
 		
@@ -974,11 +955,22 @@ public class SystemGUI extends Application {
 				mouseX = event.getX() - (slider.getValue() / 2);
 				mouseY = event.getY() - (slider.getValue() / 2);
 				sliderValue = slider.getValue();
-				drawOnDrag(shape, colorOptions);
-
+				drawOnDrag(shape, colorOption);
 				}
-			
 		});	
+		
+		previewSection.getChildren().add(previewCanvas);
+	    topLeftBar.getChildren().addAll(draw, line, erase);
+	    topBar.getChildren().add(title);
+	    sideBar.getChildren().addAll(options, topLeftBar, color, colorOption, shape, shapeOptions,sizeModifer, slider, reset, drawPreview, previewSection);
+	    bottomBar.getChildren().addAll(back, setImage);
+	    middleSection.getChildren().add(canvas);
+	   
+	    root.setRight(whiteSpaceRight);
+	    root.setTop(topBar);
+	    root.setLeft(sideBar);
+	    root.setBottom(bottomBar);
+	    root.setCenter(middleSection);
 		
 		return root;
 	}
@@ -997,8 +989,9 @@ public class SystemGUI extends Application {
 	 * @param shape The given shape to be drawn
 	 * @param colorOption The Color for a shape to be drawn in.
 	 */
-	private void drawOnClick(String shape, ChoiceBox<String> colorOption) {
+	private void drawOnClick(String shape, ColorPicker colorOption) {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
+		
 		getColorChoice(colorOption);
 		
 		if(drawEraser == true) {
@@ -1008,6 +1001,7 @@ public class SystemGUI extends Application {
 			} else if(drawParticle == true && shape == "Square") {
 				gc.fillRect(mouseX, mouseY, sliderValue, sliderValue);
 			} else if(drawLine == true) {
+				
 		}
 	}
 
@@ -1016,7 +1010,7 @@ public class SystemGUI extends Application {
 	 * @param shape The given shape to be drawn
 	 * @param colorOption The Color for a shape to be drawn in.
 	 */
-	private void drawOnDrag(String shape, ChoiceBox<String> colorOption) {
+	private void drawOnDrag(String shape, ColorPicker colorOption) {
 		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		getColorChoice(colorOption);
@@ -1028,51 +1022,31 @@ public class SystemGUI extends Application {
 			} else if(drawParticle == true && shape == "Square") {
 				gc.fillRect(mouseX, mouseY, sliderValue, sliderValue);
 		} 
+		
+		if(drawLine == true) {
+			
+			
+		}
 	}
 	
 	/**
 	 * Method to get the color choice and set the draw color
 	 * @param colorOption The choice of color
 	 */
-	private void getColorChoice(ChoiceBox<String> colorOption) {
-		String colorChoice = colorOption.getValue();
-		
+	private void getColorChoice(ColorPicker colorOption) {
+	
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		GraphicsContext gc2 = previewCanvas.getGraphicsContext2D();
+		gc.setFill(colorOption.getValue());
 		
-		if(colorChoice == "Black") {
-			gc.setFill(Color.BLACK);
-		} else if(colorChoice == "Red") {
-			gc.setFill(Color.RED);
-		} if(colorChoice == "Blue") {
-			gc.setFill(Color.BLUE);	
-		} else if(colorChoice == "Green") {
-			gc.setFill(Color.GREEN);
-		} if(colorChoice == "Yellow") {
-			gc.setFill(Color.YELLOW);
-		}
 	}
 	
 	/**
 	 * Method to get the color choice and set the preview draw color
-	 * @param colorOption The choice of color
+	 * @param color The choice of color
 	 */
-	private void getPreviewColorChoice(String colorOption) {
-		String colorChoice = colorOption;
-		
+	private void getPreviewColorChoice(Color color) {
 		GraphicsContext gc2 = previewCanvas.getGraphicsContext2D();
-		
-		if(colorChoice == "Black") {
-			gc2.setFill(Color.BLACK);
-		} else if(colorChoice == "Red") {			
-			gc2.setFill(Color.RED);
-		} if(colorChoice == "Blue") {			
-			gc2.setFill(Color.BLUE);
-		} else if(colorChoice == "Green") {			
-			gc2.setFill(Color.GREEN);
-		} if(colorChoice == "Yellow") {
-			gc2.setFill(Color.YELLOW);
-		}
+		gc2.setFill(color);
 	}
 	
 	/**
@@ -1093,13 +1067,13 @@ public class SystemGUI extends Application {
 	
 	/**
 	 * Method to draw and update the preview pen style in the preview box.
-	 * @param colorOption The color of the preview
+	 * @param color The color of the preview
 	 * @param shapeOption The shape of the preview 
 	 */
-	private void drawPreview(String colorOption, String shapeOption) {
+	private void drawPreview(Color color, String shapeOption) {
 		GraphicsContext gc2 = previewCanvas.getGraphicsContext2D();
 		
-		getPreviewColorChoice(colorOption);
+		getPreviewColorChoice(color);
 		gc2.clearRect(0, 0, PREVIEW_CANVAS_WIDTH, PREVIEW_CANVAS_HEIGHT);
 		
 		if(shapeOption == "Circle") {
