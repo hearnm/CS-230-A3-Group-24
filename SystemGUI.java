@@ -440,10 +440,14 @@ public class SystemGUI extends Application {
 		sculpturesButton.setMaxWidth(Double.MAX_VALUE);
 		
 		searchBtn.setPrefWidth(150);
-		auctionsButton.setPrefWidth(1500);
-		paintingsButton.setPrefWidth(1500);
-		sculpturesButton.setPrefWidth(1500);
+		auctionsButton.setPrefWidth(150);
+		paintingsButton.setPrefWidth(150);
+		sculpturesButton.setPrefWidth(150);
 		
+		//Set action on Buttons to change page
+		auctionsButton.setOnAction(e -> window.setScene(new Scene(getAuctionScene())));
+		paintingsButton.setOnAction(e -> window.setScene(new Scene(getPaintingScene())));
+		sculpturesButton.setOnAction(e -> window.setScene( new Scene(getSculptureScene())));
 		
 		//Postion title text
 		title.setScaleX(4);
@@ -472,10 +476,133 @@ public class SystemGUI extends Application {
 		mainTop.getChildren().addAll(titleBlock, optionsBlock);
 		
 		root.setTop(mainTop);
-
+		root.setMinSize(700, 500);
 		return root;
 	}
+	private Pane getAuctionScene() {
+
+		BorderPane root = new BorderPane();
+		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+
+		VBox top = new VBox();
+		VBox titleBar = new VBox();
+		HBox buttonBar = new HBox();
+		VBox bottom = new VBox();
+		HBox bottomBar = new HBox();
+		
+		top.setSpacing(15);
+		top.setPadding(new Insets(50,20,20,0));
+
+		buttonBar.setSpacing(170);
+		buttonBar.setPadding(new Insets(40,20,0,40));
+		
+		//Create elements that are needed for top VBox
+		Text title = new Text("Auctions");
+		Button back = new Button("Home");
+		
+		back.setOnAction(e -> window.setScene(new Scene((buildHomePageGUI()))));
+		
+		//Position title text 
+		title.setScaleX(4);
+		title.setScaleY(4);
+		title.setTextAlignment(TextAlignment.CENTER);
+		
+		//Resize buttons
+		back.resize(87,80);
+		
+		//Set top VBox
+		buttonBar.getChildren().add(back);
+		titleBar.setAlignment(Pos.BASELINE_CENTER);
+		titleBar.getChildren().add(title);
+		top.getChildren().addAll(titleBar,buttonBar);
+		
+		//Set root
+		root.setTop(top);
+		root.setMinSize(700, 500);
+		return root;
+	}
+private Pane getPaintingScene(){
+		
+		BorderPane root = new BorderPane();
+		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+
+		VBox top = new VBox();
+		VBox titleBar = new VBox();
+		HBox buttonBar = new HBox();
+		VBox bottom = new VBox();
+		HBox bottomBar = new HBox();
+		
+		top.setSpacing(15);
+		top.setPadding(new Insets(50,20,20,0));
+
+		buttonBar.setSpacing(170);
+		buttonBar.setPadding(new Insets(40,20,0,40));
+		
+		//Create elements that are needed for top VBox
+		Text title = new Text("Paintings");
+		Button back = new Button("Home");
+		
+		back.setOnAction(e -> window.setScene(new Scene(buildHomePageGUI())));
+		
+		//Position title text 
+		title.setScaleX(4);
+		title.setScaleY(4);
+		title.setTextAlignment(TextAlignment.CENTER);
+		
+		//Resize buttons
+		back.resize(87,80);
+		
+		buttonBar.getChildren().add(back);
+		titleBar.setAlignment(Pos.BASELINE_CENTER);
+		titleBar.getChildren().add(title);
+		top.getChildren().addAll(titleBar,buttonBar);
+		root.setTop(top);
+		
+		root.setMinSize(700, 500);
+		return root;
+	}
+private Pane getSculptureScene(){
 	
+	BorderPane root = new BorderPane();
+	root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+
+	VBox top = new VBox();
+	VBox titleBar = new VBox();
+	HBox buttonBar = new HBox();
+	VBox bottom = new VBox();
+	HBox bottomBar = new HBox();
+	
+	top.setSpacing(15);
+	top.setPadding(new Insets(50,20,20,0));
+
+	buttonBar.setSpacing(170);
+	buttonBar.setPadding(new Insets(40,20,0,40));
+	
+	//Create elements that are needed for top VBox
+	Text title = new Text("Sculptures");
+	Button back = new Button("Home");
+	
+	back.setOnAction(e -> window.setScene(new Scene(buildHomePageGUI())));
+	
+	//Position title text 
+	title.setScaleX(4);
+	title.setScaleY(4);
+	title.setTextAlignment(TextAlignment.CENTER);
+	
+	//Resize buttons
+	back.resize(87,80);
+	
+	buttonBar.getChildren().add(back);
+	titleBar.setAlignment(Pos.BASELINE_CENTER);
+	titleBar.getChildren().add(title);
+	top.getChildren().addAll(titleBar,buttonBar);
+	
+	root.setTop(top);
+	
+	root.setMinSize(700, 500);
+	return root;
+}
+
 	/**
 	 * Method to carry out the functionality of what was selected in the options menu
 	 * @param selection The seleced option
