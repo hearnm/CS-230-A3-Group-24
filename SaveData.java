@@ -20,7 +20,7 @@ public class SaveData {
 	// 1. The profile can be created on the system but not saved to the datafile (If the phone number too long or contains anything but a int)
 	// ***************************************
 	
-	private static final String filename = "artatawe.txt";  // The File path to save all the data to.
+	private static final String profileDataPath = "ArtataweProfiles.txt";  // The File path to save all the data to.
 	private static UserProfile currentUser;					// The current user object that is logged onto the system
 
 	
@@ -30,7 +30,11 @@ public class SaveData {
 	 */
 	public static void saveSystemData(String username) {
 		currentUser = UserProfile.getCurrentUserObject(username);
-		openFile();
+		openProfileFile();
+	}
+	
+	public static void saveProfileImage() {
+		
 	}
 		
 	/**
@@ -38,10 +42,10 @@ public class SaveData {
 	 * @param filename Absolute or relative path to a file
 	 * @return The file path opened by filename
 	 */
-	private static void openFile(){
+	private static void openProfileFile(){
 		
 		try {
-			File dataFile = new File(filename);
+			File dataFile = new File(profileDataPath);
 			FileWriter fileWriter = new FileWriter(dataFile, true);
 			BufferedWriter buffer = new BufferedWriter(fileWriter);
 			PrintWriter printWriter = new PrintWriter(buffer);

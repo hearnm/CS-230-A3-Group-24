@@ -16,22 +16,22 @@ public class LoadData {
 	// ***************************************
 	
 	
-	private static final String filename = "artatawe.txt";	// The set filename path for the system data
+	private static final String profileDataPath = "ArtataweProfiles.txt";	// The set filename path for the system data
 	private static Scanner inputStream;						// The input stream connected to the given file
 	
 	/**
 	 * Static Method that can be called to load the data from the file to the system.
 	 */
 	public static void loadSystemData() {
-		openFile();
+		openProfileFile();
 	}
 	
 	/**
 	 * Method to open the file if it exists
 	 */
-	private static void openFile() {
+	private static void openProfileFile() {
 		try {
-			File x = new File(filename);
+			File x = new File(profileDataPath);
 			inputStream = new Scanner(x);
 			inputStream.useDelimiter(",");
 			System.out.println(x.exists());
