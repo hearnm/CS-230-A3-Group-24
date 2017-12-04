@@ -111,7 +111,6 @@ public class SystemGUI extends Application {
 	 * Method to initialize the GUI.
 	 */
 	public void start(Stage primaryStage) {
-		
 		window = primaryStage;	
 		
 		Pane root = buildLoginGUI();
@@ -187,9 +186,7 @@ public class SystemGUI extends Application {
         		currentUser = usernameInput.getText();
         		currentUserP = UserProfile.getCurrentUserObject(usernameInput.getText());
         		
-        		
-        		Pane draw = buildHomePageGUI();
-        		home = new Scene(draw, MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+        		home = new Scene(buildHomePageGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
         		window.setScene(home);
         		usernameInput.setText("");
         	} else {
@@ -200,8 +197,7 @@ public class SystemGUI extends Application {
         });
         
         signupButton.setOnAction(e -> {
-        	Pane draw = buildSignUpGUI();
-			signUp = new Scene(draw, SIGNUP_STAGE_WIDTH, SIGNUP_STAGE_HEIGHT);
+			signUp = new Scene(buildSignUpGUI(), SIGNUP_STAGE_WIDTH, SIGNUP_STAGE_HEIGHT);
 			window.setResizable(false);
 			window.setScene(signUp);
         });
@@ -512,7 +508,7 @@ public class SystemGUI extends Application {
 		Text title = new Text("Auctions");
 		Button back = new Button("Home");
 		
-		back.setOnAction(e -> window.setScene(new Scene((buildHomePageGUI()))));
+		back.setOnAction(e -> window.setScene(home));
 		
 		//Position title text 
 		title.setScaleX(4);
@@ -555,7 +551,7 @@ public class SystemGUI extends Application {
 		Text title = new Text("Paintings");
 		Button back = new Button("Home");
 		
-		back.setOnAction(e -> window.setScene(new Scene(buildHomePageGUI())));
+		back.setOnAction(e -> window.setScene(home));
 		
 		//Position title text 
 		title.setScaleX(4);
@@ -596,7 +592,7 @@ public class SystemGUI extends Application {
 		Text title = new Text("Sculptures");
 		Button back = new Button("Home");
 	
-		back.setOnAction(e -> window.setScene(new Scene(buildHomePageGUI())));
+		back.setOnAction(e -> window.setScene(home));
 	
 		//Position title text 
 		title.setScaleX(4);
@@ -716,8 +712,7 @@ public class SystemGUI extends Application {
 		
 		
 		changePicButton.setOnAction(e -> {
-			Pane draw = buildDrawImgGUI();
-			profileDrawImg = new Scene(draw, P_DRAW_IMG_STAGE_WIDTH, P_DRAW_IMG_STAGE_HEIGHT);
+			profileDrawImg = new Scene(buildDrawImgGUI(), P_DRAW_IMG_STAGE_WIDTH, P_DRAW_IMG_STAGE_HEIGHT);
 			window.setScene(profileDrawImg);
 		});
 		
@@ -871,11 +866,13 @@ public class SystemGUI extends Application {
 	    setImage.setOnAction(e -> {
 	    	saveImage();
 	    	setProfileImage(currentUser + "_" + ".png");
+	    	profile = new Scene(buildProfileGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+	    	window.setScene(profile);
+	    	window.setResizable(true);
 	    	});
 	    
 	    back.setOnAction(e -> {
-			Pane profilePane = buildProfileGUI();
-			profile = new Scene(profilePane, MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+			profile = new Scene(buildProfileGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
 			window.setScene(profile);
 		});
 	    
@@ -1063,11 +1060,7 @@ public class SystemGUI extends Application {
 	 * Method to save a drawn image
 	 */
 	private void saveImage() {
-		
-		
-		
 		String saveName = currentUser + "_" + ".png";
-
 		
 		File file = new File(saveName);
 		WritableImage wim = new WritableImage(CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -1078,8 +1071,6 @@ public class SystemGUI extends Application {
         } catch (Exception s) {
         	 notificationBox("Error", "Profile Image Update Error", "An unknow error has occured, User profile Image not updated!");
         }
-		
-		
-		
 	}
+	
 }
