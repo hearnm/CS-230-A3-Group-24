@@ -216,6 +216,7 @@ public class UserProfile {
 		this.phoneNumber = phoneNumber;
 	}
 	
+	
 	/** 
 	 * Method to search for an existing profile by Username
 	 * @param username The username of the profile to be searched for
@@ -231,36 +232,6 @@ public class UserProfile {
 		return null;
 	}
 	
-	/** 
-	 * Method to search for an existing profile by Username
-	 * @param username The username of the profile to be searched for
-	 * @return The Users UserID
-	 */
-	public static int getCurrentUserId(String username) {
-		
-		for(int i = 0; i < profiles.size(); i++) {
-			if(username.equalsIgnoreCase(profiles.get(i).getUsername())) {
-				return profiles.get(i).getUserId();
-			}
-		}
-		return -1;
-	}
-	
-	/** 
-	 * Method to search for an existing profile by Username
-	 * @param username The username of the profile to be searched for
-	 * @return The Users UserID
-	 */
-	public static UserProfile getCurrentUserObject(int currentUserId) {
-		
-		for(int i = 0; i < profiles.size(); i++) {
-			if(currentUserId == profiles.get(i).getUserId()) {
-				return profiles.get(i);
-			}
-		}
-		return null;
-	}
-	
 	public static UserProfile getCurrentUserObject(String username) {
 		
 		for(int i = 0; i < profiles.size(); i++) {
@@ -270,16 +241,6 @@ public class UserProfile {
 		}
 		return null;
 	}
-	
-	/**
-	 * Method to add Users to Favorite List
-	 * @param Username The username of the user to be added to favorites
-	 */
-	/*
-	public void addFavoriteUser(String Username) {
-		this.favoriteUsers.add(searchForUser(username));
-	}
-	*/
 	
 	/**
 	 * Method to get all of the Favorite users for the given instance.

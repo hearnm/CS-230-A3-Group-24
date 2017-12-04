@@ -182,7 +182,7 @@ public class SystemGUI extends Application {
         	
         	else if(validateLogin(usernameInput.getText()) == true) {
         	
-        		UserProfile.setCurrentUserID(UserProfile.getCurrentUserId(usernameInput.getText()));
+        		
         		currentUser = usernameInput.getText();
         		currentUserP = UserProfile.getCurrentUserObject(usernameInput.getText());
         		
@@ -407,7 +407,6 @@ public class SystemGUI extends Application {
 		}
 		return true;
 	}
-	
 	
 
 	/**
