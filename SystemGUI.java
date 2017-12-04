@@ -328,27 +328,20 @@ public class SystemGUI extends Application {
     		String streetInput = streetBox.getText();
     		String postcodeInput = postcodeBox.getText().replaceAll("\\s+", "");
     		String cityTownInput = cityTownBox.getText();
-    		String phoneNoInput = phoneNoBox.getText().replaceAll("\\s+", "");
+    		String phoneNoInput = phoneNoBox.getText();
     		
     		if(inputExistenceCheck(usernameInput, firstnameInput, lastnameInput, streetInput, 
     							postcodeInput, cityTownInput, phoneNoInput) == true) {
     			if(validateSignUpDetails(usernameInput, phoneNoInput, postcodeInput) == true) {
-    				int intPhoneNo = Integer.parseInt(phoneNoInput);
+    				Integer intPhoneNo = Integer.parseInt(phoneNoInput);
     				
-<<<<<<< HEAD
+
     				UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
     								postcodeBox.getText().replaceAll("\\s+",""), cityTownBox.getText(), intPhoneNo, true);
     				allUsers.add(newUser);
     				notificationBox("Account Creation", "Account Creation Successful", "Congratulations you now have an Artatawe Account!\nYour username is: " + usernameBox.getText());
     				window.setScene(login);
     		    	window.setResizable(true);
-=======
-    				UserProfile newUser = new UserProfile(usernameInput, firstnameInput, lastnameInput, streetInput, 
-    								postcodeInput, cityTownInput, intPhoneNo, true);
-    					notificationBox("Account Creation", "Account Creation Successful", "Congratulations you now have an Artatawe Account!\nYour username is: " + usernameBox.getText());
-    					window.setScene(login);
-    		    		window.setResizable(true);
->>>>>>> 5ed1638a4a497250b6793b378f660a0763498ba5
     			}
     		} 
     	});
