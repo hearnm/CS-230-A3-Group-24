@@ -711,7 +711,7 @@ public class SystemGUI extends Application {
 		mainTop.setPadding(new Insets(0,0,0,0));
 
 		Text title = new Text("Artatawe\n");
-		Text subTitle = new Text("Home Page");
+		Text subTitle = new Text("Profile Page");
 		Label firstName = new Label(currentUserObject.getUsername());
 		Label details = new Label("Details");
 		Label street = new Label("Street: " + currentUserObject.getStreet());
