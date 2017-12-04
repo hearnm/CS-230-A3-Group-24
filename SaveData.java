@@ -73,7 +73,7 @@ public class SaveData {
 		String street = currentUser.getStreet();
 		String postcode = currentUser.getPostcode();
 		String cityTown = currentUser.getCityTown();
-		int phoneNo = currentUser.getPhoneNumber();
+		Integer phoneNo = currentUser.getPhoneNumber();
 		boolean newAccount = currentUser.getNewAccount();
 		
 		outputStream.println(userId + "," + username + "," + firstname + "," + lastname + "," + street 

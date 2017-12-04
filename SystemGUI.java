@@ -334,7 +334,7 @@ public class SystemGUI extends Application {
     			UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
     									postcodeBox.getText(), cityTownBox.getText(), intPhoneNo, true);
     		} else {
-    			notificationBox("Sign-Up Notification", "Input Error", "Username taken, please select another");
+    			//notificationBox("Sign-Up Notification", "Input Error", "Username taken, please select another");
     			usernameBox.setText("");
     		}
     		
@@ -376,21 +376,25 @@ public class SystemGUI extends Application {
 >>>>>>> 813a6e3b846c7a03e29ec75eb2eb5ea220ccba34
 	 */
 	private boolean validateSignUpDetails(String username, String phoneNo) {
-		String regexUkPhoneNumber = "[0-9]{11}";	//Test
-		Pattern phoneNoChecker = Pattern.compile(regexUkPhoneNumber);
-		Matcher phoneNoMatcher = phoneNoChecker.matcher(phoneNo);
+		
+		//String regexUkPhoneNumber = "[0-9]{11}";	//Test
+		//Pattern phoneNoChecker = Pattern.compile(regexUkPhoneNumber);
+		//Matcher phoneNoMatcher = phoneNoChecker.matcher(phoneNo);
 		
 		String x = UserProfile.searchForUser(username);
 		
 		if(username.equalsIgnoreCase(x)) {
+			notificationBox("Sign-Up Notification", "Input Error", "Username taken, please select another");
 			return false;
-		} else {
-			if(username.length() > 1) {
+		} else if (phoneNo.length() > 11) {
+			notificationBox("Sign-Up Notification", "Input Error", "Phone Number cannot exceed 11 digits");
+			return false;
+		} if(username.length() > 1) {
 				return true;
 			} else {
 				return false;
 			}
-		}
+		
 	}
 
 	/**
@@ -483,7 +487,6 @@ public class SystemGUI extends Application {
 		buttonBar.setSpacing(170);
 		buttonBar.setPadding(new Insets(40,20,0,40));
 		
-		//Create elements that are needed for top VBox
 		Text title = new Text("Auctions");
 		Button back = new Button("Home");
 		

@@ -17,7 +17,7 @@ public class UserProfile {
 	private String street;		// The Street the user lives on
 	private String postcode;	// The Postcode of the users address
 	private String cityTown;	// The City or Town the User lives at
-	private int phoneNumber;	// A Valid UK Phone number (NOTE: this needs to be an Integer)
+	private Integer phoneNumber;	// A Valid UK Phone number (NOTE: this needs to be an Integer)
 	private boolean newAccount;	// A check to see if an account is new or pre-existing
 	
 	private static ArrayList<UserProfile> profiles = new ArrayList<UserProfile>();  // An ArrayList of all profiles in the system
@@ -36,7 +36,7 @@ public class UserProfile {
 	 * @param phoneNumber The Users current phone number.
 	 */
 	public UserProfile(String username, String firstName, String lastName, String street,
-			 		   String postcode, String cityTown, int phoneNumber, boolean newAccount) {
+			 		   String postcode, String cityTown, Integer phoneNumber, boolean newAccount) {
 		
 		this.username = username;
 		this.firstName = firstName;
