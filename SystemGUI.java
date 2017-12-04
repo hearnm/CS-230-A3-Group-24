@@ -75,7 +75,7 @@ public class SystemGUI extends Application {
 	private static final int PREVIEW_CANVAS_DRAW_X = 25;	// Draw Preview Location X
 	private static final int PREVIEW_CANVAS_DRAW_Y = 2;		// Draw Preview Location Y
 	
-	private static int fileNum = 1;			// File number setter
+
 	
 	private Canvas canvas;					// The canvas which the user can draw an image
 	private Canvas previewCanvas;			// The canvas which shows the current pen style
@@ -323,6 +323,7 @@ public class SystemGUI extends Application {
 
     	back.setOnAction(e -> {
     		window.setScene(login);
+    		window.setResizable(true);
     	});
     	
     	createProfile.setOnAction(e -> {
@@ -401,66 +402,40 @@ public class SystemGUI extends Application {
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		
-		HBox mainTop = new HBox();
-		HBox searchBlock = new HBox();
+		HBox mainTop = new HBox(15);
 		VBox titleBlock = new VBox();
-		VBox titleSection = new VBox();
-		VBox optionsBlock = new VBox();
-		HBox buttonBar = new HBox();
-		
-		VBox bottom = new VBox();
-		HBox homepage = new HBox();
-		HBox bottomBar = new HBox();
+		VBox optionsBlock = new VBox(4);
+		HBox buttonBar = new HBox(10);
+		HBox searchBlock = new HBox(5);
 		
 		root.setPadding(new Insets(25,10,10,10));
-		
-		mainTop.setSpacing(15);
 		mainTop.setPadding(new Insets(25,10,10,10));
+		buttonBar.setPadding(new Insets(25,10,10,10));
+		searchBlock.setPadding(new Insets(25,0,0,10));
 		
-		searchBlock.setSpacing(10);
-		searchBlock.setPadding(new Insets(20,10,10,10));
-		
-		optionsBlock.setSpacing(4);
-		
-		buttonBar.setSpacing(10);
-		buttonBar.setPadding(new Insets(0,10,10,10));
-		
-		//Create elements for search bar
 		TextField search = new TextField();
-		Button searchBtn = new Button("Search");
-		search.setMinWidth(150);
-		
-		
-		
-		//Create elements that are needed for top VBox
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("Home Page");
 		Text options = new Text("Options Menu");
 		Button auctionsButton = new Button("Auctions");
 		Button paintingsButton = new Button("Paintings");
 		Button sculpturesButton = new Button("Sculptures");
+		Button searchBtn = new Button("Search");
 		
-		searchBtn.setMinWidth(70);
 		auctionsButton.setMinWidth(70);
 		paintingsButton.setMinWidth(70);
 		sculpturesButton.setMinWidth(80);
-		
-		searchBtn.setMaxWidth(Double.MAX_VALUE);
+		search.setMinWidth(150);
+		searchBtn.setMinWidth(70);
 		auctionsButton.setMaxWidth(Double.MAX_VALUE);
 		paintingsButton.setMaxWidth(Double.MAX_VALUE);
 		sculpturesButton.setMaxWidth(Double.MAX_VALUE);
+		searchBtn.setMaxWidth(Double.MAX_VALUE);
+		auctionsButton.setPrefWidth(1500);
+		paintingsButton.setPrefWidth(1500);
+		sculpturesButton.setPrefWidth(1500);
+		searchBtn.setPrefWidth(55);
 		
-		searchBtn.setPrefWidth(150);
-		auctionsButton.setPrefWidth(150);
-		paintingsButton.setPrefWidth(150);
-		sculpturesButton.setPrefWidth(150);
-		
-		//Set action on Buttons to change page
-		auctionsButton.setOnAction(e -> window.setScene(new Scene(getAuctionScene())));
-		paintingsButton.setOnAction(e -> window.setScene(new Scene(getPaintingScene())));
-		sculpturesButton.setOnAction(e -> window.setScene( new Scene(getSculptureScene())));
-		
-		//Postion title text
 		title.setScaleX(4);
 		title.setScaleY(4);
 		subTitle.setScaleX(2.5);
@@ -468,26 +443,26 @@ public class SystemGUI extends Application {
 		title.setTextAlignment(TextAlignment.LEFT);
 		
 		ChoiceBox<String> optionsMenu = new ChoiceBox<>();
-		
 		optionsMenu.getItems().add("Select an Option");
 		optionsMenu.getItems().add("My Account");
 		optionsMenu.getItems().add("My Favorite Users");
 		optionsMenu.getItems().add("Logout");
 		optionsMenu.setValue("Select an Option");
-		
 		optionsMenu.setMinWidth(120);
 		optionsMenu.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {optionsMenuSelection(newValue); optionsMenu.setValue("Select an Option");});
 		
+		auctionsButton.setOnAction(e -> window.setScene(new Scene(getAuctionScene())));
+		paintingsButton.setOnAction(e -> window.setScene(new Scene(getPaintingScene())));
+		sculpturesButton.setOnAction(e -> window.setScene( new Scene(getSculptureScene())));
 		
+		searchBlock.getChildren().addAll(search,searchBtn);
 		titleBlock.setAlignment(Pos.BASELINE_CENTER);
 		buttonBar.getChildren().addAll(auctionsButton,paintingsButton,sculpturesButton);
-		searchBlock.getChildren().addAll(search,searchBtn);
 		optionsBlock.getChildren().addAll(options, optionsMenu);
-		titleBlock.getChildren().addAll(title, subTitle, searchBlock,buttonBar);
+		titleBlock.getChildren().addAll(title, subTitle, searchBlock, buttonBar);
 		mainTop.getChildren().addAll(titleBlock, optionsBlock);
 		
 		root.setTop(mainTop);
-		root.setMinSize(700, 500);
 		return root;
 	}
 	
