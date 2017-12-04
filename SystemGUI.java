@@ -399,6 +399,14 @@ public class SystemGUI extends Application {
 		} else if (postcode.length() < 6 || postcode.length() > 7) {
 			notificationBox("Sign-Up Notification", "Input Error", "Postcode can only be 6 or 7 characters long");
 			return false;
+		}
+		
+		try {
+			Integer.parseInt(phoneNo);
+		} catch (NumberFormatException e) {
+			notificationBox("Sign-Up Notification", "Input Error", "Phone number can only consist of numerical digits");
+			return false;
+		
 		} if(username.length() > 1) {
 				return true;
 			} else {
