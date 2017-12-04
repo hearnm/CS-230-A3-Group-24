@@ -479,6 +479,7 @@ public class SystemGUI extends Application {
 		root.setMinSize(700, 500);
 		return root;
 	}
+	
 	private Pane getAuctionScene() {
 
 		BorderPane root = new BorderPane();
@@ -521,7 +522,8 @@ public class SystemGUI extends Application {
 		root.setMinSize(700, 500);
 		return root;
 	}
-private Pane getPaintingScene(){
+	
+	private Pane getPaintingScene(){
 		
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
@@ -561,47 +563,48 @@ private Pane getPaintingScene(){
 		root.setMinSize(700, 500);
 		return root;
 	}
-private Pane getSculptureScene(){
 	
-	BorderPane root = new BorderPane();
-	root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+	private Pane getSculptureScene(){
+	
+		BorderPane root = new BorderPane();
+		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 
-	VBox top = new VBox();
-	VBox titleBar = new VBox();
-	HBox buttonBar = new HBox();
-	VBox bottom = new VBox();
-	HBox bottomBar = new HBox();
+		VBox top = new VBox();
+		VBox titleBar = new VBox();
+		HBox buttonBar = new HBox();
+		VBox bottom = new VBox();
+		HBox bottomBar = new HBox();
 	
-	top.setSpacing(15);
-	top.setPadding(new Insets(50,20,20,0));
+		top.setSpacing(15);
+		top.setPadding(new Insets(50,20,20,0));
 
-	buttonBar.setSpacing(170);
-	buttonBar.setPadding(new Insets(40,20,0,40));
+		buttonBar.setSpacing(170);
+		buttonBar.setPadding(new Insets(40,20,0,40));
+		
+		//Create elements that are needed for top VBox
+		Text title = new Text("Sculptures");
+		Button back = new Button("Home");
 	
-	//Create elements that are needed for top VBox
-	Text title = new Text("Sculptures");
-	Button back = new Button("Home");
+		back.setOnAction(e -> window.setScene(new Scene(buildHomePageGUI())));
 	
-	back.setOnAction(e -> window.setScene(new Scene(buildHomePageGUI())));
+		//Position title text 
+		title.setScaleX(4);
+		title.setScaleY(4);
+		title.setTextAlignment(TextAlignment.CENTER);
 	
-	//Position title text 
-	title.setScaleX(4);
-	title.setScaleY(4);
-	title.setTextAlignment(TextAlignment.CENTER);
+		//Resize buttons
+		back.resize(87,80);
 	
-	//Resize buttons
-	back.resize(87,80);
+		buttonBar.getChildren().add(back);
+		titleBar.setAlignment(Pos.BASELINE_CENTER);
+		titleBar.getChildren().add(title);
+		top.getChildren().addAll(titleBar,buttonBar);
 	
-	buttonBar.getChildren().add(back);
-	titleBar.setAlignment(Pos.BASELINE_CENTER);
-	titleBar.getChildren().add(title);
-	top.getChildren().addAll(titleBar,buttonBar);
+		root.setTop(top);
 	
-	root.setTop(top);
-	
-	root.setMinSize(700, 500);
-	return root;
-}
+		root.setMinSize(700, 500);
+		return root;
+	}
 
 	/**
 	 * Method to carry out the functionality of what was selected in the options menu
