@@ -18,6 +18,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
@@ -175,7 +177,7 @@ public class SystemGUI extends Application {
         loginButton.setOnAction(e -> {
         	
         	if(usernameInput.getText().length() == 0) {
-        		notificationBox("Input Error", "Login field cannot be left blank");
+        		notificationBox("Login Notification", "Missing Information", "Login field cannot be left blank");
         	}
         	
         	else if(validateLogin(usernameInput.getText()) == true) {
@@ -190,7 +192,7 @@ public class SystemGUI extends Application {
         		window.setScene(home);
         		usernameInput.setText("");
         	} else {
-        		notificationBox("Login Error", "Username not found");
+        		notificationBox("Login Notification", "Login Error", "Username not found");
         		usernameInput.setText("");
         	}
         	
@@ -330,7 +332,7 @@ public class SystemGUI extends Application {
     			UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
     									postcodeBox.getText(), cityTownBox.getText(), intPhoneNo, true);
     		} else {
-    			notificationBox("Input Error", "Username taken!");
+    			notificationBox("Sign-Up Notification", "Input Error", "Username taken, please select another");
     			usernameBox.setText("");
     		}
     		
@@ -670,33 +672,14 @@ public class SystemGUI extends Application {
 	 * @param title The title of the notification box
 	 * @param message The message of the notification box
 	 */
-	private void notificationBox(String title, String message) {
-		Stage popup = new Stage();
+	private void notificationBox(String title, String header, String message) {
 		
-		popup.initModality(Modality.APPLICATION_MODAL);
-		popup.setTitle(title);
-		popup.setMinWidth(250);
-		
-		Label msg = new Label();
-		msg.setText(message);
-		Button close = new Button("Okay");
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle(title);
+		alert.setHeaderText(header);
+		alert.setContentText(message);
 
-		close.setOnAction(e -> popup.close());
-		
-		VBox layoutMain = new VBox(10);
-		HBox layoutOptions = new HBox(25);
-		
-		layoutMain.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
-		
-		layoutOptions.getChildren().add(close);
-		layoutOptions.setAlignment(Pos.CENTER);
-		layoutMain.getChildren().addAll(msg, layoutOptions);
-		layoutMain.setAlignment(Pos.CENTER);
-		
-		
-		Scene popupScene = new Scene(layoutMain, 300, 150);
-		popup.setScene(popupScene);
-		popup.showAndWait();
+		alert.showAndWait();
 	}
 	
 	/**
