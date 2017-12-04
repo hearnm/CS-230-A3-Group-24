@@ -48,6 +48,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
@@ -472,6 +473,7 @@ public class SystemGUI extends Application {
 		
 		title.setScaleX(4);
 		title.setScaleY(4);
+		title.setFont(Font.font("Cathedral", 20));
 		subTitle.setScaleX(2.5);
 		subTitle.setScaleY(2.5);
 		title.setTextAlignment(TextAlignment.LEFT);
