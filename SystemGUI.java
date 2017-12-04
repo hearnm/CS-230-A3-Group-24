@@ -699,31 +699,31 @@ private Pane getSculptureScene(){
 		root.setPadding(new Insets(10,10,10,10));
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		
-		HBox mainTop = new HBox();
+		HBox mainTop = new HBox(20);
 		VBox titleBlock = new VBox();
 		VBox titleSection = new VBox();
-		VBox lSideBar = new VBox();
-		VBox midSection = new VBox();
-		VBox rSideBar = new VBox();
+		VBox lSideBar = new VBox(15);
+		VBox midSection = new VBox(15);
+		VBox rSideBar = new VBox(20);
 		Pane profPicBox = new Pane();
 		
-		root.setPadding(new Insets(50,0,0,0));
+		root.setPadding(new Insets(50,20,20,20));
 		
-		lSideBar.setSpacing(20);
-		lSideBar.setPadding(new Insets(10,10,10,10));
+		lSideBar.setPadding(new Insets(10,10,10,0));
+		rSideBar.setPadding(new Insets(30,0,0,10));
 		
-		midSection.setSpacing(15);
 		midSection.setPadding(new Insets(50,10,10,50));
 		
 
-		mainTop.setSpacing(20);
+		String t = "street";
+		
 		mainTop.setPadding(new Insets(0,0,0,0));
 
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("Home Page");
 		Label firstName = new Label("John Doe");
 		Label details = new Label("Details");
-		Label street = new Label("Street: ");
+		Label street = new Label("Street: " + t);
 		Label postcode = new Label("Postcode: ");
 		Label cityTown = new Label("City/Town: ");
 		Label phoneNo = new Label("Phone Number: ");
@@ -739,12 +739,17 @@ private Pane getSculptureScene(){
 		
 		Button changePicButton = new Button("Change Profile Picture");
 		Button updateProfileButton = new Button("Update Personal Info");
+		Button back = new Button("Return to Home Page");
+		
 		
 		changePicButton.setOnAction(e -> {
 			Pane draw = buildDrawImgGUI();
 			profileDrawImg = new Scene(draw, P_DRAW_IMG_STAGE_WIDTH, P_DRAW_IMG_STAGE_HEIGHT);
 			window.setScene(profileDrawImg);
 		});
+		
+		back.setOnAction(e -> window.setScene(home));
+
 		
 		
 		changePicButton.setMaxWidth(Double.MAX_VALUE);
@@ -758,10 +763,14 @@ private Pane getSculptureScene(){
 		TableView myAuctions = new TableView();
 		TableColumn artworkName = new TableColumn("Artwork");
         TableColumn currentBid = new TableColumn("Bid");
-        TableColumn remainingBids = new TableColumn("Remaining");
+        TableColumn remainingBids = new TableColumn("Remaining\nBids");
         myAuctions.getColumns().addAll(artworkName, currentBid, remainingBids);
-		
-		
+        
+        TableView myBids = new TableView();
+		TableColumn artworkName2 = new TableColumn("Artwork");
+        TableColumn currentBid2 = new TableColumn("Current Bid");
+        TableColumn myBid = new TableColumn("My Bid");
+        myBids.getColumns().addAll(artworkName2, currentBid2, myBid);
 		
 		mainTop.setAlignment(Pos.BASELINE_CENTER);
 		
@@ -772,12 +781,13 @@ private Pane getSculptureScene(){
 		profPicBox.getChildren().addAll(imageView);
 		midSection.getChildren().addAll(firstName,street,postcode,cityTown,phoneNo);
 		lSideBar.getChildren().addAll(profPicBox, changePicButton, updateProfileButton);
-		rSideBar.getChildren().addAll(myAuctions);
+		rSideBar.getChildren().addAll(myAuctions, myBids);
 		
 		root.setTop(mainTop);
 		root.setLeft(lSideBar);
 		root.setRight(rSideBar);
 		root.setCenter(midSection);
+		root.setBottom(back);
 		
 		return root;
 	}
