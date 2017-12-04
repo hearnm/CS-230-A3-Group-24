@@ -217,28 +217,23 @@ public class UserProfile {
 	}
 	
 	
-	/** 
-	 * Method to search for an existing profile by Username
-	 * @param username The username of the profile to be searched for
-	 * @return The username of the user.
-	 */
-	public static String searchForUser(String username) {
-		
-		for(int i = 0; i < profiles.size(); i++) {
-			if(username.equalsIgnoreCase(profiles.get(i).getUsername())) {
-				return profiles.get(i).getUsername();
-			}
-		}
-		return null;
+	
+	
+	
+	public static ArrayList<UserProfile> getProfiles() {
+		return profiles;
 	}
+	
 	
 	public static UserProfile getCurrentUserObject(String username) {
 		
 		for(int i = 0; i < profiles.size(); i++) {
 			if(username == profiles.get(i).getUsername()) {
+				System.out.println(profiles.get(i).getUsername());
 				return profiles.get(i);
 			}
 		}
+		System.out.println("Not found - null");
 		return null;
 	}
 	
