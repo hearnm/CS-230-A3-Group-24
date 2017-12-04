@@ -302,6 +302,8 @@ public class SystemGUI extends Application {
 		TextField cityTownBox = new TextField();
 		TextField phoneNoBox = new TextField();
    
+		
+		
 		Button createProfile = new Button("Create Account");
 		Button back = new Button("Back");
     
@@ -328,15 +330,18 @@ public class SystemGUI extends Application {
     	
     	createProfile.setOnAction(e -> {
     		
-    		if(validateSignUpDetails(usernameBox.getText(), phoneNoBox.getText()) == true) {
-    			String stringPhoneNo = phoneNoBox.getText();
-        		int intPhoneNo = Integer.parseInt(stringPhoneNo);
-    			UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
-    									postcodeBox.getText(), cityTownBox.getText(), intPhoneNo, true);
-    		} else {
-    			//notificationBox("Sign-Up Notification", "Input Error", "Username taken, please select another");
-    			usernameBox.setText("");
+    		if(inputExistenceCheck(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
+    							postcodeBox.getText(), cityTownBox.getText(), phoneNoBox.getText()) == true) {
+    			if(validateSignUpDetails(usernameBox.getText(), phoneNoBox.getText()) == true) {
+    				
+    				String stringPhoneNo = phoneNoBox.getText();
+    				int intPhoneNo = Integer.parseInt(stringPhoneNo);
+    				UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
+    								postcodeBox.getText(), cityTownBox.getText(), intPhoneNo, true);
+    			} else {
+    				usernameBox.setText("");
     		}
+    	}
     		
     	});
     
@@ -377,9 +382,9 @@ public class SystemGUI extends Application {
 	 */
 	private boolean validateSignUpDetails(String username, String phoneNo) {
 		
-		//String regexUkPhoneNumber = "[0-9]{11}";	//Test
-		//Pattern phoneNoChecker = Pattern.compile(regexUkPhoneNumber);
-		//Matcher phoneNoMatcher = phoneNoChecker.matcher(phoneNo);
+		String regexUkPhoneNumber = "[0-9]{11}";	//Test
+		Pattern phoneNoChecker = Pattern.compile(regexUkPhoneNumber);
+		Matcher phoneNoMatcher = phoneNoChecker.matcher(phoneNo);
 		
 		String x = UserProfile.searchForUser(username);
 		
@@ -394,8 +399,21 @@ public class SystemGUI extends Application {
 			} else {
 				return false;
 			}
-		
 	}
+	
+	private boolean inputExistenceCheck(String username, String firstname, String lastname, String street, 
+														String postcode, String citytown, String phoneNo) {
+		
+		if(username.length() == 0 || firstname.length() == 0  || lastname.length() == 0
+				|| street.length() == 0  || postcode.length() == 0  
+				|| citytown.length() == 0  || phoneNo.length() == 0) {
+			notificationBox("Sign-Up Notification", "Input Error", "All fields must be filled out");
+			return false;
+		}
+		return true;
+	}
+	
+	
 
 	/**
 	 * Method to build the Home Page GUI window
