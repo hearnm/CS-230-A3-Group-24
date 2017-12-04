@@ -327,12 +327,12 @@ public class SystemGUI extends Application {
     		
     		if(inputExistenceCheck(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
     							postcodeBox.getText(), cityTownBox.getText(), phoneNoBox.getText()) == true) {
-    			if(validateSignUpDetails(usernameBox.getText(), phoneNoBox.getText()) == true) {
+    			if(validateSignUpDetails(usernameBox.getText(), phoneNoBox.getText(), postcodeBox.getText().replaceAll("\\s+","")) == true) {
     				String stringPhoneNo = phoneNoBox.getText();
     				int intPhoneNo = Integer.parseInt(stringPhoneNo);
     				
     				UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
-    								postcodeBox.getText(), cityTownBox.getText(), intPhoneNo, true);
+    								postcodeBox.getText().replaceAll("\\s+",""), cityTownBox.getText(), intPhoneNo, true);
     					notificationBox("Account Creation", "Account Creation Successful", "Congratulations you now have an Artatawe Account!\nYour username is: " + usernameBox.getText());
     					window.setScene(login);
     		    		window.setResizable(true);
@@ -375,11 +375,11 @@ public class SystemGUI extends Application {
 	 * @return True if details are valid, False if details are invalid
 >>>>>>> 813a6e3b846c7a03e29ec75eb2eb5ea220ccba34
 	 */
-	private boolean validateSignUpDetails(String username, String phoneNo) {
+	private boolean validateSignUpDetails(String username, String phoneNo, String postcode) {
 		
-		String regexUkPhoneNumber = "[0-9]{11}";	//Test
-		Pattern phoneNoChecker = Pattern.compile(regexUkPhoneNumber);
-		Matcher phoneNoMatcher = phoneNoChecker.matcher(phoneNo);
+		//String regexUkPhoneNumber = "[0-9]{11}";	//Test
+		//Pattern phoneNoChecker = Pattern.compile(regexUkPhoneNumber);
+		//Matcher phoneNoMatcher = phoneNoChecker.matcher(phoneNo);
 		
 		String x = UserProfile.searchForUser(username);
 		
@@ -388,6 +388,9 @@ public class SystemGUI extends Application {
 			return false;
 		} else if (phoneNo.length() > 11) {
 			notificationBox("Sign-Up Notification", "Input Error", "Phone Number cannot exceed 11 digits");
+			return false;
+		} else if (postcode.length() != 6 && postcode.length() != 7) {
+			notificationBox("Sign-Up Notification", "Input Error", "Postcode can only be 6 or 7 characters long");
 			return false;
 		} if(username.length() > 1) {
 				return true;
