@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.regex.*;
 
@@ -95,8 +96,9 @@ public class SystemGUI extends Application {
 	private Scene profileDrawImg;	// The Scene to hold the Profile Draw Image GUI
 	private Scene profileAvatars;	// The Scene to hold the Profile Default Avatars GUI
 	private Image profImg;			// Currently selected Profile image for a profile.
-	private UserProfile currentUserP;
+	private UserProfile currentUserObject;
 	
+	private ArrayList<UserProfile> allUsers = new ArrayList<>();
 	
 	
 	/**
@@ -122,8 +124,22 @@ public class SystemGUI extends Application {
 		window.setScene(login);
 		window.show();
 		LoadData.loadSystemData();
+		allUsers = UserProfile.getProfiles();
+		
 		
 	}
+	
+	private boolean setCurrentUser(String username) {
+		
+		for(int i = 0; i < allUsers.size(); i++) {
+			if(username.equalsIgnoreCase(allUsers.get(i).getUsername())) {
+				currentUserObject = allUsers.get(i);
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	
 	/**
 	 * Method to build the Login GUI window
@@ -180,11 +196,9 @@ public class SystemGUI extends Application {
         		notificationBox("Login Notification", "Missing Information", "Login field cannot be left blank");
         	}
         	
-        	else if(validateLogin(usernameInput.getText()) == true) {
-        	
-        		
-        		currentUser = usernameInput.getText();
-        		currentUserP = UserProfile.getCurrentUserObject(usernameInput.getText());
+        	else if(setCurrentUser(usernameInput.getText()) == true) {
+        
+        		System.out.println(currentUserObject.getUsername());
         		
         		home = new Scene(buildHomePageGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
         		window.setScene(home);
@@ -215,25 +229,7 @@ public class SystemGUI extends Application {
 		return root;
 	}
 	
-	/**
-	 * Method to validate login credentials 
-	 * @param username The username input to the system to be checked
-	 * @return True if username exists, false if username does not
-	 */
-	private boolean validateLogin(String username) {
-		
-		if(username.length() > 0) {
-			String x = UserProfile.searchForUser(username);
-			if(username.equalsIgnoreCase(x)) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-		
-	}
+
 
 	/**
 	 * Method to build the Sign Up GUI window
@@ -333,9 +329,10 @@ public class SystemGUI extends Application {
     				
     				UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
     								postcodeBox.getText().replaceAll("\\s+",""), cityTownBox.getText(), intPhoneNo, true);
-    					notificationBox("Account Creation", "Account Creation Successful", "Congratulations you now have an Artatawe Account!\nYour username is: " + usernameBox.getText());
-    					window.setScene(login);
-    		    		window.setResizable(true);
+    				allUsers.add(newUser);
+    				notificationBox("Account Creation", "Account Creation Successful", "Congratulations you now have an Artatawe Account!\nYour username is: " + usernameBox.getText());
+    				window.setScene(login);
+    		    	window.setResizable(true);
     			}
     		} 
     	});
@@ -381,9 +378,9 @@ public class SystemGUI extends Application {
 		//Pattern phoneNoChecker = Pattern.compile(regexUkPhoneNumber);
 		//Matcher phoneNoMatcher = phoneNoChecker.matcher(phoneNo);
 		
-		String x = UserProfile.searchForUser(username);
 		
-		if(username.equalsIgnoreCase(x)) {
+		
+		if(usernameDuplicationCheck(username)) {
 			notificationBox("Sign-Up Notification", "Input Error", "Username taken, please select another");
 			return false;
 		} else if (phoneNo.length() > 11) {
@@ -399,6 +396,16 @@ public class SystemGUI extends Application {
 			}
 	}
 	
+	private boolean usernameDuplicationCheck(String username) {
+		for(int i = 0; i < allUsers.size(); i++) {
+			if(username.equalsIgnoreCase(allUsers.get(i).getUsername())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+
 	private boolean inputExistenceCheck(String username, String firstname, String lastname, String street, 
 														String postcode, String citytown, String phoneNo) {
 		
@@ -674,7 +681,6 @@ public class SystemGUI extends Application {
 		
 		HBox mainTop = new HBox(20);
 		VBox titleBlock = new VBox();
-		VBox titleSection = new VBox();
 		VBox lSideBar = new VBox(15);
 		VBox midSection = new VBox(15);
 		VBox rSideBar = new VBox(20);
@@ -691,12 +697,12 @@ public class SystemGUI extends Application {
 
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("Home Page");
-		Label firstName = new Label("John Doe");
+		Label firstName = new Label(currentUserObject.getUsername());
 		Label details = new Label("Details");
-		Label street = new Label("Street: ");
-		Label postcode = new Label("Postcode: ");
-		Label cityTown = new Label("City/Town: ");
-		Label phoneNo = new Label("Phone Number: ");
+		Label street = new Label("Street: " + currentUserObject.getStreet());
+		Label postcode = new Label("Postcode: " + currentUserObject.getPostcode());
+		Label cityTown = new Label("City/Town: " + currentUserObject.getCityTown());
+		Label phoneNo = new Label("Phone Number: " + currentUserObject.getPhoneNumber());
 		
 		title.setScaleX(4);
 		title.setScaleY(4);
