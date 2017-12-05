@@ -49,7 +49,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
@@ -149,7 +148,6 @@ public class SystemGUI extends Application {
 		
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
-		root.getStylesheets().add("artatawe.css");
 		
 		BorderPane innerMid = new BorderPane();
 		StackPane title = new StackPane();
@@ -168,20 +166,12 @@ public class SystemGUI extends Application {
 		loginButton.setMaxWidth(100);
 		
         Text text = new Text("Artatawe\n");
-        text.setId("ARTATAWE1");
         Text text2 = new Text("\n\nLogin Screen\n");
         Text usernameLogin = new Text("\nUsername");
         TextField usernameInput = new TextField();
-<<<<<<< HEAD
-        
-
-        text.setScaleX(2);
-        text.setScaleY(2);
-=======
        
         text.setScaleX(4);
         text.setScaleY(4);
->>>>>>> 9090afce37cc838de2cfb1c38143a88de96c3b82
         text2.setScaleX(2);
         text2.setScaleY(2);
         usernameLogin.setScaleX(1.5);
@@ -236,7 +226,6 @@ public class SystemGUI extends Application {
 	 */
 	private Pane buildSignUpGUI() {
 		BorderPane root = new BorderPane();
-		root.getStylesheets().add("artatawe.css");
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 	
 		BorderPane innerMid = new BorderPane();
@@ -266,14 +255,8 @@ public class SystemGUI extends Application {
 		midSection.setMaxWidth(250);
 	
 
-<<<<<<< HEAD
-		Text text = new Text("Artatawe\n");
-		text.setId("ARTATAWE1");
-		Text text2 = new Text("\n\nSign-Up Screen\n\n");
-=======
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("\n\nSign-Up Screen\n\n");
->>>>>>> 9090afce37cc838de2cfb1c38143a88de96c3b82
 		Text username = new Text("Username\t");
 		Text firstname = new Text("First name\t");
 		Text lastname = new Text("Last name\t");
@@ -295,22 +278,6 @@ public class SystemGUI extends Application {
     
 		createProfile.setMaxWidth(Double.MAX_VALUE);
 		back.setMaxWidth(Double.MAX_VALUE);
-<<<<<<< HEAD
-
-		text.setScaleX(2);
-		text.setScaleY(2);
-		text2.setScaleX(2);
-    	text2.setScaleY(2);
-
-    	text2.setTextAlignment(TextAlignment.CENTER);
-    	text.setTextAlignment(TextAlignment.CENTER);
-   
-    
-    	StackPane.setAlignment(text, Pos.CENTER);
-    	StackPane.setAlignment(text2, Pos.CENTER);
-
-
-=======
     
 		title.setScaleX(4);
 		title.setScaleY(4);
@@ -321,7 +288,6 @@ public class SystemGUI extends Application {
     	StackPane.setAlignment(title, Pos.CENTER);
     	StackPane.setAlignment(subTitle, Pos.CENTER);
     	
->>>>>>> 9090afce37cc838de2cfb1c38143a88de96c3b82
     	back.setOnAction(e -> {
     		window.setScene(login);
     		window.setResizable(true);
@@ -447,7 +413,6 @@ public class SystemGUI extends Application {
 		
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
-		root.getStylesheets().add("artatawe.css");
 		
 		HBox mainTop = new HBox(15);
 		VBox titleBlock = new VBox();
@@ -462,7 +427,6 @@ public class SystemGUI extends Application {
 		
 		TextField search = new TextField();
 		Text title = new Text("Artatawe\n");
-		title.setId("ARTATAWE2");
 		Text subTitle = new Text("Home Page");
 		Text options = new Text("Welcome "+ currentUserObject.getUsername());
 		Button auctionsButton = new Button("Auctions");
@@ -685,7 +649,6 @@ public class SystemGUI extends Application {
 		
 		root.setPadding(new Insets(10,10,10,10));
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
-		root.getStylesheets().add("artatawe");
 		
 		HBox mainTop = new HBox(20);
 		VBox titleBlock = new VBox();
@@ -701,20 +664,15 @@ public class SystemGUI extends Application {
 
 
 		Text title = new Text("Artatawe\n");
-<<<<<<< HEAD
-		title.setId("ARTATAWE1");
-		Text subTitle = new Text("Home Page");
-=======
 		Text subTitle = new Text("Profile Page");
->>>>>>> 9090afce37cc838de2cfb1c38143a88de96c3b82
 		Label firstName = new Label(currentUserObject.getUsername());
 		Label street = new Label("Street: " + currentUserObject.getStreet());
 		Label postcode = new Label("Postcode: " + currentUserObject.getPostcode());
 		Label cityTown = new Label("City/Town: " + currentUserObject.getCityTown());
 		Label phoneNo = new Label("Phone Number: " + currentUserObject.getPhoneNumber());
 		
-		title.setScaleX(2);
-		title.setScaleY(2);
+		title.setScaleX(4);
+		title.setScaleY(4);
 		subTitle.setScaleX(2.5);
 		subTitle.setScaleY(2.5);
 		title.setTextAlignment(TextAlignment.LEFT);
