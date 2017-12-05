@@ -1,10 +1,15 @@
-#backgroundGradientEffect {
-	-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);
+#ARTATAWE1 {
+    -fx-font: 45px "Vivaldi";
+    -fx-fill: linear-gradient(from 0% 0% to 100% 200%, blue 0%, red 50%);
+    -fx-stroke: black;
+    -fx-stroke-width: 0.4;
+    
 }
 
-#fancytext {
-    -fx-font: 100px Tahoma;
-    -fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, red 50%);
+#ARTATAWE2 {
+    -fx-font: 25px "Vivaldi";
+    -fx-fill: linear-gradient(from 0% 0% to 100% 200%, blue 0%, red 50%);
     -fx-stroke: black;
-    -fx-stroke-width: 1;
+    -fx-stroke-width: 0.4;
+    
 }
