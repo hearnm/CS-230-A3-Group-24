@@ -1107,7 +1107,9 @@ public class SystemGUI extends Application {
 			gc.fillOval(mouseX, mouseY,  sliderValue, sliderValue);
 			} else if(drawParticle == true && shape == "Square") {
 				gc.fillRect(mouseX, mouseY, sliderValue, sliderValue);
-			} else if(drawLine == true) {	
+			} else if(drawLine == true) {
+				gc.strokeLine(mouseX, mouseY, sliderValue, sliderValue);
+				gc.setLineWidth(sliderValue);
 				// IMPLEMENT A LINE (why is this so hard)
 		}
 	}
@@ -1131,6 +1133,8 @@ public class SystemGUI extends Application {
 		} 
 		
 		if(drawLine == true) {
+			gc.strokeLine(mouseX, mouseY, sliderValue, sliderValue);
+			gc.setLineWidth(sliderValue);
 			// IMPLEMENT A LINE (why is this so hard)
 		}
 	}
