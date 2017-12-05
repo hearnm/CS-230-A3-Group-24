@@ -421,6 +421,7 @@ public class SystemGUI extends Application {
 		HBox mainTop = new HBox(15);
 		VBox titleBlock = new VBox();
 		VBox optionsBlock = new VBox(4);
+		VBox newAuctionBlock = new VBox(4);
 		HBox buttonBar = new HBox(10);
 		HBox searchBlock = new HBox(5);
 		
@@ -431,30 +432,35 @@ public class SystemGUI extends Application {
 		
 		TextField search = new TextField();
 		Text title = new Text("Artatawe\n");
-		title.setId("ARTATAWE2");
 		Text subTitle = new Text("Home Page");
 		Text options = new Text("Welcome "+ currentUserObject.getUsername());
 		Button auctionsButton = new Button("Auctions");
 		Button paintingsButton = new Button("Paintings");
 		Button sculpturesButton = new Button("Sculptures");
 		Button searchBtn = new Button("Search");
+		Button createNewAuctionButton = new Button("Create a new\nauction.");
 		
 		auctionsButton.setMinWidth(70);
 		paintingsButton.setMinWidth(70);
 		sculpturesButton.setMinWidth(80);
 		search.setMinWidth(150);
 		searchBtn.setMinWidth(70);
+		createNewAuctionButton.setMinWidth(70);
 		auctionsButton.setMaxWidth(Double.MAX_VALUE);
 		paintingsButton.setMaxWidth(Double.MAX_VALUE);
 		sculpturesButton.setMaxWidth(Double.MAX_VALUE);
 		searchBtn.setMaxWidth(Double.MAX_VALUE);
+		createNewAuctionButton.setMaxWidth(Double.MAX_VALUE);
 		auctionsButton.setPrefWidth(1500);
 		paintingsButton.setPrefWidth(1500);
 		sculpturesButton.setPrefWidth(1500);
 		searchBtn.setPrefWidth(55);
+		createNewAuctionButton.setPrefWidth(1500);
+		createNewAuctionButton.setMinHeight(70);
 		
 		title.setScaleX(4);
 		title.setScaleY(4);
+		title.setId("ARTATAWE2");
 		subTitle.setScaleX(2.5);
 		subTitle.setScaleY(2.5);
 		title.setTextAlignment(TextAlignment.LEFT);
@@ -480,7 +486,7 @@ public class SystemGUI extends Application {
 		searchBlock.getChildren().addAll(search,searchBtn);
 		titleBlock.setAlignment(Pos.BASELINE_CENTER);
 		buttonBar.getChildren().addAll(auctionsButton,paintingsButton,sculpturesButton);
-		optionsBlock.getChildren().addAll(options, optionsMenu);
+		optionsBlock.getChildren().addAll(options, optionsMenu, createNewAuctionButton);
 		titleBlock.getChildren().addAll(title, subTitle, searchBlock, buttonBar);
 		mainTop.getChildren().addAll(titleBlock, optionsBlock);
 		
