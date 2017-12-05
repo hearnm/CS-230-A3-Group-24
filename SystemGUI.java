@@ -57,7 +57,6 @@ import javafx.stage.Stage;
 
 /**
  * SystemGUI.java
- * @author Tom Durman
  * This class creates the System GUI.
  */
 public class SystemGUI extends Application {
@@ -148,6 +147,7 @@ public class SystemGUI extends Application {
 		
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+		root.getStylesheets().add("artatawe.css");
 		
 		BorderPane innerMid = new BorderPane();
 		StackPane title = new StackPane();
@@ -170,8 +170,9 @@ public class SystemGUI extends Application {
         Text usernameLogin = new Text("\nUsername");
         TextField usernameInput = new TextField();
        
-        text.setScaleX(4);
-        text.setScaleY(4);
+        text.setScaleX(2);
+        text.setScaleY(2);
+        text.setId("ARTATAWE1");
         text2.setScaleX(2);
         text2.setScaleY(2);
         usernameLogin.setScaleX(1.5);
@@ -227,6 +228,7 @@ public class SystemGUI extends Application {
 	private Pane buildSignUpGUI() {
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+		root.getStylesheets().add("artatawe.css");
 	
 		BorderPane innerMid = new BorderPane();
 		StackPane titleSection = new StackPane();
@@ -279,8 +281,9 @@ public class SystemGUI extends Application {
 		createProfile.setMaxWidth(Double.MAX_VALUE);
 		back.setMaxWidth(Double.MAX_VALUE);
     
-		title.setScaleX(4);
-		title.setScaleY(4);
+		title.setScaleX(2);
+		title.setScaleY(2);
+		title.setId("ARTATAWE1");
 		title.setTextAlignment(TextAlignment.CENTER);
 		subTitle.setScaleX(2);
     	subTitle.setScaleY(2);
@@ -413,6 +416,7 @@ public class SystemGUI extends Application {
 		
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+		root.getStylesheets().add("artatawe.css");
 		
 		HBox mainTop = new HBox(15);
 		VBox titleBlock = new VBox();
@@ -427,6 +431,7 @@ public class SystemGUI extends Application {
 		
 		TextField search = new TextField();
 		Text title = new Text("Artatawe\n");
+		title.setId("ARTATAWE2");
 		Text subTitle = new Text("Home Page");
 		Text options = new Text("Welcome "+ currentUserObject.getUsername());
 		Button auctionsButton = new Button("Auctions");
