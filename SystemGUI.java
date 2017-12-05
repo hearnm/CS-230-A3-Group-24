@@ -26,6 +26,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
@@ -41,6 +42,7 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -97,6 +99,7 @@ public class SystemGUI extends Application {
 	private UserProfile currentUserObject;
 	
 	private ArrayList<UserProfile> allUsers = new ArrayList<>();
+	private ArrayList<ImageView> avatars = new ArrayList<>();
 	
 	
 	/**
@@ -423,34 +426,64 @@ public class SystemGUI extends Application {
 		VBox optionsBlock = new VBox(4);
 		HBox buttonBar = new HBox(10);
 		HBox searchBlock = new HBox(5);
+		Pane mainCenter = new Pane();
+		VBox innerCenter = new VBox(15);
+		HBox innerCenterLine1 = new HBox(15);
 		
+		mainCenter.setBorder(new Border(new BorderStroke(Color.BLACK, 
+	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+		
+		innerCenter.setPadding(new Insets(10,10,10,10));
 		root.setPadding(new Insets(25,10,10,10));
 		mainTop.setPadding(new Insets(25,10,10,10));
 		buttonBar.setPadding(new Insets(25,10,10,10));
 		searchBlock.setPadding(new Insets(25,0,0,10));
+		mainCenter.setPadding(new Insets(25,10,10,10));
 		
 		TextField search = new TextField();
 		Text title = new Text("Artatawe\n");
 		title.setId("ARTATAWE2");
 		Text subTitle = new Text("Home Page");
 		Text options = new Text("Welcome "+ currentUserObject.getUsername());
-		Button auctionsButton = new Button("Auctions");
-		Button paintingsButton = new Button("Paintings");
-		Button sculpturesButton = new Button("Sculptures");
+		Text textAll = new Text("All: ");
+		Text textPaintings = new Text("Paintings: ");
+		Text textSculptures = new Text("Sculptures: ");
 		Button searchBtn = new Button("Search");
+		RadioButton filterAll = new RadioButton();
+		RadioButton filterPaintings = new RadioButton();
+		RadioButton filterSculptures = new RadioButton();
 		
-		auctionsButton.setMinWidth(70);
-		paintingsButton.setMinWidth(70);
-		sculpturesButton.setMinWidth(80);
+		filterAll.setOnAction(e -> {filterPaintings.setSelected(false); filterSculptures.setSelected(false);});
+		filterPaintings.setOnAction(e -> filterAll.setSelected(false));
+		filterSculptures.setOnAction(e -> filterAll.setSelected(false));
+		
+		Image art1path = null;
+		Image art2path = null;
+		ImageView art1 = new ImageView();
+		ImageView art2 = new ImageView();
+		
+		try {
+			art1path = new Image(new FileInputStream("Artwork1.png"));
+			art1.setImage(art1path);
+		} catch (FileNotFoundException e) {
+			System.out.println("Image not found");
+		}
+		try {
+			art2path = new Image(new FileInputStream("Artwork2.png"));
+			art2.setImage(art2path);
+		} catch (FileNotFoundException e) {
+			System.out.println("Image not found");
+		}
+		
+
+		art1.setFitWidth(128);
+		art1.setFitHeight(128);
+		art2.setFitWidth(128);
+		art2.setFitHeight(128);
+		
 		search.setMinWidth(150);
 		searchBtn.setMinWidth(70);
-		auctionsButton.setMaxWidth(Double.MAX_VALUE);
-		paintingsButton.setMaxWidth(Double.MAX_VALUE);
-		sculpturesButton.setMaxWidth(Double.MAX_VALUE);
 		searchBtn.setMaxWidth(Double.MAX_VALUE);
-		auctionsButton.setPrefWidth(1500);
-		paintingsButton.setPrefWidth(1500);
-		sculpturesButton.setPrefWidth(1500);
 		searchBtn.setPrefWidth(55);
 		
 		title.setScaleX(4);
@@ -473,131 +506,23 @@ public class SystemGUI extends Application {
 			
 		});
 		
-		auctionsButton.setOnAction(e -> window.setScene(new Scene(getAuctionScene())));
-		paintingsButton.setOnAction(e -> window.setScene(new Scene(getPaintingScene())));
-		sculpturesButton.setOnAction(e -> window.setScene( new Scene(getSculptureScene())));
-		
-		searchBlock.getChildren().addAll(search,searchBtn);
+		searchBlock.getChildren().addAll(search,searchBtn, buttonBar);
 		titleBlock.setAlignment(Pos.BASELINE_CENTER);
-		buttonBar.getChildren().addAll(auctionsButton,paintingsButton,sculpturesButton);
+		buttonBar.getChildren().addAll(textAll, filterAll, textPaintings, filterPaintings, textSculptures, filterSculptures);
 		optionsBlock.getChildren().addAll(options, optionsMenu);
-		titleBlock.getChildren().addAll(title, subTitle, searchBlock, buttonBar);
+		titleBlock.getChildren().addAll(title, subTitle, searchBlock);
 		mainTop.getChildren().addAll(titleBlock, optionsBlock);
 		
+		// Add artwork imageView objects
+		innerCenterLine1.getChildren().addAll(art1, art2);
+		innerCenter.getChildren().addAll(innerCenterLine1);
+		mainCenter.getChildren().addAll(innerCenter);
+		
 		root.setTop(mainTop);
+		root.setCenter(mainCenter);
 		return root;
 	}
 	
-	private Pane getAuctionScene() {
-
-		BorderPane root = new BorderPane();
-		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
-
-		VBox top = new VBox(15);
-		VBox titleBar = new VBox();
-		HBox buttonBar = new HBox(170);
-		
-		top.setPadding(new Insets(50,20,20,0));
-		buttonBar.setPadding(new Insets(40,20,0,40));
-		
-		Text title = new Text("Auctions");
-		Button back = new Button("Home");
-		
-		back.setOnAction(e -> window.setScene(home));
-		
-		//Position title text 
-		title.setScaleX(4);
-		title.setScaleY(4);
-		title.setTextAlignment(TextAlignment.CENTER);
-		
-		//Resize buttons
-		back.resize(87,80);
-		
-		//Set top VBox
-		buttonBar.getChildren().add(back);
-		titleBar.setAlignment(Pos.BASELINE_CENTER);
-		titleBar.getChildren().add(title);
-		top.getChildren().addAll(titleBar,buttonBar);
-		
-		//Set root
-		root.setTop(top);
-		root.setMinSize(700, 500);
-		return root;
-	}
-	
-	private Pane getPaintingScene(){
-		
-		BorderPane root = new BorderPane();
-		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
-
-		VBox top = new VBox(15);
-		VBox titleBar = new VBox();
-		HBox buttonBar = new HBox(170);
-		
-		top.setPadding(new Insets(50,20,20,0));
-		buttonBar.setPadding(new Insets(40,20,0,40));
-		
-		//Create elements that are needed for top VBox
-		Text title = new Text("Paintings");
-		Button back = new Button("Home");
-		
-		back.setOnAction(e -> window.setScene(home));
-		
-		//Position title text 
-		title.setScaleX(4);
-		title.setScaleY(4);
-		title.setTextAlignment(TextAlignment.CENTER);
-		
-		//Resize buttons
-		back.resize(87,80);
-		
-		buttonBar.getChildren().add(back);
-		titleBar.setAlignment(Pos.BASELINE_CENTER);
-		titleBar.getChildren().add(title);
-		top.getChildren().addAll(titleBar,buttonBar);
-		root.setTop(top);
-		
-		root.setMinSize(700, 500);
-		return root;
-	}
-	
-	private Pane getSculptureScene(){
-	
-		BorderPane root = new BorderPane();
-		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
-
-		VBox top = new VBox(15);
-		VBox titleBar = new VBox();
-		HBox buttonBar = new HBox(170);
-
-		top.setPadding(new Insets(50,20,20,0));
-		buttonBar.setPadding(new Insets(40,20,0,40));
-		
-		//Create elements that are needed for top VBox
-		Text title = new Text("Sculptures");
-		Button back = new Button("Home");
-	
-		back.setOnAction(e -> window.setScene(home));
-	
-		//Position title text 
-		title.setScaleX(4);
-		title.setScaleY(4);
-		title.setTextAlignment(TextAlignment.CENTER);
-	
-		//Resize buttons
-		back.resize(87,80);
-	
-		buttonBar.getChildren().add(back);
-		titleBar.setAlignment(Pos.BASELINE_CENTER);
-		titleBar.getChildren().add(title);
-		top.getChildren().addAll(titleBar,buttonBar);
-	
-		root.setTop(top);
-	
-		root.setMinSize(700, 500);
-		return root;
-	}
-
 	/**
 	 * Method to carry out the functionality of what was selected in the options menu
 	 * @param selection The seleced option
@@ -687,6 +612,7 @@ public class SystemGUI extends Application {
 		setProfileImage(currentUserObject.getUsername() + "_" + ".png");
 
 		Button changePicButton = new Button("Change Profile Picture");
+		Button avatarButton = new Button("Use Default Avatar");
 		Button updateProfileButton = new Button("Update Personal Info");
 		Button back = new Button("Return to Home Page");
 		
@@ -694,6 +620,11 @@ public class SystemGUI extends Application {
 		changePicButton.setOnAction(e -> {
 			profileDrawImg = new Scene(buildDrawImgGUI(), P_DRAW_IMG_STAGE_WIDTH, P_DRAW_IMG_STAGE_HEIGHT);
 			window.setScene(profileDrawImg);
+		});
+		
+		avatarButton.setOnAction(e -> {
+			profileAvatars = new Scene(buildAvatarsGUI(), P_DRAW_IMG_STAGE_WIDTH, P_DRAW_IMG_STAGE_HEIGHT);
+			window.setScene(profileAvatars);
 		});
 		
 		back.setOnAction(e -> window.setScene(home));
@@ -726,7 +657,7 @@ public class SystemGUI extends Application {
 		mainTop.getChildren().addAll(titleBlock);
 		profPicBox.getChildren().addAll(imageView);
 		midSection.getChildren().addAll(firstName,street,postcode,cityTown,phoneNo);
-		lSideBar.getChildren().addAll(profPicBox, changePicButton, updateProfileButton);
+		lSideBar.getChildren().addAll(profPicBox, changePicButton, avatarButton, updateProfileButton);
 		rSideBar.getChildren().addAll(myAuctions, myBids);
 		
 		root.setTop(mainTop);
@@ -737,6 +668,7 @@ public class SystemGUI extends Application {
 		
 		return root;
 	}
+	
 	
 	/**
 	 * Method to set the Profile image of the current user
@@ -751,6 +683,40 @@ public class SystemGUI extends Application {
 			profImg = null;
 		}
 	}
+	
+	
+	private Pane buildAvatarsGUI() {
+		
+		BorderPane root = new BorderPane();
+		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+		
+		HBox line1 = new HBox(20);
+		VBox coll1 = new VBox(20);
+		
+		for(int i = 1; i < 6; i++) {
+			try {
+				Image avatar = new Image(new FileInputStream("Avatar" + i + ".png"));
+				ImageView avatarimg = new ImageView();
+				avatarimg.setImage(avatar);
+				avatarimg.setFitHeight(180);
+				avatarimg.setFitWidth(180);
+				avatars.add(avatarimg);
+			} catch (FileNotFoundException e) {
+				notificationBox("Resource Error", "Avatars", "Default avatars not found");
+			}
+		}
+		
+		
+		line1.getChildren().addAll(avatars.get(0), avatars.get(1), avatars.get(2));
+		
+		root.setCenter(line1);
+		
+		return root;
+	}
+	
+	
+	
+	
 	
 	/**
 	 * Method to build the Profile Draw Image GUI window
