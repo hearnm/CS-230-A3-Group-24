@@ -449,7 +449,7 @@ public class SystemGUI extends Application {
 		Text textPaintings = new Text("Paintings: ");
 		Text textSculptures = new Text("Sculptures: ");
 		Button searchBtn = new Button("Search");
-<<<<<<< HEAD
+
 		RadioButton filterAll = new RadioButton();
 		RadioButton filterPaintings = new RadioButton();
 		RadioButton filterSculptures = new RadioButton();
@@ -481,25 +481,19 @@ public class SystemGUI extends Application {
 		art1.setFitHeight(128);
 		art2.setFitWidth(128);
 		art2.setFitHeight(128);
-=======
+
 		Button createNewAuctionButton = new Button("Create a new\nauction.");
->>>>>>> c5dc81365bcf958b6c92b49f9f00c062b9493f92
+
 		
 		search.setMinWidth(150);
 		searchBtn.setMinWidth(70);
-<<<<<<< HEAD
+
 		searchBtn.setMaxWidth(Double.MAX_VALUE);
-=======
+
 		createNewAuctionButton.setMinWidth(70);
-		auctionsButton.setMaxWidth(Double.MAX_VALUE);
-		paintingsButton.setMaxWidth(Double.MAX_VALUE);
-		sculpturesButton.setMaxWidth(Double.MAX_VALUE);
 		searchBtn.setMaxWidth(Double.MAX_VALUE);
 		createNewAuctionButton.setMaxWidth(Double.MAX_VALUE);
-		auctionsButton.setPrefWidth(1500);
-		paintingsButton.setPrefWidth(1500);
-		sculpturesButton.setPrefWidth(1500);
->>>>>>> c5dc81365bcf958b6c92b49f9f00c062b9493f92
+
 		searchBtn.setPrefWidth(55);
 		createNewAuctionButton.setPrefWidth(1500);
 		createNewAuctionButton.setMinHeight(70);
@@ -527,15 +521,11 @@ public class SystemGUI extends Application {
 		
 		searchBlock.getChildren().addAll(search,searchBtn, buttonBar);
 		titleBlock.setAlignment(Pos.BASELINE_CENTER);
-<<<<<<< HEAD
+
 		buttonBar.getChildren().addAll(textAll, filterAll, textPaintings, filterPaintings, textSculptures, filterSculptures);
 		optionsBlock.getChildren().addAll(options, optionsMenu);
 		titleBlock.getChildren().addAll(title, subTitle, searchBlock);
-=======
-		buttonBar.getChildren().addAll(auctionsButton,paintingsButton,sculpturesButton);
-		optionsBlock.getChildren().addAll(options, optionsMenu, createNewAuctionButton);
-		titleBlock.getChildren().addAll(title, subTitle, searchBlock, buttonBar);
->>>>>>> c5dc81365bcf958b6c92b49f9f00c062b9493f92
+
 		mainTop.getChildren().addAll(titleBlock, optionsBlock);
 		
 		// Add artwork imageView objects
