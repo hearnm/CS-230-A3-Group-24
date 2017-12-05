@@ -1,6 +1,9 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.regex.*;
@@ -624,7 +627,7 @@ public class SystemGUI extends Application {
 		firstName.setScaleX(1.9);
 		firstName.setScaleY(1.9);
 		
-		setProfileImage(currentUserObject.getUsername() + "_" + ".png");
+		setProfileImage();
 
 		Button changePicButton = new Button("Change Profile Picture");
 		Button avatarButton = new Button("Use Default Avatar");
@@ -689,10 +692,10 @@ public class SystemGUI extends Application {
 	 * Method to set the Profile image of the current user
 	 * @param imagePath The directory path to the image
 	 */
-	private void setProfileImage(String imagePath) {
+	private void setProfileImage() {
 		
 		try {
-			profImg = new Image(new FileInputStream(imagePath));
+			profImg = new Image(new FileInputStream(currentUserObject.getUsername() + ".png"));
 		} catch (FileNotFoundException e) {
 			System.out.println("User does not have profile Image yet, assigning default");
 			try {
@@ -726,6 +729,62 @@ public class SystemGUI extends Application {
 			}
 		}
 		
+		avatars.get(0).setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				updateUserProfile("Avatar1.png");
+				setProfileImage();
+				notificationBox("Profile Update", "Profile Image Updated", "Your profile picture has been updated!");
+				reloadProfile();
+			}
+		});
+		avatars.get(1).setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				updateUserProfile("Avatar2.png");
+				setProfileImage();
+				notificationBox("Profile Update", "Profile Image Updated", "Your profile picture has been updated!");
+				reloadProfile();
+			}
+		});
+		avatars.get(2).setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				updateUserProfile("Avatar3.png");
+				setProfileImage();
+				notificationBox("Profile Update", "Profile Image Updated", "Your profile picture has been updated!");
+				reloadProfile();
+			}
+		});
+		avatars.get(3).setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				updateUserProfile("Avatar4.png");
+				setProfileImage();
+				notificationBox("Profile Update", "Profile Image Updated", "Your profile picture has been updated!");
+				reloadProfile();
+			}
+		});
+		avatars.get(4).setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				updateUserProfile("Avatar5.png");
+				setProfileImage();
+				notificationBox("Profile Update", "Profile Image Updated", "Your profile picture has been updated!");
+				reloadProfile();
+			}
+		});
+		avatars.get(5).setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				updateUserProfile("Avatar6.png");
+				setProfileImage();
+				notificationBox("Profile Update", "Profile Image Updated", "Your profile picture has been updated!");
+				reloadProfile();
+			}
+		});
+
+		
 		line1.getChildren().addAll(avatars.get(0), avatars.get(1), avatars.get(2));
 		line2.getChildren().addAll(avatars.get(3), avatars.get(4), avatars.get(5));
 		coll1.getChildren().addAll(line1, line2);
@@ -735,10 +794,36 @@ public class SystemGUI extends Application {
 		return root;
 	}
 	
+	private void reloadProfile() {
+		Pane profileR = buildProfileGUI();
+		profile = new Scene(profileR, MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+		window.setScene(profile);
+	}
 	
+	private void updateUserProfile(String path) {
+		
+		InputStream is = null;
+        OutputStream os = null;
+        try {
+            is = new FileInputStream(new File(path));
+            os = new FileOutputStream(new File(currentUserObject.getUsername() + ".png"));
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = is.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
+            }
+            
+        } catch (Exception e) {
+            try {
+        	is.close();
+            os.close();
+            } catch (Exception s) {
+            	System.out.println("Error");
+            }
+        }
+	}
 	
-	
-	
+
 	/**
 	 * Method to build the Profile Draw Image GUI window
 	 * @return root The Constructed Pane with all the Profile Draw Image GUI elements
@@ -820,7 +905,7 @@ public class SystemGUI extends Application {
 	    
 	    setImage.setOnAction(e -> {
 	    	saveImage();
-	    	setProfileImage(currentUserObject.getUsername() + "_" + ".png");
+	    	setProfileImage();
 	    	profile = new Scene(buildProfileGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
 	    	window.setScene(profile);
 	    	window.setResizable(true);
@@ -1011,11 +1096,15 @@ public class SystemGUI extends Application {
 		gc2.fillOval(PREVIEW_CANVAS_DRAW_X, PREVIEW_CANVAS_DRAW_Y, sliderValue, sliderValue);
 	}
 	
+	
+	
+	
+	
 	/**
 	 * Method to save a drawn image
 	 */
 	private void saveImage() {
-		String saveName = currentUserObject.getUsername() + "_" + ".png";
+		String saveName = currentUserObject.getUsername() + ".png";
 		
 		File file = new File(saveName);
 		WritableImage wim = new WritableImage(CANVAS_WIDTH, CANVAS_HEIGHT);
