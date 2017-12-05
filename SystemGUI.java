@@ -594,7 +594,7 @@ public class SystemGUI extends Application {
 	private Pane buildProfileGUI() {
 		
 		BorderPane root = new BorderPane();
-		
+		window.setResizable(true);
 		root.setPadding(new Insets(10,10,10,10));
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		
@@ -642,6 +642,7 @@ public class SystemGUI extends Application {
 		
 		avatarButton.setOnAction(e -> {
 			profileAvatars = new Scene(buildAvatarsGUI(), P_DRAW_IMG_STAGE_WIDTH, P_DRAW_IMG_STAGE_HEIGHT);
+			window.setResizable(false);
 			window.setScene(profileAvatars);
 		});
 		
@@ -715,6 +716,25 @@ public class SystemGUI extends Application {
 		HBox line1 = new HBox(20);
 		HBox line2 = new HBox(20);
 		VBox coll1 = new VBox(20);
+		VBox topSection = new VBox(10);
+		VBox bottomSection = new VBox();
+		
+		root.setPadding(new Insets(20,20,20,10));
+		coll1.setPadding(new Insets(50,0,0,0));
+		coll1.setAlignment(Pos.BASELINE_CENTER);
+		
+		Button back = new Button("Back");
+		back.setPrefWidth(150);
+		
+		back.setOnAction(e -> window.setScene(profile));
+		
+		Text title = new Text("Artatawe\n");
+		Text subTitle = new Text("Profile Page");
+		title.setScaleX(4);
+		title.setScaleY(4);
+		subTitle.setScaleX(2.5);
+		subTitle.setScaleY(2.5);
+		title.setTextAlignment(TextAlignment.LEFT);
 		
 		for(int i = 0; i < 6; i++) {
 			try {
@@ -784,12 +804,16 @@ public class SystemGUI extends Application {
 			}
 		});
 
-		
+		bottomSection.setAlignment(Pos.BASELINE_CENTER);
+		bottomSection.getChildren().addAll(back);
+		topSection.setAlignment(Pos.BASELINE_CENTER);
+		topSection.getChildren().addAll(title, subTitle);
 		line1.getChildren().addAll(avatars.get(0), avatars.get(1), avatars.get(2));
 		line2.getChildren().addAll(avatars.get(3), avatars.get(4), avatars.get(5));
 		coll1.getChildren().addAll(line1, line2);
-		
+		root.setTop(topSection);
 		root.setCenter(coll1);
+		root.setBottom(bottomSection);
 		
 		return root;
 	}
