@@ -482,6 +482,7 @@ public class SystemGUI extends Application {
 		auctionsButton.setOnAction(e -> window.setScene(new Scene(getAuctionScene())));
 		paintingsButton.setOnAction(e -> window.setScene(new Scene(getPaintingScene())));
 		sculpturesButton.setOnAction(e -> window.setScene( new Scene(getSculptureScene())));
+		createNewAuctionButton.setOnAction(e -> window.setScene( new Scene(buildNewAuctionGUI())));
 		
 		searchBlock.getChildren().addAll(search,searchBtn);
 		titleBlock.setAlignment(Pos.BASELINE_CENTER);
@@ -603,10 +604,47 @@ public class SystemGUI extends Application {
 		root.setMinSize(700, 500);
 		return root;
 	}
+	
+	private Pane buildNewAuctionGUI() {
+		
+		BorderPane root = new BorderPane();
+		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+
+		VBox top = new VBox(15);
+		VBox titleBar = new VBox();
+		HBox buttonBar = new HBox(170);
+
+		top.setPadding(new Insets(50,20,20,0));
+		
+		//Create elements that are needed for top VBox
+		Text title = new Text("Create a new auction");
+		Button back = new Button("Home");
+		
+		back.setOnAction(e -> window.setScene(home));
+		
+		//Position title text 
+		title.setScaleX(4);
+		title.setScaleY(4);
+		title.setTextAlignment(TextAlignment.CENTER);
+			
+		//Resize buttons
+		back.resize(87,80);
+			
+		buttonBar.getChildren().add(back);
+		titleBar.setAlignment(Pos.BASELINE_CENTER);
+		titleBar.getChildren().add(title);
+		top.getChildren().addAll(titleBar,buttonBar);
+			
+		root.setTop(top);
+			
+		root.setMinSize(700, 500);
+		return root;
+		
+	}
 
 	/**
 	 * Method to carry out the functionality of what was selected in the options menu
-	 * @param selection The seleced option
+	 * @param selection The selected option
 	 */
 	private void optionsMenuSelection(String selection) {
 		
@@ -626,8 +664,8 @@ public class SystemGUI extends Application {
 	private void logoutConfirmation() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Logout Confirmation");
-		alert.setHeaderText("You are about to logout of the system");
-		alert.setContentText("Are you sure you would like to logout?");
+		alert.setHeaderText("You are about to log out of the system");
+		alert.setContentText("Are you sure you would like to log out?");
 
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK){
