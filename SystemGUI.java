@@ -350,6 +350,9 @@ public class SystemGUI extends Application {
     	return root;
 	}
 	
+	
+	
+	
 	/**
 <<<<<<< HEAD
 	 * To be added
@@ -420,7 +423,7 @@ public class SystemGUI extends Application {
 	 * @return root The Constructed Pane with all the Home Page GUI elements
 	 */
 	private Pane buildHomePageGUI(){
-		
+		window.setResizable(true);
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		root.getStylesheets().add("artatawe.css");
@@ -556,7 +559,7 @@ public class SystemGUI extends Application {
 		} else if(selection == "Logout") {
 			logoutConfirmation();
 		} else if(selection == "View Users") {
-			viewUsers = new Scene(buildUserListGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+			viewUsers = new Scene(buildUserListGUI(), MAIN_STAGE_WIDTH - 200, MAIN_STAGE_HEIGHT);
 			window.setScene(viewUsers);
 		}
 		
@@ -594,13 +597,14 @@ public class SystemGUI extends Application {
 	
 	
 	private Pane buildUserListGUI() {
-		
+		window.setResizable(true);
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		
 		VBox topBar = new VBox();
 		GridPane center = new GridPane();
 		
+		topBar.setPadding(new Insets(0,0,50,0));
 		center.setHgap(25);
 		center.setVgap(10);
 		
@@ -619,36 +623,71 @@ public class SystemGUI extends Application {
 		ArrayList<ImageView> listPic = new ArrayList<>();
 		
 		for(int i = 0; i < allUsers.size(); i++) {
-			if(allUsers.get(i).getUsername() != currentUserObject.getUsername()) {
-				Label listUsername = new Label(allUsers.get(i).getUsername());
-				listUsername.setScaleX(1.5);
-				listUsername.setScaleY(1.5);
-				
-				ImageView listUserImg = new ImageView(getUserImage(allUsers.get(i)));
-				listUserImg.setFitHeight(100);
-				listUserImg.setFitWidth(100);
-				listname.add(listUsername);
-				listPic.add(listUserImg);
+			try {
+				if(allUsers.get(i).getUsername() != currentUserObject.getUsername()) {
+					Label listUsername = new Label(allUsers.get(i).getUsername());
+					listUsername.setScaleX(1.5);
+					listUsername.setScaleY(1.5);
+					ImageView listUserImg;
+					
+					
+					if(getUserImage(allUsers.get(i)) == null) {
+						listUserImg = new ImageView(setDefaultImage(allUsers.get(i)));
+					} else {
+					listUserImg = new ImageView(getUserImage(allUsers.get(i)));
+					}
+					listUserImg.setFitHeight(100);
+					listUserImg.setFitWidth(100);
+					listname.add(listUsername);
+					listPic.add(listUserImg);
+				} 
+			} catch (Exception e) {
+				System.out.println("user does not exist");
+				}
 			}
-		}
-
-		
 		
 			GridPane.setConstraints(listPic.get(0), 0, 0);
 			GridPane.setConstraints(listname.get(0), 1, 0);
-
 			
 			GridPane.setConstraints(listPic.get(1), 0, 1);
 			GridPane.setConstraints(listname.get(1), 1, 1);
+			
+			GridPane.setConstraints(listPic.get(2), 0, 2);
+			GridPane.setConstraints(listname.get(2), 1, 2);
+			
+			GridPane.setConstraints(listPic.get(3), 0, 3);
+			GridPane.setConstraints(listname.get(3), 1, 3);
+			
+			GridPane.setConstraints(listPic.get(4), 0, 4);
+			GridPane.setConstraints(listname.get(4), 1, 4);
+			
+			GridPane.setConstraints(listPic.get(5), 0, 5);
+			GridPane.setConstraints(listname.get(5), 1, 5);
+			
 
 		topBar.setAlignment(Pos.BASELINE_CENTER);
 		topBar.getChildren().addAll(title, subTitle);
-		center.getChildren().addAll(listname.get(0), listPic.get(0), listname.get(1), listPic.get(1));
+		center.getChildren().addAll(listname.get(0), listPic.get(0), listname.get(1), listPic.get(1), listname.get(2), listPic.get(2)
+										,listname.get(3), listPic.get(3), listname.get(4), listPic.get(4), listname.get(5), listPic.get(5));
 		root.setTop(topBar);
 		root.setCenter(center);
 		
 		return root;
 	}
+	
+	
+	private Image setDefaultImage(UserProfile x) {
+		
+		try {
+			Image img = new Image(new FileInputStream("DefaultPicture.png"));
+			return img;
+		} catch (FileNotFoundException e) {
+			System.out.println("Default Image Not found");
+		}
+	
+		return null;
+	}
+	
 	
 	
 	private Image getUserImage(UserProfile  x) {
@@ -776,7 +815,7 @@ public class SystemGUI extends Application {
 		try {
 			profImg = new Image(new FileInputStream(currentUserObject.getUsername() + ".png"));
 		} catch (FileNotFoundException e) {
-			System.out.println("User does not have profile Image yet, assigning default");
+			System.out.println("User does not have profile Image yet, Assigning default");
 			try {
 				profImg = new Image(new FileInputStream("DefaultPicture.png"));
 			} catch (FileNotFoundException e1) {
