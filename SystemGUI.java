@@ -694,8 +694,12 @@ public class SystemGUI extends Application {
 		try {
 			profImg = new Image(new FileInputStream(imagePath));
 		} catch (FileNotFoundException e) {
-			System.out.println("User does not have profile Image yet");
-			profImg = null;
+			System.out.println("User does not have profile Image yet, assigning default");
+			try {
+				profImg = new Image(new FileInputStream("DefaultPicture.png"));
+			} catch (FileNotFoundException e1) {
+				System.out.println("Something bad just happened");
+			}
 		}
 	}
 	
@@ -722,11 +726,10 @@ public class SystemGUI extends Application {
 			}
 		}
 		
-		
 		line1.getChildren().addAll(avatars.get(0), avatars.get(1), avatars.get(2));
 		line2.getChildren().addAll(avatars.get(3), avatars.get(4), avatars.get(5));
-		
 		coll1.getChildren().addAll(line1, line2);
+		
 		root.setCenter(coll1);
 		
 		return root;
