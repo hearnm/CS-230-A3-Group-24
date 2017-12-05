@@ -98,6 +98,7 @@ public class SystemGUI extends Application {
 	private Scene profile;			// The Scene to hold the Profile Page GUI
 	private Scene profileDrawImg;	// The Scene to hold the Profile Draw Image GUI
 	private Scene profileAvatars;	// The Scene to hold the Profile Default Avatars GUI
+	private Scene viewUsers;
 	private Image profImg;			// Currently selected Profile image for a profile.
 	private UserProfile currentUserObject;
 	
@@ -500,7 +501,7 @@ public class SystemGUI extends Application {
 		searchBtn.setPrefWidth(55);
 		createNewAuctionButton.setPrefWidth(1500);
 		createNewAuctionButton.setMinHeight(70);
-		
+
 		title.setScaleX(4);
 		title.setScaleY(4);
 		title.setId("ARTATAWE2");
@@ -511,6 +512,7 @@ public class SystemGUI extends Application {
 		ChoiceBox<String> optionsMenu = new ChoiceBox<>();
 		optionsMenu.getItems().add("Select an Option");
 		optionsMenu.getItems().add("My Account");
+		optionsMenu.getItems().add("View Users");
 		optionsMenu.getItems().add("My Favorite Users");
 		optionsMenu.getItems().add("Logout");
 		optionsMenu.setValue("Select an Option");
@@ -553,6 +555,9 @@ public class SystemGUI extends Application {
 			window.setScene(profile);
 		} else if(selection == "Logout") {
 			logoutConfirmation();
+		} else if(selection == "View Users") {
+			viewUsers = new Scene(buildUserListGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+			window.setScene(viewUsers);
 		}
 		
 	}
@@ -586,6 +591,79 @@ public class SystemGUI extends Application {
 
 		alert.showAndWait();
 	}
+	
+	
+	private Pane buildUserListGUI() {
+		
+		BorderPane root = new BorderPane();
+		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+		
+		VBox topBar = new VBox();
+		GridPane center = new GridPane();
+		
+		center.setHgap(25);
+		center.setVgap(10);
+		
+		root.setPadding(new Insets(25,10,10,10));
+		
+		Text title = new Text("Artatawe\n");
+		Text subTitle = new Text("User List");
+		title.setScaleX(4);
+		title.setScaleY(4);
+		title.setId("ARTATAWE2");
+		subTitle.setScaleX(2.5);
+		subTitle.setScaleY(2.5);
+		title.setTextAlignment(TextAlignment.LEFT);
+		
+		ArrayList<Label> listname = new ArrayList<>();
+		ArrayList<ImageView> listPic = new ArrayList<>();
+		
+		for(int i = 0; i < allUsers.size(); i++) {
+			if(allUsers.get(i).getUsername() != currentUserObject.getUsername()) {
+				Label listUsername = new Label(allUsers.get(i).getUsername());
+				listUsername.setScaleX(1.5);
+				listUsername.setScaleY(1.5);
+				
+				ImageView listUserImg = new ImageView(getUserImage(allUsers.get(i)));
+				listUserImg.setFitHeight(100);
+				listUserImg.setFitWidth(100);
+				listname.add(listUsername);
+				listPic.add(listUserImg);
+			}
+		}
+
+		
+		
+			GridPane.setConstraints(listPic.get(0), 0, 0);
+			GridPane.setConstraints(listname.get(0), 1, 0);
+
+			
+			GridPane.setConstraints(listPic.get(1), 0, 1);
+			GridPane.setConstraints(listname.get(1), 1, 1);
+
+		topBar.setAlignment(Pos.BASELINE_CENTER);
+		topBar.getChildren().addAll(title, subTitle);
+		center.getChildren().addAll(listname.get(0), listPic.get(0), listname.get(1), listPic.get(1));
+		root.setTop(topBar);
+		root.setCenter(center);
+		
+		return root;
+	}
+	
+	
+	private Image getUserImage(UserProfile  x) {
+		
+		try {
+			Image img = new Image(new FileInputStream(x.getUsername() + ".png"));
+			return img;
+		} catch (FileNotFoundException e) {
+			System.out.println("Image Not found");
+		}
+	
+		return null;
+	}
+	
+	
 	
 	/**
 	 * Method to build the Profile GUI window
@@ -729,7 +807,7 @@ public class SystemGUI extends Application {
 		back.setOnAction(e -> window.setScene(profile));
 		
 		Text title = new Text("Artatawe\n");
-		Text subTitle = new Text("Profile Page");
+		Text subTitle = new Text("Premade Avatar Selection");
 		title.setScaleX(4);
 		title.setScaleY(4);
 		subTitle.setScaleX(2.5);
