@@ -646,29 +646,21 @@ public class SystemGUI extends Application {
 				}
 			}
 		
-			GridPane.setConstraints(listPic.get(0), 0, 0);
-			GridPane.setConstraints(listname.get(0), 1, 0);
-			
-			GridPane.setConstraints(listPic.get(1), 0, 1);
-			GridPane.setConstraints(listname.get(1), 1, 1);
-			
-			GridPane.setConstraints(listPic.get(2), 0, 2);
-			GridPane.setConstraints(listname.get(2), 1, 2);
-			
-			GridPane.setConstraints(listPic.get(3), 0, 3);
-			GridPane.setConstraints(listname.get(3), 1, 3);
-			
-			GridPane.setConstraints(listPic.get(4), 0, 4);
-			GridPane.setConstraints(listname.get(4), 1, 4);
-			
-			GridPane.setConstraints(listPic.get(5), 0, 5);
-			GridPane.setConstraints(listname.get(5), 1, 5);
-			
 
+			for(int n = 0; n < allUsers.size() - 1; n++) {
+				GridPane.setConstraints(listPic.get(n), 0, n);
+				GridPane.setConstraints(listname.get(n), 1, n);
+			}
+
+			
+			
+			
 		topBar.setAlignment(Pos.BASELINE_CENTER);
 		topBar.getChildren().addAll(title, subTitle);
-		center.getChildren().addAll(listname.get(0), listPic.get(0), listname.get(1), listPic.get(1), listname.get(2), listPic.get(2)
-										,listname.get(3), listPic.get(3), listname.get(4), listPic.get(4), listname.get(5), listPic.get(5));
+		for(int j = 0; j < allUsers.size() - 1; j++) {
+		
+			center.getChildren().addAll(listname.get(j), listPic.get(j));
+		}
 		root.setTop(topBar);
 		root.setCenter(center);
 		
