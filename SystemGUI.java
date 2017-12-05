@@ -706,6 +706,7 @@ public class SystemGUI extends Application {
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		
 		HBox line1 = new HBox(20);
+		HBox line2 = new HBox(20);
 		VBox coll1 = new VBox(20);
 		
 		for(int i = 1; i < 6; i++) {
@@ -723,8 +724,10 @@ public class SystemGUI extends Application {
 		
 		
 		line1.getChildren().addAll(avatars.get(0), avatars.get(1), avatars.get(2));
+		line2.getChildren().addAll(avatars.get(3), avatars.get(4), avatars.get(5));
 		
-		root.setCenter(line1);
+		coll1.getChildren().addAll(line1, line2);
+		root.setCenter(coll1);
 		
 		return root;
 	}
