@@ -709,16 +709,16 @@ public class SystemGUI extends Application {
 		HBox line2 = new HBox(20);
 		VBox coll1 = new VBox(20);
 		
-		for(int i = 1; i < 6; i++) {
+		for(int i = 0; i < 6; i++) {
 			try {
-				Image avatar = new Image(new FileInputStream("Avatar" + i + ".png"));
+				Image avatar = new Image(new FileInputStream("Avatar" + (i+1) + ".png"));
 				ImageView avatarimg = new ImageView();
 				avatarimg.setImage(avatar);
 				avatarimg.setFitHeight(180);
 				avatarimg.setFitWidth(180);
 				avatars.add(avatarimg);
 			} catch (FileNotFoundException e) {
-				notificationBox("Resource Error", "Avatars", "Default avatars not found");
+				notificationBox("Resource Error", "Avatar " + (i+1), "Default avatar not found");
 			}
 		}
 		
