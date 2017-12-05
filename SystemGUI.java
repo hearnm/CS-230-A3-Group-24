@@ -169,8 +169,7 @@ public class SystemGUI extends Application {
         Text text2 = new Text("\n\nLogin Screen\n");
         Text usernameLogin = new Text("\nUsername");
         TextField usernameInput = new TextField();
-        
-
+       
         text.setScaleX(4);
         text.setScaleY(4);
         text2.setScaleX(2);
@@ -190,23 +189,18 @@ public class SystemGUI extends Application {
         StackPane.setAlignment(loginButton, Pos.BOTTOM_CENTER);
 		
         loginButton.setOnAction(e -> {
-        	
         	if(usernameInput.getText().length() == 0) {
         		notificationBox("Login Notification", "Missing Information", "Login field cannot be left blank");
-        	}
-        	
-        	else if(setCurrentUser(usernameInput.getText()) == true) {
-        
-        		System.out.println(currentUserObject.getUsername());
         		
+        	} else if(setCurrentUser(usernameInput.getText()) == true) {
         		home = new Scene(buildHomePageGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
         		window.setScene(home);
         		usernameInput.setText("");
+        		
         	} else {
         		notificationBox("Login Notification", "Login Error", "Username not found");
         		usernameInput.setText("");
         	}
-        	
         });
         
         signupButton.setOnAction(e -> {
@@ -217,19 +211,15 @@ public class SystemGUI extends Application {
 
         loginBox.getChildren().addAll(usernameLogin, usernameInput, loginButton);
 		title.getChildren().addAll(text, text2);
-	
-		
+
 		innerMid.setCenter(loginBox);
 		innerMid.setTop(title);
 		innerMid.setBottom(signupButton);
 		
 		root.setCenter(innerMid);
-		
 		return root;
 	}
 	
-
-
 	/**
 	 * Method to build the Sign Up GUI window
 	 * @return root The Constructed Pane with all the Signup GUI elements
@@ -239,33 +229,24 @@ public class SystemGUI extends Application {
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 	
 		BorderPane innerMid = new BorderPane();
-		StackPane title = new StackPane();
+		StackPane titleSection = new StackPane();
 		StackPane midSection = new StackPane();
-		VBox details = new VBox();
-		HBox innerDetails1 = new HBox();
-		HBox innerDetails2 = new HBox();
-		HBox innerDetails3 = new HBox();
-		HBox innerDetails4 = new HBox();
-		HBox innerDetails5 = new HBox();
-		HBox innerDetails6 = new HBox();
-		HBox innerDetails7 = new HBox();
-		VBox bottomBar = new VBox();
+		VBox details = new VBox(20);
+		HBox innerDetails1 = new HBox(10);
+		HBox innerDetails2 = new HBox(10);
+		HBox innerDetails3 = new HBox(10);
+		HBox innerDetails4 = new HBox(10);
+		HBox innerDetails5 = new HBox(10);
+		HBox innerDetails6 = new HBox(10);
+		HBox innerDetails7 = new HBox(10);
+		VBox bottomBar = new VBox(20);
 	
 		root.setPadding(new Insets(10,10,10,10));
 		innerMid.setPadding(new Insets(50,100,1,100));
 		midSection.setPadding(new Insets(10,10,10,10));
 		bottomBar.setPadding(new Insets(20,100,1,100));
 		details.setPadding(new Insets(1,1,1,1));
-		details.setSpacing(20);
-		innerDetails1.setSpacing(10);
-		innerDetails2.setSpacing(10);
-		innerDetails3.setSpacing(10);
-		innerDetails4.setSpacing(10);
-		innerDetails5.setSpacing(10);
-		innerDetails6.setSpacing(10);
-		innerDetails7.setSpacing(10);
-		bottomBar.setSpacing(20);
-	
+
 		midSection.setBorder(new Border(new BorderStroke(Color.BLACK, 
 				BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 	
@@ -274,8 +255,8 @@ public class SystemGUI extends Application {
 		midSection.setMaxWidth(250);
 	
 
-		Text text = new Text("Artatawe\n");
-		Text text2 = new Text("\n\nSign-Up Screen\n\n");
+		Text title = new Text("Artatawe\n");
+		Text subTitle = new Text("\n\nSign-Up Screen\n\n");
 		Text username = new Text("Username\t");
 		Text firstname = new Text("First name\t");
 		Text lastname = new Text("Last name\t");
@@ -292,27 +273,21 @@ public class SystemGUI extends Application {
 		TextField cityTownBox = new TextField();
 		TextField phoneNoBox = new TextField();
    
-		
-		
 		Button createProfile = new Button("Create Account");
 		Button back = new Button("Back");
     
 		createProfile.setMaxWidth(Double.MAX_VALUE);
 		back.setMaxWidth(Double.MAX_VALUE);
     
-		text.setScaleX(4);
-		text.setScaleY(4);
-		text2.setScaleX(2);
-    	text2.setScaleY(2);
-
-    	text2.setTextAlignment(TextAlignment.CENTER);
-    	text.setTextAlignment(TextAlignment.CENTER);
-   
-    
-    	StackPane.setAlignment(text, Pos.CENTER);
-    	StackPane.setAlignment(text2, Pos.CENTER);
-
-
+		title.setScaleX(4);
+		title.setScaleY(4);
+		title.setTextAlignment(TextAlignment.CENTER);
+		subTitle.setScaleX(2);
+    	subTitle.setScaleY(2);
+    	subTitle.setTextAlignment(TextAlignment.CENTER);
+    	StackPane.setAlignment(title, Pos.CENTER);
+    	StackPane.setAlignment(subTitle, Pos.CENTER);
+    	
     	back.setOnAction(e -> {
     		window.setScene(login);
     		window.setResizable(true);
@@ -331,9 +306,8 @@ public class SystemGUI extends Application {
     		if(inputExistenceCheck(usernameInput, firstnameInput, lastnameInput, streetInput, 
     							postcodeInput, cityTownInput, phoneNoInput) == true) {
     			if(validateSignUpDetails(usernameInput, phoneNoInput, postcodeInput) == true) {
-    				Integer intPhoneNo = Integer.parseInt(phoneNoInput);
-    				
-
+    							Integer intPhoneNo = Integer.parseInt(phoneNoInput);
+    							
     				UserProfile newUser = new UserProfile(usernameInput, firstnameInput, lastnameInput, streetInput, 
     								postcodeInput, cityTownInput, intPhoneNo, true);
     				allUsers.add(newUser);
@@ -354,11 +328,11 @@ public class SystemGUI extends Application {
     
     	details.getChildren().addAll(innerDetails1, innerDetails2, innerDetails3, innerDetails4, innerDetails5, innerDetails6, innerDetails7);
     	midSection.getChildren().addAll(details);
-    	title.getChildren().addAll(text, text2);
+    	titleSection.getChildren().addAll(title, subTitle);
     	bottomBar.getChildren().addAll(createProfile, back);
 	
     	innerMid.setCenter(midSection);
-    	innerMid.setTop(title);
+    	innerMid.setTop(titleSection);
     	innerMid.setBottom(bottomBar);
 	
     	root.setCenter(innerMid);
@@ -385,8 +359,6 @@ public class SystemGUI extends Application {
 		//Pattern phoneNoChecker = Pattern.compile(regexUkPhoneNumber);
 		//Matcher phoneNoMatcher = phoneNoChecker.matcher(phoneNo);
 		
-		
-		
 		if(usernameDuplicationCheck(username)) {
 			notificationBox("Sign-Up Notification", "Input Error", "Username taken, please select another");
 			return false;
@@ -401,9 +373,8 @@ public class SystemGUI extends Application {
 		try {
 			Integer.parseInt(phoneNo);
 		} catch (NumberFormatException e) {
-			notificationBox("Sign-Up Notification", "Input Error", "Phone number can only consist of numerical digits");
+			notificationBox("Sign-Up Notification", "Input Error", "System Error (We need to fix this to allow for >9 numbers");
 			return false;
-		
 		} if(username.length() > 1) {
 				return true;
 			} else {
@@ -457,7 +428,7 @@ public class SystemGUI extends Application {
 		TextField search = new TextField();
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("Home Page");
-		Text options = new Text("Options Menu");
+		Text options = new Text("Welcome "+ currentUserObject.getUsername());
 		Button auctionsButton = new Button("Auctions");
 		Button paintingsButton = new Button("Paintings");
 		Button sculpturesButton = new Button("Sculptures");
@@ -517,16 +488,11 @@ public class SystemGUI extends Application {
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 
-		VBox top = new VBox();
+		VBox top = new VBox(15);
 		VBox titleBar = new VBox();
-		HBox buttonBar = new HBox();
-		VBox bottom = new VBox();
-		HBox bottomBar = new HBox();
+		HBox buttonBar = new HBox(170);
 		
-		top.setSpacing(15);
 		top.setPadding(new Insets(50,20,20,0));
-
-		buttonBar.setSpacing(170);
 		buttonBar.setPadding(new Insets(40,20,0,40));
 		
 		Text title = new Text("Auctions");
@@ -559,16 +525,11 @@ public class SystemGUI extends Application {
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 
-		VBox top = new VBox();
+		VBox top = new VBox(15);
 		VBox titleBar = new VBox();
-		HBox buttonBar = new HBox();
-		VBox bottom = new VBox();
-		HBox bottomBar = new HBox();
+		HBox buttonBar = new HBox(170);
 		
-		top.setSpacing(15);
 		top.setPadding(new Insets(50,20,20,0));
-
-		buttonBar.setSpacing(170);
 		buttonBar.setPadding(new Insets(40,20,0,40));
 		
 		//Create elements that are needed for top VBox
@@ -600,16 +561,11 @@ public class SystemGUI extends Application {
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 
-		VBox top = new VBox();
+		VBox top = new VBox(15);
 		VBox titleBar = new VBox();
-		HBox buttonBar = new HBox();
-		VBox bottom = new VBox();
-		HBox bottomBar = new HBox();
-	
-		top.setSpacing(15);
-		top.setPadding(new Insets(50,20,20,0));
+		HBox buttonBar = new HBox(170);
 
-		buttonBar.setSpacing(170);
+		top.setPadding(new Insets(50,20,20,0));
 		buttonBar.setPadding(new Insets(40,20,0,40));
 		
 		//Create elements that are needed for top VBox
@@ -702,18 +658,14 @@ public class SystemGUI extends Application {
 		Pane profPicBox = new Pane();
 		
 		root.setPadding(new Insets(50,20,20,20));
-		
 		lSideBar.setPadding(new Insets(10,10,10,0));
 		rSideBar.setPadding(new Insets(30,0,0,10));
-		
 		midSection.setPadding(new Insets(50,10,10,50));
-		
-		mainTop.setPadding(new Insets(0,0,0,0));
+
 
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("Profile Page");
 		Label firstName = new Label(currentUserObject.getUsername());
-		Label details = new Label("Details");
 		Label street = new Label("Street: " + currentUserObject.getStreet());
 		Label postcode = new Label("Postcode: " + currentUserObject.getPostcode());
 		Label cityTown = new Label("City/Town: " + currentUserObject.getCityTown());
@@ -741,12 +693,8 @@ public class SystemGUI extends Application {
 		
 		back.setOnAction(e -> window.setScene(home));
 
-		
-		
 		changePicButton.setMaxWidth(Double.MAX_VALUE);
 		updateProfileButton.setMaxWidth(Double.MAX_VALUE);
-		
-	
 		
 		ImageView imageView = new ImageView();
 		imageView.setImage(profImg);
@@ -754,6 +702,7 @@ public class SystemGUI extends Application {
 		imageView.setFitHeight(150);
 		
 		
+		// If you know how to fix this please do its giving me cancer
 		TableView myAuctions = new TableView();
 		TableColumn artworkName = new TableColumn("Artwork");
         TableColumn currentBid = new TableColumn("Bid");
@@ -768,7 +717,6 @@ public class SystemGUI extends Application {
 		
 		mainTop.setAlignment(Pos.BASELINE_CENTER);
 		
-
 		titleBlock.getChildren().addAll(title, subTitle);
 		mainTop.getChildren().addAll(titleBlock);
 		profPicBox.getChildren().addAll(imageView);
@@ -813,37 +761,29 @@ public class SystemGUI extends Application {
 		initialisePreview();
 		
 		// Create Pane Sections
-	    VBox topBar = new VBox();
-	    VBox sideBar = new VBox();
-	    HBox bottomBar = new HBox();
-	    HBox topLeftBar = new HBox();
+	    VBox topBar = new VBox(15);
+	    VBox sideBar = new VBox(7);
+	    HBox bottomBar = new HBox(15);
+	    HBox topLeftBar = new HBox(8);
 	    Pane middleSection = new Pane();
 	    Pane previewSection = new Pane();
 	    Pane whiteSpaceRight = new Pane();
-	    
+	   
+	    topBar.setPadding(new Insets(20,20,20,20));
+	    sideBar.setPadding(new Insets(20,20,20,20));  
+	    bottomBar.setPadding(new Insets(20,20,20,20));
+	    topLeftBar.setPadding(new Insets(5,5,1,1));
+	    previewSection.setPadding(new Insets(100,1,1,1));
+	    whiteSpaceRight.setPadding(new Insets(10,10,10,10));
+	   
 	    root.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-	      
-	    topBar.setSpacing(15);
-	    topBar.setPadding(new Insets(20,20,20,20));
-	    
-	    sideBar.setSpacing(7);
-	    sideBar.setPadding(new Insets(20,20,20,20));
-	    
-	    bottomBar.setSpacing(15);
-	    bottomBar.setPadding(new Insets(20,20,20,20));
-	    
-	    topLeftBar.setSpacing(8);
-	    topLeftBar.setPadding(new Insets(5,5,1,1));
 	    
 	    middleSection.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 	    
 	    previewSection.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-	    previewSection.setPadding(new Insets(100,1,1,1));
-	    
-	    whiteSpaceRight.setPadding(new Insets(10,10,10,10));
 	    
 	    Label title = new Label("Custom Avatar Drawing");
 	    Label sizeModifer = new Label("Pen Size Modifer");
@@ -918,6 +858,7 @@ public class SystemGUI extends Application {
             }
 	    });
 	    
+	    // If you can fix this yellow line please do
 	    colorOption.setOnAction(new EventHandler() {
 	    	public void handle(Event t) {
 	    		drawPreview(colorOption.getValue(), shapeOptions.getValue());
@@ -987,8 +928,8 @@ public class SystemGUI extends Application {
 			gc.fillOval(mouseX, mouseY,  sliderValue, sliderValue);
 			} else if(drawParticle == true && shape == "Square") {
 				gc.fillRect(mouseX, mouseY, sliderValue, sliderValue);
-			} else if(drawLine == true) {
-				
+			} else if(drawLine == true) {	
+				// IMPLEMENT A LINE (why is this so hard)
 		}
 	}
 
@@ -1011,8 +952,7 @@ public class SystemGUI extends Application {
 		} 
 		
 		if(drawLine == true) {
-			
-			
+			// IMPLEMENT A LINE (why is this so hard)
 		}
 	}
 	
