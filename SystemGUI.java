@@ -314,7 +314,7 @@ public class SystemGUI extends Application {
     	
     	createProfile.setOnAction(e -> {
 
-    		if(inputExistenceCheck(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
+    		if(signupInputExistenceCheck(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
     							postcodeBox.getText(), cityTownBox.getText(), phoneNoBox.getText()) == true) {
     			
     			if(validateSignUpDetails(usernameBox.getText(), phoneNoBox.getText(), postcodeBox.getText()) == true) {
@@ -402,7 +402,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to check the existence of input (primarily a method used on the signup GUI)
+	 * Method to check the existence of input for the signup GUI
 	 * @param username Entered username
 	 * @param firstname Entered firstname
 	 * @param lastname Entered lastname
@@ -412,7 +412,7 @@ public class SystemGUI extends Application {
 	 * @param phoneNo Entered phone Number
 	 * @return True if no fields are empty, False if any of the fields are blank;
 	 */
-	private boolean inputExistenceCheck(String username, String firstname, String lastname, String street, 
+	private boolean signupInputExistenceCheck(String username, String firstname, String lastname, String street, 
 														String postcode, String citytown, String phoneNo) {
 		
 		if(username.length() == 0 || firstname.length() == 0  || lastname.length() == 0
