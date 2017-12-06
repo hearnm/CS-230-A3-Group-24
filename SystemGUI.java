@@ -1291,23 +1291,17 @@ public class SystemGUI extends Application {
 		Text artCreatorTxt = new Text("Artwork Creator:\n");
 		Text artCreationYearTxt = new Text("Artwork Creation Year:\n");
 		Text maxBiddersTxt = new Text("Max Bidders:\n");
-<<<<<<< HEAD
 		Text reserveBidTxt = new Text("Reserve Bid:\n");
 		Text artFilePathTxt = new Text("Artwork File Path:\n");
-=======
 		Text reservePriceTxt = new Text("Reserve Price:\n");
 		
->>>>>>> 436a7c8343b7affb3513bba30f6d0d575924566b
 		TextField artNameBox = new TextField();
 		TextField artCreatorBox = new TextField();
 		TextField artCreationYearBox = new TextField();
 		TextField maxBiddersBox = new TextField();
-<<<<<<< HEAD
 		TextField reserveBidBox = new TextField();
 		TextField artFilePathBox = new TextField();
-=======
 		TextField reservePriceBox = new TextField();
->>>>>>> 436a7c8343b7affb3513bba30f6d0d575924566b
 		
 		artNameBox.setMaxWidth(200);
 		maxBiddersBox.setMaxWidth(200);
@@ -1335,19 +1329,13 @@ public class SystemGUI extends Application {
 		
 
 		createAuctionButton.setOnAction(e -> {
-<<<<<<< HEAD
-			if(newAuctionInputExistenceCheck(artNameBox.getText(), artCreatorBox.getText(), artCreationYearBox.getText(), maxBiddersBox.getText())) {
-				//do something
-=======
-			if(newAuctionInputExistenceCheck(artNameBox.getText(), maxBiddersBox.getText(), reservePriceBox.getText()) == true) {
+			if(newAuctionInputExistenceCheck(artNameBox.getText(), artCreatorBox.getText(), artCreationYearBox.getText(), maxBiddersBox.getText()) == true) {
 				
 				int year = Integer.parseInt(artCreationYearBox.getText());
 				int max = Integer.parseInt(maxBiddersBox.getText());
 				double reserve = Double.parseDouble(reservePriceBox.getText());
 				
 				Artwork newArt = new Artwork(artNameBox.getText(), artCreatorBox.getText(), year, reserve, max);
-			
->>>>>>> 436a7c8343b7affb3513bba30f6d0d575924566b
 			}
 		});
 
@@ -1357,11 +1345,7 @@ public class SystemGUI extends Application {
 
 			
 		vert.setAlignment(Pos.BASELINE_CENTER);
-<<<<<<< HEAD
-		vert.getChildren().addAll(title, subTitle, toggles, artNameTxt, artNameBox, artCreatorTxt, artCreatorBox, artCreationYearTxt, artCreationYearBox, maxBiddersTxt, maxBiddersBox, reserveBidTxt, reserveBidBox, createAuctionButton, back);
-=======
 		vert.getChildren().addAll(title, subTitle, artNameTxt, artNameBox, artCreatorTxt, artCreatorBox, artCreationYearTxt, artCreationYearBox, maxBiddersTxt, maxBiddersBox, reservePriceTxt, reservePriceBox, createAuctionButton, back);
->>>>>>> 436a7c8343b7affb3513bba30f6d0d575924566b
 		root.setTop(vert);
 		root.setCenter(center);
 		return root;
