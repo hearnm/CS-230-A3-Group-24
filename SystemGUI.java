@@ -559,7 +559,7 @@ public class SystemGUI extends Application {
 		} else if(selection == "Logout") {
 			logoutConfirmation();
 		} else if(selection == "View Users") {
-			viewUsers = new Scene(buildUserListGUI(), MAIN_STAGE_WIDTH - 200, MAIN_STAGE_HEIGHT);
+			viewUsers = new Scene(buildUserListGUI(), MAIN_STAGE_WIDTH - 241, MAIN_STAGE_HEIGHT);
 			window.setScene(viewUsers);
 		}
 		
@@ -596,13 +596,18 @@ public class SystemGUI extends Application {
 	}
 	
 	
-	private Pane buildUserListGUI() {
-		window.setResizable(true);
+	private ScrollPane buildUserListGUI() {
+		window.setResizable(false);
+		
 		BorderPane root = new BorderPane();
-		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+		
 		
 		VBox topBar = new VBox();
 		GridPane center = new GridPane();
+		ScrollPane scroll = new ScrollPane();
+		
+		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+	
 		
 		topBar.setPadding(new Insets(0,0,50,0));
 		center.setHgap(25);
@@ -640,6 +645,7 @@ public class SystemGUI extends Application {
 					listUserImg.setFitWidth(100);
 					listname.add(listUsername);
 					listPic.add(listUserImg);
+					
 				} 
 			} catch (Exception e) {
 				System.out.println("user does not exist");
@@ -647,24 +653,36 @@ public class SystemGUI extends Application {
 			}
 		
 
-			for(int n = 0; n < allUsers.size() - 1; n++) {
+		for(int n = 0; n < allUsers.size() - 1; n++) {
 				GridPane.setConstraints(listPic.get(n), 0, n);
 				GridPane.setConstraints(listname.get(n), 1, n);
-			}
+		}
+			
+			
+			
+		for(int m = 0; m < allUsers.size() - 1; m++) {
+			Button markFavorite = new Button("Mark as Favorite");
 
+			GridPane.setConstraints(markFavorite, 7, m);
+			GridPane.setConstraints(markFavorite, 7, m);
+			center.getChildren().add(markFavorite);
+		}
 			
 			
-			
-		topBar.setAlignment(Pos.BASELINE_CENTER);
-		topBar.getChildren().addAll(title, subTitle);
-		for(int j = 0; j < allUsers.size() - 1; j++) {
 		
+		
+		for(int j = 0; j < allUsers.size() - 1; j++) {
 			center.getChildren().addAll(listname.get(j), listPic.get(j));
 		}
+		
+		topBar.setAlignment(Pos.BASELINE_CENTER);
+		topBar.getChildren().addAll(title, subTitle);
 		root.setTop(topBar);
 		root.setCenter(center);
+	
+		scroll.setContent(root);
 		
-		return root;
+		return scroll;
 	}
 	
 	
