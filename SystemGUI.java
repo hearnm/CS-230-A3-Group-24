@@ -1125,7 +1125,6 @@ public class SystemGUI extends Application {
 	    root.setLeft(sideBar);
 	    root.setBottom(bottomBar);
 	    root.setCenter(middleSection);
-		
 		return root;
 	}
 	
@@ -1188,7 +1187,6 @@ public class SystemGUI extends Application {
 	private void getColorChoice(ColorPicker colorOption) {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.setFill(colorOption.getValue());
-		
 	}
 	
 	/**
@@ -1313,13 +1311,11 @@ public class SystemGUI extends Application {
 		paintingRadio.setSelected(true);
 		sculptureRadio.setToggleGroup(radioSelectionToggle);
 		
-		
 		createAuctionButton.setOnAction(e -> {
 			if(newAuctionInputExistenceCheck(auctionNameBox.getText(), maxBiddersBox.getText(), reserveBidBox.getText())) {
 				//do something
 			}
 		});
-		
 		toggles.setAlignment(Pos.BASELINE_CENTER);
 		toggles.getChildren().addAll(paintingRadio, sculptureRadio);
 			
@@ -1327,7 +1323,6 @@ public class SystemGUI extends Application {
 		vert.getChildren().addAll(title, subTitle, toggles, auctionNameTxt, auctionNameBox, maxBiddersTxt, maxBiddersBox, reserveBidTxt, reserveBidBox, createAuctionButton, back);
 		root.setTop(vert);
 		root.setCenter(center);
-		
 		return root;
 	}
 	
@@ -1338,5 +1333,4 @@ public class SystemGUI extends Application {
 		}
 		return true;
 	}
-	
 }
