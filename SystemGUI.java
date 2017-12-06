@@ -969,7 +969,15 @@ public class SystemGUI extends Application {
             }
         }
 	}
-	
+
+	/**
+	 * Method to set border as there was duplication in code
+	 * @param p
+	 */
+	private void setThisBorder(Pane p) {
+		p.setBorder(new Border(new BorderStroke(Color.BLACK, 
+	            BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+	}
 	
 	/**
 	 * Method to build the Profile Draw Image GUI window
@@ -1002,12 +1010,8 @@ public class SystemGUI extends Application {
 	   
 	    root.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-	    
-	    middleSection.setBorder(new Border(new BorderStroke(Color.BLACK, 
-	            BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-	    
-	    previewSection.setBorder(new Border(new BorderStroke(Color.BLACK, 
-	            BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+	    setThisBorder(middleSection);
+	    setThisBorder(previewSection);
 	    
 	    Label title = new Label("Custom Avatar Drawing");
 	    Label sizeModifer = new Label("Pen Size Modifer");
