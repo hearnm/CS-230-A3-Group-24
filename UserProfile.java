@@ -245,6 +245,14 @@ public class UserProfile {
 		favoriteUsers.add(user);
 	}
 	
+	public void addFavoriteMultipleUsers(ArrayList<UserProfile> favorites) {
+		
+		for(int i = 0; i < favorites.size(); i++) {
+			
+		favoriteUsers.add(favorites.get(i));
+		}
+	}
+	
 	/**
 	 * Method to get all of the Favorite users for the given instance.
 	 * @return favoriteUsers An ArrayList of Users that are marked as favorite by this instance of the User.

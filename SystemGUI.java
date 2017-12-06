@@ -202,7 +202,7 @@ public class SystemGUI extends Application {
         		notificationBox("Login Notification", "Missing Information", "Login field cannot be left blank");
         	} else if(setCurrentUser(usernameInput.getText()) == true) {
         		home = new Scene(buildHomePageGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
-        		//LoadData.loadUserFavorites(currentUserObject);
+        		currentUserObject.addFavoriteMultipleUsers(LoadData.loadUserFavorites(currentUserObject));
         		window.setScene(home);
         		usernameInput.setText("");	
         	} else {
@@ -310,6 +310,7 @@ public class SystemGUI extends Application {
     				UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
     								postcodeBox.getText(), cityTownBox.getText(), intPhoneNo, true);
     				allUsers.add(newUser);
+    				System.out.println(allUsers.size());
     				notificationBox("Account Creation", "Account Creation Successful", "Congratulations you now have an Artatawe Account!\nYour username is: " + usernameBox.getText());
     				window.setScene(login);
     		    	window.setResizable(true);
@@ -641,7 +642,7 @@ public class SystemGUI extends Application {
 				}
 		}
 		
-		for(int n = 0; n < allUsers.size() - 1; n++) {
+		for(int n = 0; n < (allUsers.size() - 1); n++) {
 			GridPane.setConstraints(listPic.get(n), 0, n);
 			GridPane.setConstraints(listname.get(n), 1, n);
 		}
