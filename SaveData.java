@@ -166,7 +166,7 @@ public class SaveData {
 		
 		
 		if(currentArtwork.getArtType().equalsIgnoreCase("Painting")) {
-			String auctioner = currentArtwork.getAuctioner();
+			String auctioneer = currentArtwork.getAuctioneer();
 			String artType = currentArtwork.getArtType();
 			String title = currentArtwork.getTitle();
 			String creator = currentArtwork.getCreator();
@@ -177,11 +177,13 @@ public class SaveData {
 			double height = currentArtwork.getHeight();
 			boolean status = currentArtwork.getOnAuction();
 			
-			outputStream.println(auctioner + "," + artType + "," + title + "," + creator + "," + artCreationYear + "," 
+
+			outputStream.println(auctioneer + "," + artType + "," + title + "," + creator + "," + artCreationYear + "," 
 					+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + "," + status + ",");
+
 		} else {
 			
-			String auctioner = currentArtwork.getAuctioner();
+			String auctioneer = currentArtwork.getAuctioneer();
 			String artType = currentArtwork.getArtType();
 			String title = currentArtwork.getTitle();
 			String creator = currentArtwork.getCreator();
@@ -194,21 +196,12 @@ public class SaveData {
 			String material = currentArtwork.getMaterial();
 			boolean status = currentArtwork.getOnAuction();
 			
-			outputStream.println(auctioner + "," + artType + "," + title + "," + creator + "," + artCreationYear + "," 
+			outputStream.println(auctioneer + "," + artType + "," + title + "," + creator + "," + artCreationYear + "," 
 					+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + "," + depth + "," + material + "," + status + ",");
-			
-			
-		}
-		
 
+		}
 		closeFile(outputStream);
-		
 	}
-	
-	
-	
-	
-	
 	
 	/**
 	 * Method to close the file path

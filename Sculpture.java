@@ -22,10 +22,11 @@ public class Sculpture extends Artwork {
 	 * @param depth
 	 * @param material
 	 */
-	public Sculpture(String auctioner, String title, String creator, int artCreationYear,
+	public Sculpture(String auctioneer, String title, String creator, int artCreationYear,
 					double reservePrice, int numBidsAllowed, double width, double height, 
 					double depth, String material, boolean newArt, boolean onAuction) {
-		super(auctioner, title, creator, artCreationYear, reservePrice, numBidsAllowed, newArt, onAuction);
+		super(auctioneer, title, creator, artCreationYear, reservePrice, numBidsAllowed, newArt, onAuction);
+
 		this.height = height;
 		this.width = width;
 		this.depth = depth;

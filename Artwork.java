@@ -12,7 +12,7 @@ import javafx.collections.ObservableList;
 
 public class Artwork {
 	protected int artworkID;		// The Unique ID of an artwork piece
-	protected String auctioner;
+	protected String auctioneer;
 	protected String title;			// The Title of the Artwork
 	protected String description;	// The Description of the Artwork
 	protected String creator;		// The Creator of the Artwork
@@ -39,8 +39,10 @@ public class Artwork {
 	 * @param reservePrice Given reservation price of the Artwork
 	 * @param numBidsAllowed The set Number of Bids allowed on the Artwork
 	 */
-	public Artwork(String auctioner, String title, String creator, int artCreationYear, double reservePrice, int numBidsAllowed, boolean newArt, boolean onAuction) {
-		this.auctioner = auctioner;
+
+	public Artwork(String auctioneer, String title, String creator, int artCreationYear, double reservePrice, int numBidsAllowed, boolean newArt, boolean onAuction) {
+		this.auctioneer = auctioneer;
+
 		this.title = title;
 		this.creator = creator;
 		this.artCreationYear = artCreationYear;
@@ -85,8 +87,8 @@ public class Artwork {
 		return this.title;
 	}
 	
-	public String getAuctioner() {
-		return this.auctioner;
+	public String getAuctioneer() {
+		return this.auctioneer;
 	}
 	
 	/**
