@@ -5,12 +5,14 @@
  * This is a Super Class with two subclasses :- Painting and Sculpture
  */
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import javafx.collections.ObservableList;
 
 public class Artwork {
 	protected int artworkID;		// The Unique ID of an artwork piece
+	protected String auctioner;
 	protected String title;			// The Title of the Artwork
 	protected String description;	// The Description of the Artwork
 	protected String creator;		// The Creator of the Artwork
@@ -22,7 +24,9 @@ public class Artwork {
 	protected double height;		// The Height Dimension of the Artwork
 	protected double width;			// The Width Dimension of the Artwork
 	protected String artType;		// The Type of the Artwork (Sculpture / Painting)
-	private static ObservableList<Artwork> artworks;
+	protected boolean newArt;
+	
+	protected static ArrayList<Artwork> artworks = new ArrayList<>();
 	
 	/**
 	 * Constructor of Artwork objects.
@@ -32,14 +36,19 @@ public class Artwork {
 	 * @param reservePrice Given reservation price of the Artwork
 	 * @param numBidsAllowed The set Number of Bids allowed on the Artwork
 	 */
-	public Artwork(String title, String creator, int artCreationYear, double reservePrice, int numBidsAllowed) {
+	public Artwork(String auctioner, String title, String creator, int artCreationYear, double reservePrice, int numBidsAllowed, boolean newArt) {
+		this.auctioner = auctioner;
 		this.title = title;
 		this.creator = creator;
 		this.artCreationYear = artCreationYear;
 		this.reservePrice = reservePrice;
 		this.numBidsAllowed = numBidsAllowed;
 		generateTimeDate();
+		artworks.add(this);
+		
 	}
+	
+
 	
 	/**
 	 * Method to change the title of the Artwork.
@@ -56,6 +65,12 @@ public class Artwork {
 	public String getTitle() {
 		return this.title;
 	}
+	
+	public String getAuctioner() {
+		return this.auctioner;
+	}
+	
+	
 	
 	/**
 	 * Method to change set the description of the Artwork.
@@ -186,6 +201,10 @@ public class Artwork {
 		return this.artType;
 	}
 	
+	/**
+	 * Method to get the current artworks date and time
+	 * @return artTimeDate The Artworks creation time and date
+	 */
 	public String getArtworkDateTime() {
 		return this.artTimeDate;
 	}
@@ -198,19 +217,6 @@ public class Artwork {
 		Date generatedDate = new Date();
 		artTimeDate = generatedDate.toString();
 	}
-	
-	/**
-	 * @return a list with all the artworks
-	 */
-	public static ObservableList<Artwork> getArtworks() {
-		return artworks;
-	}
 
-	/**
-	 * @param artworks
-	 */
-	public static void setArtworks(ObservableList<Artwork> artworks) {
-		Artwork.artworks = artworks;
-	}
 }
 	

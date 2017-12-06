@@ -15,9 +15,9 @@ public class Painting extends Artwork {
 	 * @param width
 	 * @param height
 	 */
-	public Painting(String title, String creator, int artCreationYear, 
-					double reservePrice, int numBidsAllowed, double width, double height) {
-		super(title, creator, artCreationYear, reservePrice, numBidsAllowed);
+	public Painting(String auctioner, String title, String creator, int artCreationYear, 
+					double reservePrice, int numBidsAllowed, double width, double height, boolean newArt) {
+		super(auctioner, title, creator, artCreationYear, reservePrice, numBidsAllowed, newArt);
 		this.width = width;
 		this.height = height;
 		setArtType("Painting");

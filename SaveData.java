@@ -25,8 +25,11 @@ public class SaveData {
 	
 	private static final String profileDataPath = "ArtataweProfiles.txt";  // The File path to save all the data to.
 	private static final String profileFavoritePath = "_FavoriteProfiles.txt";  // The File path to save all the data to.
+	private static final String artworkFavoritePath = "Artworks.txt";
 	private static UserProfile currentUser;					// The current user object that is logged onto the system
+	private static Artwork currentArtwork;
 	private static PrintWriter printWriter;
+	
 	private static Scanner inputStream;	
 	
 	private static ArrayList<UserProfile> allUsers = new ArrayList<>();
@@ -59,6 +62,16 @@ public class SaveData {
 		openProfileFile(currentUser.getUsername() + profileFavoritePath, true);
 		addProfileFavoritesData(printWriter);
 	}
+	
+	
+	public static void saveNewArtwork(Artwork artwork) {
+		currentArtwork = artwork;
+		openProfileFile(artworkFavoritePath, false);
+		addArtwork(printWriter);
+		
+	}
+	
+	
 	
 	/**
 	 * Method to open a file path to store data locally
@@ -144,6 +157,31 @@ public class SaveData {
 		}
 		closeFile(outputStream);
 	}
+	
+	
+	
+	
+
+	public static void addArtwork(PrintWriter outputStream) {
+		
+		
+		String auctioner = currentArtwork.getAuctioner();
+		String title = currentArtwork.getTitle();
+		String creator = currentArtwork.getCreator();
+		int artCreationYear = currentArtwork.getArtCreationYear();
+		double reservePrice = currentArtwork.getReservePrice();
+		int numBidsAllowed = currentArtwork.getNumBidAllowed();
+		
+		
+		outputStream.println(auctioner + "," + title + "," + creator + "," + artCreationYear + "," 
+								+ reservePrice + "," + numBidsAllowed + ",");
+	
+		closeFile(outputStream);
+		
+	}
+	
+	
+	
 	
 	
 	
