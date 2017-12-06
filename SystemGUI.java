@@ -90,7 +90,6 @@ public class SystemGUI extends Application {
 	private boolean drawLine = false;		// True if drawing a Straight Line
 	private boolean drawEraser = false;		// True if using an eraser
 	private double sliderValue = 20;		// Value of the Draw image slider
-	private int favSelection = -1;
 	
 	private Stage window;			// The main stage, displaying the current Scene
 	private Scene login;			// The Scene to hold the login Page GUI
@@ -674,11 +673,8 @@ public class SystemGUI extends Application {
 			buttons.add(markFavorite);
 			markFavorite.setOnAction((ActionEvent)->{
 				int selection = Integer.parseInt(markFavorite.getText().substring(16, 17));
-				setFavSelection(selection);
 				currentUserObject.addFavoriteUser(UserProfile.getCurrentUserObject(actualid.get(selection)));
-				for(int y = 0; y > currentUserObject.getFavoriteUsers().size(); y++) {
-				System.out.println(currentUserObject.getFavoriteUsers().get(y).getUsername());
-				}
+				
 			});
 			
 			GridPane.setConstraints(markFavorite, 7, m);
@@ -734,11 +730,7 @@ public class SystemGUI extends Application {
 	}
 	
 	
-	private void setFavSelection(int x) {
 	
-		favSelection = x;
-		
-	}
 	
 	
 	
