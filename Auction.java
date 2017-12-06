@@ -8,35 +8,34 @@ import java.util.ArrayList;
 
 public class Auction {
 	
+	public static ArrayList<Auction> completedAuctions = new ArrayList<Auction>();
 	private static int nextId = 1;
+	
 	private final int AUCTION_ID;
-	private Artwork auctionedArtwork;
 	private double currentBid;
 	private String currentBidder;
 	private int remainingBids;
 	private double reserveBid;
-	public static ArrayList<Auction> completedAuctions;
-	//IMPLEMENT BIDHISTORY
 	
+	private Artwork auctionedArtwork;
+	
+
 	/**
 	* Constructor method to create the auction.
 	* @param auctionedArtwork The artwork that is to be auctioned.
 	* @param maxBids The maximum number of bids that may be placed on the artwork.
 	* @param reserveBid The minimum bid that may be placed.
 	*/
-	public Auction(Artwork auctionedArtwork, int maxBids, double reserveBid) {
+	public Auction(Artwork auctionedArtwork) {
 		this.AUCTION_ID = nextId;
 		nextId++;
 		this.auctionedArtwork = auctionedArtwork;
 		this.currentBid = 0.0;
 		this.currentBidder = null;
-		this.remainingBids = maxBids;
+		this.remainingBids = auctionedArtwork.getNumBidAllowed();
+		this.reserveBid = auctionedArtwork.getReservePrice();
+			
 		
-		if(reserveBid > 0.0) {
-			this.reserveBid = reserveBid;
-		} else {
-			this.reserveBid = 0.0;
-		}
 	}
 	
 	/**

@@ -120,8 +120,9 @@ public class LoadData {
 				int numBidsAllowed = inputStream.nextInt();
 				double width = inputStream.nextDouble();
 				double height = inputStream.nextDouble();
+				boolean status = inputStream.nextBoolean();
 
-				Artwork loadedPainting = new Painting(auctioner, title, creator, artCreationYear, reservePrice, numBidsAllowed, width, height, false);
+				Artwork loadedPainting = new Painting(auctioner, title, creator, artCreationYear, reservePrice, numBidsAllowed, width, height, false, status);
 			} else {
 				
 				String title = inputStream.next();
@@ -133,8 +134,9 @@ public class LoadData {
 				double height = inputStream.nextDouble();
 				double depth = inputStream.nextDouble();
 				String material = inputStream.next();
+				boolean status = inputStream.nextBoolean();
 
-				Artwork loadedPainting = new Sculpture(auctioner, title, creator, artCreationYear, reservePrice, numBidsAllowed, width, height, depth, material, false);
+				Artwork loadedPainting = new Sculpture(auctioner, title, creator, artCreationYear, reservePrice, numBidsAllowed, width, height, depth, material, false, status);
 			}
 			}
 		}

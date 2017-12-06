@@ -175,9 +175,10 @@ public class SaveData {
 			int numBidsAllowed = currentArtwork.getNumBidAllowed();
 			double width = currentArtwork.getWidth();
 			double height = currentArtwork.getHeight();
+			boolean status = currentArtwork.getOnAuction();
 			
 			outputStream.println(auctioner + "," + artType + "," + title + "," + creator + "," + artCreationYear + "," 
-					+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + ",");
+					+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + "," + status + ",");
 		} else {
 			
 			String auctioner = currentArtwork.getAuctioner();
@@ -191,9 +192,10 @@ public class SaveData {
 			double height = currentArtwork.getHeight();
 			double depth = currentArtwork.getDepth();
 			String material = currentArtwork.getMaterial();
+			boolean status = currentArtwork.getOnAuction();
 			
 			outputStream.println(auctioner + "," + artType + "," + title + "," + creator + "," + artCreationYear + "," 
-					+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + "," + depth + "," + material + ",");
+					+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + "," + depth + "," + material + "," + status + ",");
 			
 			
 		}

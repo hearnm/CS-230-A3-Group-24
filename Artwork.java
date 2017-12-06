@@ -27,6 +27,7 @@ public class Artwork {
 	protected String material;
 	protected String artType;		// The Type of the Artwork (Sculpture / Painting)
 	protected boolean newArt;
+	protected boolean onAuction;
 	
 	protected static ArrayList<Artwork> artworks = new ArrayList<>();
 	
@@ -38,7 +39,7 @@ public class Artwork {
 	 * @param reservePrice Given reservation price of the Artwork
 	 * @param numBidsAllowed The set Number of Bids allowed on the Artwork
 	 */
-	public Artwork(String auctioner, String title, String creator, int artCreationYear, double reservePrice, int numBidsAllowed, boolean newArt) {
+	public Artwork(String auctioner, String title, String creator, int artCreationYear, double reservePrice, int numBidsAllowed, boolean newArt, boolean onAuction) {
 		this.auctioner = auctioner;
 		this.title = title;
 		this.creator = creator;
@@ -48,9 +49,25 @@ public class Artwork {
 		generateTimeDate();
 		artworks.add(this);
 		
+		sortArtwork();
+		
+		
 	}
 	
+	public void sortArtwork() {
+		if(this.onAuction == true) {
+			Auction newAuction = new Auction(this);
+		}
+	}
 
+	public void setOnAuction(boolean onAuction) {
+		this.onAuction = onAuction;
+	}
+	
+	public boolean getOnAuction() {
+		return this.onAuction;
+	}
+	
 	
 	/**
 	 * Method to change the title of the Artwork.
