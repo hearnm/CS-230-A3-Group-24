@@ -678,6 +678,7 @@ public class SystemGUI extends Application {
 				int selection = Integer.parseInt(markFavorite.getText().substring(16, 17));
 				addUserToFavorites(UserProfile.getCurrentUserObject(actualid.get(selection)));
 				markFavorite.setVisible(false);
+				SaveData.saveProfileFavorites(currentUserObject);
 				
 			});
 			GridPane.setConstraints(markFavorite, 7, m);

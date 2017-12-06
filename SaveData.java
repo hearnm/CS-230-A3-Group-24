@@ -24,7 +24,7 @@ public class SaveData {
 	// ***************************************
 	
 	private static final String profileDataPath = "ArtataweProfiles.txt";  // The File path to save all the data to.
-	private static final String profileFavoritePath = "ArtataweFavoriteProfiles.txt";  // The File path to save all the data to.
+	private static String profileFavoritePath = "_FavoriteProfiles.txt";  // The File path to save all the data to.
 	private static UserProfile currentUser;					// The current user object that is logged onto the system
 	private static PrintWriter printWriter;
 	private static Scanner inputStream;	
@@ -56,7 +56,7 @@ public class SaveData {
 	 */
 	public static void saveProfileFavorites(UserProfile user) {
 		currentUser = user;
-		openProfileFile(profileDataPath, true);
+		openProfileFile(currentUser.getUsername() + profileFavoritePath, true);
 		addProfileFavoritesData(printWriter);
 	}
 	
@@ -108,7 +108,6 @@ public class SaveData {
 		closeFile(outputStream);
 	}
 	
-	
 	private static void updateProfileData(PrintWriter outputStream) {
 		
 		for(int i = 0; i < allUsers.size(); i++) {
@@ -129,9 +128,7 @@ public class SaveData {
 		closeFile(outputStream);
 	}
 	
-	
-	
-	
+
 	/**
 	 * Method to save a new Profile to a locally stored file
 	 * @param outputStream The file which the data is being stored
@@ -140,12 +137,11 @@ public class SaveData {
 		ArrayList<UserProfile> favoriteUsers = new ArrayList<>();
 		favoriteUsers = currentUser.getFavoriteUsers();
 		
-		outputStream.println(currentUser.getUserId() + ",");
+		outputStream.print(currentUser.getUserId() + ",");
 		
 		for(int i = 0; i < favoriteUsers.size(); i++) {
-			outputStream.print(favoriteUsers.get(i).getUsername());
+			outputStream.print(favoriteUsers.get(i).getUsername() + ",");
 		}
-		outputStream.print("\n");
 		closeFile(outputStream);
 	}
 	
