@@ -23,15 +23,15 @@ public class SaveData {
 	private static final String profileDataPath = "ArtataweProfiles.txt";  // The File path to save all the data to.
 	private static UserProfile currentUser;					// The current user object that is logged onto the system
 
-	
 	/**
 	 * Static Method that will save the system according to a given Username
 	 * @param username The username of the current or any other saved in the system.
 	 */
-	public static void saveSystemData(String username) {
+	public static void saveNewProfile(String username) {
 		currentUser = UserProfile.getCurrentUserObject(username);
 		openProfileFile();
 	}
+	
 	
 
 	/**
@@ -64,6 +64,8 @@ public class SaveData {
 	}
 	
 	
+	
+	
 	private static void addData(PrintWriter outputStream) {
 		
 		int userId = currentUser.getUserId();
@@ -75,6 +77,7 @@ public class SaveData {
 		String cityTown = currentUser.getCityTown();
 		Integer phoneNo = currentUser.getPhoneNumber();
 		boolean newAccount = currentUser.getNewAccount();
+
 		
 		outputStream.println(userId + "," + username + "," + firstname + "," + lastname + "," + street 
 					   		  + "," + postcode + "," + cityTown + "," + phoneNo + "," + newAccount + ",");

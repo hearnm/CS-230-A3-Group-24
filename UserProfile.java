@@ -18,6 +18,7 @@ public class UserProfile {
 	private String postcode;	// The Postcode of the users address
 	private String cityTown;	// The City or Town the User lives at
 	private Integer phoneNumber;	// A Valid UK Phone number (NOTE: this needs to be an Integer)
+	private String profileImg = "DefaultPicture.png";
 	private boolean newAccount;	// A check to see if an account is new or pre-existing
 	
 	private static ArrayList<UserProfile> profiles = new ArrayList<UserProfile>();  // An ArrayList of all profiles in the system
@@ -69,25 +70,16 @@ public class UserProfile {
 	 * Method to Save the current Users data
 	 */
 	public void saveProfile() {
-		SaveData.saveSystemData(this.username);
+		SaveData.saveNewProfile(this.username);
 	}
 	
-	/**
-	 * Static Method to set a current user id (logged on)
-	 * @param newCurrentUserId The current users' ID
-	 */
-	public static void setCurrentUserID(int newCurrentUserId) {
-		currentUserId = newCurrentUserId;
+	public void setProfileImage(String imagePath) {
+		this.profileImg = imagePath;
 	}
 	
-	/**
-	 * Static Method to get the current users' id
-	 * @return currentUserId The logged on users Id.
-	 */
-	public static int getCurrentUserId() {
-		return currentUserId;
+	public String getProfileImage() {
+		return this.profileImg;
 	}
-	
 	/**
 	 * Method to get the userId.
 	 * @return the userId
@@ -235,6 +227,10 @@ public class UserProfile {
 		}
 		System.out.println("Not found - null");
 		return null;
+	}
+	
+	public void addFavoriteUser(UserProfile user) {
+		favoriteUsers.add(user);
 	}
 	
 	/**
