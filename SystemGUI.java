@@ -678,7 +678,9 @@ public class SystemGUI extends Application {
 			buttons.add(markFavorite);
 			markFavorite.setOnAction((ActionEvent)->{
 				int selection = Integer.parseInt(markFavorite.getText().substring(16, 17));
-				currentUserObject.addFavoriteUser(UserProfile.getCurrentUserObject(actualid.get(selection)));
+				addUserToFavorites(UserProfile.getCurrentUserObject(actualid.get(selection)));
+				markFavorite.setVisible(false);
+				
 			});
 			GridPane.setConstraints(markFavorite, 7, m);
 			GridPane.setConstraints(markFavorite, 7, m);
@@ -699,6 +701,19 @@ public class SystemGUI extends Application {
 		return root;
 	}
 
+	/**
+	 * Method to add a given user to the current users favorites
+	 * @param user The user to be added to the Current users Favorite List.
+	 */
+	private void addUserToFavorites(UserProfile user) {
+		currentUserObject.addFavoriteUser(user);
+		
+		for(int i = 0; i < currentUserObject.getFavoriteUsers().size(); i++) {
+		System.out.println(currentUserObject.getFavoriteUsers().get(i).getUsername());
+		}
+	}
+	
+	
 	/**
 	 * Method to be used to get the defaultImage (for users without an image)
 	 * @return The default Image to be used
