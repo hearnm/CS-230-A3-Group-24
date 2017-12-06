@@ -36,6 +36,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -1270,6 +1271,7 @@ public class SystemGUI extends Application {
 	private Pane buildCreateNewAuctionGUI() {
 		BorderPane root = new BorderPane();
 		VBox vert = new VBox(5);
+		HBox toggles = new HBox(5);
 		GridPane center = new GridPane();
 		
 		root.getStylesheets().add("artatawe.css");
@@ -1310,14 +1312,27 @@ public class SystemGUI extends Application {
 		createAuctionButton.setPrefWidth(150);
 		createAuctionButton.setPrefHeight(50);
 		
+		ToggleGroup radioSelectionToggle = new ToggleGroup();
+		
+		RadioButton paintingRadio = new RadioButton("Painting");
+		RadioButton sculptureRadio = new RadioButton("Sculpture");
+		
+		paintingRadio.setToggleGroup(radioSelectionToggle);
+		paintingRadio.setSelected(true);
+		sculptureRadio.setToggleGroup(radioSelectionToggle);
+		
+		
 		createAuctionButton.setOnAction(e -> {
 			if(newAuctionInputExistenceCheck(auctionNameBox.getText(), maxBiddersBox.getText(), reserveBidBox.getText())) {
 				//do something
 			}
 		});
+		
+		toggles.setAlignment(Pos.BASELINE_CENTER);
+		toggles.getChildren().addAll(paintingRadio, sculptureRadio);
 			
 		vert.setAlignment(Pos.BASELINE_CENTER);
-		vert.getChildren().addAll(title, subTitle, auctionNameTxt, auctionNameBox, maxBiddersTxt, maxBiddersBox, reserveBidTxt, reserveBidBox, createAuctionButton, back);
+		vert.getChildren().addAll(title, subTitle, toggles, auctionNameTxt, auctionNameBox, maxBiddersTxt, maxBiddersBox, reserveBidTxt, reserveBidBox, createAuctionButton, back);
 		root.setTop(vert);
 		root.setCenter(center);
 		
