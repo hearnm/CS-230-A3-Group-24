@@ -1,20 +1,27 @@
+import java.awt.Desktop;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.logging.Level;
 import java.util.regex.*;
 
 import javax.imageio.ImageIO;
+
+import com.sun.javafx.logging.Logger;
 
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -58,6 +65,8 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -481,7 +490,7 @@ public class SystemGUI extends Application {
 		Button createNewAuctionButton = new Button("Create a new\nauction.");
 		
 		createNewAuctionButton.setOnAction(e -> {
-			newAuction = new Scene(buildCreateNewAuctionGUI(), MAIN_STAGE_WIDTH-200, MAIN_STAGE_HEIGHT+150);
+			newAuction = new Scene(buildCreateNewAuctionGUI(), MAIN_STAGE_WIDTH-200, MAIN_STAGE_HEIGHT+250);
 			window.setScene(newAuction);
         });
 		search.setMinWidth(150);
@@ -1264,17 +1273,17 @@ public class SystemGUI extends Application {
 	}
 	
 	private Pane buildCreateNewAuctionGUI() {
+		
 		BorderPane root = new BorderPane();
 		VBox vert = new VBox(5);
-		GridPane center = new GridPane();
+		
 		
 		root.getStylesheets().add("artatawe.css");
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 	
 		vert.setPadding(new Insets(0,0,25,0));
 		root.setPadding(new Insets(25,10,10,10));
-		center.setHgap(25);
-		center.setVgap(1);
+		
 
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("Create a new auction");
@@ -1312,6 +1321,23 @@ public class SystemGUI extends Application {
 		createAuctionButton.setPrefWidth(150);
 		createAuctionButton.setPrefHeight(50);
 		
+		Button uploadImg = new Button("Choose Image");
+		uploadImg.setPrefWidth(150);
+		uploadImg.setPrefHeight(50);
+		
+		ImageView preview = new ImageView();
+		
+		preview.setLayoutY(10);
+	
+		uploadImg.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(final ActionEvent e) {
+            	preview.setImage(artworkImgSelection());
+        	    preview.setFitHeight(100);
+        	    preview.setFitWidth(100);
+            }
+		});
+
 		ToggleGroup radioSelectionToggle = new ToggleGroup();
 		
 		RadioButton paintingRadio = new RadioButton("Painting");
@@ -1340,11 +1366,36 @@ public class SystemGUI extends Application {
 
 			
 		vert.setAlignment(Pos.BASELINE_CENTER);
-		vert.getChildren().addAll(title, subTitle, artNameTxt, artNameBox, artCreatorTxt, artCreatorBox, artCreationYearTxt, artCreationYearBox, maxBiddersTxt, maxBiddersBox, reserveBidTxt, reserveBidBox, createAuctionButton, back);
+		vert.getChildren().addAll(title, subTitle, artNameTxt, artNameBox, artCreatorTxt, artCreatorBox, artCreationYearTxt, 
+									artCreationYearBox, maxBiddersTxt, maxBiddersBox, reserveBidTxt, reserveBidBox, 
+									preview, uploadImg ,createAuctionButton, back);
+		
 		root.setTop(vert);
-		root.setCenter(center);
 		return root;
 	}
+	
+	
+	@SuppressWarnings("unused")
+	private Image artworkImgSelection() {
+		
+		FileChooser fileChooser = new FileChooser();
+    	fileChooser.setTitle("Open Resource File");
+		try {
+			Image img = new Image(new FileInputStream(fileChooser.showOpenDialog(window)));
+			if (img != null) {
+        	    return img;
+        	 }
+		} catch (FileNotFoundException e1) {
+			System.out.println("Img selection error");
+			return null;
+		}
+		
+		return null;
+	}
+	
+		
+		
+		
 	
 	public boolean newAuctionInputExistenceCheck(String auctionNameInput, String maxBiddersInput, String reserveBidInput) {
 		if(auctionNameInput.length() == 0 || maxBiddersInput.length() == 0 || reserveBidInput.length() == 0) {
