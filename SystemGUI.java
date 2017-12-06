@@ -1393,7 +1393,7 @@ public class SystemGUI extends Application {
 			if (img != null) {
         	    return img;
         	 }
-		} catch (FileNotFoundException e1) {
+		} catch (Exception e1) {
 			System.out.println("Img selection error");
 			return null;
 		}
