@@ -211,6 +211,7 @@ public class SystemGUI extends Application {
         		
         	} else if(setCurrentUser(usernameInput.getText()) == true) {
         		home = new Scene(buildHomePageGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+        		LoadData.loadUserFavorites(currentUserObject);
         		window.setScene(home);
         		usernameInput.setText("");
         		
@@ -1314,16 +1315,17 @@ public class SystemGUI extends Application {
 	
 	private Pane buildCreateNewAuctionGUI() {
 		BorderPane root = new BorderPane();
-		VBox vert = new VBox(5);
+		VBox topBar = new VBox(25);
 		GridPane center = new GridPane();
+		StackPane loginBox = new StackPane();
 		
 		root.getStylesheets().add("artatawe.css");
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 	
-		vert.setPadding(new Insets(0,0,25,0));
+		topBar.setPadding(new Insets(0,0,25,0));
 		root.setPadding(new Insets(25,10,10,10));
 		center.setHgap(25);
-		center.setVgap(5);
+		center.setVgap(10);
 
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("Create a new auction");
@@ -1335,10 +1337,6 @@ public class SystemGUI extends Application {
 		title.setTextAlignment(TextAlignment.LEFT);
 		subTitle.setTextAlignment(TextAlignment.LEFT);
 		
-		Text auctionNameTxt = new Text("Auction Name:\n");
-		Text maxBiddersTxt = new Text("Max no. of bidders allowed:\n");
-		Text reserveBidTxt = new Text("Reserve bid:\n");
-		
 		TextField auctionNameBox = new TextField();
 		TextField maxBiddersBox = new TextField();
 		TextField reserveBidBox = new TextField();
@@ -1347,8 +1345,6 @@ public class SystemGUI extends Application {
 		maxBiddersBox.setMaxWidth(200);
 		reserveBidBox.setMaxWidth(200);
 		
-		Button createAuctionButton = new Button("Create Auction");
-		
 		
 		Button back = new Button("Back");
 		back.setPrefWidth(50);
@@ -1356,14 +1352,10 @@ public class SystemGUI extends Application {
 		
 		Button createAuction = new Button("Create Auction");
 		createAuction.setPrefWidth(50);
-		
-		//innerDetails1.getChildren().addAll(auctionNameTxt, auctionNameBox);
-		//innerDetails2.getChildren().addAll(maxBiddersTxt, maxBiddersBox);
-		//innerDetails3.getChildren().addAll(reserveBidTxt, reserveBidBox);
-		
-		vert.setAlignment(Pos.BASELINE_CENTER);
-		vert.getChildren().addAll(title, subTitle, auctionNameTxt, auctionNameBox, maxBiddersTxt, maxBiddersBox, reserveBidTxt, reserveBidBox, createAuctionButton, back);
-		root.setTop(vert);
+			
+		topBar.setAlignment(Pos.BASELINE_CENTER);
+		topBar.getChildren().addAll(title, subTitle, auctionNameBox, maxBiddersBox, reserveBidBox, back);
+		root.setTop(topBar);
 		root.setCenter(center);
 		
 		return root;
