@@ -1320,30 +1320,44 @@ public class SystemGUI extends Application {
 		BorderPane root = new BorderPane();
 		VBox topBar = new VBox(25);
 		GridPane center = new GridPane();
+		StackPane loginBox = new StackPane();
 		
 		root.getStylesheets().add("artatawe.css");
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 	
-		topBar.setPadding(new Insets(0,0,50,0));
+		topBar.setPadding(new Insets(0,0,25,0));
 		root.setPadding(new Insets(25,10,10,10));
 		center.setHgap(25);
 		center.setVgap(10);
 
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("Create a new auction");
-		title.setScaleX(4);
-		title.setScaleY(4);
-		title.setId("ARTATAWE");
-		subTitle.setScaleX(2.5);
-		subTitle.setScaleY(2.5);
+		title.setScaleX(2);
+		title.setScaleY(2);
+		title.setId("ARTATAWE1");
+		subTitle.setScaleX(1.2);
+		subTitle.setScaleY(1.2);
 		title.setTextAlignment(TextAlignment.LEFT);
+		subTitle.setTextAlignment(TextAlignment.LEFT);
+		
+		TextField auctionNameBox = new TextField();
+		TextField maxBiddersBox = new TextField();
+		TextField reserveBidBox = new TextField();
+		
+		auctionNameBox.setMaxWidth(200);
+		maxBiddersBox.setMaxWidth(200);
+		reserveBidBox.setMaxWidth(200);
+		
 		
 		Button back = new Button("Back");
 		back.setPrefWidth(50);
 		back.setOnAction(e -> window.setScene(home));
+		
+		Button createAuction = new Button("Create Auction");
+		createAuction.setPrefWidth(50);
 			
 		topBar.setAlignment(Pos.BASELINE_CENTER);
-		topBar.getChildren().addAll(title, subTitle, back);
+		topBar.getChildren().addAll(title, subTitle, auctionNameBox, maxBiddersBox, reserveBidBox, back);
 		root.setTop(topBar);
 		root.setCenter(center);
 		
