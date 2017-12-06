@@ -1276,12 +1276,8 @@ public class SystemGUI extends Application {
 		
 		BorderPane root = new BorderPane();
 		VBox vert = new VBox(5);
-<<<<<<< HEAD
-		
-=======
 		HBox toggles = new HBox(5);
-		GridPane center = new GridPane();
->>>>>>> d7f618dd0a533b3ba21a183870b60d18f28560bb
+
 		
 		root.getStylesheets().add("artatawe.css");
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
@@ -1375,19 +1371,19 @@ public class SystemGUI extends Application {
 
 			
 		vert.setAlignment(Pos.BASELINE_CENTER);
-<<<<<<< HEAD
+		
+
 		vert.getChildren().addAll(title, subTitle, artNameTxt, artNameBox, artCreatorTxt, artCreatorBox, artCreationYearTxt, 
 									artCreationYearBox, maxBiddersTxt, maxBiddersBox, reserveBidTxt, reserveBidBox, 
 									preview, uploadImg ,createAuctionButton, back);
 		
-=======
-		vert.getChildren().addAll(title, subTitle, artNameTxt, artNameBox, artCreatorTxt, artCreatorBox, artCreationYearTxt, artCreationYearBox, maxBiddersTxt, maxBiddersBox, reservePriceTxt, reservePriceBox, createAuctionButton, back);
->>>>>>> d7f618dd0a533b3ba21a183870b60d18f28560bb
+
+
 		root.setTop(vert);
 		return root;
 	}
 	
-<<<<<<< HEAD
+
 	
 	@SuppressWarnings("unused")
 	private Image artworkImgSelection() {
@@ -1407,16 +1403,11 @@ public class SystemGUI extends Application {
 		return null;
 	}
 	
-		
-		
-		
+
 	
-	public boolean newAuctionInputExistenceCheck(String auctionNameInput, String maxBiddersInput, String reserveBidInput) {
-		if(auctionNameInput.length() == 0 || maxBiddersInput.length() == 0 || reserveBidInput.length() == 0) {
-=======
+
 	public boolean newAuctionInputExistenceCheck(String auctionNameInput, String artCreatorInput, String artCreationYearInput, String maxBiddersInput) {
 		if(auctionNameInput.length() == 0 || artCreatorInput.length() == 0 || artCreationYearInput.length() == 0 ||  maxBiddersInput.length() == 0 ) {
->>>>>>> d7f618dd0a533b3ba21a183870b60d18f28560bb
 			notificationBox("Sign-Up Notification", "Input Error", "All fields must be filled out");
 			return false;
 		}
