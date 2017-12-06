@@ -166,7 +166,7 @@ public class SaveData {
 		
 		
 		if(currentArtwork.getArtType().equalsIgnoreCase("Painting")) {
-			String auctioner = currentArtwork.getAuctioner();
+			String auctioneer = currentArtwork.getAuctioneer();
 			String artType = currentArtwork.getArtType();
 			String title = currentArtwork.getTitle();
 			String creator = currentArtwork.getCreator();
@@ -176,11 +176,11 @@ public class SaveData {
 			double width = currentArtwork.getWidth();
 			double height = currentArtwork.getHeight();
 			
-			outputStream.println(auctioner + "," + artType + "," + title + "," + creator + "," + artCreationYear + "," 
+			outputStream.println(auctioneer + "," + artType + "," + title + "," + creator + "," + artCreationYear + "," 
 					+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + ",");
 		} else {
 			
-			String auctioner = currentArtwork.getAuctioner();
+			String auctioneer = currentArtwork.getAuctioneer();
 			String artType = currentArtwork.getArtType();
 			String title = currentArtwork.getTitle();
 			String creator = currentArtwork.getCreator();
@@ -192,7 +192,7 @@ public class SaveData {
 			double depth = currentArtwork.getDepth();
 			String material = currentArtwork.getMaterial();
 			
-			outputStream.println(auctioner + "," + artType + "," + title + "," + creator + "," + artCreationYear + "," 
+			outputStream.println(auctioneer + "," + artType + "," + title + "," + creator + "," + artCreationYear + "," 
 					+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + "," + depth + "," + material + ",");
 			
 			
