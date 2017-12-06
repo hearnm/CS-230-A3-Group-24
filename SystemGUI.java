@@ -607,15 +607,13 @@ public class SystemGUI extends Application {
 	
 	private ScrollPane buildUserListGUI() {
 		
-		ArrayList<Integer> placeid = new ArrayList<>();
-		ArrayList<Integer> actualid = new ArrayList<>();
-		ArrayList<Label> listname = new ArrayList<>();
-		ArrayList<ImageView> listPic = new ArrayList<>();
-		ArrayList<Button> buttons = new ArrayList<>();
+		int favSelectId = -1;
+		
 		
 		window.setResizable(false);
 		
 		BorderPane root = new BorderPane();
+		root.getStylesheets().add("artatawe.css");
 		
 		VBox topBar = new VBox(25);
 		GridPane center = new GridPane();
@@ -640,13 +638,14 @@ public class SystemGUI extends Application {
 		
 		Button back = new Button("Back");
 		back.setPrefWidth(50);
-		
+		ArrayList<Integer> id = new ArrayList<>();
+		ArrayList<Label> listname = new ArrayList<>();
+		ArrayList<ImageView> listPic = new ArrayList<>();
 		
 		for(int i = 0; i < allUsers.size(); i++) {
 			try {
 				if(allUsers.get(i).getUsername() != currentUserObject.getUsername()) {
-					placeid.add(i);
-					actualid.add(allUsers.get(i).getUserId());
+					id.add(i);
 					Label listUsername = new Label(allUsers.get(i).getUsername());
 					listUsername.setScaleX(1.5);
 					listUsername.setScaleY(1.5);
@@ -674,19 +673,20 @@ public class SystemGUI extends Application {
 			GridPane.setConstraints(listname.get(n), 1, n);
 		}
 		
-		
+		ArrayList<Button> buttons = new ArrayList<>();
 		for(int m = 0; m < allUsers.size() - 1; m++) {
 			
 			Button markFavorite = new Button("Mark as Favorite" + m);
 			buttons.add(markFavorite);
 			markFavorite.setOnAction((ActionEvent)->{
-				int selection = Integer.parseInt(markFavorite.getText().substring(16, 17));
-				currentUserObject.addFavoriteUser(UserProfile.getCurrentUserObject(actualid.get(selection)));
 				
+				int selection = Integer.parseInt(markFavorite.getText().substring(16, 17));
+				System.out.println("selected " + selection);
+				//currentUserObject.addFavoriteUser(allUsers.get(selection));
 			});
-			
 			GridPane.setConstraints(markFavorite, 7, m);
 			GridPane.setConstraints(markFavorite, 7, m);
+	
 			center.getChildren().add(markFavorite);
 		}
 		
@@ -739,9 +739,6 @@ public class SystemGUI extends Application {
 	
 	
 	
-	
-	
-	
 	/**
 	 * Method to build the Profile GUI window
 	 * @return root The Constructed Pane with all the Profile GUI elements
@@ -749,6 +746,7 @@ public class SystemGUI extends Application {
 	private Pane buildProfileGUI() {
 		
 		BorderPane root = new BorderPane();
+		root.getStylesheets().add("artatawe.css");
 		window.setResizable(true);
 		root.setPadding(new Insets(10,10,10,10));
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
@@ -767,6 +765,7 @@ public class SystemGUI extends Application {
 
 
 		Text title = new Text("Artatawe\n");
+		title.setId("#ARTATAWE2");
 		Text subTitle = new Text("Profile Page");
 		Label firstName = new Label(currentUserObject.getUsername());
 		Label street = new Label("Street: " + currentUserObject.getStreet());
@@ -866,6 +865,7 @@ public class SystemGUI extends Application {
 	private Pane buildAvatarsGUI() {
 		
 		BorderPane root = new BorderPane();
+		root.getStylesheets().add("artatawe.css");
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		
 		HBox line1 = new HBox(20);
@@ -1010,6 +1010,7 @@ public class SystemGUI extends Application {
 	private Pane buildDrawImgGUI() {
 
 		BorderPane root = new BorderPane();
+		root.getStylesheets().add("artatawe.css");
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		
 		canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -1168,8 +1169,6 @@ public class SystemGUI extends Application {
 		drawParticle = true;
 	}
 	
-	private double initX;
-	private double initY;
 	/**
 	 * Method to draw/erase at a tracked mouse X and Y coordinates
 	 * @param shape The given shape to be drawn
@@ -1187,17 +1186,12 @@ public class SystemGUI extends Application {
 			} else if(drawParticle == true && shape == "Square") {
 				gc.fillRect(mouseX, mouseY, sliderValue, sliderValue);
 			} else if(drawLine == true) {
-				initX = mouseX;
-				initY = mouseY;
-				gc.strokeLine(initX, initY, mouseX, mouseY);
-				//gc.strokeLine(mouseX, mouseY, sliderValue, sliderValue);
-				//gc.setLineWidth(sliderValue);
+				gc.strokeLine(mouseX, mouseY, sliderValue, sliderValue);
+				gc.setLineWidth(sliderValue);
 				// IMPLEMENT A LINE (why is this so hard)
 		}
 	}
 
-	
-	
 	/**
 	 * Method to draw/erase at a tracked mouse X and Y coordinates
 	 * @param shape The given shape to be drawn
@@ -1217,9 +1211,9 @@ public class SystemGUI extends Application {
 		} 
 		
 		if(drawLine == true) {
-			gc.strokeLine(initX, initY, mouseX, mouseY);
-			gc.setLineWidth(5);
-			
+			gc.strokeLine(mouseX, mouseY, sliderValue, sliderValue);
+			gc.setLineWidth(sliderValue);
+			// IMPLEMENT A LINE (why is this so hard)
 		}
 	}
 	

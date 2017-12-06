@@ -13,3 +13,16 @@
     -fx-stroke-width: 0.4;
     
 }
+
+.button {
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-font-family: "Calibri";
+    -fx-background-color: #d3d3d3;
+    -fx-effect: dropshadow(three-pass-box, grey, 10, 0.0, 2, 2)
+}
+
+.button:hover {
+    -fx-background-color: green;
+    -fx-text-fill: white;
+}
