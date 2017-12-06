@@ -90,6 +90,7 @@ public class SystemGUI extends Application {
 	private boolean drawLine = false;		// True if drawing a Straight Line
 	private boolean drawEraser = false;		// True if using an eraser
 	private double sliderValue = 20;		// Value of the Draw image slider
+	private int favSelection = -1;
 	
 	private Stage window;			// The main stage, displaying the current Scene
 	private Scene login;			// The Scene to hold the login Page GUI
@@ -599,8 +600,11 @@ public class SystemGUI extends Application {
 	
 	private ScrollPane buildUserListGUI() {
 		
-		int favSelectId = -1;
-		
+		ArrayList<Integer> placeid = new ArrayList<>();
+		ArrayList<Integer> actualid = new ArrayList<>();
+		ArrayList<Label> listname = new ArrayList<>();
+		ArrayList<ImageView> listPic = new ArrayList<>();
+		ArrayList<Button> buttons = new ArrayList<>();
 		
 		window.setResizable(false);
 		
@@ -629,14 +633,13 @@ public class SystemGUI extends Application {
 		
 		Button back = new Button("Back");
 		back.setPrefWidth(50);
-		ArrayList<Integer> id = new ArrayList<>();
-		ArrayList<Label> listname = new ArrayList<>();
-		ArrayList<ImageView> listPic = new ArrayList<>();
+		
 		
 		for(int i = 0; i < allUsers.size(); i++) {
 			try {
 				if(allUsers.get(i).getUsername() != currentUserObject.getUsername()) {
-					id.add(i);
+					placeid.add(i);
+					actualid.add(allUsers.get(i).getUserId());
 					Label listUsername = new Label(allUsers.get(i).getUsername());
 					listUsername.setScaleX(1.5);
 					listUsername.setScaleY(1.5);
@@ -664,20 +667,22 @@ public class SystemGUI extends Application {
 			GridPane.setConstraints(listname.get(n), 1, n);
 		}
 		
-		ArrayList<Button> buttons = new ArrayList<>();
+		
 		for(int m = 0; m < allUsers.size() - 1; m++) {
 			
 			Button markFavorite = new Button("Mark as Favorite" + m);
 			buttons.add(markFavorite);
 			markFavorite.setOnAction((ActionEvent)->{
-				
 				int selection = Integer.parseInt(markFavorite.getText().substring(16, 17));
-				System.out.println("selected " + selection);
-				//currentUserObject.addFavoriteUser(allUsers.get(selection));
+				setFavSelection(selection);
+				currentUserObject.addFavoriteUser(UserProfile.getCurrentUserObject(actualid.get(selection)));
+				for(int y = 0; y > currentUserObject.getFavoriteUsers().size(); y++) {
+				System.out.println(currentUserObject.getFavoriteUsers().get(y).getUsername());
+				}
 			});
+			
 			GridPane.setConstraints(markFavorite, 7, m);
 			GridPane.setConstraints(markFavorite, 7, m);
-	
 			center.getChildren().add(markFavorite);
 		}
 		
@@ -726,6 +731,13 @@ public class SystemGUI extends Application {
 		}
 	
 		return null;
+	}
+	
+	
+	private void setFavSelection(int x) {
+	
+		favSelection = x;
+		
 	}
 	
 	
