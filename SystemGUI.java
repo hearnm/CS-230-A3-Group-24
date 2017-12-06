@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.regex.*;
@@ -101,6 +102,7 @@ public class SystemGUI extends Application {
 	private Scene viewUsers;
 	private Image profImg;			// Currently selected Profile image for a profile.
 	private UserProfile currentUserObject;
+
 	
 	private ArrayList<UserProfile> allUsers = new ArrayList<>();
 	private ArrayList<ImageView> avatars = new ArrayList<>();
@@ -136,12 +138,18 @@ public class SystemGUI extends Application {
 	
 	private boolean setCurrentUser(String username) {
 		
+	
+		
+		
+		
 		for(int i = 0; i < allUsers.size(); i++) {
 			if(username.equalsIgnoreCase(allUsers.get(i).getUsername())) {
 				currentUserObject = allUsers.get(i);
 				return true;
 			}
 		}
+		
+	
 		return false;
 	}
 	

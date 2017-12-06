@@ -229,6 +229,18 @@ public class UserProfile {
 		return null;
 	}
 	
+public static UserProfile getCurrentUserObject(int id) {
+		
+		for(int i = 0; i < profiles.size(); i++) {
+			if(id == profiles.get(i).getUserId()) {
+				System.out.println(profiles.get(i).getUsername());
+				return profiles.get(i);
+			}
+		}
+		System.out.println("Not found - null");
+		return null;
+	}
+	
 	public void addFavoriteUser(UserProfile user) {
 		favoriteUsers.add(user);
 	}
