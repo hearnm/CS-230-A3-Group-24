@@ -16,6 +16,7 @@ public class LoadData {
 	
 	private static final String profileDataPath = "ArtataweProfiles.txt";	// The set filename path for the system data
 	private static final String profileFavoritePath = "_FavoriteProfiles.txt";  // The File path to save all the data to.
+	private static final String artworkFavoritePath = "Artworks.txt";
 	private static Scanner inputStream;						// The input stream connected to the given file
 	private static UserProfile currentUser;
 	
@@ -26,6 +27,8 @@ public class LoadData {
 	public static void loadSystemData() {
 		openProfileFile(profileDataPath);
 		readProfileFile();
+		openProfileFile(artworkFavoritePath);
+		readArtworksFile();
 
 	}
 	
@@ -75,8 +78,6 @@ public class LoadData {
 			UserProfile x = new UserProfile(username, firstname, lastname, street, postcode, cityTown, phoneNo, false);
 			
 			}
-		
-		
 		}
 		
 	private static ArrayList<UserProfile> readUserfavoritesFile() {
@@ -98,6 +99,47 @@ public class LoadData {
 		
 		return favoriteUsers;
 		}
+	
+	
+	/**
+	 * Method to read the File and take out data, constructing appropriate objects in the system.
+	 */
+	private static void readArtworksFile() {
+		
+		while(inputStream.hasNext()) {
+			
+			String auctioner = inputStream.next();
+			String artType = inputStream.next();
+			
+			if(artType.equalsIgnoreCase("Painting")) {
+				
+				String title = inputStream.next();
+				String creator = inputStream.next();
+				int artCreationYear = inputStream.nextInt();
+				double reservePrice = inputStream.nextDouble();
+				int numBidsAllowed = inputStream.nextInt();
+				double width = inputStream.nextDouble();
+				double height = inputStream.nextDouble();
+
+				Artwork loadedPainting = new Painting(auctioner, title, creator, artCreationYear, reservePrice, numBidsAllowed, width, height, false);
+			} else {
+				
+				String title = inputStream.next();
+				String creator = inputStream.next();
+				int artCreationYear = inputStream.nextInt();
+				double reservePrice = inputStream.nextDouble();
+				int numBidsAllowed = inputStream.nextInt();
+				double width = inputStream.nextDouble();
+				double height = inputStream.nextDouble();
+				double depth = inputStream.nextDouble();
+				String material = inputStream.next();
+
+				Artwork loadedPainting = new Sculpture(auctioner, title, creator, artCreationYear, reservePrice, numBidsAllowed, width, height, depth, material, false);
+			}
+			}
+		}
+	
+	
 	
 	
 	

@@ -177,7 +177,7 @@ public class SaveData {
 			double height = currentArtwork.getHeight();
 			
 			outputStream.println(auctioner + "," + artType + "," + title + "," + creator + "," + artCreationYear + "," 
-					+ reservePrice + "," + numBidsAllowed + "," + width + "," + height);
+					+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + ",");
 		} else {
 			
 			String auctioner = currentArtwork.getAuctioner();
