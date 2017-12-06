@@ -1296,6 +1296,12 @@ public class SystemGUI extends Application {
 		Button createAuctionButton = new Button("Create Auction");
 		createAuctionButton.setPrefWidth(150);
 		createAuctionButton.setPrefHeight(50);
+		
+		createAuctionButton.setOnAction(e -> {
+			if(newAuctionInputExistenceCheck(auctionNameBox.getText(), maxBiddersBox.getText(), reserveBidBox.getText())) {
+				//do something
+			}
+		});
 			
 		vert.setAlignment(Pos.BASELINE_CENTER);
 		vert.getChildren().addAll(title, subTitle, auctionNameTxt, auctionNameBox, maxBiddersTxt, maxBiddersBox, reserveBidTxt, reserveBidBox, createAuctionButton, back);
@@ -1303,6 +1309,14 @@ public class SystemGUI extends Application {
 		root.setCenter(center);
 		
 		return root;
+	}
+	
+	public boolean newAuctionInputExistenceCheck(String auctionNameInput, String maxBiddersInput, String reserveBidInput) {
+		if(auctionNameInput.length() == 0 || maxBiddersInput.length() == 0 || reserveBidInput.length() == 0) {
+			notificationBox("Sign-Up Notification", "Input Error", "All fields must be filled out");
+			return false;
+		}
+		return true;
 	}
 	
 }
