@@ -1365,16 +1365,12 @@ public class SystemGUI extends Application {
 		createAuctionButton.setOnAction(e -> {
 			if(newAuctionInputExistenceCheck(artNameBox.getText(), artCreatorBox.getText(), artCreationYearBox.getText(), maxBiddersBox.getText()) == true) {
 				
-				int year = Integer.parseInt(artCreationYearBox.getText());
-				int max = Integer.parseInt(maxBiddersBox.getText());
-				double reserve = Double.parseDouble(reservePriceBox.getText());
-				//double width
-				//double hight
-				
-				//if(paintingRadio.isSelected() == true) {
-				//	Artwork newPainting = new Painting(currentUserObject.getUsername(), artNameBox, artCreatorBox, Integer.parseInt(artCreationYearBox.getText()), 
-				//										Double.parseDouble(reservePriceBox.getText()), Integer.parseInt(maxBiddersBox.getText()), Double.parseDouble(, highet, true, true);
-			//	}
+				if(paintingRadio.isSelected() == true) {
+					Artwork newPainting = new Painting(currentUserObject.getUsername(), artNameBox.getText(), artCreatorBox.getText(), Integer.parseInt(artCreationYearBox.getText()), 
+														Double.parseDouble(reservePriceBox.getText()), Integer.parseInt(maxBiddersBox.getText()), Double.parseDouble(width.getText()), 
+														Double.parseDouble(height.getText()), true, true);
+					SaveData.saveNewArtwork(newPainting);
+				}
 			}
 		});
 
