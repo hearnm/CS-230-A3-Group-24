@@ -220,8 +220,8 @@ public class UserProfile {
 	public static UserProfile getCurrentUserObject(String username) {
 		
 		for(int i = 0; i < profiles.size(); i++) {
-			if(username == profiles.get(i).getUsername()) {
-				System.out.println(profiles.get(i).getUsername());
+			if(username.equalsIgnoreCase(profiles.get(i).getUsername())) {
+				System.out.println("Found: " + profiles.get(i).getUsername());
 				return profiles.get(i);
 			}
 		}

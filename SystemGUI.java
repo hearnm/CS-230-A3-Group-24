@@ -99,8 +99,10 @@ public class SystemGUI extends Application {
 	private Scene profile;			// The Scene to hold the Profile Page GUI
 	private Scene profileDrawImg;	// The Scene to hold the Profile Draw Image GUI
 	private Scene profileAvatars;	// The Scene to hold the Profile Default Avatars GUI
+	private Scene profileUpdateData;
 	private Scene viewUsers;
-	private Image profImg;			// Currently selected Profile image for a profile.
+	private Scene newAuction;		// The Scene to hold the Create New Auction GUI
+	private Image profImg;			// Currently selected Profile image for a profile
 	private UserProfile currentUserObject;
 
 	
@@ -206,6 +208,7 @@ public class SystemGUI extends Application {
         		
         	} else if(setCurrentUser(usernameInput.getText()) == true) {
         		home = new Scene(buildHomePageGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+        		LoadData.loadUserFavorites(currentUserObject);
         		window.setScene(home);
         		usernameInput.setText("");
         		
@@ -308,22 +311,15 @@ public class SystemGUI extends Application {
     	});
     	
     	createProfile.setOnAction(e -> {
-    		
-    		String usernameInput = usernameBox.getText();
-    		String firstnameInput = firstnameBox.getText();
-    		String lastnameInput = lastnameBox.getText();
-    		String streetInput = streetBox.getText();
-    		String postcodeInput = postcodeBox.getText().replaceAll("\\s+", "");
-    		String cityTownInput = cityTownBox.getText();
-    		String phoneNoInput = phoneNoBox.getText();
-    		
-    		if(inputExistenceCheck(usernameInput, firstnameInput, lastnameInput, streetInput, 
-    							postcodeInput, cityTownInput, phoneNoInput) == true) {
-    			if(validateSignUpDetails(usernameInput, phoneNoInput, postcodeInput) == true) {
-    							Integer intPhoneNo = Integer.parseInt(phoneNoInput);
+
+    		if(signupInputExistenceCheck(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
+    							postcodeBox.getText(), cityTownBox.getText(), phoneNoBox.getText()) == true) {
+    			
+    			if(validateSignUpDetails(usernameBox.getText(), phoneNoBox.getText(), postcodeBox.getText()) == true) {
+    							Integer intPhoneNo = Integer.parseInt(phoneNoBox.getText());
     							
-    				UserProfile newUser = new UserProfile(usernameInput, firstnameInput, lastnameInput, streetInput, 
-    								postcodeInput, cityTownInput, intPhoneNo, true);
+    				UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
+    								postcodeBox.getText(), cityTownBox.getText(), intPhoneNo, true);
     				allUsers.add(newUser);
     				notificationBox("Account Creation", "Account Creation Successful", "Congratulations you now have an Artatawe Account!\nYour username is: " + usernameBox.getText());
     				window.setScene(login);
@@ -404,7 +400,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to check the existence of input (primarily a method used on the signup GUI)
+	 * Method to check the existence of input for the signup GUI
 	 * @param username Entered username
 	 * @param firstname Entered firstname
 	 * @param lastname Entered lastname
@@ -414,7 +410,7 @@ public class SystemGUI extends Application {
 	 * @param phoneNo Entered phone Number
 	 * @return True if no fields are empty, False if any of the fields are blank;
 	 */
-	private boolean inputExistenceCheck(String username, String firstname, String lastname, String street, 
+	private boolean signupInputExistenceCheck(String username, String firstname, String lastname, String street, 
 														String postcode, String citytown, String phoneNo) {
 		
 		if(username.length() == 0 || firstname.length() == 0  || lastname.length() == 0
@@ -499,7 +495,11 @@ public class SystemGUI extends Application {
 		art2.setFitHeight(128);
 
 		Button createNewAuctionButton = new Button("Create a new\nauction.");
-
+		
+		createNewAuctionButton.setOnAction(e -> {
+			newAuction = new Scene(buildCreateNewAuctionGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+			window.setScene(newAuction);
+        });
 		
 		search.setMinWidth(150);
 		searchBtn.setMinWidth(70);
@@ -540,7 +540,7 @@ public class SystemGUI extends Application {
 		titleBlock.setAlignment(Pos.BASELINE_CENTER);
 
 		buttonBar.getChildren().addAll(textAll, filterAll, textPaintings, filterPaintings, textSculptures, filterSculptures);
-		optionsBlock.getChildren().addAll(options, optionsMenu);
+		optionsBlock.getChildren().addAll(options, optionsMenu, createNewAuctionButton);
 		titleBlock.getChildren().addAll(title, subTitle, searchBlock);
 
 		mainTop.getChildren().addAll(titleBlock, optionsBlock);
@@ -571,7 +571,6 @@ public class SystemGUI extends Application {
 			viewUsers = new Scene(buildUserListGUI(), MAIN_STAGE_WIDTH - 222, MAIN_STAGE_HEIGHT);
 			window.setScene(viewUsers);
 		}
-		
 	}
 	
 	/**
@@ -677,6 +676,7 @@ public class SystemGUI extends Application {
 				int selection = Integer.parseInt(markFavorite.getText().substring(16, 17));
 				addUserToFavorites(UserProfile.getCurrentUserObject(actualid.get(selection)));
 				markFavorite.setVisible(false);
+				SaveData.saveProfileFavorites(currentUserObject);
 				
 			});
 			GridPane.setConstraints(markFavorite, 7, m);
@@ -709,7 +709,6 @@ public class SystemGUI extends Application {
 		System.out.println(currentUserObject.getFavoriteUsers().get(i).getUsername());
 		}
 	}
-	
 	
 	/**
 	 * Method to be used to get the defaultImage (for users without an image)
@@ -788,9 +787,8 @@ public class SystemGUI extends Application {
 		
 		setProfileImage();
 
-		Button changePicButton = new Button("Change Profile Picture");
-		Button avatarButton = new Button("Use Default Avatar");
-		Button updateProfileButton = new Button("Update Personal Info");
+		Button changePicButton = new Button("Create an Avatar");
+		Button avatarButton = new Button("Use an Avatar");
 		Button back = new Button("Return to Home Page");
 		
 		
@@ -805,10 +803,11 @@ public class SystemGUI extends Application {
 			window.setScene(profileAvatars);
 		});
 		
+		
 		back.setOnAction(e -> window.setScene(home));
 
 		changePicButton.setMaxWidth(Double.MAX_VALUE);
-		updateProfileButton.setMaxWidth(Double.MAX_VALUE);
+		avatarButton.setMaxWidth(Double.MAX_VALUE);
 		
 		ImageView imageView = new ImageView();
 		imageView.setImage(profImg);
@@ -835,7 +834,7 @@ public class SystemGUI extends Application {
 		mainTop.getChildren().addAll(titleBlock);
 		profPicBox.getChildren().addAll(imageView);
 		midSection.getChildren().addAll(firstName,street,postcode,cityTown,phoneNo);
-		lSideBar.getChildren().addAll(profPicBox, changePicButton, avatarButton, updateProfileButton);
+		lSideBar.getChildren().addAll(profPicBox, changePicButton, avatarButton);
 		rSideBar.getChildren().addAll(myAuctions, myBids);
 		
 		root.setTop(mainTop);
@@ -1015,6 +1014,7 @@ public class SystemGUI extends Application {
             }
         }
 	}
+	
 	
 	/**
 	 * Method to build the Profile Draw Image GUI window
@@ -1308,6 +1308,54 @@ public class SystemGUI extends Application {
         } catch (Exception s) {
         	 notificationBox("Error", "Profile Image Update Error", "An unknow error has occured, User profile Image not updated!");
         }
+	}
+	
+	private Pane buildCreateNewAuctionGUI() {
+		BorderPane root = new BorderPane();
+		VBox topBar = new VBox(25);
+		GridPane center = new GridPane();
+		StackPane loginBox = new StackPane();
+		
+		root.getStylesheets().add("artatawe.css");
+		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+	
+		topBar.setPadding(new Insets(0,0,25,0));
+		root.setPadding(new Insets(25,10,10,10));
+		center.setHgap(25);
+		center.setVgap(10);
+
+		Text title = new Text("Artatawe\n");
+		Text subTitle = new Text("Create a new auction");
+		title.setScaleX(2);
+		title.setScaleY(2);
+		title.setId("ARTATAWE1");
+		subTitle.setScaleX(1.2);
+		subTitle.setScaleY(1.2);
+		title.setTextAlignment(TextAlignment.LEFT);
+		subTitle.setTextAlignment(TextAlignment.LEFT);
+		
+		TextField auctionNameBox = new TextField();
+		TextField maxBiddersBox = new TextField();
+		TextField reserveBidBox = new TextField();
+		
+		auctionNameBox.setMaxWidth(200);
+		maxBiddersBox.setMaxWidth(200);
+		reserveBidBox.setMaxWidth(200);
+		
+		
+		Button back = new Button("Back");
+		back.setPrefWidth(50);
+		back.setOnAction(e -> window.setScene(home));
+		
+		Button createAuction = new Button("Create Auction");
+		createAuction.setPrefWidth(50);
+			
+		topBar.setAlignment(Pos.BASELINE_CENTER);
+		topBar.getChildren().addAll(title, subTitle, auctionNameBox, maxBiddersBox, reserveBidBox, back);
+		root.setTop(topBar);
+		root.setCenter(center);
+		
+		return root;
 	}
 	
 }
