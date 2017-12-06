@@ -598,6 +598,10 @@ public class SystemGUI extends Application {
 	
 	
 	private ScrollPane buildUserListGUI() {
+		
+		int favSelectId = -1;
+		
+		
 		window.setResizable(false);
 		
 		BorderPane root = new BorderPane();
@@ -659,25 +663,30 @@ public class SystemGUI extends Application {
 			GridPane.setConstraints(listPic.get(n), 0, n);
 			GridPane.setConstraints(listname.get(n), 1, n);
 		}
-
+		
 		ArrayList<Button> buttons = new ArrayList<>();
 		for(int m = 0; m < allUsers.size() - 1; m++) {
-			Button markFavorite = new Button("Mark as Favorite");
+			
+			Button markFavorite = new Button("Mark as Favorite" + m);
 			buttons.add(markFavorite);
+			markFavorite.setOnAction((ActionEvent)->{
+				
+				int selection = Integer.parseInt(markFavorite.getText().substring(16, 17));
+				System.out.println("selected " + selection);
+				//currentUserObject.addFavoriteUser(allUsers.get(selection));
+			});
 			GridPane.setConstraints(markFavorite, 7, m);
 			GridPane.setConstraints(markFavorite, 7, m);
+	
 			center.getChildren().add(markFavorite);
 		}
 		
 		
-			buttons.get(0).setOnAction(e -> {currentUserObject.addFavoriteUser(allUsers.get(id.get(0))); System.out.println(allUsers.get(id.get(0)).getUsername());});
-			buttons.get(1).setOnAction(e -> {currentUserObject.addFavoriteUser(allUsers.get(id.get(1))); System.out.println(allUsers.get(id.get(1)).getUsername());});
-			buttons.get(2).setOnAction(e -> {currentUserObject.addFavoriteUser(allUsers.get(id.get(2))); System.out.println(allUsers.get(id.get(2)).getUsername());});
-			buttons.get(3).setOnAction(e -> {currentUserObject.addFavoriteUser(allUsers.get(id.get(3))); System.out.println(allUsers.get(id.get(3)).getUsername());});
-			buttons.get(4).setOnAction(e -> {currentUserObject.addFavoriteUser(allUsers.get(id.get(4))); System.out.println(allUsers.get(id.get(4)).getUsername());}); 
-			buttons.get(5).setOnAction(e -> {currentUserObject.addFavoriteUser(allUsers.get(id.get(5))); System.out.println(allUsers.get(id.get(5)).getUsername());});
-			buttons.get(6).setOnAction(e -> {currentUserObject.addFavoriteUser(allUsers.get(id.get(6))); System.out.println(allUsers.get(id.get(6)).getUsername());});
+		
+		
+			
 			back.setOnAction(e -> window.setScene(home));
+
 
 		for(int j = 0; j < allUsers.size() - 1; j++) {
 			center.getChildren().addAll(listname.get(j), listPic.get(j));
