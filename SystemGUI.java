@@ -1340,7 +1340,7 @@ public class SystemGUI extends Application {
 
 			
 		vert.setAlignment(Pos.BASELINE_CENTER);
-		vert.getChildren().addAll(title, subTitle, artNameTxt, artNameBox, artCreatorTxt, artCreatorBox, artCreationYearTxt, artCreationYearBox, maxBiddersTxt, maxBiddersBox, reserveBidTxt, reserveBidBox, createAuctionButton, back);
+		vert.getChildren().addAll(title, subTitle, artNameTxt, artNameBox, artCreatorTxt, artCreatorBox, artCreationYearTxt, artCreationYearBox, maxBiddersTxt, maxBiddersBox, reservePriceTxt, reservePriceBox, createAuctionButton, back);
 		root.setTop(vert);
 		root.setCenter(center);
 		return root;
