@@ -481,7 +481,7 @@ public class SystemGUI extends Application {
 		Button createNewAuctionButton = new Button("Create a new\nauction.");
 		
 		createNewAuctionButton.setOnAction(e -> {
-			newAuction = new Scene(buildCreateNewAuctionGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+			newAuction = new Scene(buildCreateNewAuctionGUI(), MAIN_STAGE_WIDTH-200, MAIN_STAGE_HEIGHT+150);
 			window.setScene(newAuction);
         });
 		search.setMinWidth(150);
@@ -655,6 +655,7 @@ public class SystemGUI extends Application {
 			int selection = Integer.parseInt(markFavorite.getText().substring(16, 17));
 			addUserToFavorites(UserProfile.getCurrentUserObject(actualid.get(selection)));
 			SaveData.saveProfileFavorites(currentUserObject);
+			markFavorite.setVisible(false);
 			});
 			
 			GridPane.setConstraints(markFavorite, 7, m);
@@ -662,11 +663,7 @@ public class SystemGUI extends Application {
 			center.getChildren().add(markFavorite);
 		}
 			
-		for(int ii = 0; ii < buttons.size() - 1; ii++) {
-			if(currentUserObject.searchFavorite(UserProfile.getCurrentUserObject(actualid.get(placeid.get(ii))))) {
-				buttons.get(ii).setVisible(false);
-			}
-		}
+	
 		
 		for(int j = 0; j < allUsers.size() - 1; j++) {
 				center.getChildren().addAll(listname.get(j), listPic.get(j));
@@ -686,7 +683,7 @@ public class SystemGUI extends Application {
 	 */
 	private void addUserToFavorites(UserProfile user) {
 		currentUserObject.addFavoriteUser(user);
-		
+		System.out.println("Fav list");
 		for(int i = 0; i < currentUserObject.getFavoriteUsers().size(); i++) {
 		System.out.println(currentUserObject.getFavoriteUsers().get(i).getUsername());
 		}
@@ -1289,17 +1286,23 @@ public class SystemGUI extends Application {
 		title.setTextAlignment(TextAlignment.LEFT);
 		subTitle.setTextAlignment(TextAlignment.LEFT);
 		
-		Text auctionNameTxt = new Text("Auction Name:\n");
+		Text artNameTxt = new Text("Artwork Name:\n");
+		Text artCreatorTxt = new Text("Artwork Creator:\n");
+		Text artCreationYearTxt = new Text("Artwork Creation Year:\n");
 		Text maxBiddersTxt = new Text("Max Bidders:\n");
 		Text reserveBidTxt = new Text("Reserve Bid:\n");
 		
-		TextField auctionNameBox = new TextField();
+		TextField artNameBox = new TextField();
+		TextField artCreatorBox = new TextField();
+		TextField artCreationYearBox = new TextField();
 		TextField maxBiddersBox = new TextField();
 		TextField reserveBidBox = new TextField();
 		
-		auctionNameBox.setMaxWidth(200);
+		artNameBox.setMaxWidth(200);
 		maxBiddersBox.setMaxWidth(200);
 		reserveBidBox.setMaxWidth(200);
+		artCreationYearBox.setMaxWidth(200);
+		artCreatorBox.setMaxWidth(200);
 		
 		Button back = new Button("Back");
 		back.setPrefWidth(50);
@@ -1320,7 +1323,7 @@ public class SystemGUI extends Application {
 		
 
 		createAuctionButton.setOnAction(e -> {
-			if(newAuctionInputExistenceCheck(auctionNameBox.getText(), maxBiddersBox.getText(), reserveBidBox.getText())) {
+			if(newAuctionInputExistenceCheck(artNameBox.getText(), maxBiddersBox.getText(), reserveBidBox.getText())) {
 				//do something
 			}
 		});
@@ -1331,7 +1334,7 @@ public class SystemGUI extends Application {
 
 			
 		vert.setAlignment(Pos.BASELINE_CENTER);
-		vert.getChildren().addAll(title, subTitle, auctionNameTxt, auctionNameBox, maxBiddersTxt, maxBiddersBox, reserveBidTxt, reserveBidBox, createAuctionButton, back);
+		vert.getChildren().addAll(title, subTitle, artNameTxt, artNameBox, artCreatorTxt, artCreatorBox, artCreationYearTxt, artCreationYearBox, maxBiddersTxt, maxBiddersBox, reserveBidTxt, reserveBidBox, createAuctionButton, back);
 		root.setTop(vert);
 		root.setCenter(center);
 		return root;
