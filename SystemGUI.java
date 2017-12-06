@@ -1323,8 +1323,14 @@ public class SystemGUI extends Application {
 		
 
 		createAuctionButton.setOnAction(e -> {
-			if(newAuctionInputExistenceCheck(artNameBox.getText(), maxBiddersBox.getText(), reserveBidBox.getText())) {
-				//do something
+			if(newAuctionInputExistenceCheck(artNameBox.getText(), maxBiddersBox.getText(), reserveBidBox.getText()) == true) {
+				
+				int year = Integer.parseInt(artCreationYearBox.getText());
+				int max = Integer.parseInt(maxBiddersBox.getText());
+				double reserve = Double.parseDouble(reserveBidBox.getText());
+				
+				Artwork newArt = new Artwork(artNameBox.getText(), artCreatorBox.getText(), year, reserve, max);
+			
 			}
 		});
 
