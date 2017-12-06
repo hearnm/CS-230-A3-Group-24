@@ -24,6 +24,7 @@ public class LoadData {
 	 */
 	public static void loadSystemData() {
 		openProfileFile();
+		readFile();
 	}
 	
 	/**
@@ -35,7 +36,6 @@ public class LoadData {
 			inputStream = new Scanner(x);
 			inputStream.useDelimiter(",");
 			System.out.println(x.exists());
-			readFile();
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
 		}

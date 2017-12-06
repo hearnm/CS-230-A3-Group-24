@@ -460,6 +460,7 @@ public class SystemGUI extends Application {
 		RadioButton filterAll = new RadioButton();
 		RadioButton filterPaintings = new RadioButton();
 		RadioButton filterSculptures = new RadioButton();
+		filterAll.setSelected(true);
 		
 		filterAll.setOnAction(e -> {filterPaintings.setSelected(false); filterSculptures.setSelected(false);});
 		filterPaintings.setOnAction(e -> filterAll.setSelected(false));
@@ -601,7 +602,7 @@ public class SystemGUI extends Application {
 		
 		BorderPane root = new BorderPane();
 		
-		VBox topBar = new VBox();
+		VBox topBar = new VBox(25);
 		GridPane center = new GridPane();
 		ScrollPane scroll = new ScrollPane();
 		
@@ -622,6 +623,8 @@ public class SystemGUI extends Application {
 		subTitle.setScaleY(2.5);
 		title.setTextAlignment(TextAlignment.LEFT);
 		
+		Button back = new Button("Back");
+		back.setPrefWidth(50);
 		ArrayList<Integer> id = new ArrayList<>();
 		ArrayList<Label> listname = new ArrayList<>();
 		ArrayList<ImageView> listPic = new ArrayList<>();
@@ -674,14 +677,14 @@ public class SystemGUI extends Application {
 			buttons.get(4).setOnAction(e -> {currentUserObject.addFavoriteUser(allUsers.get(id.get(4))); System.out.println(allUsers.get(id.get(4)).getUsername());}); 
 			buttons.get(5).setOnAction(e -> {currentUserObject.addFavoriteUser(allUsers.get(id.get(5))); System.out.println(allUsers.get(id.get(5)).getUsername());});
 			buttons.get(6).setOnAction(e -> {currentUserObject.addFavoriteUser(allUsers.get(id.get(6))); System.out.println(allUsers.get(id.get(6)).getUsername());});
-	
+			back.setOnAction(e -> window.setScene(home));
 
 		for(int j = 0; j < allUsers.size() - 1; j++) {
 			center.getChildren().addAll(listname.get(j), listPic.get(j));
 		}
 		
 		topBar.setAlignment(Pos.BASELINE_CENTER);
-		topBar.getChildren().addAll(title, subTitle);
+		topBar.getChildren().addAll(title, subTitle, back);
 		root.setTop(topBar);
 		root.setCenter(center);
 	
