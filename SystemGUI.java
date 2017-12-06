@@ -1290,17 +1290,17 @@ public class SystemGUI extends Application {
 		Text artCreatorTxt = new Text("Artwork Creator:\n");
 		Text artCreationYearTxt = new Text("Artwork Creation Year:\n");
 		Text maxBiddersTxt = new Text("Max Bidders:\n");
-		Text reserveBidTxt = new Text("Reserve Bid:\n");
+		Text reservePriceTxt = new Text("Reserve Price:\n");
 		
 		TextField artNameBox = new TextField();
 		TextField artCreatorBox = new TextField();
 		TextField artCreationYearBox = new TextField();
 		TextField maxBiddersBox = new TextField();
-		TextField reserveBidBox = new TextField();
+		TextField reservePriceBox = new TextField();
 		
 		artNameBox.setMaxWidth(200);
 		maxBiddersBox.setMaxWidth(200);
-		reserveBidBox.setMaxWidth(200);
+		reservePriceBox.setMaxWidth(200);
 		artCreationYearBox.setMaxWidth(200);
 		artCreatorBox.setMaxWidth(200);
 		
@@ -1323,11 +1323,11 @@ public class SystemGUI extends Application {
 		
 
 		createAuctionButton.setOnAction(e -> {
-			if(newAuctionInputExistenceCheck(artNameBox.getText(), maxBiddersBox.getText(), reserveBidBox.getText()) == true) {
+			if(newAuctionInputExistenceCheck(artNameBox.getText(), maxBiddersBox.getText(), reservePriceBox.getText()) == true) {
 				
 				int year = Integer.parseInt(artCreationYearBox.getText());
 				int max = Integer.parseInt(maxBiddersBox.getText());
-				double reserve = Double.parseDouble(reserveBidBox.getText());
+				double reserve = Double.parseDouble(reservePriceBox.getText());
 				
 				Artwork newArt = new Artwork(artNameBox.getText(), artCreatorBox.getText(), year, reserve, max);
 			
