@@ -100,7 +100,8 @@ public class SystemGUI extends Application {
 	private Scene profileDrawImg;	// The Scene to hold the Profile Draw Image GUI
 	private Scene profileAvatars;	// The Scene to hold the Profile Default Avatars GUI
 	private Scene viewUsers;
-	private Image profImg;			// Currently selected Profile image for a profile.
+	private Scene newAuction;		// The Scene to hold the Create New Auction GUI
+	private Image profImg;			// Currently selected Profile image for a profile
 	private UserProfile currentUserObject;
 
 	
@@ -502,7 +503,11 @@ public class SystemGUI extends Application {
 		art2.setFitHeight(128);
 
 		Button createNewAuctionButton = new Button("Create a new\nauction.");
-
+		
+		createNewAuctionButton.setOnAction(e -> {
+			newAuction = new Scene(buildCreateNewAuctionGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+			window.setScene(newAuction);
+        });
 		
 		search.setMinWidth(150);
 		searchBtn.setMinWidth(70);
@@ -543,7 +548,7 @@ public class SystemGUI extends Application {
 		titleBlock.setAlignment(Pos.BASELINE_CENTER);
 
 		buttonBar.getChildren().addAll(textAll, filterAll, textPaintings, filterPaintings, textSculptures, filterSculptures);
-		optionsBlock.getChildren().addAll(options, optionsMenu);
+		optionsBlock.getChildren().addAll(options, optionsMenu, createNewAuctionButton);
 		titleBlock.getChildren().addAll(title, subTitle, searchBlock);
 
 		mainTop.getChildren().addAll(titleBlock, optionsBlock);
@@ -574,7 +579,6 @@ public class SystemGUI extends Application {
 			viewUsers = new Scene(buildUserListGUI(), MAIN_STAGE_WIDTH - 222, MAIN_STAGE_HEIGHT);
 			window.setScene(viewUsers);
 		}
-		
 	}
 	
 	/**
@@ -1311,6 +1315,40 @@ public class SystemGUI extends Application {
         } catch (Exception s) {
         	 notificationBox("Error", "Profile Image Update Error", "An unknow error has occured, User profile Image not updated!");
         }
+	}
+	
+	private Pane buildCreateNewAuctionGUI() {
+		BorderPane root = new BorderPane();
+		VBox topBar = new VBox(25);
+		GridPane center = new GridPane();
+		
+		root.getStylesheets().add("artatawe.css");
+		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+	
+		topBar.setPadding(new Insets(0,0,50,0));
+		root.setPadding(new Insets(25,10,10,10));
+		center.setHgap(25);
+		center.setVgap(10);
+
+		Text title = new Text("Artatawe\n");
+		Text subTitle = new Text("Create a new auction");
+		title.setScaleX(4);
+		title.setScaleY(4);
+		title.setId("ARTATAWE");
+		subTitle.setScaleX(2.5);
+		subTitle.setScaleY(2.5);
+		title.setTextAlignment(TextAlignment.LEFT);
+		
+		Button back = new Button("Back");
+		back.setPrefWidth(50);
+		back.setOnAction(e -> window.setScene(home));
+			
+		topBar.setAlignment(Pos.BASELINE_CENTER);
+		topBar.getChildren().addAll(title, subTitle, back);
+		root.setTop(topBar);
+		root.setCenter(center);
+		
+		return root;
 	}
 	
 }
