@@ -132,8 +132,6 @@ public class SystemGUI extends Application {
 		window.show();
 		LoadData.loadSystemData();
 		allUsers = UserProfile.getProfiles();
-		
-		
 	}
 	
 	/**
@@ -149,7 +147,6 @@ public class SystemGUI extends Application {
 				return true;
 			}
 		}
-		
 		return false;
 	}
 	
