@@ -24,7 +24,7 @@ public class SaveData {
 	// ***************************************
 	
 	private static final String profileDataPath = "ArtataweProfiles.txt";  // The File path to save all the data to.
-	private static String profileFavoritePath = "_FavoriteProfiles.txt";  // The File path to save all the data to.
+	private static final String profileFavoritePath = "_FavoriteProfiles.txt";  // The File path to save all the data to.
 	private static UserProfile currentUser;					// The current user object that is logged onto the system
 	private static PrintWriter printWriter;
 	private static Scanner inputStream;	

@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -9,30 +10,36 @@ import java.util.Scanner;
  */
 public class LoadData {
 	
-	// *************************************
-	// BugList
-	// ***********
-	// 1. If we have 10 users and delete user 5, every user with a higher userId will have their userId changed -1 when loaded in
-	// ***************************************
+
 	
 	
 	private static final String profileDataPath = "ArtataweProfiles.txt";	// The set filename path for the system data
+	private static final String profileFavoritePath = "_FavoriteProfiles.txt";  // The File path to save all the data to.
 	private static Scanner inputStream;						// The input stream connected to the given file
+	private static UserProfile currentUser;
+	
 	
 	/**
 	 * Static Method that can be called to load the data from the file to the system.
 	 */
 	public static void loadSystemData() {
-		openProfileFile();
-		readFile();
+		openProfileFile(profileDataPath);
+		readProfileFile();
+	}
+	
+	public static ArrayList<UserProfile> loadUserFavorites(UserProfile user) {
+		currentUser = user;
+		openProfileFile(user.getUsername() + profileFavoritePath);
+		return readUserfavoritesFile();
+		
 	}
 	
 	/**
 	 * Method to open the file if it exists
 	 */
-	private static void openProfileFile() {
+	private static void openProfileFile(String filePath) {
 		try {
-			File x = new File(profileDataPath);
+			File x = new File(filePath);
 			inputStream = new Scanner(x);
 			inputStream.useDelimiter(",");
 			System.out.println(x.exists());
@@ -44,7 +51,7 @@ public class LoadData {
 	/**
 	 * Method to read the File and take out data, constructing appropriate objects in the system.
 	 */
-	private static void readFile() {
+	private static void readProfileFile() {
 		
 		while(inputStream.hasNext()) {
 			inputStream.next();
@@ -64,6 +71,29 @@ public class LoadData {
 		closeFile();
 		}
 		
+	private static ArrayList<UserProfile> readUserfavoritesFile() {
+		
+		ArrayList<UserProfile> favoriteUsers = new ArrayList<>();
+		inputStream.next();
+		
+		while(inputStream.hasNext()) {
+			
+			String username = inputStream.next();
+			favoriteUsers.add(UserProfile.getCurrentUserObject(username));
+
+			}
+		
+		closeFile();
+		return favoriteUsers;
+		
+		
+		}
+	
+	
+	
+	
+	
+	
 	/**
 	 * Method to close the input stream to the file.
 	 */
