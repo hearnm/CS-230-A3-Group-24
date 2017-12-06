@@ -82,7 +82,6 @@ public class SystemGUI extends Application {
 	private static final int PREVIEW_CANVAS_DRAW_Y = 2;		// Draw Preview Location Y
 	
 
-	
 	private Canvas canvas;					// The canvas which the user can draw an image
 	private Canvas previewCanvas;			// The canvas which shows the current pen style
 	private double mouseX = 0.0;			// Mouse Coordinate X
@@ -568,7 +567,7 @@ public class SystemGUI extends Application {
 		} else if(selection == "Logout") {
 			logoutConfirmation();
 		} else if(selection == "View Users") {
-			viewUsers = new Scene(buildUserListGUI(), MAIN_STAGE_WIDTH - 241, MAIN_STAGE_HEIGHT);
+			viewUsers = new Scene(buildUserListGUI(), MAIN_STAGE_WIDTH - 222, MAIN_STAGE_HEIGHT);
 			window.setScene(viewUsers);
 		}
 		
