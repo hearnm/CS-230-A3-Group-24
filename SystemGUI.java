@@ -601,14 +601,12 @@ public class SystemGUI extends Application {
 		
 		BorderPane root = new BorderPane();
 		
-		
 		VBox topBar = new VBox();
 		GridPane center = new GridPane();
 		ScrollPane scroll = new ScrollPane();
 		
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 	
-		
 		topBar.setPadding(new Insets(0,0,50,0));
 		center.setHgap(25);
 		center.setVgap(10);
@@ -624,12 +622,14 @@ public class SystemGUI extends Application {
 		subTitle.setScaleY(2.5);
 		title.setTextAlignment(TextAlignment.LEFT);
 		
+		ArrayList<Integer> id = new ArrayList<>();
 		ArrayList<Label> listname = new ArrayList<>();
 		ArrayList<ImageView> listPic = new ArrayList<>();
 		
 		for(int i = 0; i < allUsers.size(); i++) {
 			try {
 				if(allUsers.get(i).getUsername() != currentUserObject.getUsername()) {
+					id.add(i);
 					Label listUsername = new Label(allUsers.get(i).getUsername());
 					listUsername.setScaleX(1.5);
 					listUsername.setScaleY(1.5);
@@ -650,27 +650,32 @@ public class SystemGUI extends Application {
 			} catch (Exception e) {
 				System.out.println("user does not exist");
 				}
-			}
-		
-
-		for(int n = 0; n < allUsers.size() - 1; n++) {
-				GridPane.setConstraints(listPic.get(n), 0, n);
-				GridPane.setConstraints(listname.get(n), 1, n);
 		}
-			
-			
-			
+		
+		for(int n = 0; n < allUsers.size() - 1; n++) {
+			GridPane.setConstraints(listPic.get(n), 0, n);
+			GridPane.setConstraints(listname.get(n), 1, n);
+		}
+
+		ArrayList<Button> buttons = new ArrayList<>();
 		for(int m = 0; m < allUsers.size() - 1; m++) {
 			Button markFavorite = new Button("Mark as Favorite");
-
+			buttons.add(markFavorite);
 			GridPane.setConstraints(markFavorite, 7, m);
 			GridPane.setConstraints(markFavorite, 7, m);
 			center.getChildren().add(markFavorite);
 		}
-			
-			
 		
 		
+			buttons.get(0).setOnAction(e -> {currentUserObject.addFavoriteUser(allUsers.get(id.get(0))); System.out.println(allUsers.get(id.get(0)).getUsername());});
+			buttons.get(1).setOnAction(e -> {currentUserObject.addFavoriteUser(allUsers.get(id.get(1))); System.out.println(allUsers.get(id.get(1)).getUsername());});
+			buttons.get(2).setOnAction(e -> {currentUserObject.addFavoriteUser(allUsers.get(id.get(2))); System.out.println(allUsers.get(id.get(2)).getUsername());});
+			buttons.get(3).setOnAction(e -> {currentUserObject.addFavoriteUser(allUsers.get(id.get(3))); System.out.println(allUsers.get(id.get(3)).getUsername());});
+			buttons.get(4).setOnAction(e -> {currentUserObject.addFavoriteUser(allUsers.get(id.get(4))); System.out.println(allUsers.get(id.get(4)).getUsername());}); 
+			buttons.get(5).setOnAction(e -> {currentUserObject.addFavoriteUser(allUsers.get(id.get(5))); System.out.println(allUsers.get(id.get(5)).getUsername());});
+			buttons.get(6).setOnAction(e -> {currentUserObject.addFavoriteUser(allUsers.get(id.get(6))); System.out.println(allUsers.get(id.get(6)).getUsername());});
+	
+
 		for(int j = 0; j < allUsers.size() - 1; j++) {
 			center.getChildren().addAll(listname.get(j), listPic.get(j));
 		}
@@ -681,7 +686,6 @@ public class SystemGUI extends Application {
 		root.setCenter(center);
 	
 		scroll.setContent(root);
-		
 		return scroll;
 	}
 	
