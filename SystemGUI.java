@@ -717,7 +717,6 @@ public class SystemGUI extends Application {
 		}
 	}
 	
-	
 	/**
 	 * Method to be used to get the defaultImage (for users without an image)
 	 * @return The default Image to be used
