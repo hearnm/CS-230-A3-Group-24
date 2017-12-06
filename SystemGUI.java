@@ -208,7 +208,7 @@ public class SystemGUI extends Application {
         		
         	} else if(setCurrentUser(usernameInput.getText()) == true) {
         		home = new Scene(buildHomePageGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
-        		LoadData.loadUserFavorites(currentUserObject);
+        		//LoadData.loadUserFavorites(currentUserObject);
         		window.setScene(home);
         		usernameInput.setText("");
         		
