@@ -1266,6 +1266,7 @@ public class SystemGUI extends Application {
 	private Pane buildCreateNewAuctionGUI() {
 		BorderPane root = new BorderPane();
 		VBox vert = new VBox(5);
+		HBox toggles = new HBox(5);
 		GridPane center = new GridPane();
 		
 		root.getStylesheets().add("artatawe.css");
@@ -1278,9 +1279,9 @@ public class SystemGUI extends Application {
 
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("Create a new auction");
-		title.setScaleX(2);
-		title.setScaleY(2);
-		title.setId("ARTATAWE1");
+		title.setScaleX(3);
+		title.setScaleY(3);
+		title.setId("ARTATAWE2");
 		subTitle.setScaleX(1.2);
 		subTitle.setScaleY(1.2);
 		title.setTextAlignment(TextAlignment.LEFT);
@@ -1291,18 +1292,20 @@ public class SystemGUI extends Application {
 		Text artCreationYearTxt = new Text("Artwork Creation Year:\n");
 		Text maxBiddersTxt = new Text("Max Bidders:\n");
 		Text reserveBidTxt = new Text("Reserve Bid:\n");
-		
+		Text artFilePathTxt = new Text("Artwork File Path:\n");
 		TextField artNameBox = new TextField();
 		TextField artCreatorBox = new TextField();
 		TextField artCreationYearBox = new TextField();
 		TextField maxBiddersBox = new TextField();
 		TextField reserveBidBox = new TextField();
+		TextField artFilePathBox = new TextField();
 		
 		artNameBox.setMaxWidth(200);
 		maxBiddersBox.setMaxWidth(200);
 		reserveBidBox.setMaxWidth(200);
 		artCreationYearBox.setMaxWidth(200);
 		artCreatorBox.setMaxWidth(200);
+		artFilePathBox.setMaxWidth(300);
 		
 		Button back = new Button("Back");
 		back.setPrefWidth(50);
@@ -1323,25 +1326,25 @@ public class SystemGUI extends Application {
 		
 
 		createAuctionButton.setOnAction(e -> {
-			if(newAuctionInputExistenceCheck(artNameBox.getText(), maxBiddersBox.getText(), reserveBidBox.getText())) {
+			if(newAuctionInputExistenceCheck(artNameBox.getText(), artCreatorBox.getText(), artCreationYearBox.getText(), maxBiddersBox.getText())) {
 				//do something
 			}
 		});
 
 
-		//toggles.setAlignment(Pos.BASELINE_CENTER);
-		//toggles.getChildren().addAll(paintingRadio, sculptureRadio);
+		toggles.setAlignment(Pos.BASELINE_CENTER);
+		toggles.getChildren().addAll(paintingRadio, sculptureRadio);
 
 			
 		vert.setAlignment(Pos.BASELINE_CENTER);
-		vert.getChildren().addAll(title, subTitle, artNameTxt, artNameBox, artCreatorTxt, artCreatorBox, artCreationYearTxt, artCreationYearBox, maxBiddersTxt, maxBiddersBox, reserveBidTxt, reserveBidBox, createAuctionButton, back);
+		vert.getChildren().addAll(title, subTitle, toggles, artNameTxt, artNameBox, artCreatorTxt, artCreatorBox, artCreationYearTxt, artCreationYearBox, maxBiddersTxt, maxBiddersBox, reserveBidTxt, reserveBidBox, createAuctionButton, back);
 		root.setTop(vert);
 		root.setCenter(center);
 		return root;
 	}
 	
-	public boolean newAuctionInputExistenceCheck(String auctionNameInput, String maxBiddersInput, String reserveBidInput) {
-		if(auctionNameInput.length() == 0 || maxBiddersInput.length() == 0 || reserveBidInput.length() == 0) {
+	public boolean newAuctionInputExistenceCheck(String auctionNameInput, String artCreatorInput, String artCreationYearInput, String maxBiddersInput) {
+		if(auctionNameInput.length() == 0 || artCreatorInput.length() == 0 || artCreationYearInput.length() == 0 ||  maxBiddersInput.length() == 0 ) {
 			notificationBox("Sign-Up Notification", "Input Error", "All fields must be filled out");
 			return false;
 		}
