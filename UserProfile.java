@@ -229,7 +229,7 @@ public class UserProfile {
 		return null;
 	}
 	
-public static UserProfile getCurrentUserObject(int id) {
+	public static UserProfile getCurrentUserObject(int id) {
 		
 		for(int i = 0; i < profiles.size(); i++) {
 			if(id == profiles.get(i).getUserId()) {
