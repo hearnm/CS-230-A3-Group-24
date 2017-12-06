@@ -650,19 +650,27 @@ public class SystemGUI extends Application {
 		for(int m = 0; m < allUsers.size() - 1; m++) {
 			Button markFavorite = new Button("Mark as Favorite" + m);
 			buttons.add(markFavorite);
-			markFavorite.setOnAction((ActionEvent)->{
-				int selection = Integer.parseInt(markFavorite.getText().substring(16, 17));
-				addUserToFavorites(UserProfile.getCurrentUserObject(actualid.get(selection)));
-				markFavorite.setVisible(false);
-				SaveData.saveProfileFavorites(currentUserObject);
+			
+			markFavorite.setOnAction((ActionEvent)->{			
+			int selection = Integer.parseInt(markFavorite.getText().substring(17, 18));
+			addUserToFavorites(UserProfile.getCurrentUserObject(actualid.get(selection)));
+			SaveData.saveProfileFavorites(currentUserObject);
 			});
+			
 			GridPane.setConstraints(markFavorite, 7, m);
 			GridPane.setConstraints(markFavorite, 7, m);
 			center.getChildren().add(markFavorite);
 		}
-			for(int j = 0; j < allUsers.size() - 1; j++) {
-				center.getChildren().addAll(listname.get(j), listPic.get(j));
+			
+		for(int ii = 0; ii < buttons.size() - 1; ii++) {
+			if(currentUserObject.searchFavorite(UserProfile.getCurrentUserObject(actualid.get(placeid.get(ii))))) {
+				buttons.get(ii).setVisible(false);
 			}
+		}
+		
+		for(int j = 0; j < allUsers.size() - 1; j++) {
+				center.getChildren().addAll(listname.get(j), listPic.get(j));
+		}
 		topBar.setAlignment(Pos.BASELINE_CENTER);
 		topBar.getChildren().addAll(title, subTitle, back);
 		mainSection.setTop(topBar);
