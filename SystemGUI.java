@@ -1358,7 +1358,7 @@ public class SystemGUI extends Application {
 				int max = Integer.parseInt(maxBiddersBox.getText());
 				double reserve = Double.parseDouble(reservePriceBox.getText());
 				
-				Artwork newArt = new Artwork(artNameBox.getText(), artCreatorBox.getText(), year, reserve, max);
+				//Artwork newArt = new Artwork(artNameBox.getText(), artCreatorBox.getText(), year, reserve, max);
 			}
 		});
 

@@ -87,7 +87,7 @@ public class BuildGUI extends Application {
 		Button logOut = new Button("Log out");
 		
 		listOfArtworks = new ListView<>();
-		listOfArtworks.setItems(Artwork.getArtworks());
+		//listOfArtworks.setItems(Artwork.getArtworks());
 
 		//Resize button
 		logOut.resize(87,20);
