@@ -154,7 +154,6 @@ public class SystemGUI extends Application {
 	 * @return root The Constructed Pane with all the Login GUI elements
 	 */
 	private Pane buildLoginGUI() {
-		
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		root.getStylesheets().add("artatawe.css");
