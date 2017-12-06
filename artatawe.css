@@ -14,6 +14,14 @@
     
 }
 
+#ARTATAWE3 {
+    -fx-font: 35px "Vivaldi";
+    -fx-fill: linear-gradient(from 0% 0% to 100% 200%, blue 0%, red 50%);
+    -fx-stroke: black;
+    -fx-stroke-width: 0.4;
+    
+}
+
 .button {
     -fx-text-fill: black;
     -fx-font-size: 14px;
