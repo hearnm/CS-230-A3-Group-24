@@ -23,6 +23,8 @@ public class Artwork {
 	protected String mainImagePath;	// The Directory Path to the Main Artwork Image
 	protected double height;		// The Height Dimension of the Artwork
 	protected double width;			// The Width Dimension of the Artwork
+	protected double depth;
+	protected String material;
 	protected String artType;		// The Type of the Artwork (Sculpture / Painting)
 	protected boolean newArt;
 	
@@ -68,6 +70,38 @@ public class Artwork {
 	
 	public String getAuctioner() {
 		return this.auctioner;
+	}
+	
+	/**
+	 * Method to change the material of the Sculpture.
+	 * @param material
+	 */
+	public void setMaterial(String material) {
+		this.material = material;
+	}
+	
+	/**
+	 * Method to retrieve the material of the Sculpture.
+	 * @return material
+	 */
+	public String getMaterial() {
+		return material;
+	}
+	
+	/**
+	 * Method to change the depth of the Sculpture.
+	 * @param depth
+	 */
+	public void setDepth(double depth) {
+		this.depth = depth;
+	}
+	
+	/**
+	 * Method to retrieve the depth of the Sculpture.
+	 * @return depth
+	 */
+	public double getDepth() {
+		return depth;
 	}
 	
 	

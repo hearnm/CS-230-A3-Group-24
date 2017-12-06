@@ -165,17 +165,40 @@ public class SaveData {
 	public static void addArtwork(PrintWriter outputStream) {
 		
 		
-		String auctioner = currentArtwork.getAuctioner();
-		String title = currentArtwork.getTitle();
-		String creator = currentArtwork.getCreator();
-		int artCreationYear = currentArtwork.getArtCreationYear();
-		double reservePrice = currentArtwork.getReservePrice();
-		int numBidsAllowed = currentArtwork.getNumBidAllowed();
+		if(currentArtwork.getArtType().equalsIgnoreCase("Painting")) {
+			String auctioner = currentArtwork.getAuctioner();
+			String artType = currentArtwork.getArtType();
+			String title = currentArtwork.getTitle();
+			String creator = currentArtwork.getCreator();
+			int artCreationYear = currentArtwork.getArtCreationYear();
+			double reservePrice = currentArtwork.getReservePrice();
+			int numBidsAllowed = currentArtwork.getNumBidAllowed();
+			double width = currentArtwork.getWidth();
+			double height = currentArtwork.getHeight();
+			
+			outputStream.println(auctioner + "," + artType + "," + title + "," + creator + "," + artCreationYear + "," 
+					+ reservePrice + "," + numBidsAllowed + "," + width + "," + height);
+		} else {
+			
+			String auctioner = currentArtwork.getAuctioner();
+			String artType = currentArtwork.getArtType();
+			String title = currentArtwork.getTitle();
+			String creator = currentArtwork.getCreator();
+			int artCreationYear = currentArtwork.getArtCreationYear();
+			double reservePrice = currentArtwork.getReservePrice();
+			int numBidsAllowed = currentArtwork.getNumBidAllowed();
+			double width = currentArtwork.getWidth();
+			double height = currentArtwork.getHeight();
+			double depth = currentArtwork.getDepth();
+			String material = currentArtwork.getMaterial();
+			
+			outputStream.println(auctioner + "," + artType + "," + title + "," + creator + "," + artCreationYear + "," 
+					+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + "," + depth + "," + material + ",");
+			
+			
+		}
 		
-		
-		outputStream.println(auctioner + "," + title + "," + creator + "," + artCreationYear + "," 
-								+ reservePrice + "," + numBidsAllowed + ",");
-	
+
 		closeFile(outputStream);
 		
 	}

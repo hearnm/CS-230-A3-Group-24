@@ -69,7 +69,7 @@ public class Sculpture extends Artwork {
 	 * Method to change the images of the Sculpture.
 	 * @param additionalImages
 	 */
-	public void setAdditionalImages(ArrayList<String> newAdditionalImages) {
+	protected void setAdditionalImages(ArrayList<String> newAdditionalImages) {
 		for(int i = 0; i < newAdditionalImages.size(); i++) {
 			additionalImages.add(newAdditionalImages.get(i));
 		}
@@ -79,7 +79,7 @@ public class Sculpture extends Artwork {
 	 * Method to retrieve the additional images of the Sculpture.
 	 * @return additional images
 	 */
-	public ArrayList<String> getAdditionalImages() {
+	protected ArrayList<String> getAdditionalImages() {
 		return additionalImages;
 	}
 }
