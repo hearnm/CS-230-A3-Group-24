@@ -490,7 +490,8 @@ public class SystemGUI extends Application {
 		Button createNewAuctionButton = new Button("Create a new\nauction.");
 		
 		createNewAuctionButton.setOnAction(e -> {
-			newAuction = new Scene(buildCreateNewAuctionGUI(), MAIN_STAGE_WIDTH-200, MAIN_STAGE_HEIGHT+250);
+			newAuction = new Scene(buildCreateNewAuctionGUI(), MAIN_STAGE_WIDTH-200, MAIN_STAGE_HEIGHT+280);
+			window.setResizable(false);
 			window.setScene(newAuction);
         });
 		search.setMinWidth(150);
@@ -1277,6 +1278,7 @@ public class SystemGUI extends Application {
 		BorderPane root = new BorderPane();
 		VBox vert = new VBox(8);
 		HBox toggles = new HBox(5);
+		VBox imgContainer = new VBox();
 
 		
 		root.getStylesheets().add("artatawe.css");
@@ -1284,7 +1286,7 @@ public class SystemGUI extends Application {
 	
 		vert.setPadding(new Insets(0,0,25,0));
 		root.setPadding(new Insets(25,10,10,10));
-		
+		imgContainer.setPadding(new Insets(10,0,0,0));
 
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("Create a new auction");
@@ -1358,7 +1360,7 @@ public class SystemGUI extends Application {
 				int max = Integer.parseInt(maxBiddersBox.getText());
 				double reserve = Double.parseDouble(reservePriceBox.getText());
 				
-				//Artwork newArt = new Artwork(artNameBox.getText(), artCreatorBox.getText(), year, reserve, max);
+				
 			}
 		});
 
@@ -1368,11 +1370,12 @@ public class SystemGUI extends Application {
 
 			
 		vert.setAlignment(Pos.BASELINE_CENTER);
+		imgContainer.setAlignment(Pos.BASELINE_CENTER);
 		
-
+		imgContainer.getChildren().add(preview);
 		vert.getChildren().addAll(title, subTitle, toggles, artNameTxt, artNameBox, artCreatorTxt, artCreatorBox, artCreationYearTxt, 
 									artCreationYearBox, maxBiddersTxt, maxBiddersBox, reservePriceTxt, reservePriceBox, 
-									preview, uploadImg ,createAuctionButton, back);
+									imgContainer, uploadImg, createAuctionButton, back);
 		
 
 
