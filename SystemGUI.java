@@ -67,8 +67,6 @@ import javafx.stage.Stage;
  * This class creates the System GUI.
  */
 public class SystemGUI extends Application {
-	
-	
 	private static final int MAIN_STAGE_WIDTH = 700;		// Width of the Main Scene
 	private static final int MAIN_STAGE_HEIGHT= 500;		// Height of the Main Scene
 	private static final int SIGNUP_STAGE_WIDTH = 600;		// Width of the Main Scene
@@ -201,13 +199,11 @@ public class SystemGUI extends Application {
         loginButton.setOnAction(e -> {
         	if(usernameInput.getText().length() == 0) {
         		notificationBox("Login Notification", "Missing Information", "Login field cannot be left blank");
-        		
         	} else if(setCurrentUser(usernameInput.getText()) == true) {
         		home = new Scene(buildHomePageGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
         		//LoadData.loadUserFavorites(currentUserObject);
         		window.setScene(home);
-        		usernameInput.setText("");
-        		
+        		usernameInput.setText("");	
         	} else {
         		notificationBox("Login Notification", "Login Error", "Username not found");
         		usernameInput.setText("");
