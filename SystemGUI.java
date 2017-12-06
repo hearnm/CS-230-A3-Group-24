@@ -63,6 +63,7 @@ import javafx.stage.Stage;
 
 /**
  * SystemGUI.java
+ * @author Tom Durman
  * This class creates the System GUI.
  */
 public class SystemGUI extends Application {
@@ -93,8 +94,8 @@ public class SystemGUI extends Application {
 	
 	private Stage window;			// The main stage, displaying the current Scene
 	private Scene login;			// The Scene to hold the login Page GUI
-	private Scene signUp;
-	private Scene home;
+	private Scene signUp;			// The Scene to hold the Sign Up GUI
+	private Scene home;				// The Scene to hold the Home Page GUI
 	private Scene profile;			// The Scene to hold the Profile Page GUI
 	private Scene profileDrawImg;	// The Scene to hold the Profile Draw Image GUI
 	private Scene profileAvatars;	// The Scene to hold the Profile Default Avatars GUI
@@ -103,8 +104,8 @@ public class SystemGUI extends Application {
 	private UserProfile currentUserObject;
 
 	
-	private ArrayList<UserProfile> allUsers = new ArrayList<>();
-	private ArrayList<ImageView> avatars = new ArrayList<>();
+	private ArrayList<UserProfile> allUsers = new ArrayList<>();	// an Array List of all users currently on the system
+	private ArrayList<ImageView> avatars = new ArrayList<>();		// an Arraylist of paths to 6 pre-made user Avatars (stored locally)
 	
 	
 	/**
@@ -135,12 +136,13 @@ public class SystemGUI extends Application {
 		
 	}
 	
+	/**
+	 * Method to set the current user of the system when called
+	 * @param username The username of the current user
+	 * @return True if the user exists (and set user), False if user does not exist
+	 */
 	private boolean setCurrentUser(String username) {
-		
-	
-		
-		
-		
+
 		for(int i = 0; i < allUsers.size(); i++) {
 			if(username.equalsIgnoreCase(allUsers.get(i).getUsername())) {
 				currentUserObject = allUsers.get(i);
@@ -148,10 +150,8 @@ public class SystemGUI extends Application {
 			}
 		}
 		
-	
 		return false;
 	}
-	
 	
 	/**
 	 * Method to build the Login GUI window
@@ -357,21 +357,11 @@ public class SystemGUI extends Application {
     	return root;
 	}
 	
-	
-	
-	
 	/**
-<<<<<<< HEAD
-	 * To be added
-	 * @param username
-	 * @param phoneNo
-	 * @return
-=======
 	 * Method to validate the details entered on the sign up window
 	 * @param username The username entered by the user
 	 * @param phoneNo The phone number entered by the user
 	 * @return True if details are valid, False if details are invalid
->>>>>>> 813a6e3b846c7a03e29ec75eb2eb5ea220ccba34
 	 */
 	private boolean validateSignUpDetails(String username, String phoneNo, String postcode) {
 		
@@ -402,6 +392,11 @@ public class SystemGUI extends Application {
 			}
 	}
 	
+	/**
+	 * Method to check check the currently stored profiles too see if there is a duplicate
+	 * @param username The username to be compared / checked
+	 * @return True if there is a duplicate, False if it is unique
+	 */
 	private boolean usernameDuplicationCheck(String username) {
 		for(int i = 0; i < allUsers.size(); i++) {
 			if(username.equalsIgnoreCase(allUsers.get(i).getUsername())) {
@@ -411,7 +406,17 @@ public class SystemGUI extends Application {
 		return false;
 	}
 	
-
+	/**
+	 * Method to check the existence of input (primarily a method used on the signup GUI)
+	 * @param username Entered username
+	 * @param firstname Entered firstname
+	 * @param lastname Entered lastname
+	 * @param street Entered street
+	 * @param postcode Entered postcode
+	 * @param citytown Entered city / tow
+	 * @param phoneNo Entered phone Number
+	 * @return True if no fields are empty, False if any of the fields are blank;
+	 */
 	private boolean inputExistenceCheck(String username, String firstname, String lastname, String street, 
 														String postcode, String citytown, String phoneNo) {
 		
@@ -423,7 +428,6 @@ public class SystemGUI extends Application {
 		}
 		return true;
 	}
-	
 
 	/**
 	 * Method to build the Home Page GUI window
@@ -556,7 +560,7 @@ public class SystemGUI extends Application {
 	
 	/**
 	 * Method to carry out the functionality of what was selected in the options menu
-	 * @param selection The seleced option
+	 * @param selection The selected option
 	 */
 	private void optionsMenuSelection(String selection) {
 		
@@ -603,33 +607,33 @@ public class SystemGUI extends Application {
 		alert.showAndWait();
 	}
 	
-	
+	/**
+	 * Method to build the User List GUI window
+	 * @return root The Constructed Scroll Pane with all the View User GUI elements
+	 */
 	private ScrollPane buildUserListGUI() {
-		
-		ArrayList<Integer> placeid = new ArrayList<>();
-		ArrayList<Integer> actualid = new ArrayList<>();
-		ArrayList<Label> listname = new ArrayList<>();
-		ArrayList<ImageView> listPic = new ArrayList<>();
-		ArrayList<Button> buttons = new ArrayList<>();
-		
 		window.setResizable(false);
 		
-		BorderPane root = new BorderPane();
+		// Local Variables (for dynamic construction of User List)
+		ArrayList<Integer> placeid = new ArrayList<>();		// Placement Id of the user in the list
+		ArrayList<Integer> actualid = new ArrayList<>();	// Corresponding Id of the user relative to Placement Id
+		ArrayList<Label> listname = new ArrayList<>();		// List of unique names (excluding current user)
+		ArrayList<ImageView> listPic = new ArrayList<>();	// List of corresponding profile pictures (excluding current user)
+		ArrayList<Button> buttons = new ArrayList<>();		// List of buttons
 		
-		root.getStylesheets().add("artatawe.css");
-		
+		ScrollPane root = new ScrollPane();
+		BorderPane mainSection = new BorderPane();
 		VBox topBar = new VBox(25);
 		GridPane center = new GridPane();
-		ScrollPane scroll = new ScrollPane();
 		
-		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+		mainSection.getStylesheets().add("artatawe.css");
+		mainSection.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 	
 		topBar.setPadding(new Insets(0,0,50,0));
+		mainSection.setPadding(new Insets(25,10,10,10));
 		center.setHgap(25);
 		center.setVgap(10);
-		
-		root.setPadding(new Insets(25,10,10,10));
-		
+
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("User List");
 		title.setScaleX(4);
@@ -641,29 +645,23 @@ public class SystemGUI extends Application {
 		
 		Button back = new Button("Back");
 		back.setPrefWidth(50);
-		
+		back.setOnAction(e -> window.setScene(home));
 		
 		for(int i = 0; i < allUsers.size(); i++) {
 			try {
 				if(allUsers.get(i).getUsername() != currentUserObject.getUsername()) {
+					
 					placeid.add(i);
 					actualid.add(allUsers.get(i).getUserId());
 					Label listUsername = new Label(allUsers.get(i).getUsername());
 					listUsername.setScaleX(1.5);
 					listUsername.setScaleY(1.5);
 					ImageView listUserImg;
-					
-					
-					if(getUserImage(allUsers.get(i)) == null) {
-						listUserImg = new ImageView(setDefaultImage(allUsers.get(i)));
-					} else {
 					listUserImg = new ImageView(getUserImage(allUsers.get(i)));
-					}
 					listUserImg.setFitHeight(100);
 					listUserImg.setFitWidth(100);
 					listname.add(listUsername);
 					listPic.add(listUserImg);
-					
 				} 
 			} catch (Exception e) {
 				System.out.println("user does not exist");
@@ -675,39 +673,37 @@ public class SystemGUI extends Application {
 			GridPane.setConstraints(listname.get(n), 1, n);
 		}
 		
-		
 		for(int m = 0; m < allUsers.size() - 1; m++) {
-			
 			Button markFavorite = new Button("Mark as Favorite" + m);
 			buttons.add(markFavorite);
 			markFavorite.setOnAction((ActionEvent)->{
 				int selection = Integer.parseInt(markFavorite.getText().substring(16, 17));
 				currentUserObject.addFavoriteUser(UserProfile.getCurrentUserObject(actualid.get(selection)));
-				
 			});
-			
 			GridPane.setConstraints(markFavorite, 7, m);
 			GridPane.setConstraints(markFavorite, 7, m);
 			center.getChildren().add(markFavorite);
 		}
-
-			back.setOnAction(e -> window.setScene(home));
+			
 			
 			for(int j = 0; j < allUsers.size() - 1; j++) {
 				center.getChildren().addAll(listname.get(j), listPic.get(j));
 			}
 			
-			topBar.setAlignment(Pos.BASELINE_CENTER);
-			topBar.getChildren().addAll(title, subTitle, back);
-			root.setTop(topBar);
-			root.setCenter(center);
+		topBar.setAlignment(Pos.BASELINE_CENTER);
+		topBar.getChildren().addAll(title, subTitle, back);
+		mainSection.setTop(topBar);
+		mainSection.setCenter(center);
 		
-			scroll.setContent(root);
-			return scroll;
+		root.setContent(mainSection);
+		return root;
 	}
-	
-	
-	private Image setDefaultImage(UserProfile x) {
+
+	/**
+	 * Method to be used to get the defaultImage (for users without an image)
+	 * @return The default Image to be used
+	 */
+	private Image setDefaultImage() {
 		
 		try {
 			Image img = new Image(new FileInputStream("DefaultPicture.png"));
@@ -715,25 +711,26 @@ public class SystemGUI extends Application {
 		} catch (FileNotFoundException e) {
 			System.out.println("Default Image Not found");
 		}
-	
+		
 		return null;
 	}
 	
-	
-	
-	private Image getUserImage(UserProfile  x) {
+	/**
+	 * Method to get the given user profile image
+	 * @param user The UserObject whose image is wanted
+	 * @return The profile image if found, Default image otherwise
+	 */
+	private Image getUserImage(UserProfile  user) {
 		
 		try {
-			Image img = new Image(new FileInputStream(x.getUsername() + ".png"));
+			Image img = new Image(new FileInputStream(user.getUsername() + ".png"));
 			return img;
 		} catch (FileNotFoundException e) {
 			System.out.println("Image Not found");
 		}
 	
-		return null;
+		return setDefaultImage();
 	}
-	
-	
 	
 	/**
 	 * Method to build the Profile GUI window
@@ -838,7 +835,6 @@ public class SystemGUI extends Application {
 		return root;
 	}
 	
-	
 	/**
 	 * Method to set the Profile image of the current user
 	 * @param imagePath The directory path to the image
@@ -857,7 +853,10 @@ public class SystemGUI extends Application {
 		}
 	}
 	
-	
+	/**
+	 * Method to build the Avatars GUI window
+	 * @return root The Constructed Pane with all the Avatar GUI elements
+	 */
 	private Pane buildAvatarsGUI() {
 		
 		BorderPane root = new BorderPane();
@@ -969,12 +968,19 @@ public class SystemGUI extends Application {
 		return root;
 	}
 	
+	/**
+	 * Method to reload the User Profile GUI (refresh the page for updated information)
+	 */
 	private void reloadProfile() {
 		Pane profileR = buildProfileGUI();
 		profile = new Scene(profileR, MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
 		window.setScene(profile);
 	}
 	
+	/**
+	 * Method to assign an image to a user by creating a new version of that image with a unique identifyer (username)
+	 * @param path The path to the image
+	 */
 	private void updateUserProfile(String path) {
 		
 		InputStream is = null;
@@ -998,7 +1004,6 @@ public class SystemGUI extends Application {
         }
 	}
 	
-
 	/**
 	 * Method to build the Profile Draw Image GUI window
 	 * @return root The Constructed Pane with all the Profile Draw Image GUI elements
@@ -1275,10 +1280,6 @@ public class SystemGUI extends Application {
 		gc2.setFill(Color.BLACK);
 		gc2.fillOval(PREVIEW_CANVAS_DRAW_X, PREVIEW_CANVAS_DRAW_Y, sliderValue, sliderValue);
 	}
-	
-	
-	
-	
 	
 	/**
 	 * Method to save a drawn image
