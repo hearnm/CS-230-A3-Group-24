@@ -67,8 +67,6 @@ import javafx.stage.Stage;
  * This class creates the System GUI.
  */
 public class SystemGUI extends Application {
-	
-	
 	private static final int MAIN_STAGE_WIDTH = 700;		// Width of the Main Scene
 	private static final int MAIN_STAGE_HEIGHT= 500;		// Height of the Main Scene
 	private static final int SIGNUP_STAGE_WIDTH = 600;		// Width of the Main Scene
@@ -82,7 +80,6 @@ public class SystemGUI extends Application {
 	private static final int PREVIEW_CANVAS_DRAW_X = 25;	// Draw Preview Location X
 	private static final int PREVIEW_CANVAS_DRAW_Y = 2;		// Draw Preview Location Y
 	
-
 	private Canvas canvas;					// The canvas which the user can draw an image
 	private Canvas previewCanvas;			// The canvas which shows the current pen style
 	private double mouseX = 0.0;			// Mouse Coordinate X
@@ -105,10 +102,8 @@ public class SystemGUI extends Application {
 	private Image profImg;			// Currently selected Profile image for a profile
 	private UserProfile currentUserObject;
 
-	
 	private ArrayList<UserProfile> allUsers = new ArrayList<>();	// an Array List of all users currently on the system
 	private ArrayList<ImageView> avatars = new ArrayList<>();		// an Arraylist of paths to 6 pre-made user Avatars (stored locally)
-	
 	
 	/**
 	 * Main Method to start the GUI
@@ -157,7 +152,6 @@ public class SystemGUI extends Application {
 	 * @return root The Constructed Pane with all the Login GUI elements
 	 */
 	private Pane buildLoginGUI() {
-		
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		root.getStylesheets().add("artatawe.css");
@@ -205,25 +199,21 @@ public class SystemGUI extends Application {
         loginButton.setOnAction(e -> {
         	if(usernameInput.getText().length() == 0) {
         		notificationBox("Login Notification", "Missing Information", "Login field cannot be left blank");
-        		
         	} else if(setCurrentUser(usernameInput.getText()) == true) {
         		home = new Scene(buildHomePageGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
         		currentUserObject.addFavoriteMultipleUsers(LoadData.loadUserFavorites(currentUserObject));
         		window.setScene(home);
-        		usernameInput.setText("");
-        		
+        		usernameInput.setText("");	
         	} else {
         		notificationBox("Login Notification", "Login Error", "Username not found");
         		usernameInput.setText("");
         	}
         });
-        
         signupButton.setOnAction(e -> {
 			signUp = new Scene(buildSignUpGUI(), SIGNUP_STAGE_WIDTH, SIGNUP_STAGE_HEIGHT);
 			window.setResizable(false);
 			window.setScene(signUp);
         });
-
         loginBox.getChildren().addAll(usernameLogin, usernameInput, loginButton);
 		title.getChildren().addAll(text, text2);
 
@@ -269,7 +259,6 @@ public class SystemGUI extends Application {
 		midSection.setMinSize(200, 150);
 		midSection.setMaxHeight(320);
 		midSection.setMaxWidth(250);
-	
 
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("\n\nSign-Up Screen\n\n");
@@ -311,7 +300,6 @@ public class SystemGUI extends Application {
     	});
     	
     	createProfile.setOnAction(e -> {
-
     		if(signupInputExistenceCheck(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
     							postcodeBox.getText(), cityTownBox.getText(), phoneNoBox.getText()) == true) {
     			
@@ -328,7 +316,6 @@ public class SystemGUI extends Application {
     			}
     		} 
     	});
-    
     	innerDetails1.getChildren().addAll(username, usernameBox);
     	innerDetails2.getChildren().addAll(firstname, firstnameBox);
     	innerDetails3.getChildren().addAll(lastname, lastnameBox);
@@ -358,11 +345,9 @@ public class SystemGUI extends Application {
 	 * @return True if details are valid, False if details are invalid
 	 */
 	private boolean validateSignUpDetails(String username, String phoneNo, String postcode) {
-		
 		//String regexUkPhoneNumber = "[0-9]{11}";	//Test
 		//Pattern phoneNoChecker = Pattern.compile(regexUkPhoneNumber);
 		//Matcher phoneNoMatcher = phoneNoChecker.matcher(phoneNo);
-		
 		if(usernameDuplicationCheck(username)) {
 			notificationBox("Sign-Up Notification", "Input Error", "Username taken, please select another");
 			return false;
@@ -373,7 +358,6 @@ public class SystemGUI extends Application {
 			notificationBox("Sign-Up Notification", "Input Error", "Postcode can only be 6 or 7 characters long");
 			return false;
 		}
-		
 		try {
 			Integer.parseInt(phoneNo);
 		} catch (NumberFormatException e) {
@@ -413,7 +397,6 @@ public class SystemGUI extends Application {
 	 */
 	private boolean signupInputExistenceCheck(String username, String firstname, String lastname, String street, 
 														String postcode, String citytown, String phoneNo) {
-		
 		if(username.length() == 0 || firstname.length() == 0  || lastname.length() == 0
 				|| street.length() == 0  || postcode.length() == 0  
 				|| citytown.length() == 0  || phoneNo.length() == 0) {
@@ -489,7 +472,6 @@ public class SystemGUI extends Application {
 			System.out.println("Image not found");
 		}
 		
-
 		art1.setFitWidth(128);
 		art1.setFitHeight(128);
 		art2.setFitWidth(128);
@@ -501,7 +483,6 @@ public class SystemGUI extends Application {
 			newAuction = new Scene(buildCreateNewAuctionGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
 			window.setScene(newAuction);
         });
-		
 		search.setMinWidth(150);
 		searchBtn.setMinWidth(70);
 
@@ -536,7 +517,6 @@ public class SystemGUI extends Application {
 			optionsMenu.setValue("Select an Option"); 
 			
 		});
-		
 		searchBlock.getChildren().addAll(search,searchBtn, buttonBar);
 		titleBlock.setAlignment(Pos.BASELINE_CENTER);
 
@@ -561,7 +541,6 @@ public class SystemGUI extends Application {
 	 * @param selection The selected option
 	 */
 	private void optionsMenuSelection(String selection) {
-		
 		if(selection == "My Account") {
 			Pane draw = buildProfileGUI();
 			profile = new Scene(draw, MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
@@ -595,12 +574,10 @@ public class SystemGUI extends Application {
 	 * @param message The message of the notification box
 	 */
 	private void notificationBox(String title, String header, String message) {
-		
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle(title);
 		alert.setHeaderText(header);
 		alert.setContentText(message);
-
 		alert.showAndWait();
 	}
 	
@@ -647,7 +624,6 @@ public class SystemGUI extends Application {
 		for(int i = 0; i < allUsers.size(); i++) {
 			try {
 				if(allUsers.get(i).getUsername() != currentUserObject.getUsername()) {
-					
 					placeid.add(i);
 					actualid.add(allUsers.get(i).getUserId());
 					Label listUsername = new Label(allUsers.get(i).getUsername());
@@ -678,18 +654,14 @@ public class SystemGUI extends Application {
 				addUserToFavorites(UserProfile.getCurrentUserObject(actualid.get(selection)));
 				markFavorite.setVisible(false);
 				SaveData.saveProfileFavorites(currentUserObject);
-				
 			});
 			GridPane.setConstraints(markFavorite, 7, m);
 			GridPane.setConstraints(markFavorite, 7, m);
 			center.getChildren().add(markFavorite);
 		}
-			
-			
 			for(int j = 0; j < allUsers.size() - 1; j++) {
 				center.getChildren().addAll(listname.get(j), listPic.get(j));
 			}
-			
 		topBar.setAlignment(Pos.BASELINE_CENTER);
 		topBar.getChildren().addAll(title, subTitle, back);
 		mainSection.setTop(topBar);
@@ -716,14 +688,12 @@ public class SystemGUI extends Application {
 	 * @return The default Image to be used
 	 */
 	private Image setDefaultImage() {
-		
 		try {
 			Image img = new Image(new FileInputStream("DefaultPicture.png"));
 			return img;
 		} catch (FileNotFoundException e) {
 			System.out.println("Default Image Not found");
 		}
-		
 		return null;
 	}
 	
@@ -733,14 +703,12 @@ public class SystemGUI extends Application {
 	 * @return The profile image if found, Default image otherwise
 	 */
 	private Image getUserImage(UserProfile  user) {
-		
 		try {
 			Image img = new Image(new FileInputStream(user.getUsername() + ".png"));
 			return img;
 		} catch (FileNotFoundException e) {
 			System.out.println("Image Not found");
 		}
-	
 		return setDefaultImage();
 	}
 	
@@ -749,7 +717,6 @@ public class SystemGUI extends Application {
 	 * @return root The Constructed Pane with all the Profile GUI elements
 	 */
 	private Pane buildProfileGUI() {
-		
 		BorderPane root = new BorderPane();
 		root.getStylesheets().add("artatawe.css");
 		window.setResizable(true);
@@ -767,7 +734,6 @@ public class SystemGUI extends Application {
 		lSideBar.setPadding(new Insets(10,10,10,0));
 		rSideBar.setPadding(new Insets(30,0,0,10));
 		midSection.setPadding(new Insets(50,10,10,50));
-
 
 		Text title = new Text("Artatawe\n");
 		title.setId("#ARTATAWE2");
@@ -792,19 +758,15 @@ public class SystemGUI extends Application {
 		Button avatarButton = new Button("Use an Avatar");
 		Button back = new Button("Return to Home Page");
 		
-		
 		changePicButton.setOnAction(e -> {
 			profileDrawImg = new Scene(buildDrawImgGUI(), P_DRAW_IMG_STAGE_WIDTH, P_DRAW_IMG_STAGE_HEIGHT);
 			window.setScene(profileDrawImg);
 		});
-		
 		avatarButton.setOnAction(e -> {
 			profileAvatars = new Scene(buildAvatarsGUI(), P_DRAW_IMG_STAGE_WIDTH, P_DRAW_IMG_STAGE_HEIGHT);
 			window.setResizable(false);
 			window.setScene(profileAvatars);
 		});
-		
-		
 		back.setOnAction(e -> window.setScene(home));
 
 		changePicButton.setMaxWidth(Double.MAX_VALUE);
@@ -814,7 +776,6 @@ public class SystemGUI extends Application {
 		imageView.setImage(profImg);
 		imageView.setFitWidth(150);
 		imageView.setFitHeight(150);
-		
 		
 		// If you know how to fix this please do its giving me cancer
 		TableView myAuctions = new TableView();
@@ -852,7 +813,6 @@ public class SystemGUI extends Application {
 	 * @param imagePath The directory path to the image
 	 */
 	private void setProfileImage() {
-		
 		try {
 			profImg = new Image(new FileInputStream(currentUserObject.getUsername() + ".png"));
 		} catch (FileNotFoundException e) {
@@ -870,7 +830,6 @@ public class SystemGUI extends Application {
 	 * @return root The Constructed Pane with all the Avatar GUI elements
 	 */
 	private Pane buildAvatarsGUI() {
-		
 		BorderPane root = new BorderPane();
 		root.getStylesheets().add("artatawe.css");
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
@@ -910,7 +869,6 @@ public class SystemGUI extends Application {
 				notificationBox("Resource Error", "Avatar " + (i+1), "Default avatar not found");
 			}
 		}
-		
 		avatars.get(0).setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -965,7 +923,6 @@ public class SystemGUI extends Application {
 				reloadProfile();
 			}
 		});
-
 		bottomSection.setAlignment(Pos.BASELINE_CENTER);
 		bottomSection.getChildren().addAll(back);
 		topSection.setAlignment(Pos.BASELINE_CENTER);
@@ -994,7 +951,6 @@ public class SystemGUI extends Application {
 	 * @param path The path to the image
 	 */
 	private void updateUserProfile(String path) {
-		
 		InputStream is = null;
         OutputStream os = null;
         try {
@@ -1004,8 +960,7 @@ public class SystemGUI extends Application {
             int length;
             while ((length = is.read(buffer)) > 0) {
                 os.write(buffer, 0, length);
-            }
-            
+            } 
         } catch (Exception e) {
             try {
         	is.close();
@@ -1015,14 +970,21 @@ public class SystemGUI extends Application {
             }
         }
 	}
-	
+
+	/**
+	 * Method to set border as there was duplication in code
+	 * @param p
+	 */
+	private void setThisBorder(Pane p) {
+		p.setBorder(new Border(new BorderStroke(Color.BLACK, 
+	            BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+	}
 	
 	/**
 	 * Method to build the Profile Draw Image GUI window
 	 * @return root The Constructed Pane with all the Profile Draw Image GUI elements
 	 */
 	private Pane buildDrawImgGUI() {
-
 		BorderPane root = new BorderPane();
 		root.getStylesheets().add("artatawe.css");
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
@@ -1049,12 +1011,8 @@ public class SystemGUI extends Application {
 	   
 	    root.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-	    
-	    middleSection.setBorder(new Border(new BorderStroke(Color.BLACK, 
-	            BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-	    
-	    previewSection.setBorder(new Border(new BorderStroke(Color.BLACK, 
-	            BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+	    setThisBorder(middleSection);
+	    setThisBorder(previewSection);
 	    
 	    Label title = new Label("Custom Avatar Drawing");
 	    Label sizeModifer = new Label("Pen Size Modifer");
@@ -1128,14 +1086,12 @@ public class SystemGUI extends Application {
             	drawPreview(colorOption.getValue(), shapeOptions.getValue());
             }
 	    });
-	    
 	    // If you can fix this yellow line please do
 	    colorOption.setOnAction(new EventHandler() {
 	    	public void handle(Event t) {
 	    		drawPreview(colorOption.getValue(), shapeOptions.getValue());
 	    	}
 	    });
-	
 		canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -1146,7 +1102,6 @@ public class SystemGUI extends Application {
 				drawOnClick(shape, colorOption);
 			}
 		});	
-		
 		canvas.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -1157,7 +1112,6 @@ public class SystemGUI extends Application {
 				drawOnDrag(shape, colorOption);
 				}
 		});	
-		
 		previewSection.getChildren().add(previewCanvas);
 	    topLeftBar.getChildren().addAll(draw, line, erase);
 	    topBar.getChildren().add(title);
@@ -1190,7 +1144,6 @@ public class SystemGUI extends Application {
 	 */
 	private void drawOnClick(String shape, ColorPicker colorOption) {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		
 		getColorChoice(colorOption);
 		
 		if(drawEraser == true) {
@@ -1199,10 +1152,9 @@ public class SystemGUI extends Application {
 			gc.fillOval(mouseX, mouseY,  sliderValue, sliderValue);
 			} else if(drawParticle == true && shape == "Square") {
 				gc.fillRect(mouseX, mouseY, sliderValue, sliderValue);
-			} else if(drawLine == true) {
+			} else if(drawLine == true) { // IMPLEMENT A LINE (why is this so hard)
 				gc.strokeLine(mouseX, mouseY, sliderValue, sliderValue);
 				gc.setLineWidth(sliderValue);
-				// IMPLEMENT A LINE (why is this so hard)
 		}
 	}
 
@@ -1212,7 +1164,6 @@ public class SystemGUI extends Application {
 	 * @param colorOption The Color for a shape to be drawn in.
 	 */
 	private void drawOnDrag(String shape, ColorPicker colorOption) {
-		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		getColorChoice(colorOption);
 		
@@ -1223,11 +1174,9 @@ public class SystemGUI extends Application {
 			} else if(drawParticle == true && shape == "Square") {
 				gc.fillRect(mouseX, mouseY, sliderValue, sliderValue);
 		} 
-		
-		if(drawLine == true) {
+		if(drawLine == true) { // IMPLEMENT A LINE (why is this so hard)
 			gc.strokeLine(mouseX, mouseY, sliderValue, sliderValue);
 			gc.setLineWidth(sliderValue);
-			// IMPLEMENT A LINE (why is this so hard)
 		}
 	}
 	
@@ -1236,7 +1185,6 @@ public class SystemGUI extends Application {
 	 * @param colorOption The choice of color
 	 */
 	private void getColorChoice(ColorPicker colorOption) {
-	
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.setFill(colorOption.getValue());
 		
@@ -1313,17 +1261,16 @@ public class SystemGUI extends Application {
 	
 	private Pane buildCreateNewAuctionGUI() {
 		BorderPane root = new BorderPane();
-		VBox topBar = new VBox(25);
+		VBox vert = new VBox(5);
 		GridPane center = new GridPane();
-		StackPane loginBox = new StackPane();
 		
 		root.getStylesheets().add("artatawe.css");
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 	
-		topBar.setPadding(new Insets(0,0,25,0));
+		vert.setPadding(new Insets(0,0,25,0));
 		root.setPadding(new Insets(25,10,10,10));
 		center.setHgap(25);
-		center.setVgap(10);
+		center.setVgap(1);
 
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("Create a new auction");
@@ -1335,6 +1282,10 @@ public class SystemGUI extends Application {
 		title.setTextAlignment(TextAlignment.LEFT);
 		subTitle.setTextAlignment(TextAlignment.LEFT);
 		
+		Text auctionNameTxt = new Text("Auction Name:\n");
+		Text maxBiddersTxt = new Text("Max Bidders:\n");
+		Text reserveBidTxt = new Text("Reserve Bid:\n");
+		
 		TextField auctionNameBox = new TextField();
 		TextField maxBiddersBox = new TextField();
 		TextField reserveBidBox = new TextField();
@@ -1343,20 +1294,34 @@ public class SystemGUI extends Application {
 		maxBiddersBox.setMaxWidth(200);
 		reserveBidBox.setMaxWidth(200);
 		
-		
 		Button back = new Button("Back");
 		back.setPrefWidth(50);
 		back.setOnAction(e -> window.setScene(home));
 		
-		Button createAuction = new Button("Create Auction");
-		createAuction.setPrefWidth(50);
+		Button createAuctionButton = new Button("Create Auction");
+		createAuctionButton.setPrefWidth(150);
+		createAuctionButton.setPrefHeight(50);
+		
+		createAuctionButton.setOnAction(e -> {
+			if(newAuctionInputExistenceCheck(auctionNameBox.getText(), maxBiddersBox.getText(), reserveBidBox.getText())) {
+				//do something
+			}
+		});
 			
-		topBar.setAlignment(Pos.BASELINE_CENTER);
-		topBar.getChildren().addAll(title, subTitle, auctionNameBox, maxBiddersBox, reserveBidBox, back);
-		root.setTop(topBar);
+		vert.setAlignment(Pos.BASELINE_CENTER);
+		vert.getChildren().addAll(title, subTitle, auctionNameTxt, auctionNameBox, maxBiddersTxt, maxBiddersBox, reserveBidTxt, reserveBidBox, createAuctionButton, back);
+		root.setTop(vert);
 		root.setCenter(center);
 		
 		return root;
+	}
+	
+	public boolean newAuctionInputExistenceCheck(String auctionNameInput, String maxBiddersInput, String reserveBidInput) {
+		if(auctionNameInput.length() == 0 || maxBiddersInput.length() == 0 || reserveBidInput.length() == 0) {
+			notificationBox("Sign-Up Notification", "Input Error", "All fields must be filled out");
+			return false;
+		}
+		return true;
 	}
 	
 }
