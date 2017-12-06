@@ -1279,6 +1279,8 @@ public class SystemGUI extends Application {
 		VBox vert = new VBox(8);
 		HBox toggles = new HBox(5);
 		VBox imgContainer = new VBox();
+		HBox dimensions1 = new HBox(5);
+		HBox dimensions2 = new HBox(5);
 
 		
 		root.getStylesheets().add("artatawe.css");
@@ -1286,7 +1288,7 @@ public class SystemGUI extends Application {
 	
 		vert.setPadding(new Insets(0,0,25,0));
 		root.setPadding(new Insets(25,10,10,10));
-		imgContainer.setPadding(new Insets(10,0,0,0));
+		imgContainer.setPadding(new Insets(10,10,10,10));
 
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("Create a new auction");
@@ -1298,11 +1300,13 @@ public class SystemGUI extends Application {
 		title.setTextAlignment(TextAlignment.LEFT);
 		subTitle.setTextAlignment(TextAlignment.LEFT);
 		
-		Text artNameTxt = new Text("Artwork Name:\n");
-		Text artCreatorTxt = new Text("Artwork Creator:\n");
-		Text artCreationYearTxt = new Text("Artwork Creation Year:\n");
-		Text maxBiddersTxt = new Text("Max Bidders:\n");
-		Text reservePriceTxt = new Text("Reserve Bid:\n");
+		Text artNameTxt = new Text("Artwork Name:");
+		Text artCreatorTxt = new Text("Artwork Creator:");
+		Text artCreationYearTxt = new Text("Artwork Creation Year:");
+		Text maxBiddersTxt = new Text("Max Bidders:");
+		Text reservePriceTxt = new Text("Reserve Bid:");
+		Text heightTxt = new Text("Height(cm)");
+		Text widthTxt = new Text("Width(cm)");
 		
 		TextField artNameBox = new TextField();
 		TextField artCreatorBox = new TextField();
@@ -1310,7 +1314,12 @@ public class SystemGUI extends Application {
 		TextField maxBiddersBox = new TextField();
 		TextField reservePriceBox = new TextField();
 		TextField artFilePathBox = new TextField();
+		TextField height = new TextField();
+		TextField width = new TextField();
 		
+		
+		height.setMaxWidth(50);
+		width.setMaxWidth(50);
 		artNameBox.setMaxWidth(200);
 		maxBiddersBox.setMaxWidth(200);
 		reservePriceBox.setMaxWidth(200);
@@ -1359,8 +1368,13 @@ public class SystemGUI extends Application {
 				int year = Integer.parseInt(artCreationYearBox.getText());
 				int max = Integer.parseInt(maxBiddersBox.getText());
 				double reserve = Double.parseDouble(reservePriceBox.getText());
+				//double width
+				//double hight
 				
-				
+				//if(paintingRadio.isSelected() == true) {
+				//	Artwork newPainting = new Painting(currentUserObject.getUsername(), artNameBox, artCreatorBox, Integer.parseInt(artCreationYearBox.getText()), 
+				//										Double.parseDouble(reservePriceBox.getText()), Integer.parseInt(maxBiddersBox.getText()), Double.parseDouble(, highet, true, true);
+			//	}
 			}
 		});
 
@@ -1371,11 +1385,18 @@ public class SystemGUI extends Application {
 			
 		vert.setAlignment(Pos.BASELINE_CENTER);
 		imgContainer.setAlignment(Pos.BASELINE_CENTER);
+		dimensions2.setAlignment(Pos.BASELINE_CENTER);
+		dimensions1.setAlignment(Pos.BASELINE_CENTER);
 		
-		imgContainer.getChildren().add(preview);
+	
+		
+		
+		dimensions1.getChildren().addAll(heightTxt, widthTxt);
+		dimensions2.getChildren().addAll(height, width);
+		imgContainer.getChildren().addAll(preview);
 		vert.getChildren().addAll(title, subTitle, toggles, artNameTxt, artNameBox, artCreatorTxt, artCreatorBox, artCreationYearTxt, 
 									artCreationYearBox, maxBiddersTxt, maxBiddersBox, reservePriceTxt, reservePriceBox, 
-									imgContainer, uploadImg, createAuctionButton, back);
+									imgContainer, dimensions1, dimensions2, uploadImg, createAuctionButton, back);
 		
 
 
@@ -1384,6 +1405,7 @@ public class SystemGUI extends Application {
 	}
 	
 
+	
 	
 	@SuppressWarnings("unused")
 	private Image artworkImgSelection() {
