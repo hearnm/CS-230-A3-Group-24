@@ -29,14 +29,8 @@ public class SaveData {
 	private static PrintWriter printWriter;
 	private static Scanner inputStream;	
 	
-	private static int userId = -1;
-	private static String username = "";
-	private static String firstname = "";
-	private static String lastname = "";
-	private static String street = "";
-	private static String postcode = "";
-	private static String cityTown = "";
-	private static Integer phoneNo = 0;
+	private static ArrayList<UserProfile> allUsers = new ArrayList<>();
+	
 	private boolean newAccount;
 	
 	
@@ -46,8 +40,14 @@ public class SaveData {
 	 */
 	public static void saveNewProfile(String username) {
 		currentUser = UserProfile.getCurrentUserObject(username);
-		openProfileFile(profileDataPath);
+		openProfileFile(profileDataPath, false);
 		addProfileData(printWriter);
+	}
+	
+	public static void updateProfiles(ArrayList<UserProfile> allUsersUpdated) {
+		allUsers = allUsersUpdated;
+		openProfileFile(profileDataPath, true);
+		updateProfileData(printWriter);
 	}
 	
 	/**
@@ -56,7 +56,7 @@ public class SaveData {
 	 */
 	public static void saveProfileFavorites(UserProfile user) {
 		currentUser = user;
-		openProfileFile(profileDataPath);
+		openProfileFile(profileDataPath, true);
 		addProfileFavoritesData(printWriter);
 	}
 	
@@ -65,13 +65,20 @@ public class SaveData {
 	 * @param filename Absolute or relative path to a file
 	 * @return The file output stream opened by filename
 	 */
-	private static void openProfileFile(String filePath){
+	private static void openProfileFile(String filePath, boolean overwrite){
+		FileWriter fileWriter;
 		
 		try {
 			File dataFile = new File(filePath);
-			FileWriter fileWriter = new FileWriter(dataFile, false);
-			BufferedWriter buffer = new BufferedWriter(fileWriter);
-			printWriter = new PrintWriter(buffer);
+			if(overwrite == true) {
+				fileWriter = new FileWriter(dataFile, false);
+				printWriter = new PrintWriter(fileWriter);
+			} else {
+				fileWriter = new FileWriter(dataFile, true);
+				BufferedWriter buffer = new BufferedWriter(fileWriter);
+				printWriter = new PrintWriter(buffer);
+			}
+			
 
 			} catch (IOException e) {
 				System.out.println("error occured with file");
@@ -84,17 +91,14 @@ public class SaveData {
 	 */
 	private static void addProfileData(PrintWriter outputStream) {
 		
-
-		int userId = currentUser.getUserId();
-		
-		
-			username = currentUser.getUsername();
-			firstname = currentUser.getFirstName();
-			lastname = currentUser.getLastName();
-			street = currentUser.getStreet();
-			postcode = currentUser.getPostcode();
-			cityTown = currentUser.getCityTown();
-			phoneNo = currentUser.getPhoneNumber();
+			int userId = currentUser.getUserId();
+			String username = currentUser.getUsername();
+			String firstname = currentUser.getFirstName();
+			String lastname = currentUser.getLastName();
+			String street = currentUser.getStreet();
+			String postcode = currentUser.getPostcode();
+			String cityTown = currentUser.getCityTown();
+			Integer phoneNo = currentUser.getPhoneNumber();
 			boolean newAccount = currentUser.getNewAccount();
 		
 
@@ -103,6 +107,30 @@ public class SaveData {
 		
 		closeFile(outputStream);
 	}
+	
+	
+	private static void updateProfileData(PrintWriter outputStream) {
+		
+		for(int i = 0; i < allUsers.size(); i++) {
+			int userId = allUsers.get(i).getUserId();
+			String username = allUsers.get(i).getUsername();
+			String firstname = allUsers.get(i).getFirstName();
+			String lastname = allUsers.get(i).getLastName();
+			String street = allUsers.get(i).getStreet();
+			String postcode = allUsers.get(i).getPostcode();
+			String cityTown = allUsers.get(i).getCityTown();
+			Integer phoneNo = allUsers.get(i).getPhoneNumber();
+			boolean newAccount = allUsers.get(i).getNewAccount();
+			
+			outputStream.println(userId + "," + username + "," + firstname + "," + lastname + "," + street 
+			   		  + "," + postcode + "," + cityTown + "," + phoneNo + "," + newAccount + ",\n");
+		}
+		
+		closeFile(outputStream);
+	}
+	
+	
+	
 	
 	/**
 	 * Method to save a new Profile to a locally stored file
