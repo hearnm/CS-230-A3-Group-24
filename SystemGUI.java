@@ -1160,6 +1160,8 @@ public class SystemGUI extends Application {
 		drawParticle = true;
 	}
 	
+	private double initX;
+	private double initY;
 	/**
 	 * Method to draw/erase at a tracked mouse X and Y coordinates
 	 * @param shape The given shape to be drawn
@@ -1177,12 +1179,17 @@ public class SystemGUI extends Application {
 			} else if(drawParticle == true && shape == "Square") {
 				gc.fillRect(mouseX, mouseY, sliderValue, sliderValue);
 			} else if(drawLine == true) {
-				gc.strokeLine(mouseX, mouseY, sliderValue, sliderValue);
-				gc.setLineWidth(sliderValue);
+				initX = mouseX;
+				initY = mouseY;
+				gc.strokeLine(initX, initY, mouseX, mouseY);
+				//gc.strokeLine(mouseX, mouseY, sliderValue, sliderValue);
+				//gc.setLineWidth(sliderValue);
 				// IMPLEMENT A LINE (why is this so hard)
 		}
 	}
 
+	
+	
 	/**
 	 * Method to draw/erase at a tracked mouse X and Y coordinates
 	 * @param shape The given shape to be drawn
@@ -1202,9 +1209,9 @@ public class SystemGUI extends Application {
 		} 
 		
 		if(drawLine == true) {
-			gc.strokeLine(mouseX, mouseY, sliderValue, sliderValue);
-			gc.setLineWidth(sliderValue);
-			// IMPLEMENT A LINE (why is this so hard)
+			gc.strokeLine(initX, initY, mouseX, mouseY);
+			gc.setLineWidth(5);
+			
 		}
 	}
 	
