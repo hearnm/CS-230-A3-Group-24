@@ -99,6 +99,7 @@ public class SystemGUI extends Application {
 	private Scene profile;			// The Scene to hold the Profile Page GUI
 	private Scene profileDrawImg;	// The Scene to hold the Profile Draw Image GUI
 	private Scene profileAvatars;	// The Scene to hold the Profile Default Avatars GUI
+	private Scene profileUpdateData;
 	private Scene viewUsers;
 	private Scene newAuction;		// The Scene to hold the Create New Auction GUI
 	private Image profImg;			// Currently selected Profile image for a profile
@@ -312,22 +313,15 @@ public class SystemGUI extends Application {
     	});
     	
     	createProfile.setOnAction(e -> {
-    		
-    		String usernameInput = usernameBox.getText();
-    		String firstnameInput = firstnameBox.getText();
-    		String lastnameInput = lastnameBox.getText();
-    		String streetInput = streetBox.getText();
-    		String postcodeInput = postcodeBox.getText().replaceAll("\\s+", "");
-    		String cityTownInput = cityTownBox.getText();
-    		String phoneNoInput = phoneNoBox.getText();
-    		
-    		if(inputExistenceCheck(usernameInput, firstnameInput, lastnameInput, streetInput, 
-    							postcodeInput, cityTownInput, phoneNoInput) == true) {
-    			if(validateSignUpDetails(usernameInput, phoneNoInput, postcodeInput) == true) {
-    							Integer intPhoneNo = Integer.parseInt(phoneNoInput);
+
+    		if(inputExistenceCheck(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
+    							postcodeBox.getText(), cityTownBox.getText(), phoneNoBox.getText()) == true) {
+    			
+    			if(validateSignUpDetails(usernameBox.getText(), phoneNoBox.getText(), postcodeBox.getText()) == true) {
+    							Integer intPhoneNo = Integer.parseInt(phoneNoBox.getText());
     							
-    				UserProfile newUser = new UserProfile(usernameInput, firstnameInput, lastnameInput, streetInput, 
-    								postcodeInput, cityTownInput, intPhoneNo, true);
+    				UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
+    								postcodeBox.getText(), cityTownBox.getText(), intPhoneNo, true);
     				allUsers.add(newUser);
     				notificationBox("Account Creation", "Account Creation Successful", "Congratulations you now have an Artatawe Account!\nYour username is: " + usernameBox.getText());
     				window.setScene(login);
@@ -794,9 +788,8 @@ public class SystemGUI extends Application {
 		
 		setProfileImage();
 
-		Button changePicButton = new Button("Change Profile Picture");
-		Button avatarButton = new Button("Use Default Avatar");
-		Button updateProfileButton = new Button("Update Personal Info");
+		Button changePicButton = new Button("Create an Avatar");
+		Button avatarButton = new Button("Use an Avatar");
 		Button back = new Button("Return to Home Page");
 		
 		
@@ -811,10 +804,11 @@ public class SystemGUI extends Application {
 			window.setScene(profileAvatars);
 		});
 		
+		
 		back.setOnAction(e -> window.setScene(home));
 
 		changePicButton.setMaxWidth(Double.MAX_VALUE);
-		updateProfileButton.setMaxWidth(Double.MAX_VALUE);
+		avatarButton.setMaxWidth(Double.MAX_VALUE);
 		
 		ImageView imageView = new ImageView();
 		imageView.setImage(profImg);
@@ -841,7 +835,7 @@ public class SystemGUI extends Application {
 		mainTop.getChildren().addAll(titleBlock);
 		profPicBox.getChildren().addAll(imageView);
 		midSection.getChildren().addAll(firstName,street,postcode,cityTown,phoneNo);
-		lSideBar.getChildren().addAll(profPicBox, changePicButton, avatarButton, updateProfileButton);
+		lSideBar.getChildren().addAll(profPicBox, changePicButton, avatarButton);
 		rSideBar.getChildren().addAll(myAuctions, myBids);
 		
 		root.setTop(mainTop);
@@ -1021,6 +1015,7 @@ public class SystemGUI extends Application {
             }
         }
 	}
+	
 	
 	/**
 	 * Method to build the Profile Draw Image GUI window
