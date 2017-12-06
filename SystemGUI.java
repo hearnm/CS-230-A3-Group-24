@@ -1275,7 +1275,7 @@ public class SystemGUI extends Application {
 	private Pane buildCreateNewAuctionGUI() {
 		
 		BorderPane root = new BorderPane();
-		VBox vert = new VBox(5);
+		VBox vert = new VBox(8);
 		HBox toggles = new HBox(5);
 
 		
@@ -1300,17 +1300,15 @@ public class SystemGUI extends Application {
 		Text artCreatorTxt = new Text("Artwork Creator:\n");
 		Text artCreationYearTxt = new Text("Artwork Creation Year:\n");
 		Text maxBiddersTxt = new Text("Max Bidders:\n");
-		Text reserveBidTxt = new Text("Reserve Bid:\n");
+		Text reservePriceTxt = new Text("Reserve Bid:\n");
 		Text artFilePathTxt = new Text("Artwork File Path:\n");
-		Text reservePriceTxt = new Text("Reserve Price:\n");
 		
 		TextField artNameBox = new TextField();
 		TextField artCreatorBox = new TextField();
 		TextField artCreationYearBox = new TextField();
 		TextField maxBiddersBox = new TextField();
-		TextField reserveBidBox = new TextField();
-		TextField artFilePathBox = new TextField();
 		TextField reservePriceBox = new TextField();
+		TextField artFilePathBox = new TextField();
 		
 		artNameBox.setMaxWidth(200);
 		maxBiddersBox.setMaxWidth(200);
@@ -1374,7 +1372,7 @@ public class SystemGUI extends Application {
 		
 
 		vert.getChildren().addAll(title, subTitle, artNameTxt, artNameBox, artCreatorTxt, artCreatorBox, artCreationYearTxt, 
-									artCreationYearBox, maxBiddersTxt, maxBiddersBox, reserveBidTxt, reserveBidBox, 
+									artCreationYearBox, maxBiddersTxt, maxBiddersBox, reservePriceTxt, reservePriceBox, 
 									preview, uploadImg ,createAuctionButton, back);
 		
 
