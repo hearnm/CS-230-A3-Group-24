@@ -136,10 +136,10 @@ public class SaveData {
 	private static void addProfileFavoritesData(PrintWriter outputStream) {
 		ArrayList<UserProfile> favoriteUsers = new ArrayList<>();
 		favoriteUsers = currentUser.getFavoriteUsers();
-		
-		outputStream.print(currentUser.getUserId() + ",");
+
 		
 		for(int i = 0; i < favoriteUsers.size(); i++) {
+			
 			outputStream.print(favoriteUsers.get(i).getUsername() + ",");
 		}
 		closeFile(outputStream);

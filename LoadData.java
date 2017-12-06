@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -25,11 +26,18 @@ public class LoadData {
 	public static void loadSystemData() {
 		openProfileFile(profileDataPath);
 		readProfileFile();
+
 	}
 	
 	public static ArrayList<UserProfile> loadUserFavorites(UserProfile user) {
 		currentUser = user;
+		try {
 		openProfileFile(user.getUsername() + profileFavoritePath);
+		} catch (Exception e) {
+
+			return null;
+		}
+		
 		return readUserfavoritesFile();
 		
 	}
@@ -68,25 +76,27 @@ public class LoadData {
 			
 			}
 		
-		closeFile();
+		
 		}
 		
 	private static ArrayList<UserProfile> readUserfavoritesFile() {
 		
 		ArrayList<UserProfile> favoriteUsers = new ArrayList<>();
-		inputStream.next();
-		
+
+		try {
 		while(inputStream.hasNext()) {
 			
 			String username = inputStream.next();
 			favoriteUsers.add(UserProfile.getCurrentUserObject(username));
-
 			}
 		
-		closeFile();
+		
 		return favoriteUsers;
+		} catch (NoSuchElementException e) {
+			System.out.println("No favorites in file");
+		}
 		
-		
+		return favoriteUsers;
 		}
 	
 	
