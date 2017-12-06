@@ -1276,7 +1276,12 @@ public class SystemGUI extends Application {
 		
 		BorderPane root = new BorderPane();
 		VBox vert = new VBox(5);
+<<<<<<< HEAD
 		
+=======
+		HBox toggles = new HBox(5);
+		GridPane center = new GridPane();
+>>>>>>> d7f618dd0a533b3ba21a183870b60d18f28560bb
 		
 		root.getStylesheets().add("artatawe.css");
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
@@ -1287,9 +1292,9 @@ public class SystemGUI extends Application {
 
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("Create a new auction");
-		title.setScaleX(2);
-		title.setScaleY(2);
-		title.setId("ARTATAWE1");
+		title.setScaleX(3);
+		title.setScaleY(3);
+		title.setId("ARTATAWE2");
 		subTitle.setScaleX(1.2);
 		subTitle.setScaleY(1.2);
 		title.setTextAlignment(TextAlignment.LEFT);
@@ -1300,18 +1305,23 @@ public class SystemGUI extends Application {
 		Text artCreationYearTxt = new Text("Artwork Creation Year:\n");
 		Text maxBiddersTxt = new Text("Max Bidders:\n");
 		Text reserveBidTxt = new Text("Reserve Bid:\n");
+		Text artFilePathTxt = new Text("Artwork File Path:\n");
+		Text reservePriceTxt = new Text("Reserve Price:\n");
 		
 		TextField artNameBox = new TextField();
 		TextField artCreatorBox = new TextField();
 		TextField artCreationYearBox = new TextField();
 		TextField maxBiddersBox = new TextField();
 		TextField reserveBidBox = new TextField();
+		TextField artFilePathBox = new TextField();
+		TextField reservePriceBox = new TextField();
 		
 		artNameBox.setMaxWidth(200);
 		maxBiddersBox.setMaxWidth(200);
-		reserveBidBox.setMaxWidth(200);
+		reservePriceBox.setMaxWidth(200);
 		artCreationYearBox.setMaxWidth(200);
 		artCreatorBox.setMaxWidth(200);
+		artFilePathBox.setMaxWidth(300);
 		
 		Button back = new Button("Back");
 		back.setPrefWidth(50);
@@ -1349,31 +1359,35 @@ public class SystemGUI extends Application {
 		
 
 		createAuctionButton.setOnAction(e -> {
-			if(newAuctionInputExistenceCheck(artNameBox.getText(), maxBiddersBox.getText(), reserveBidBox.getText()) == true) {
+			if(newAuctionInputExistenceCheck(artNameBox.getText(), artCreatorBox.getText(), artCreationYearBox.getText(), maxBiddersBox.getText()) == true) {
 				
 				int year = Integer.parseInt(artCreationYearBox.getText());
 				int max = Integer.parseInt(maxBiddersBox.getText());
-				double reserve = Double.parseDouble(reserveBidBox.getText());
+				double reserve = Double.parseDouble(reservePriceBox.getText());
 				
 				Artwork newArt = new Artwork(artNameBox.getText(), artCreatorBox.getText(), year, reserve, max);
-			
 			}
 		});
 
 
-		//toggles.setAlignment(Pos.BASELINE_CENTER);
-		//toggles.getChildren().addAll(paintingRadio, sculptureRadio);
+		toggles.setAlignment(Pos.BASELINE_CENTER);
+		toggles.getChildren().addAll(paintingRadio, sculptureRadio);
 
 			
 		vert.setAlignment(Pos.BASELINE_CENTER);
+<<<<<<< HEAD
 		vert.getChildren().addAll(title, subTitle, artNameTxt, artNameBox, artCreatorTxt, artCreatorBox, artCreationYearTxt, 
 									artCreationYearBox, maxBiddersTxt, maxBiddersBox, reserveBidTxt, reserveBidBox, 
 									preview, uploadImg ,createAuctionButton, back);
 		
+=======
+		vert.getChildren().addAll(title, subTitle, artNameTxt, artNameBox, artCreatorTxt, artCreatorBox, artCreationYearTxt, artCreationYearBox, maxBiddersTxt, maxBiddersBox, reservePriceTxt, reservePriceBox, createAuctionButton, back);
+>>>>>>> d7f618dd0a533b3ba21a183870b60d18f28560bb
 		root.setTop(vert);
 		return root;
 	}
 	
+<<<<<<< HEAD
 	
 	@SuppressWarnings("unused")
 	private Image artworkImgSelection() {
@@ -1399,6 +1413,10 @@ public class SystemGUI extends Application {
 	
 	public boolean newAuctionInputExistenceCheck(String auctionNameInput, String maxBiddersInput, String reserveBidInput) {
 		if(auctionNameInput.length() == 0 || maxBiddersInput.length() == 0 || reserveBidInput.length() == 0) {
+=======
+	public boolean newAuctionInputExistenceCheck(String auctionNameInput, String artCreatorInput, String artCreationYearInput, String maxBiddersInput) {
+		if(auctionNameInput.length() == 0 || artCreatorInput.length() == 0 || artCreationYearInput.length() == 0 ||  maxBiddersInput.length() == 0 ) {
+>>>>>>> d7f618dd0a533b3ba21a183870b60d18f28560bb
 			notificationBox("Sign-Up Notification", "Input Error", "All fields must be filled out");
 			return false;
 		}
