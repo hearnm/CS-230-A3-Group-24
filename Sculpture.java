@@ -1,6 +1,7 @@
 /**
- * Class to create Sculpture objects and its related methods.
+ * Sculpture.java
  * @author Emily Fothergill
+ * Class to create Sculpture objects and its related methods.
  */
 
 import java.util.ArrayList;
@@ -12,15 +13,18 @@ public class Sculpture extends Artwork {
 	
 	/**
 	 * Constructor of Sculpture objects.
-	 * @param title
-	 * @param creator
-	 * @param artCreationYear
-	 * @param reservePrice
-	 * @param numBidsAllowed
-	 * @param width
-	 * @param height
-	 * @param depth
-	 * @param material
+	* @param auctioneer The user that placed the Sculpture on auction.
+	 * @param title The Title of the Sculpture.
+	 * @param creator The Creator of the Sculpture.
+	 * @param artCreationYear The Creation Year of the Sculpture.
+	 * @param reservePrice The Reserve Price of the Sculpture.
+	 * @param numBidsAllowed The Maximum Number of Bids a Sculpture can have.
+	 * @param width The Width Dimension of the Sculpture.
+	 * @param height The Height Dimension of the Sculpture.
+	 * @param depth The Depth Dimension of the Sculpture.
+	 * @param material The Material of the Sculpture.
+	 * @param newArt The boolean value that sets the Sculpture as new to the System.
+	 * @param onAuction The boolean value that sets the Sculpture to on auction.
 	 */
 	public Sculpture(String auctioneer, String title, String creator, int artCreationYear,
 					double reservePrice, int numBidsAllowed, double width, double height, 
