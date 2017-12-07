@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class Auction {
 	
+	// Personal note, completed auctions might require a boolean (completed) parameter in the auction constructor.
 	public static ArrayList<Auction> completedAuctions = new ArrayList<Auction>();
 	public static ArrayList<Auction> auctions = new ArrayList<Auction>();
 	private static int nextId = 1;
@@ -136,8 +137,9 @@ public class Auction {
 		//do something
 	}
 	
-	public void notifyWinner() {
-		//do something
+	public String notifyWinner() {
+		return "Congradulations! You have just placed the winning bid of: " + this.currentBid + " for:" 
+				+ this.getCurrentArtTitle();
 	}
 	
 	public boolean checkIfBidValid(double speculativeBid) {
