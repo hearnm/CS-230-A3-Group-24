@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -114,6 +116,7 @@ public class SystemGUI extends Application {
 
 	private ArrayList<UserProfile> allUsers = new ArrayList<>();	// an Array List of all users currently on the system
 	private ArrayList<ImageView> avatars = new ArrayList<>();		// an Arraylist of paths to 6 pre-made user Avatars (stored locally)
+	public static ArrayList<Auction> auctions = new ArrayList<Auction>();
 	
 	/**
 	 * Main Method to start the GUI
@@ -651,6 +654,7 @@ public class SystemGUI extends Application {
 				System.out.println("user does not exist");
 				}
 		}
+		
 		
 		for(int n = 0; n < (allUsers.size() - 1); n++) {
 			GridPane.setConstraints(listPic.get(n), 0, n);
@@ -1369,7 +1373,11 @@ public class SystemGUI extends Application {
 					Artwork newPainting = new Painting(currentUserObject.getUsername(), artNameBox.getText(), artCreatorBox.getText(), Integer.parseInt(artCreationYearBox.getText()), 
 														Double.parseDouble(reservePriceBox.getText()), Integer.parseInt(maxBiddersBox.getText()), Double.parseDouble(width.getText()), 
 														Double.parseDouble(height.getText()), true, true);
-					SaveData.saveNewArtwork(newPainting);
+					//SaveData.saveNewArtwork(newPainting);
+					//setArtworkImage(img, artNameBox.getText());
+					auctions.add(Auction.getGivenAuction(artNameBox.getText()));
+					
+					
 				}
 			}
 		});
@@ -1377,16 +1385,10 @@ public class SystemGUI extends Application {
 
 		toggles.setAlignment(Pos.BASELINE_CENTER);
 		toggles.getChildren().addAll(paintingRadio, sculptureRadio);
-
-			
 		vert.setAlignment(Pos.BASELINE_CENTER);
 		imgContainer.setAlignment(Pos.BASELINE_CENTER);
 		dimensions2.setAlignment(Pos.BASELINE_CENTER);
 		dimensions1.setAlignment(Pos.BASELINE_CENTER);
-		
-	
-		
-		
 		dimensions1.getChildren().addAll(heightTxt, widthTxt);
 		dimensions2.getChildren().addAll(height, width);
 		imgContainer.getChildren().addAll(preview);
@@ -1395,12 +1397,20 @@ public class SystemGUI extends Application {
 									imgContainer, dimensions1, dimensions2, uploadImg, createAuctionButton, back);
 		
 
-
 		root.setTop(vert);
 		return root;
 	}
 	
-
+	
+	private void openFile(File file, String artName) {
+        try {
+            File dest = new File(artName + file + ".png"); //any location
+            Files.copy(file.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException ex) {
+           
+           
+        }
+    }
 	
 	
 	@SuppressWarnings("unused")
@@ -1410,6 +1420,8 @@ public class SystemGUI extends Application {
     	fileChooser.setTitle("Open Resource File");
 		try {
 			Image img = new Image(new FileInputStream(fileChooser.showOpenDialog(window)));
+			//File imgFile = new File(new FileInputStream(fileChooser.showOpenDialog(window)));
+			//Image img = ImageIO.read(imgFile);
 			if (img != null) {
         	    return img;
         	 }

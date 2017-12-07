@@ -51,6 +51,7 @@ public class LoadData {
 	private static void openProfileFile(String filePath) {
 		try {
 			File x = new File(filePath);
+
 			inputStream = new Scanner(x);
 			inputStream.useDelimiter(",");
 			System.out.println(x.exists());

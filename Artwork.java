@@ -48,6 +48,8 @@ public class Artwork {
 		this.artCreationYear = artCreationYear;
 		this.reservePrice = reservePrice;
 		this.numBidsAllowed = numBidsAllowed;
+		this.newArt = newArt;
+		this.onAuction = onAuction;
 		generateTimeDate();
 		artworks.add(this);
 		

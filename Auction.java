@@ -9,9 +9,12 @@ import java.util.ArrayList;
 public class Auction {
 	
 	public static ArrayList<Auction> completedAuctions = new ArrayList<Auction>();
+	public static ArrayList<Auction> auctions = new ArrayList<Auction>();
 	private static int nextId = 1;
 	
 	private final int AUCTION_ID;
+	
+	private String title;
 	private double currentBid;
 	private String currentBidder;
 	private int remainingBids;
@@ -29,13 +32,43 @@ public class Auction {
 	public Auction(Artwork auctionedArtwork) {
 		this.AUCTION_ID = nextId;
 		nextId++;
+		this.title = auctionedArtwork.getTitle();
 		this.auctionedArtwork = auctionedArtwork;
 		this.currentBid = 0.0;
 		this.currentBidder = null;
 		this.remainingBids = auctionedArtwork.getNumBidAllowed();
 		this.reserveBid = auctionedArtwork.getReservePrice();
-			
-		
+		auctions.add(this);
+	}
+	
+	/**
+	 * Method to get the current auctions on the system
+	 * @return auctions ArrayList of all current auctions
+	 */
+	public static ArrayList<Auction> getCurrentAuctions() {
+		return auctions;
+	}
+	
+	/**
+	 * Method to get an auction object given an artwork name
+	 * @param artworkName Name of the artwork to be searched for
+	 * @return Auction Object if exists
+	 */
+	public static Auction getGivenAuction(String artworkName) {
+		for(int i = 0; i < auctions.size(); i++) {
+			if(auctions.get(i).getCurrentArtTitle().equalsIgnoreCase(artworkName)) {
+				return auctions.get(i);
+			}
+		}	
+		return null;
+	}
+	
+	/**
+	 * Method to get the current Art title.
+	 * @return title The current Art Title
+	 */
+	public String getCurrentArtTitle() {
+		return this.title;
 	}
 	
 	/**
