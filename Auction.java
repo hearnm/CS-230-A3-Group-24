@@ -94,24 +94,28 @@ public class Auction {
 	* remaining bids by 1. If this value reaches 0, notify the winner and close the auction.
 	* @param newBidder The speculative new bidder to be added to the auction.
 	* @param newBid The speculative new bid to be added to the auction.
+	* @return Winning Notification message is final bid, Null otherwise
 	*/
-	public void attemptNewBid(String newBidder, double newBid) {
-		if(checkIfBidValid(newBid)) {
-			setCurrentBidder(newBidder);
-			setCurrentBid(newBid);
+	public String attemptNewBid(String newBidder, double newBid) {
+		if(checkIfBidValid(newBidder, newBid)) {
+			this.currentBidder = newBidder;
+			this.currentBid = newBid;
 			this.remainingBids -= 1;
 			
 			if(this.remainingBids == 0) {
-				notifyWinner();
+				completedAuctions.add(this);
+				return notifyWinner();
 			}
+			return "Bid Successfully Placed";
 		}
+		return "Unable to add new bid";
 	}
 	
 	/**
 	* Class for assigning a new bidder.
 	* @param currentBidder The new current bidder to be assigned.
 	*/
-	private void setCurrentBidder(String currentBidder) {
+	public void setCurrentBidder(String currentBidder) {
 		this.currentBidder = currentBidder;
 	}
 	
@@ -119,10 +123,9 @@ public class Auction {
 	* Class for assigning a new bid.
 	* @param currentBid The new current bid to be assigned.
 	*/
-	private void setCurrentBid(double newBid) {
-		if(checkIfBidValid(newBid)) {
-			this.currentBid = newBid;
-		}
+	public void setCurrentBid(double newBid) {
+		this.currentBid = newBid;
+		
 	}
 	
 	public int getRemainingBids() {
@@ -142,8 +145,8 @@ public class Auction {
 				+ this.getCurrentArtTitle();
 	}
 	
-	public boolean checkIfBidValid(double speculativeBid) {
-		return(speculativeBid > this.currentBid && speculativeBid >= reserveBid);
+	public boolean checkIfBidValid(String bidder, double speculativeBid) {
+		return(speculativeBid > this.currentBid && speculativeBid >= reserveBid && !bidder.equalsIgnoreCase(this.currentBidder));
 	}
 	
 	/**
