@@ -1350,7 +1350,8 @@ public class SystemGUI extends Application {
 		uploadImg.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent e) {
-            	preview.setImage(artworkImgSelection());
+            	addArtworkImg(artNameBox.getText());
+            	preview.setImage(setArtImage(artNameBox.getText()));
         	    preview.setFitHeight(100);
         	    preview.setFitWidth(100);
             }
@@ -1401,38 +1402,38 @@ public class SystemGUI extends Application {
 		return root;
 	}
 	
-	
-	private void openFile(File file, String artName) {
-        try {
-            File dest = new File(artName + file + ".png"); //any location
-            Files.copy(file.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException ex) {
-           
-           
-        }
-    }
-	
-	
-	@SuppressWarnings("unused")
-	private Image artworkImgSelection() {
-		
+	private void addArtworkImg(String artName) {
 		FileChooser fileChooser = new FileChooser();
     	fileChooser.setTitle("Open Resource File");
+		InputStream is = null;
+        OutputStream os = null;
+        try {
+            is = new FileInputStream(new File(fileChooser.showOpenDialog(window).getPath()));
+            os = new FileOutputStream(new File(artName + ".png"));
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = is.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
+            } 
+        } catch (Exception e) {
+            try {
+        	is.close();
+            os.close();
+            } catch (Exception s) {
+            	System.out.println("Error");
+            }
+        }
+	}
+
+	private Image setArtImage(String artName) {
 		try {
-			Image img = new Image(new FileInputStream(fileChooser.showOpenDialog(window)));
-			//File imgFile = new File(new FileInputStream(fileChooser.showOpenDialog(window)));
-			//Image img = ImageIO.read(imgFile);
-			if (img != null) {
-        	    return img;
-        	 }
-		} catch (Exception e1) {
-			System.out.println("Img selection error");
-			return null;
+			Image img = new Image(new FileInputStream(artName + ".png"));
+			return img;
+		} catch (FileNotFoundException e) {
+			System.out.println("Default Image Not found");
 		}
-		
 		return null;
 	}
-	
 
 	
 
