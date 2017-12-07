@@ -77,7 +77,6 @@ import javafx.stage.Stage;
 /**
  * SystemGUI.java
  * @author Tom Durman
- * @author Matthew Hearn
  * This class creates the System GUI.
  */
 public class SystemGUI extends Application {
@@ -104,6 +103,7 @@ public class SystemGUI extends Application {
 	private boolean drawLine = false;		// True if drawing a Straight Line
 	private boolean drawEraser = false;		// True if using an eraser
 	private double sliderValue = 20;		// Value of the Draw image slider
+	private int counter = 0;
 	
 	private Stage window;			// The main stage, displaying the current Scene
 	private Scene login;			// The Scene to hold the login Page GUI
@@ -115,8 +115,10 @@ public class SystemGUI extends Application {
 	private Scene profileUpdateData;
 	private Scene viewUsers;
 	private Scene newAuction;		// The Scene to hold the Create New Auction GUI
+	private Scene selectedAuctionView;
 	private Image profImg;			// Currently selected Profile image for a profile
 	private UserProfile currentUserObject;
+	private Auction selectedAuction;
 
 	private ArrayList<UserProfile> allUsers = new ArrayList<>();	// an Array List of all users currently on the system
 	private ArrayList<ImageView> avatars = new ArrayList<>();		// an Arraylist of paths to 6 pre-made user Avatars (stored locally)
@@ -423,6 +425,8 @@ public class SystemGUI extends Application {
 		return true;
 	}
 
+
+	
 	/**
 	 * Method to build the Home Page GUI window
 	 * @return root The Constructed Pane with all the Home Page GUI elements
@@ -445,7 +449,7 @@ public class SystemGUI extends Application {
 		mainCenter.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		
-		
+
 		root.setPadding(new Insets(25,10,10,10));
 		mainTop.setPadding(new Insets(25,10,10,10));
 		buttonBar.setPadding(new Insets(25,10,10,10));
@@ -478,10 +482,22 @@ public class SystemGUI extends Application {
 		ArrayList<ImageView> artworkPreview = new ArrayList<>();
 
 		for(int i = 0; i < auctions.size(); i++) {
+			counter = i;
 			ImageView previewArt = new ImageView();
 			previewArt.setImage(setArtImage(auctions.get(i).getCurrentArtTitle()));
 			previewArt.setFitHeight(128);
 			previewArt.setFitWidth(128);
+			previewArt.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				
+				@Override
+				public void handle(MouseEvent event) {
+					selectedAuction = auctions.get(counter);
+					selectedAuctionView = new Scene(buildDetailedAuctionViewGUI() ,MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+					window.setScene(selectedAuctionView);
+				}
+			});
+				
+
 			artworkPreview.add(previewArt);
 
 		}
@@ -535,7 +551,7 @@ public class SystemGUI extends Application {
 		});
 		searchBlock.getChildren().addAll(search,searchBtn, buttonBar);
 		titleBlock.setAlignment(Pos.BASELINE_CENTER);
-
+		
 		buttonBar.getChildren().addAll(textAll, filterAll, textPaintings, filterPaintings, textSculptures, filterSculptures);
 		optionsBlock.getChildren().addAll(options, optionsMenu, createNewAuctionButton);
 		titleBlock.getChildren().addAll(title, subTitle, searchBlock);
@@ -1474,6 +1490,46 @@ public class SystemGUI extends Application {
 		return null;
 	}
 
+	
+	private Pane buildDetailedAuctionViewGUI() {
+		
+		BorderPane root = new BorderPane();
+		
+		HBox mainTop = new HBox(15);
+		VBox titleBlock = new VBox();
+		HBox bottomBar = new HBox();
+		
+		mainTop.setPadding(new Insets(25,10,10,10));
+		titleBlock.setAlignment(Pos.BASELINE_CENTER);
+		mainTop.setAlignment(Pos.BASELINE_CENTER);
+		
+		Button back = new Button("Return to home");
+		back.setOnAction(e -> {
+			selectedAuction = null;
+			window.setScene(home);
+		});
+		
+		Text title = new Text("Artatawe\n");
+		Text subTitle = new Text("Auction Page");
+
+		
+		title.setScaleX(4);
+		title.setScaleY(4);
+		title.setId("ARTATAWE2");
+		subTitle.setScaleX(2.5);
+		subTitle.setScaleY(2.5);
+		title.setTextAlignment(TextAlignment.LEFT);
+		
+		bottomBar.getChildren().add(back);
+		titleBlock.getChildren().addAll(title, subTitle);
+		mainTop.getChildren().addAll(titleBlock);
+		
+		root.setTop(mainTop);
+		root.setBottom(bottomBar);
+		
+		return root;
+	}
+	
 	
 
 	public boolean newAuctionInputExistenceCheck(String auctionNameInput, String artCreatorInput, String artCreationYearInput, String maxBiddersInput) {
