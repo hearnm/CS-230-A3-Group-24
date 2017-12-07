@@ -80,14 +80,14 @@ import javafx.stage.Stage;
  * This class creates the System GUI.
  */
 public class SystemGUI extends Application {
-	private static final int MAIN_STAGE_WIDTH = 725;		// Width of the Main Scene
+	private static final int MAIN_STAGE_WIDTH = 700;		// Width of the Main Scene
 	private static final int MAIN_STAGE_HEIGHT= 500;		// Height of the Main Scene
 	private static final int SIGNUP_STAGE_WIDTH = 600;		// Width of the Main Scene
 	private static final int SIGNUP_STAGE_HEIGHT= 600;		// Height of the Main Scene
 	private static final int P_DRAW_IMG_STAGE_WIDTH = 600;	// Width of the Draw Image Scene
 	private static final int P_DRAW_IMG_STAGE_HEIGHT= 580;	// Height of the Draw Image Scene
-	private static final int CANVAS_WIDTH = 384;			// Width of the Canvas
-	private static final int CANVAS_HEIGHT = 443;			// Height of the Canvas
+	private static final int CANVAS_WIDTH = 365;			// Width of the Canvas
+	private static final int CANVAS_HEIGHT = 447;			// Height of the Canvas
 	private static final int PREVIEW_CANVAS_WIDTH = 150;	// Width of the Preview Canvas
 	private static final int PREVIEW_CANVAS_HEIGHT = 102; 	// Height of the Preview Canvas
 	private static final int PREVIEW_CANVAS_DRAW_X = 25;	// Draw Preview Location X
@@ -97,6 +97,8 @@ public class SystemGUI extends Application {
 	private Canvas previewCanvas;			// The canvas which shows the current pen style
 	private double mouseX = 0.0;			// Mouse Coordinate X
 	private double mouseY = 0.0;			// Mouse Coordinate Y
+	private double initialmouseX;			// Mouse Coordinate X
+	private double initialmouseY;
 	private boolean drawParticle = true; 	// True if drawing a particle trace
 	private boolean drawLine = false;		// True if drawing a Straight Line
 	private boolean drawEraser = false;		// True if using an eraser
@@ -1005,6 +1007,7 @@ public class SystemGUI extends Application {
 	 * @return root The Constructed Pane with all the Profile Draw Image GUI elements
 	 */
 	private Pane buildDrawImgGUI() {
+		window.setResizable(false);
 		BorderPane root = new BorderPane();
 		root.getStylesheets().add("artatawe.css");
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
@@ -1156,6 +1159,8 @@ public class SystemGUI extends Application {
 		drawParticle = true;
 	}
 	
+
+	
 	/**
 	 * Method to draw/erase at a tracked mouse X and Y coordinates
 	 * @param shape The given shape to be drawn
@@ -1172,11 +1177,16 @@ public class SystemGUI extends Application {
 			} else if(drawParticle == true && shape == "Square") {
 				gc.fillRect(mouseX, mouseY, sliderValue, sliderValue);
 			} else if(drawLine == true) { // IMPLEMENT A LINE (why is this so hard)
-				gc.strokeLine(mouseX, mouseY, sliderValue, sliderValue);
-				gc.setLineWidth(sliderValue);
+
+				if(initialmouseX != mouseX && initialmouseY != mouseY) {
+				initialmouseX = mouseX;
+				initialmouseY = mouseY;
+			
+				}	
 		}
 	}
 
+	
 	/**
 	 * Method to draw/erase at a tracked mouse X and Y coordinates
 	 * @param shape The given shape to be drawn
@@ -1194,7 +1204,8 @@ public class SystemGUI extends Application {
 				gc.fillRect(mouseX, mouseY, sliderValue, sliderValue);
 		} 
 		if(drawLine == true) { // IMPLEMENT A LINE (why is this so hard)
-			gc.strokeLine(mouseX, mouseY, sliderValue, sliderValue);
+			drawOnClick(shape, colorOption);
+			gc.strokeLine(initialmouseX, initialmouseY, mouseX, mouseY);
 			gc.setLineWidth(sliderValue);
 		}
 	}
