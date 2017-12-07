@@ -62,6 +62,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
@@ -1310,6 +1311,7 @@ public class SystemGUI extends Application {
 		Text reservePriceTxt = new Text("Reserve Bid:");
 		Text heightTxt = new Text("Height(cm):");
 		Text widthTxt = new Text("Width(cm):");
+		Text depthTxt = new Text("Depth(cm):");
 		Text mainMaterialTxt = new Text("Main Material:");
 		
 		TextField artNameBox = new TextField();
@@ -1318,13 +1320,15 @@ public class SystemGUI extends Application {
 		TextField maxBiddersBox = new TextField();
 		TextField reservePriceBox = new TextField();
 		TextField artFilePathBox = new TextField();
-		TextField height = new TextField();
-		TextField width = new TextField();
+		TextField heightBox = new TextField();
+		TextField widthBox = new TextField();
+		TextField depthBox = new TextField();
 		TextField mainMaterialBox = new TextField();
 		
 		
-		height.setMaxWidth(50);
-		width.setMaxWidth(50);
+		heightBox.setMaxWidth(50);
+		widthBox.setMaxWidth(50);
+		depthBox.setMaxWidth(50);
 		artNameBox.setMaxWidth(200);
 		maxBiddersBox.setMaxWidth(200);
 		reservePriceBox.setMaxWidth(200);
@@ -1364,17 +1368,26 @@ public class SystemGUI extends Application {
 		RadioButton paintingRadio = new RadioButton("Painting");
 		RadioButton sculptureRadio = new RadioButton("Sculpture");
 		
-		mainMaterialTxt.setVisible(false);
-		mainMaterialBox.setVisible(false);
+		
+		mainMaterialBox.setStyle("-fx-opacity: 0.5;");
+		depthBox.setStyle("-fx-opacity: 0.5;");
+		mainMaterialBox.setEditable(false);
+		depthBox.setEditable(false);
 		
 		sculptureRadio.setOnAction(e -> {
-			mainMaterialTxt.setVisible(true);
-			mainMaterialBox.setVisible(true);
+			mainMaterialBox.setEditable(true);
+			mainMaterialBox.setOpacity(1);
+			depthBox.setEditable(true);
+			depthBox.setOpacity(1);
 		});
 		
 		paintingRadio.setOnAction(e -> {
-			mainMaterialTxt.setVisible(false);
-			mainMaterialBox.setVisible(false);
+			mainMaterialBox.setEditable(false);
+			mainMaterialBox.setOpacity(0.5);
+			mainMaterialBox.clear();
+			depthBox.setEditable(false);
+			depthBox.setOpacity(0.5);
+			depthBox.clear();
 		});
 		
 		paintingRadio.setToggleGroup(radioSelectionToggle);
@@ -1387,8 +1400,8 @@ public class SystemGUI extends Application {
 				
 				if(paintingRadio.isSelected() == true) {
 					Artwork newPainting = new Painting(currentUserObject.getUsername(), artNameBox.getText(), artCreatorBox.getText(), Integer.parseInt(artCreationYearBox.getText()), 
-														Double.parseDouble(reservePriceBox.getText()), Integer.parseInt(maxBiddersBox.getText()), Double.parseDouble(width.getText()), 
-														Double.parseDouble(height.getText()), true, true);
+														Double.parseDouble(reservePriceBox.getText()), Integer.parseInt(maxBiddersBox.getText()), Double.parseDouble(widthBox.getText()), 
+														Double.parseDouble(heightBox.getText()), true, true);
 					//SaveData.saveNewArtwork(newPainting);
 					auctions.add(Auction.getGivenAuction(artNameBox.getText()));
 					home = new Scene(buildHomePageGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
@@ -1404,8 +1417,8 @@ public class SystemGUI extends Application {
 		imgContainer.setAlignment(Pos.BASELINE_CENTER);
 		dimensions2.setAlignment(Pos.BASELINE_CENTER);
 		dimensions1.setAlignment(Pos.BASELINE_CENTER);
-		dimensions1.getChildren().addAll(heightTxt, widthTxt);
-		dimensions2.getChildren().addAll(height, width);
+		dimensions1.getChildren().addAll(heightTxt, widthTxt, depthTxt);
+		dimensions2.getChildren().addAll(heightBox, widthBox, depthBox);
 		imgContainer.getChildren().addAll(preview);
 		vert.getChildren().addAll(title, subTitle, toggles, artNameTxt, artNameBox, artCreatorTxt, artCreatorBox, artCreationYearTxt, 
 									artCreationYearBox, maxBiddersTxt, maxBiddersBox, reservePriceTxt, reservePriceBox, 
