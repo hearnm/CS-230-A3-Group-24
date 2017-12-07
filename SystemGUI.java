@@ -1309,8 +1309,9 @@ public class SystemGUI extends Application {
 		Text artCreationYearTxt = new Text("Artwork Creation Year:");
 		Text maxBiddersTxt = new Text("Max Bidders:");
 		Text reservePriceTxt = new Text("Reserve Bid:");
-		Text heightTxt = new Text("Height(cm)");
-		Text widthTxt = new Text("Width(cm)");
+		Text heightTxt = new Text("Height(cm):");
+		Text widthTxt = new Text("Width(cm):");
+		Text mainMaterialTxt = new Text("Main Material:");
 		
 		TextField artNameBox = new TextField();
 		TextField artCreatorBox = new TextField();
@@ -1320,6 +1321,7 @@ public class SystemGUI extends Application {
 		TextField artFilePathBox = new TextField();
 		TextField height = new TextField();
 		TextField width = new TextField();
+		TextField mainMaterialBox = new TextField();
 		
 		
 		height.setMaxWidth(50);
@@ -1330,6 +1332,7 @@ public class SystemGUI extends Application {
 		artCreationYearBox.setMaxWidth(200);
 		artCreatorBox.setMaxWidth(200);
 		artFilePathBox.setMaxWidth(300);
+		mainMaterialBox.setMaxWidth(200);
 		
 		Button back = new Button("Back");
 		back.setPrefWidth(50);
@@ -1361,6 +1364,16 @@ public class SystemGUI extends Application {
 		
 		RadioButton paintingRadio = new RadioButton("Painting");
 		RadioButton sculptureRadio = new RadioButton("Sculpture");
+		
+		sculptureRadio.setOnAction(e -> {
+			mainMaterialTxt.setVisible(true);
+			mainMaterialBox.setVisible(true);
+		});
+		
+		paintingRadio.setOnAction(e -> {
+			mainMaterialTxt.setVisible(false);
+			mainMaterialBox.setVisible(false);
+		});
 		
 		paintingRadio.setToggleGroup(radioSelectionToggle);
 		paintingRadio.setSelected(true);
@@ -1395,7 +1408,7 @@ public class SystemGUI extends Application {
 		imgContainer.getChildren().addAll(preview);
 		vert.getChildren().addAll(title, subTitle, toggles, artNameTxt, artNameBox, artCreatorTxt, artCreatorBox, artCreationYearTxt, 
 									artCreationYearBox, maxBiddersTxt, maxBiddersBox, reservePriceTxt, reservePriceBox, 
-									imgContainer, dimensions1, dimensions2, uploadImg, createAuctionButton, back);
+									imgContainer, dimensions1, dimensions2, mainMaterialTxt, mainMaterialBox, uploadImg, createAuctionButton, back);
 		
 
 		root.setTop(vert);
