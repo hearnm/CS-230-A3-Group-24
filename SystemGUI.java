@@ -1,4 +1,5 @@
 import java.awt.Desktop;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,6 +39,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
@@ -70,6 +72,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+
 import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -103,7 +106,7 @@ public class SystemGUI extends Application {
 	private boolean drawLine = false;		// True if drawing a Straight Line
 	private boolean drawEraser = false;		// True if using an eraser
 	private double sliderValue = 20;		// Value of the Draw image slider
-	private int counter = 0;
+	private int artworkCounter = 0;
 	
 	private Stage window;			// The main stage, displaying the current Scene
 	private Scene login;			// The Scene to hold the login Page GUI
@@ -424,7 +427,13 @@ public class SystemGUI extends Application {
 		}
 		return true;
 	}
-
+	
+	
+	
+	
+        
+	
+	
 
 	
 	/**
@@ -479,28 +488,39 @@ public class SystemGUI extends Application {
 		filterSculptures.setOnAction(e -> filterAll.setSelected(false));
 		
 
+		
 		ArrayList<ImageView> artworkPreview = new ArrayList<>();
-
+		ArrayList<Integer> id = new ArrayList<>();
 		for(int i = 0; i < auctions.size(); i++) {
-			counter = i;
+			id.add(i);
+			
 			ImageView previewArt = new ImageView();
 			previewArt.setImage(setArtImage(auctions.get(i).getCurrentArtTitle()));
 			previewArt.setFitHeight(128);
 			previewArt.setFitWidth(128);
-			previewArt.setOnMouseClicked(new EventHandler<MouseEvent>() {
-				
+			previewArt.setId("" + i);
+			
+			artworkPreview.add(previewArt);
+		}
+		
+		
+		for(int k = 0; k < artworkPreview.size(); k++) {
+			
+			artworkPreview.get(k).setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
-					selectedAuction = auctions.get(counter);
-					selectedAuctionView = new Scene(buildDetailedAuctionViewGUI() ,MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+					
+					int selection = Integer.parseInt(event.getPickResult().getIntersectedNode().getId());
+					selectedAuction = auctions.get(selection);
+					selectedAuctionView = new Scene(buildDetailedAuctionViewGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_WIDTH);
 					window.setScene(selectedAuctionView);
-				}
+				};
 			});
-				
-
-			artworkPreview.add(previewArt);
-
 		}
+	
+	
+		
+		
 		
 		for(int n = 0; n < (artworkPreview.size()); n++) {
 			GridPane.setConstraints(artworkPreview.get(n), n, 0);
@@ -1485,7 +1505,7 @@ public class SystemGUI extends Application {
 			Image img = new Image(new FileInputStream(artName + ".png"));
 			return img;
 		} catch (FileNotFoundException e) {
-			System.out.println("Default Image Not found");
+			System.out.println("Image Not found");
 		}
 		return null;
 	}
@@ -1507,16 +1527,20 @@ public class SystemGUI extends Application {
 		titleBlock.setAlignment(Pos.BASELINE_CENTER);
 		mainTop.setAlignment(Pos.BASELINE_CENTER);
 		
+		ImageView artworkImg = new ImageView();
+		artworkImg.setImage(setArtImage(selectedAuction.getAuctionedArtwork().getTitle()));
+		artworkImg.setFitWidth(180);
+		artworkImg.setFitHeight(180);
+		
+		
 		Button back = new Button("Return to home");
+		
 		back.setOnAction(e -> {
 			selectedAuction = null;
 			window.setScene(home);
 		});
 		
-		ImageView artworkImg = new ImageView();
-		artworkImg.setImage(setArtImage(selectedAuction.getAuctionedArtwork().getTitle()));
-		artworkImg.setFitWidth(180);
-		artworkImg.setFitHeight(180);
+		
 		
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("Auction Page");
