@@ -432,22 +432,25 @@ public class SystemGUI extends Application {
 		HBox mainTop = new HBox(15);
 		VBox titleBlock = new VBox();
 		VBox optionsBlock = new VBox(4);
-		VBox newAuctionBlock = new VBox(4);
+		GridPane newAuctionBlock = new GridPane();
 		HBox buttonBar = new HBox(10);
 		HBox searchBlock = new HBox(5);
 		Pane mainCenter = new Pane();
-		VBox innerCenter = new VBox(15);
-		HBox innerCenterLine1 = new HBox(15);
+
 		
 		mainCenter.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		
-		innerCenter.setPadding(new Insets(10,10,10,10));
+		
 		root.setPadding(new Insets(25,10,10,10));
 		mainTop.setPadding(new Insets(25,10,10,10));
 		buttonBar.setPadding(new Insets(25,10,10,10));
 		searchBlock.setPadding(new Insets(25,0,0,10));
 		mainCenter.setPadding(new Insets(25,10,10,10));
+		newAuctionBlock.setPadding(new Insets(20,10,10,10));
+		
+		newAuctionBlock.setVgap(35);
+		newAuctionBlock.setHgap(35);
 		
 		TextField search = new TextField();
 		Text title = new Text("Artatawe\n");
@@ -467,29 +470,33 @@ public class SystemGUI extends Application {
 		filterPaintings.setOnAction(e -> filterAll.setSelected(false));
 		filterSculptures.setOnAction(e -> filterAll.setSelected(false));
 		
-		Image art1path = null;
-		Image art2path = null;
+	
 		ImageView art1 = new ImageView();
 		ImageView art2 = new ImageView();
-		
-		try {
-			art1path = new Image(new FileInputStream("Artwork1.png"));
-			art1.setImage(art1path);
-		} catch (FileNotFoundException e) {
-			System.out.println("Image not found");
-		}
-		try {
-			art2path = new Image(new FileInputStream("Artwork2.png"));
-			art2.setImage(art2path);
-		} catch (FileNotFoundException e) {
-			System.out.println("Image not found");
-		}
 		
 		art1.setFitWidth(128);
 		art1.setFitHeight(128);
 		art2.setFitWidth(128);
 		art2.setFitHeight(128);
 
+
+		ArrayList<ImageView> artworkPreview = new ArrayList<>();
+
+		for(int i = 0; i < auctions.size(); i++) {
+			ImageView previewArt = new ImageView();
+			previewArt.setImage(setArtImage(auctions.get(i).getCurrentArtTitle()));
+			previewArt.setFitHeight(128);
+			previewArt.setFitWidth(128);
+			artworkPreview.add(previewArt);
+
+		}
+		
+		for(int n = 0; n < (artworkPreview.size()); n++) {
+			GridPane.setConstraints(artworkPreview.get(n), n, 0);
+			newAuctionBlock.getChildren().add(artworkPreview.get(n));
+		}
+		
+		
 		Button createNewAuctionButton = new Button("Create a new\nauction.");
 		
 		createNewAuctionButton.setOnAction(e -> {
@@ -538,12 +545,13 @@ public class SystemGUI extends Application {
 		optionsBlock.getChildren().addAll(options, optionsMenu, createNewAuctionButton);
 		titleBlock.getChildren().addAll(title, subTitle, searchBlock);
 
+		
 		mainTop.getChildren().addAll(titleBlock, optionsBlock);
 		
 		// Add artwork imageView objects
-		innerCenterLine1.getChildren().addAll(art1, art2);
-		innerCenter.getChildren().addAll(innerCenterLine1);
-		mainCenter.getChildren().addAll(innerCenter);
+		//innerCenterLine1.getChildren().addAll(art1, art2);
+		//innerCenter.getChildren().addAll(innerCenterLine1, );
+		mainCenter.getChildren().addAll(newAuctionBlock);
 		
 		root.setTop(mainTop);
 		root.setCenter(mainCenter);
@@ -1375,10 +1383,9 @@ public class SystemGUI extends Application {
 														Double.parseDouble(reservePriceBox.getText()), Integer.parseInt(maxBiddersBox.getText()), Double.parseDouble(width.getText()), 
 														Double.parseDouble(height.getText()), true, true);
 					//SaveData.saveNewArtwork(newPainting);
-					//setArtworkImage(img, artNameBox.getText());
 					auctions.add(Auction.getGivenAuction(artNameBox.getText()));
-					
-					
+					home = new Scene(buildHomePageGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+					window.setScene(home);
 				}
 			}
 		});
