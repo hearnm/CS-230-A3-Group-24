@@ -1490,6 +1490,7 @@ public class SystemGUI extends Application {
 		return null;
 	}
 
+
 	
 	private Pane buildDetailedAuctionViewGUI() {
 		
@@ -1500,6 +1501,7 @@ public class SystemGUI extends Application {
 		HBox mainTop = new HBox(15);
 		VBox titleBlock = new VBox();
 		HBox bottomBar = new HBox();
+		BorderPane innerCenter = new BorderPane();
 		
 		mainTop.setPadding(new Insets(25,10,10,10));
 		titleBlock.setAlignment(Pos.BASELINE_CENTER);
@@ -1510,6 +1512,11 @@ public class SystemGUI extends Application {
 			selectedAuction = null;
 			window.setScene(home);
 		});
+		
+		ImageView artworkImg = new ImageView();
+		artworkImg.setImage(setArtImage(selectedAuction.getAuctionedArtwork().getTitle()));
+		artworkImg.setFitWidth(180);
+		artworkImg.setFitHeight(180);
 		
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("Auction Page");
@@ -1525,7 +1532,9 @@ public class SystemGUI extends Application {
 		bottomBar.getChildren().add(back);
 		titleBlock.getChildren().addAll(title, subTitle);
 		mainTop.getChildren().addAll(titleBlock);
+		innerCenter.setLeft(artworkImg);
 		
+		root.setCenter(innerCenter);
 		root.setTop(mainTop);
 		root.setBottom(bottomBar);
 		
