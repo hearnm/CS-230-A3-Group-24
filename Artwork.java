@@ -11,38 +11,39 @@ import java.util.Date;
 import javafx.collections.ObservableList;
 
 public class Artwork {
-	protected int artworkID;		// The Unique ID of an artwork piece
-	protected String auctioneer;
-	protected String title;			// The Title of the Artwork
-	protected String description;	// The Description of the Artwork
-	protected String creator;		// The Creator of the Artwork
-	protected int artCreationYear;	// The Creation Year of the Artwork
-	protected double reservePrice;	// The Reserve Price of the Artwork
-	protected String artTimeDate;	// The Time and Date the Artwork was put up
-	protected int numBidsAllowed;	// The Maximum Number of Bids an Artwork can have
-	protected String mainImagePath;	// The Directory Path to the Main Artwork Image
-	protected double height;		// The Height Dimension of the Artwork
-	protected double width;			// The Width Dimension of the Artwork
-	protected double depth;
-	protected String material;
-	protected String artType;		// The Type of the Artwork (Sculpture / Painting)
-	protected boolean newArt;
-	protected boolean onAuction;
+	protected int artworkID;		// The Unique ID of an artwork piece.
+	protected String auctioneer;	// The user that placed the Artwork on auction.
+	protected String title;			// The Title of the Artwork.
+	protected String description;	// The Description of the Artwork.
+	protected String creator;		// The Creator of the Artwork.
+	protected int artCreationYear;	// The Creation Year of the Artwork.
+	protected double reservePrice;	// The Reserve Price of the Artwork.
+	protected String artTimeDate;	// The Time and Date the Artwork was put up.
+	protected int numBidsAllowed;	// The Maximum Number of Bids an Artwork can have.
+	protected String mainImagePath;	// The Directory Path to the Main Artwork Image.
+	protected double height;		// The Height Dimension of the Artwork.
+	protected double width;			// The Width Dimension of the Artwork.
+	protected double depth;			// The Depth Dimension of the Artwork.
+	protected String material;		// The Material of the Artwork.
+	protected String artType;		// The Type of the Artwork (Sculpture / Painting).
+	protected boolean newArt;		// The boolean value that sets the Artwork as new to the System.
+	protected boolean onAuction;	// The boolean value that sets the Artwork to on auction.
 	
 	protected static ArrayList<Artwork> artworks = new ArrayList<>();
 	
 	/**
 	 * Constructor of Artwork objects.
-	 * @param title Title of the Artwork
-	 * @param creator Creator of the Artwork
-	 * @param artCreationYear Creation year of the Artwork
-	 * @param reservePrice Given reservation price of the Artwork
-	 * @param numBidsAllowed The set Number of Bids allowed on the Artwork
+	 * @param auctioneer The user that placed the Artwork on auction.
+	 * @param title Title of the Artwork.
+	 * @param creator Creator of the Artwork.
+	 * @param artCreationYear Creation year of the Artwork.
+	 * @param reservePrice Given reservation price of the Artwork.
+	 * @param numBidsAllowed The set Number of Bids allowed on the Artwork.
+	 * @param newArt The boolean value that sets the Artwork as new to the System.
+	 * @param onAuction The boolean value that sets the Artwork to on auction.
 	 */
-
 	public Artwork(String auctioneer, String title, String creator, int artCreationYear, double reservePrice, int numBidsAllowed, boolean newArt, boolean onAuction) {
 		this.auctioneer = auctioneer;
-
 		this.title = title;
 		this.creator = creator;
 		this.artCreationYear = artCreationYear;
@@ -50,28 +51,37 @@ public class Artwork {
 		this.numBidsAllowed = numBidsAllowed;
 		this.newArt = newArt;
 		this.onAuction = onAuction;
+		
 		generateTimeDate();
 		artworks.add(this);
-		
 		sortArtwork();
-		
-		
 	}
 	
+	/**
+	 * Method to sort Artwork between on auction and finished auction.
+	 */
 	public void sortArtwork() {
 		if(this.onAuction == true) {
 			Auction newAuction = new Auction(this);
 		}
 	}
 
+	/**
+	 * Method to put Artwork on auction.
+	 * @param onAuction
+	 */
 	public void setOnAuction(boolean onAuction) {
 		this.onAuction = onAuction;
 	}
 	
+	/**
+	 * Method to retrieve the boolean value of whether or not the
+	 * Artwork is on auction.
+	 * @return True or false
+	 */
 	public boolean getOnAuction() {
 		return this.onAuction;
 	}
-	
 	
 	/**
 	 * Method to change the title of the Artwork.
@@ -89,6 +99,11 @@ public class Artwork {
 		return this.title;
 	}
 	
+	/**
+	 * Method to retrieve the username of the UserProfile set as the
+	 * auctioneer of the Artwork.
+	 * @return auctioneer
+	 */
 	public String getAuctioneer() {
 		return this.auctioneer;
 	}
@@ -124,8 +139,6 @@ public class Artwork {
 	public double getDepth() {
 		return depth;
 	}
-	
-	
 	
 	/**
 	 * Method to change set the description of the Artwork.
@@ -207,7 +220,6 @@ public class Artwork {
 		return this.numBidsAllowed;
 	}
 	
-	
 	/**
 	 * Method to change the height.
 	 * @param height The new Height Value
@@ -257,8 +269,8 @@ public class Artwork {
 	}
 	
 	/**
-	 * Method to get the current artworks date and time
-	 * @return artTimeDate The Artworks creation time and date
+	 * Method to get the current Artwork's date and time
+	 * @return artTimeDate The Artwork's creation time and date
 	 */
 	public String getArtworkDateTime() {
 		return this.artTimeDate;
@@ -272,6 +284,4 @@ public class Artwork {
 		Date generatedDate = new Date();
 		artTimeDate = generatedDate.toString();
 	}
-
 }
-	
