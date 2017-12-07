@@ -1494,7 +1494,9 @@ public class SystemGUI extends Application {
 	private Pane buildDetailedAuctionViewGUI() {
 		
 		BorderPane root = new BorderPane();
-		
+		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+		root.getStylesheets().add("artatawe.css");
+		root.setPadding(new Insets(20,20,20,20));
 		HBox mainTop = new HBox(15);
 		VBox titleBlock = new VBox();
 		HBox bottomBar = new HBox();
