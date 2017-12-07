@@ -470,15 +470,6 @@ public class SystemGUI extends Application {
 		filterPaintings.setOnAction(e -> filterAll.setSelected(false));
 		filterSculptures.setOnAction(e -> filterAll.setSelected(false));
 		
-	
-		ImageView art1 = new ImageView();
-		ImageView art2 = new ImageView();
-		
-		art1.setFitWidth(128);
-		art1.setFitHeight(128);
-		art2.setFitWidth(128);
-		art2.setFitHeight(128);
-
 
 		ArrayList<ImageView> artworkPreview = new ArrayList<>();
 
@@ -531,7 +522,7 @@ public class SystemGUI extends Application {
 		optionsMenu.getItems().add("My Favorite Users");
 		optionsMenu.getItems().add("Logout");
 		optionsMenu.setValue("Select an Option");
-		optionsMenu.setMinWidth(120);
+		optionsMenu.setMinWidth(135);
 		
 		optionsMenu.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
 			optionsMenuSelection(newValue); 
