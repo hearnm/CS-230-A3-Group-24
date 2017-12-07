@@ -76,6 +76,8 @@ import javafx.stage.Stage;
 
 /**
  * SystemGUI.java
+ * @author Tom Durman
+ * @author Matthew Hearn
  * This class creates the System GUI.
  */
 public class SystemGUI extends Application {
