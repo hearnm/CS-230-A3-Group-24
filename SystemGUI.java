@@ -1373,6 +1373,9 @@ public class SystemGUI extends Application {
 		RadioButton paintingRadio = new RadioButton("Painting");
 		RadioButton sculptureRadio = new RadioButton("Sculpture");
 		
+		mainMaterialTxt.setVisible(false);
+		mainMaterialBox.setVisible(false);
+		
 		sculptureRadio.setOnAction(e -> {
 			mainMaterialTxt.setVisible(true);
 			mainMaterialBox.setVisible(true);
