@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 
 /**
- * The Class Bidding.
+ * Bidding.java
+ * @author
  */
 public class Bidding {
 	/** The username. */
