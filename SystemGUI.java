@@ -151,6 +151,7 @@ public class SystemGUI extends Application {
 		window.show();
 		LoadData.loadSystemData();
 		allUsers = UserProfile.getProfiles();
+		auctions = Auction.getCurrentAuctions();
 	}
 	
 	/**
@@ -226,6 +227,8 @@ public class SystemGUI extends Application {
         		currentUserObject.addFavoriteMultipleUsers(LoadData.loadUserFavorites(currentUserObject));
         		window.setScene(home);
         		usernameInput.setText("");	
+        		
+        		
         	} else {
         		notificationBox("Login Notification", "Login Error", "Username not found");
         		usernameInput.setText("");
@@ -490,9 +493,9 @@ public class SystemGUI extends Application {
 
 		
 		ArrayList<ImageView> artworkPreview = new ArrayList<>();
-		ArrayList<Integer> id = new ArrayList<>();
+
 		for(int i = 0; i < auctions.size(); i++) {
-			id.add(i);
+	
 			
 			ImageView previewArt = new ImageView();
 			previewArt.setImage(setArtImage(auctions.get(i).getCurrentArtTitle()));
@@ -522,9 +525,10 @@ public class SystemGUI extends Application {
 		
 		
 		
-		for(int n = 0; n < (artworkPreview.size()); n++) {
+		for(int n = 0; n < artworkPreview.size() - 1; n++) {
 			GridPane.setConstraints(artworkPreview.get(n), n, 0);
 			newAuctionBlock.getChildren().add(artworkPreview.get(n));
+			System.out.println("Test");
 		}
 		
 		
@@ -1450,7 +1454,7 @@ public class SystemGUI extends Application {
 					Artwork newPainting = new Painting(currentUserObject.getUsername(), artNameBox.getText(), artCreatorBox.getText(), Integer.parseInt(artCreationYearBox.getText()), 
 														Double.parseDouble(reservePriceBox.getText()), Integer.parseInt(maxBiddersBox.getText()), Double.parseDouble(widthBox.getText()), 
 														Double.parseDouble(heightBox.getText()), true, true);
-					//SaveData.saveNewArtwork(newPainting);
+					SaveData.saveNewArtwork(newPainting);
 					auctions.add(Auction.getGivenAuction(artNameBox.getText()));
 					home = new Scene(buildHomePageGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
 					window.setScene(home);

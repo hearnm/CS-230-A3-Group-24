@@ -44,6 +44,7 @@ public class Artwork {
 	 */
 	public Artwork(String auctioneer, String title, String creator, int artCreationYear, double reservePrice, int numBidsAllowed, boolean newArt, boolean onAuction) {
 		this.auctioneer = auctioneer;
+
 		this.title = title;
 		this.creator = creator;
 		this.artCreationYear = artCreationYear;
@@ -51,10 +52,12 @@ public class Artwork {
 		this.numBidsAllowed = numBidsAllowed;
 		this.newArt = newArt;
 		this.onAuction = onAuction;
-		
 		generateTimeDate();
 		artworks.add(this);
+		
 		sortArtwork();
+		
+		
 	}
 	
 	/**
@@ -65,7 +68,7 @@ public class Artwork {
 			Auction newAuction = new Auction(this);
 		}
 	}
-
+	
 	/**
 	 * Method to put Artwork on auction.
 	 * @param onAuction
@@ -82,6 +85,7 @@ public class Artwork {
 	public boolean getOnAuction() {
 		return this.onAuction;
 	}
+	
 	
 	/**
 	 * Method to change the title of the Artwork.
@@ -220,6 +224,7 @@ public class Artwork {
 		return this.numBidsAllowed;
 	}
 	
+	
 	/**
 	 * Method to change the height.
 	 * @param height The new Height Value
@@ -269,8 +274,8 @@ public class Artwork {
 	}
 	
 	/**
-	 * Method to get the current Artwork's date and time
-	 * @return artTimeDate The Artwork's creation time and date
+	 * Method to get the current artworks date and time
+	 * @return artTimeDate The Artworks creation time and date
 	 */
 	public String getArtworkDateTime() {
 		return this.artTimeDate;

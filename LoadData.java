@@ -110,10 +110,13 @@ public class LoadData {
 		while(inputStream.hasNext()) {
 			
 			String auctioner = inputStream.next();
+			System.out.println("Found: " + auctioner);
 			String artType = inputStream.next();
+			System.out.println("Found: " + artType);
 			
 			if(artType.equalsIgnoreCase("Painting")) {
 				
+				// Artwork data
 				String title = inputStream.next();
 				String creator = inputStream.next();
 				int artCreationYear = inputStream.nextInt();
@@ -122,8 +125,20 @@ public class LoadData {
 				double width = inputStream.nextDouble();
 				double height = inputStream.nextDouble();
 				boolean status = inputStream.nextBoolean();
+				// Auction data
+				
+				String currentBidder = inputStream.next();
+				double currentBid = inputStream.nextDouble();
+				int remainingBids = inputStream.nextInt();
+				
+				inputStream.nextLine();
 
 				Artwork loadedPainting = new Painting(auctioner, title, creator, artCreationYear, reservePrice, numBidsAllowed, width, height, false, status);
+			
+				Auction.getGivenAuction(title).setCurrentBid(currentBid);
+				Auction.getGivenAuction(title).setCurrentBidder(currentBidder);
+				Auction.getGivenAuction(title).setRemainingBids(remainingBids);
+				
 			} else {
 				
 				String title = inputStream.next();
@@ -136,6 +151,7 @@ public class LoadData {
 				double depth = inputStream.nextDouble();
 				String material = inputStream.next();
 				boolean status = inputStream.nextBoolean();
+				inputStream.nextLine();
 
 				Artwork loadedPainting = new Sculpture(auctioner, title, creator, artCreationYear, reservePrice, numBidsAllowed, width, height, depth, material, false, status);
 			}

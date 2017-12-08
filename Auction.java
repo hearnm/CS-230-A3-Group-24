@@ -125,7 +125,12 @@ public class Auction {
 	*/
 	public void setCurrentBid(double newBid) {
 		this.currentBid = newBid;
+	
 		
+	}
+	
+	public void setRemainingBids(int remainingBids) {
+		this.remainingBids = remainingBids;
 	}
 	
 	public int getRemainingBids() {

@@ -67,7 +67,7 @@ public class SaveData {
 	public static void saveNewArtwork(Artwork artwork) {
 		currentArtwork = artwork;
 		openProfileFile(artworkFavoritePath, false);
-		addArtwork(printWriter);
+		addNewArtwork(printWriter);
 		
 	}
 	
@@ -162,7 +162,7 @@ public class SaveData {
 	
 	
 
-	public static void addArtwork(PrintWriter outputStream) {
+	public static void addNewArtwork(PrintWriter outputStream) {
 		
 		
 		if(currentArtwork.getArtType().equalsIgnoreCase("Painting")) {
@@ -176,10 +176,9 @@ public class SaveData {
 			double width = currentArtwork.getWidth();
 			double height = currentArtwork.getHeight();
 			boolean status = currentArtwork.getOnAuction();
-			
 
 			outputStream.println(auctioneer + "," + artType + "," + title + "," + creator + "," + artCreationYear + "," 
-					+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + "," + status + ",");
+					+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + "," + status + "," + "" + "," + "0.0" + "," + numBidsAllowed + ",");
 
 		} else {
 			
