@@ -244,6 +244,15 @@ public class UserProfile {
 		return null;
 	}
 	
+	public void removeFavoriteUser(UserProfile user) {
+		for(int i = 0; i < favoriteUsers.size(); i++) {
+			if(user.getUsername().equalsIgnoreCase(favoriteUsers.get(i).getUsername())) {
+				favoriteUsers.remove(i);
+			}
+		}
+		
+	}
+	
 	public void addFavoriteUser(UserProfile user) {
 		favoriteUsers.add(user);
 	}

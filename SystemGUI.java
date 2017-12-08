@@ -675,17 +675,29 @@ public class SystemGUI extends Application {
 					listUserImg.setFitWidth(100);
 					
 					
-					final Button mark = new Button("Mark as Favorite");
+					final Button mark = new Button();
 					mark.setId(allUsers.get(i).getUsername());
 					
+					if(checkIfMarked(mark.getId())) {
+						mark.setText("Unmark as Favorite");
+					
+					} else {
+						mark.setText("Mark as Favorite");
+					}
 					
 					mark.setOnMouseClicked(new EventHandler<MouseEvent>() {
 						@Override
 						public void handle(MouseEvent event) {
 
-							addUserToFavorites(mark.getId());
-							mark.setVisible(false);
-
+							if(checkIfMarked(mark.getId())) {
+								removeUserFavorite(mark.getId());
+								System.out.println("User Removed");
+								mark.setText("Mark as Favorite");
+							} else {
+								addUserToFavorites(mark.getId());
+								System.out.println("User Added");
+								mark.setText("Unmark as Favorite");
+							}
 						};
 					});
 					
@@ -716,6 +728,19 @@ public class SystemGUI extends Application {
 		return root;
 	}
 
+	private boolean checkIfMarked(String username) {
+		
+		for(int i = 0; i < currentUserObject.getFavoriteUsers().size(); i++) {
+			if(username.equalsIgnoreCase(currentUserObject.getFavoriteUsers().get(i).getUsername())) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	
+	
 	/**
 	 * Method to add a given user to the current users favorites
 	 * @param user The user to be added to the Current users Favorite List.
@@ -727,13 +752,22 @@ public class SystemGUI extends Application {
 				currentUserObject.addFavoriteUser(allUsers.get(i));
 			}
 		}
-			
-		System.out.println("Fav list");
-			
-		for(int i = 0; i < currentUserObject.getFavoriteUsers().size(); i++) {
-		System.out.println(currentUserObject.getFavoriteUsers().get(i).getUsername());
+	}
+	
+	/**
+	 * Method to remove a given user from the current users favorites
+	 * @param user The user to be removed from the Current users Favorite List.
+	 */
+	private void removeUserFavorite(String username) {
+		
+		for(int i = 0; i < allUsers.size(); i++) {
+			if(username.equalsIgnoreCase(allUsers.get(i).getUsername())) {
+				currentUserObject.removeFavoriteUser(allUsers.get(i));
+			}
 		}
 	}
+	
+	
 	
 	/**
 	 * Method to be used to get the defaultImage (for users without an image)
