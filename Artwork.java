@@ -13,7 +13,9 @@ import javafx.collections.ObservableList;
 public class Artwork {
 	/** The artworks. */
 	protected static ArrayList<Artwork> artworks = new ArrayList<>();
-
+	/** The won artworks */
+	public static ArrayList<Artwork> wonArtworks = new ArrayList<>();
+	
 	/** The artwork ID - The Unique ID of an artwork piece. */
 	protected int artworkID;
 	/** The auctioneer - The user that placed the Artwork on auction. */
@@ -304,4 +306,12 @@ public class Artwork {
 		Date generatedDate = new Date();
 		artTimeDate = generatedDate.toString();
 	}
+	
+	/**
+	 * Gets the won artworks.
+	 * @return a list of won artworks
+	 */
+	public ArrayList<Artwork> getWonArtworks(){
+		return wonArtworks;
+	}	
 }
