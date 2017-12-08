@@ -56,8 +56,6 @@ public class Artwork {
 		artworks.add(this);
 		
 		sortArtwork();
-		
-		
 	}
 	
 	/**
@@ -85,7 +83,6 @@ public class Artwork {
 	public boolean getOnAuction() {
 		return this.onAuction;
 	}
-	
 	
 	/**
 	 * Method to change the title of the Artwork.
@@ -223,7 +220,6 @@ public class Artwork {
 	public int getNumBidAllowed() {
 		return this.numBidsAllowed;
 	}
-	
 	
 	/**
 	 * Method to change the height.
