@@ -1,5 +1,5 @@
 #ARTATAWE1 {
-    -fx-font: 45px "Vivaldi";
+    -fx-font: 45px "Freestyle Script";
     -fx-fill: linear-gradient(from 0% 0% to 100% 200%, blue 0%, red 50%);
     -fx-stroke: black;
     -fx-stroke-width: 0.4;
@@ -7,7 +7,7 @@
 }
 
 #ARTATAWE2 {
-    -fx-font: 25px "Vivaldi";
+    -fx-font: 25px "Freestyle Script";
     -fx-fill: linear-gradient(from 0% 0% to 100% 200%, blue 0%, red 50%);
     -fx-stroke: black;
     -fx-stroke-width: 0.4;
@@ -15,7 +15,7 @@
 }
 
 #ARTATAWE3 {
-    -fx-font: 35px "Vivaldi";
+    -fx-font: 35px "Freestyle Script";
     -fx-fill: linear-gradient(from 0% 0% to 100% 200%, blue 0%, red 50%);
     -fx-stroke: black;
     -fx-stroke-width: 0.4;
@@ -27,10 +27,14 @@
     -fx-font-size: 14px;
     -fx-font-family: "Calibri";
     -fx-background-color: #d3d3d3;
-    -fx-effect: dropshadow(three-pass-box, grey, 10, 0.0, 2, 2)
+    -fx-effect: dropshadow(three-pass-box, grey, 10, 0.0, 2, 2);
 }
 
 .button:hover {
     -fx-background-color: green;
     -fx-text-fill: white;
+}
+
+.text-field {
+	-fx-font-family: "Arial";
 }
