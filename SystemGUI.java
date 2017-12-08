@@ -903,7 +903,7 @@ public class SystemGUI extends Application {
 		}
 	
 		
-		for(int j = 0; j < currentUserObject.getFavoriteUsers().size(); j++) {
+		for(int j = 0; j < allUsers.size() - 1; j++) {
 			if(currentUserObject.searchFavorite(listname.get(j).getText())) {
 				GridPane.setConstraints(listPic.get(j), 0, j);
 				GridPane.setConstraints(listname.get(j), 1, j);
