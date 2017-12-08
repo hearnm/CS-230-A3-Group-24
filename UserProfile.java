@@ -58,6 +58,9 @@ public class UserProfile {
 		}
 	}
 
+
+	
+	
 	/**
 	 * Method to get the newAccount Attribute
 	 * @return newAccount True if new account, false if pre-existing.

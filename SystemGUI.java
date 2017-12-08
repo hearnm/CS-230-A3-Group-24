@@ -1,24 +1,16 @@
-import java.awt.Desktop;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Field;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.regex.*;
 
 import javax.imageio.ImageIO;
-
-import com.sun.javafx.logging.Logger;
 
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -29,7 +21,6 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -39,7 +30,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
@@ -64,17 +54,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 
-import javafx.stage.Modality;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 /**
@@ -227,7 +210,7 @@ public class SystemGUI extends Application {
         		currentUserObject.addFavoriteMultipleUsers(LoadData.loadUserFavorites(currentUserObject));
         		window.setScene(home);
         		usernameInput.setText("");	
-        		
+
         		
         	} else {
         		notificationBox("Login Notification", "Login Error", "Username not found");
@@ -495,8 +478,7 @@ public class SystemGUI extends Application {
 		ArrayList<ImageView> artworkPreview = new ArrayList<>();
 
 		for(int i = 0; i < auctions.size(); i++) {
-	
-			
+
 			ImageView previewArt = new ImageView();
 			previewArt.setImage(setArtImage(auctions.get(i).getCurrentArtTitle()));
 			previewArt.setFitHeight(128);
@@ -521,10 +503,6 @@ public class SystemGUI extends Application {
 			});
 		}
 	
-	
-		
-		
-		
 		for(int n = 0; n < artworkPreview.size() - 1; n++) {
 			GridPane.setConstraints(artworkPreview.get(n), n, 0);
 			newAuctionBlock.getChildren().add(artworkPreview.get(n));
@@ -638,6 +616,9 @@ public class SystemGUI extends Application {
 		alert.showAndWait();
 	}
 	
+	
+
+	
 	/**
 	 * Method to build the User List GUI window
 	 * @return root The Constructed Scroll Pane with all the View User GUI elements
@@ -679,53 +660,53 @@ public class SystemGUI extends Application {
 		back.setPrefWidth(50);
 		back.setOnAction(e -> window.setScene(home));
 		
+		
 		for(int i = 0; i < allUsers.size(); i++) {
 			try {
 				if(allUsers.get(i).getUsername() != currentUserObject.getUsername()) {
 					
-					Label listUsername = new Label(allUsers.get(i).getUsername());
+					final Label listUsername = new Label(allUsers.get(i).getUsername());
 					listUsername.setScaleX(1.5);
 					listUsername.setScaleY(1.5);
+					listUsername.setId(allUsers.get(i).getUsername());
 					
-					ImageView listUserImg = new ImageView(getUserImage(allUsers.get(i)));
-					listUserImg.setId("" + i);
+					final ImageView listUserImg = new ImageView(getUserImage(allUsers.get(i)));
 					listUserImg.setFitHeight(100);
 					listUserImg.setFitWidth(100);
+					
+					
+					final Button mark = new Button("Mark as Favorite");
+					mark.setId(allUsers.get(i).getUsername());
+					
+					
+					mark.setOnMouseClicked(new EventHandler<MouseEvent>() {
+						@Override
+						public void handle(MouseEvent event) {
+
+							addUserToFavorites(mark.getId());
+							mark.setVisible(false);
+
+						};
+					});
+					
+					
 					listname.add(listUsername);
 					listPic.add(listUserImg);
+					buttons.add(mark);
 				} 
 			} catch (Exception e) {
 				System.out.println("user does not exist");
 				}
 		}
-		
-		
-		for(int n = 0; n < (allUsers.size() - 1); n++) {
-			GridPane.setConstraints(listPic.get(n), 0, n);
-			GridPane.setConstraints(listname.get(n), 1, n);
-		}
-		
-		for(int m = 0; m < allUsers.size() - 1; m++) {
-			Button markFavorite = new Button("Mark as Favorite" + m);
-			buttons.add(markFavorite);
-			
-			markFavorite.setOnAction((ActionEvent)->{			
-			int selection = Integer.parseInt(markFavorite.getText().substring(16, 17));
-		//	addUserToFavorites(UserProfile.getCurrentUserObject());
-			SaveData.saveProfileFavorites(currentUserObject);
-			markFavorite.setVisible(false);
-			});
-			
-			GridPane.setConstraints(markFavorite, 7, m);
-			GridPane.setConstraints(markFavorite, 7, m);
-			center.getChildren().add(markFavorite);
-		}
-			
 	
 		
 		for(int j = 0; j < allUsers.size() - 1; j++) {
-				center.getChildren().addAll(listname.get(j), listPic.get(j));
+			GridPane.setConstraints(listPic.get(j), 0, j);
+			GridPane.setConstraints(listname.get(j), 1, j);
+			GridPane.setConstraints(buttons.get(j), 6, j);
+			center.getChildren().addAll(listname.get(j), listPic.get(j), buttons.get(j));
 		}
+		
 		topBar.setAlignment(Pos.BASELINE_CENTER);
 		topBar.getChildren().addAll(title, subTitle, back);
 		mainSection.setTop(topBar);
@@ -739,9 +720,16 @@ public class SystemGUI extends Application {
 	 * Method to add a given user to the current users favorites
 	 * @param user The user to be added to the Current users Favorite List.
 	 */
-	private void addUserToFavorites(UserProfile user) {
-		currentUserObject.addFavoriteUser(user);
+	private void addUserToFavorites(String username) {
+		
+		for(int i = 0; i < allUsers.size(); i++) {
+			if(username.equalsIgnoreCase(allUsers.get(i).getUsername())) {
+				currentUserObject.addFavoriteUser(allUsers.get(i));
+			}
+		}
+			
 		System.out.println("Fav list");
+			
 		for(int i = 0; i < currentUserObject.getFavoriteUsers().size(); i++) {
 		System.out.println(currentUserObject.getFavoriteUsers().get(i).getUsername());
 		}
