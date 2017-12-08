@@ -2,28 +2,25 @@ import java.util.ArrayList;
 
 /**
  * BidHistory.java
- * Class to view two sets of bidding history (seller / buyer).
  * @author James Shoemark-Smith
+ * Class to view two sets of bidding history (seller / buyer).
  */
 
 public class BidHistory {
-	/** The id counter. */
-	private static int idCounter = 1;
-	/** The bid history ID. */
-	private int bidHistoryID;
-	/** The time of the bid. */
-	private String bidDateTime;
-	/** The artwork name. */
-	private String artworkName;
-	/** The current bidder. */
-	private String currentBidder;
-	/** The current bid amount. */
-	private double bidAmount;
+	
+	private static int idCounter = 1; 	// Static variable used to set a unique ID
+	
+	private int bidHistoryID;			// Variable for a unique ID
+	private String bidDateTime;			// Variable for the time of the bid
+	private String artworkName;			// Variable for the name of the Artwork
+	private String currentBidder;		// Variable for the active bidder
+	private double bidAmount;			// Variable for the current amount bid
+	
 
 	/**
 	 * Constructor for Bid History.
 	 */
-	public BidHistory() {
+	public BidHistory() { 	
 		this.bidHistoryID = idCounter;
 		idCounter++;
 	}
@@ -35,24 +32,29 @@ public class BidHistory {
 	public int getBidHistoryID() {
 		return this.bidHistoryID;
 	}
-
+	
+	
+	
 	/**
-	 * Gets the placed bids.
-	 *
-	 * @return the placed bids
+	 * 
+	 * @return
 	 */
 	public String getPlacedBids() {
 		// This will return all of the placed bids (by the logged on user)
 		return null;
 	}
-
+	
 	/**
-	 * Gets the received bids.
-	 *
-	 * @return the received bids
+	 * 
+	 * @return
 	 */
 	public String getReceivedBids() {
 		// This will return all of the received bids (by the logged on user)
 		return null;
 	}
+	
+	
+	
+
+	
 }

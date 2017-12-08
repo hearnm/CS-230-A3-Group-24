@@ -2,37 +2,35 @@ import java.util.ArrayList;
 
 /**
  * Auction.java
- * The class that contains information related to an auction of an artwork.
- * @author Matthew Hearn
+ * @author Matthew
+ * The class that contains information pertaining to an auction of an item of artwork.
  */
+
 public class Auction {
-	/** The completed auctions. */
+	
 	// Personal note, completed auctions might require a boolean (completed) parameter in the auction constructor.
 	public static ArrayList<Auction> completedAuctions = new ArrayList<Auction>();
-	/** The auctions. */
 	public static ArrayList<Auction> auctions = new ArrayList<Auction>();
-
-	/** The next id. */
+	private ArrayList<Bidding> bids = new ArrayList<Bidding>();
 	private static int nextId = 1;
-	/** The auction id. */
+	
 	private final int AUCTION_ID;
-	/** The title. */
+	
 	private String title;
-	/** The current bid. */
 	private double currentBid;
-	/** The current bidder. */
 	private String currentBidder;
-	/** The remaining bids. */
 	private int remainingBids;
-	/** The reserve bid. */
 	private double reserveBid;
-	/** The auctioned artwork. */
+	
 	private Artwork auctionedArtwork;
+	
 
 	/**
-	 * Constructor method to create the auction.
-	 * @param auctionedArtwork The artwork that is to be auctioned.
-	 */
+	* Constructor method to create the auction.
+	* @param auctionedArtwork The artwork that is to be auctioned.
+	* @param maxBids The maximum number of bids that may be placed on the artwork.
+	* @param reserveBid The minimum bid that may be placed.
+	*/
 	public Auction(Artwork auctionedArtwork) {
 		this.AUCTION_ID = nextId;
 		nextId++;
@@ -44,29 +42,29 @@ public class Auction {
 		this.reserveBid = auctionedArtwork.getReservePrice();
 		auctions.add(this);
 	}
-
+	
 	/**
-	 * Method to get the current auctions on the system.
+	 * Method to get the current auctions on the system
 	 * @return auctions ArrayList of all current auctions
 	 */
 	public static ArrayList<Auction> getCurrentAuctions() {
 		return auctions;
 	}
-
+	
 	/**
-	 * Method to get an auction object given an artwork name.
+	 * Method to get an auction object given an artwork name
 	 * @param artworkName Name of the artwork to be searched for
 	 * @return Auction Object if exists
 	 */
 	public static Auction getGivenAuction(String artworkName) {
-		for (int i = 0; i < auctions.size(); i++) {
-			if (auctions.get(i).getCurrentArtTitle().equalsIgnoreCase(artworkName)) {
+		for(int i = 0; i < auctions.size(); i++) {
+			if(auctions.get(i).getCurrentArtTitle().equalsIgnoreCase(artworkName)) {
 				return auctions.get(i);
 			}
-		}
+		}	
 		return null;
 	}
-
+	
 	/**
 	 * Method to get the current Art title.
 	 * @return title The current Art Title
@@ -74,7 +72,7 @@ public class Auction {
 	public String getCurrentArtTitle() {
 		return this.title;
 	}
-
+	
 	/**
 	* Set method for assigning the auctioned artwork.
 	* @param auctionedArtwork The artwork to be auctioned.
@@ -82,27 +80,33 @@ public class Auction {
 	public void setAuctionedArtwork(Artwork auctionedArtwork) {
 		this.auctionedArtwork = auctionedArtwork;
 	}
-
+	
 	/**
 	* Get method for obtaining the auctioned artwork.
-	* @return auctionedArtwork The artwork associated with the auction.
+	* @return Artwork auctionedArtwork The artwork associated with the auction.
 	*/
 	public Artwork getAuctionedArtwork() {
 		return this.auctionedArtwork;
 	}
-
+	
 	/**
-	* Attempts to add a new bid in an Auction.
-	* @param newBidder The new bidder to be added to the auction.
-	* @param newBid The new bid to be added to the auction.
+	* Attempts to add a new bid by first checking if the bid is valid
+	* (using the checkIfBidValid method), then assigning the bid information and decreasing the
+	* remaining bids by 1. If this value reaches 0, notify the winner and close the auction.
+	* @param newBidder The speculative new bidder to be added to the auction.
+	* @param newBid The speculative new bid to be added to the auction.
 	* @return Winning Notification message is final bid, Null otherwise
 	*/
 	public String attemptNewBid(String newBidder, double newBid) {
-		if (checkIfBidValid(newBidder, newBid)) {
+		if(checkIfBidValid(newBidder, newBid)) {
 			this.currentBidder = newBidder;
 			this.currentBid = newBid;
 			this.remainingBids -= 1;
-			if (this.remainingBids == 0) {
+			
+			Bidding bid = new Bidding(newBidder, newBid);
+			this.bids.add(bid);
+			
+			if(this.remainingBids == 0) {
 				completedAuctions.add(this);
 				return notifyWinner();
 			}
@@ -110,7 +114,11 @@ public class Auction {
 		}
 		return "Unable to add new bid";
 	}
-
+	
+	public ArrayList<Bidding> getAuctionBidHistory() {
+		return this.bids;	
+	}
+	
 	/**
 	* Class for assigning a new bidder.
 	* @param currentBidder The new current bidder to be assigned.
@@ -118,72 +126,47 @@ public class Auction {
 	public void setCurrentBidder(String currentBidder) {
 		this.currentBidder = currentBidder;
 	}
-
+	
 	/**
-	 * Class for assigning a new bid.
-	 * @param newBid the new current bid
-	 */
+	* Class for assigning a new bid.
+	* @param currentBid The new current bid to be assigned.
+	*/
 	public void setCurrentBid(double newBid) {
 		this.currentBid = newBid;
+	
+		
 	}
-
-	/**
-	 * Sets the remaining bids.
-	 * @param remainingBids the new remaining bids
-	 */
+	
 	public void setRemainingBids(int remainingBids) {
 		this.remainingBids = remainingBids;
 	}
-
-	/**
-	 * Gets the remaining bids.
-	 * @return the remaining bids
-	 */
+	
 	public int getRemainingBids() {
 		return this.remainingBids;
 	}
-
-	/**
-	 * Gets the current bid.
-	 * @return the current bid
-	 */
+	
 	public double getCurrentBid() {
 		return this.currentBid;
 	}
-
-	/**
-	 * Display accepted bid.
-	 */
+	
 	public void displayAcceptedBid() {
 		//do something
 	}
-
-	/**
-	 * Notify winner.
-	 * @return the string
-	 */
+	
 	public String notifyWinner() {
-		return "Congratulations! You have just placed the winning bid "
-				+ "of: " + this.currentBid + " for:"
+		return "Congradulations! You have just placed the winning bid of: " + this.currentBid + " for:" 
 				+ this.getCurrentArtTitle();
 	}
-
-	/**
-	 * Check if bid valid.
-	 * @param bidder the bidder
-	 * @param speculativeBid the speculative bid
-	 * @return true, if successful
-	 */
+	
 	public boolean checkIfBidValid(String bidder, double speculativeBid) {
-		return (speculativeBid > this.currentBid && speculativeBid
-				>= reserveBid && !bidder.equalsIgnoreCase(this.currentBidder));
+		return(speculativeBid > this.currentBid && speculativeBid >= reserveBid && !bidder.equalsIgnoreCase(this.currentBidder));
 	}
-
+	
 	/**
-	 * Gets the completed auctions.
 	 * @return a list of the completed Auction
 	 */
 	public ArrayList<Auction> getCompletedAuctions(){
 		return completedAuctions;
 	}
+	
 }

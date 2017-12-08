@@ -1,21 +1,26 @@
-import java.util.ArrayList;
 
 /**
  * Bidding.java
- * @author
+ * @author Durman
+ * This class is used to create new individual bid Objects for a specific auction.
  */
 public class Bidding {
-	/** The username. */
+
 	private String username;
-	/** The bid amount. */
 	private double bidAmount;
-	/** The bids. */
-	private ArrayList<Bidding> bids = new ArrayList<Bidding>();
-
-	/**
-	 * Instantiates a new bidding.
-	 */
-	public Bidding() {
-
+	
+	
+	public Bidding(String username, double bidAmount) {
+		this.username = username;
+		this.bidAmount = bidAmount;
 	}
+	
+	public String getUsername() {
+		return this.username;
+	}
+	
+	public double getBidAmount() {
+		return this.bidAmount;
+	}
+
 }
