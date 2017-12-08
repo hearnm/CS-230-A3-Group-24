@@ -32,6 +32,16 @@ public class LoadData {
 
 	}
 	
+	public static void loadFavorites(UserProfile current) {
+		currentUser = current;
+		openProfileFile(currentUser.getUsername() + profileFavoritePath);
+		
+		ArrayList<UserProfile> currentFavorites = new ArrayList<>();
+		currentFavorites = readUserfavoritesFile();
+		currentUser.addFavoriteMultipleUsers(currentFavorites);
+		
+	}
+	
 	public static ArrayList<UserProfile> loadUserFavorites(UserProfile user) {
 		currentUser = user;
 		try {
@@ -78,22 +88,29 @@ public class LoadData {
 			
 			UserProfile x = new UserProfile(username, firstname, lastname, street, postcode, cityTown, phoneNo, false);
 			
-			}
+
+			
 		}
+		}
+	
+
+	
+	
+	
 		
 	private static ArrayList<UserProfile> readUserfavoritesFile() {
 		
 		ArrayList<UserProfile> favoriteUsers = new ArrayList<>();
 
 		try {
-		while(inputStream.hasNext()) {
+			while(inputStream.hasNext()) {
 			
-			String username = inputStream.next();
-			favoriteUsers.add(UserProfile.getCurrentUserObject(username));
+				String username = inputStream.next();
+				favoriteUsers.add(UserProfile.getCurrentUserObject(username));
 			}
 		
-		
 		return favoriteUsers;
+		
 		} catch (NoSuchElementException e) {
 			System.out.println("No favorites in file");
 		}
