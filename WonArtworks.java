@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class WonArtworks {
 	
 	private ArrayList<Artwork>listOfArtworks;
-	private String artworkName;
 	
 	public WonArtworks(){
 		
