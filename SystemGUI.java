@@ -72,6 +72,10 @@ public class SystemGUI extends Application {
 	private static final int SIGNUP_STAGE_HEIGHT= 600;		// Height of the Main Scene
 	private static final int P_DRAW_IMG_STAGE_WIDTH = 600;	// Width of the Draw Image Scene
 	private static final int P_DRAW_IMG_STAGE_HEIGHT= 580;	// Height of the Draw Image Scene
+	private static final int AUCTION_DETAILS_STAGE_WIDTH = 850;	// Width of the Draw Image Scene
+	private static final int AUCTION_DETAILS_STAGE_HEIGHT= 500;
+	private static final int CREATE_AUCTION_STAGE_WIDTH = 400;
+	private static final int CREATE_AUCTION_STAGE_HEIGHT = 550;
 	private static final int CANVAS_WIDTH = 365;			// Width of the Canvas
 	private static final int CANVAS_HEIGHT = 447;			// Height of the Canvas
 	private static final int PREVIEW_CANVAS_WIDTH = 150;	// Width of the Preview Canvas
@@ -415,14 +419,7 @@ public class SystemGUI extends Application {
 		return true;
 	}
 	
-	
-	
-	
-        
-	
-	
 
-	
 	/**
 	 * Method to build the Home Page GUI window
 	 * @return root The Constructed Pane with all the Home Page GUI elements
@@ -498,7 +495,7 @@ public class SystemGUI extends Application {
 					
 					int selection = Integer.parseInt(event.getPickResult().getIntersectedNode().getId());
 					selectedAuction = auctions.get(selection);
-					selectedAuctionView = new Scene(buildDetailedAuctionViewGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_WIDTH);
+					selectedAuctionView = new Scene(buildDetailedAuctionViewGUI(), AUCTION_DETAILS_STAGE_WIDTH, AUCTION_DETAILS_STAGE_HEIGHT);
 					window.setScene(selectedAuctionView);
 				};
 			});
@@ -514,7 +511,7 @@ public class SystemGUI extends Application {
 		Button createNewAuctionButton = new Button("Create a new\nauction.");
 		
 		createNewAuctionButton.setOnAction(e -> {
-			newAuction = new Scene(buildCreateNewAuctionGUI(), MAIN_STAGE_WIDTH-200, MAIN_STAGE_HEIGHT+20);
+			newAuction = new Scene(buildCreateNewAuctionGUI(), CREATE_AUCTION_STAGE_WIDTH , CREATE_AUCTION_STAGE_HEIGHT);
 			window.setResizable(false);
 			window.setScene(newAuction);
         });
@@ -1695,14 +1692,11 @@ public class SystemGUI extends Application {
 		VBox titleBlock = new VBox();
 		HBox bottomBar = new HBox();
 		BorderPane innerCenter = new BorderPane();
+		HBox leftHBoxMain = new HBox(10);
 		VBox leftVBar = new VBox(10);
-		HBox leftHSubSec1 = new HBox(10);
-		VBox leftVSubSec1 = new VBox(10);
-		HBox leftHSubSec2 = new HBox(10);
-		HBox leftHSubSec3 = new HBox(10);
-		HBox leftHSubSec4 = new HBox(10);
-		
-		mainTop.setPadding(new Insets(25,30,10,10));
+		VBox leftVBar2 = new VBox(10);
+
+		mainTop.setPadding(new Insets(20,50,10,10));
 		titleBlock.setAlignment(Pos.BASELINE_CENTER);
 		mainTop.setAlignment(Pos.BASELINE_CENTER);
 		
@@ -1730,33 +1724,53 @@ public class SystemGUI extends Application {
 		Text artDepth = new Text("Depth: " + Double.toString(selectedAuction.getAuctionedArtwork().getDepth()) + "cm");
 		Text artMaterial = new Text("Material: " + selectedAuction.getAuctionedArtwork().getMaterial());
 		
-		title.setScaleX(4);
+		TableView bidHistory = new TableView();
+		bidHistory.setEditable(false);
+		
+		TableColumn bidderName = new TableColumn("Bidder");
+        TableColumn bidAmount = new TableColumn("Bid");
+        TableColumn bidDate = new TableColumn("Date of Bid");
+        bidderName.setMinWidth(100);
+        bidAmount.setMinWidth(100);
+        bidDate.setMinWidth(100);
+        
+        bidHistory.getColumns().addAll(bidderName, bidAmount, bidDate);
+		
+        title.setScaleX(4);
 		title.setScaleY(4);
 		artName.setScaleX(2.5);
 		artName.setScaleY(2.5);
+		artType.setScaleX(1.5);
+		artType.setScaleY(1.5);
 		title.setId("ARTATAWE2");
 		subTitle.setScaleX(2.5);
 		subTitle.setScaleY(2.5);
+
 		title.setTextAlignment(TextAlignment.LEFT);
-		artName.setTextAlignment(TextAlignment.LEFT);
+		
 		
 		if(selectedAuction.getAuctionedArtwork().getArtType().equalsIgnoreCase("Painting")) {
 			artDepth.setVisible(false);
 			artMaterial.setVisible(false);
 		}
-		leftVSubSec1.getChildren().addAll(artAuctioneer, artCreator, artYear, artHeight, artWidth, artDepth, artMaterial);
-		leftHSubSec1.getChildren().addAll(artworkImg, leftVSubSec1);
+
 		leftVBar.setAlignment(Pos.BASELINE_CENTER);
-		leftVBar.getChildren().addAll(leftHSubSec1, artName, artType);
-		
-		bottomBar.getChildren().add(back);
+
+		bottomBar.getChildren().addAll(back);
 		titleBlock.getChildren().addAll(title, subTitle);
 		mainTop.getChildren().addAll(titleBlock);
-		innerCenter.setLeft(leftVBar);
 		
+		leftVBar2.getChildren().addAll(artAuctioneer, artCreator, artYear, artHeight, artWidth, artDepth, artMaterial);
+		leftVBar.getChildren().addAll(artworkImg, artName, artType);
+		
+		leftHBoxMain.getChildren().addAll(leftVBar, leftVBar2);
+		
+		innerCenter.setLeft(leftHBoxMain);
 		root.setCenter(innerCenter);
 		root.setTop(mainTop);
 		root.setBottom(bottomBar);
+		root.setRight(bidHistory);
+		
 		
 		return root;
 	}
