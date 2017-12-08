@@ -100,6 +100,7 @@ public class SystemGUI extends Application {
 	private Scene profileAvatars;	// The Scene to hold the Profile Default Avatars GUI
 	private Scene profileUpdateData;
 	private Scene viewUsers;
+	private Scene favoriteUsersList;
 	private Scene newAuction;		// The Scene to hold the Create New Auction GUI
 	private Scene selectedAuctionView;
 	private Image profImg;			// Currently selected Profile image for a profile
@@ -585,6 +586,9 @@ public class SystemGUI extends Application {
 		} else if(selection == "View Users") {
 			viewUsers = new Scene(buildUserListGUI(), MAIN_STAGE_WIDTH - 222, MAIN_STAGE_HEIGHT);
 			window.setScene(viewUsers);
+		} else if(selection == "My Favorite Users") {
+			favoriteUsersList = new Scene(buildFavoriteUserListGUI(), MAIN_STAGE_WIDTH - 222, MAIN_STAGE_HEIGHT);
+			window.setScene(favoriteUsersList);
 		}
 	}
 	
@@ -750,6 +754,10 @@ public class SystemGUI extends Application {
 		for(int i = 0; i < allUsers.size(); i++) {
 			if(username.equalsIgnoreCase(allUsers.get(i).getUsername())) {
 				currentUserObject.addFavoriteUser(allUsers.get(i));
+				
+				for(int k = 0; k < currentUserObject.getFavoriteUsers().size(); k++ ) {
+				System.out.println(currentUserObject.getFavoriteUsers().get(k).getUsername());
+				}
 			}
 		}
 	}
@@ -763,6 +771,9 @@ public class SystemGUI extends Application {
 		for(int i = 0; i < allUsers.size(); i++) {
 			if(username.equalsIgnoreCase(allUsers.get(i).getUsername())) {
 				currentUserObject.removeFavoriteUser(allUsers.get(i));
+				for(int k = 0; k < currentUserObject.getFavoriteUsers().size(); k++ ) {
+				System.out.println(currentUserObject.getFavoriteUsers().get(k).getUsername());
+				}
 			}
 		}
 	}
@@ -797,6 +808,122 @@ public class SystemGUI extends Application {
 		}
 		return setDefaultImage();
 	}
+	
+	/**
+	 * Method to build the User List GUI window
+	 * @return root The Constructed Scroll Pane with all the View User GUI elements
+	 */
+	private ScrollPane buildFavoriteUserListGUI() {
+		window.setResizable(false);
+		
+		// Local Variables (for dynamic construction of User List)
+		ArrayList<Label> listname = new ArrayList<>();		// List of unique names (excluding current user)
+		ArrayList<ImageView> listPic = new ArrayList<>();	// List of corresponding profile pictures (excluding current user)
+		ArrayList<Button> buttons = new ArrayList<>();		// List of buttons
+		
+		ScrollPane root = new ScrollPane();
+		BorderPane mainSection = new BorderPane();
+		VBox topBar = new VBox(25);
+		GridPane center = new GridPane();
+		
+		root.setFitToHeight(true);
+		root.setFitToWidth(true);
+		
+		mainSection.getStylesheets().add("artatawe.css");
+		mainSection.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+	
+		topBar.setPadding(new Insets(0,0,50,0));
+		mainSection.setPadding(new Insets(25,10,10,10));
+		center.setHgap(25);
+		center.setVgap(10);
+
+		Text title = new Text("Artatawe\n");
+		Text subTitle = new Text("Your Favorite Users");
+		title.setScaleX(4);
+		title.setScaleY(4);
+		title.setId("ARTATAWE2");
+		subTitle.setScaleX(2.5);
+		subTitle.setScaleY(2.5);
+		title.setTextAlignment(TextAlignment.LEFT);
+		
+		Button back = new Button("Back");
+		back.setPrefWidth(50);
+		back.setOnAction(e -> window.setScene(home));
+		
+		
+		
+		
+		for(int i = 0; i < allUsers.size(); i++) {
+			try {
+				if(allUsers.get(i).getUsername() != currentUserObject.getUsername()) {
+					
+					final Label listUsername = new Label(allUsers.get(i).getUsername());
+					listUsername.setScaleX(1.5);
+					listUsername.setScaleY(1.5);
+					listUsername.setId(allUsers.get(i).getUsername());
+					
+					final ImageView listUserImg = new ImageView(getUserImage(allUsers.get(i)));
+					listUserImg.setFitHeight(100);
+					listUserImg.setFitWidth(100);
+					
+					
+					final Button mark = new Button();
+					mark.setId(allUsers.get(i).getUsername());
+					
+					if(checkIfMarked(mark.getId())) {
+						mark.setText("Unmark as Favorite");
+					} else {
+						mark.setText("Mark as Favorite");
+					}
+					
+					mark.setOnMouseClicked(new EventHandler<MouseEvent>() {
+						@Override
+						public void handle(MouseEvent event) {
+
+							if(checkIfMarked(mark.getId())) {
+								removeUserFavorite(mark.getId());
+								System.out.println("User Removed");
+								mark.setText("Mark as Favorite");
+							} else {
+								addUserToFavorites(mark.getId());
+								System.out.println("User Added");
+								mark.setText("Unmark as Favorite");
+							}
+						};
+					});
+					
+					
+					listname.add(listUsername);
+					listPic.add(listUserImg);
+					buttons.add(mark);
+				} 
+			} catch (Exception e) {
+				System.out.println("user does not exist");
+				}
+		}
+	
+		
+		for(int j = 0; j < currentUserObject.getFavoriteUsers().size(); j++) {
+			if(currentUserObject.searchFavorite(listname.get(j).getText())) {
+				GridPane.setConstraints(listPic.get(j), 0, j);
+				GridPane.setConstraints(listname.get(j), 1, j);
+				GridPane.setConstraints(buttons.get(j), 6, j);
+				center.getChildren().addAll(listname.get(j), listPic.get(j), buttons.get(j));
+			}
+		}
+		
+		topBar.setAlignment(Pos.BASELINE_CENTER);
+		topBar.getChildren().addAll(title, subTitle, back);
+		mainSection.setTop(topBar);
+		mainSection.setCenter(center);
+		
+		root.setContent(mainSection);
+		return root;
+	}
+	
+	
+	
+	
 	
 	/**
 	 * Method to build the Profile GUI window
