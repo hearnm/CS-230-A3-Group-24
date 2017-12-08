@@ -2,29 +2,33 @@ import java.util.ArrayList;
 
 /**
  * Auction.java
- * @author Matthew
- * The class that contains information pertaining to an auction of an item of artwork.
+ * The class that contains information related to an auction of an artwork.
+ * @author Matthew Hearn
  */
-
 public class Auction {
-	
+	/** The completed auctions. */
 	// Personal note, completed auctions might require a boolean (completed) parameter in the auction constructor.
 	public static ArrayList<Auction> completedAuctions = new ArrayList<Auction>();
+	/** The auctions. */
 	public static ArrayList<Auction> auctions = new ArrayList<Auction>();
-	private ArrayList<Bidding> bids = new ArrayList<Bidding>();
+
+	/** The next id. */
 	private static int nextId = 1;
-	
+	/** The auction id. */
 	private final int AUCTION_ID;
-	
+	/** The title. */
 	private String title;
+	/** The current bid. */
 	private double currentBid;
+	/** The current bidder. */
 	private String currentBidder;
+	/** The remaining bids. */
 	private int remainingBids;
+	/** The reserve bid. */
 	private double reserveBid;
-	
+	/** The auctioned artwork. */
 	private Artwork auctionedArtwork;
 	
-
 	/**
 	* Constructor method to create the auction.
 	* @param auctionedArtwork The artwork that is to be auctioned.
@@ -90,11 +94,9 @@ public class Auction {
 	}
 	
 	/**
-	* Attempts to add a new bid by first checking if the bid is valid
-	* (using the checkIfBidValid method), then assigning the bid information and decreasing the
-	* remaining bids by 1. If this value reaches 0, notify the winner and close the auction.
-	* @param newBidder The speculative new bidder to be added to the auction.
-	* @param newBid The speculative new bid to be added to the auction.
+	* Attempts to add a new bid in an Auction.
+	* @param newBidder The new bidder to be added to the auction.
+	* @param newBid The new bid to be added to the auction.
 	* @return Winning Notification message is final bid, Null otherwise
 	*/
 	public String attemptNewBid(String newBidder, double newBid) {
@@ -134,39 +136,65 @@ public class Auction {
 	public void setCurrentBid(double newBid) {
 		this.currentBid = newBid;
 	
-		
 	}
 	
+	/**
+	 * Sets the remaining bids.
+	 * @param remainingBids the new remaining bids
+	 */
 	public void setRemainingBids(int remainingBids) {
 		this.remainingBids = remainingBids;
 	}
 	
+	/**
+	 * Gets the remaining bids.
+	 * @return the remaining bids
+	 */
 	public int getRemainingBids() {
 		return this.remainingBids;
 	}
 	
+	/**
+	 * Gets the current bid.
+	 * @return the current bid
+	 */
 	public double getCurrentBid() {
 		return this.currentBid;
 	}
 	
+	/**
+	 * Display accepted bid.
+	 */
 	public void displayAcceptedBid() {
 		//do something
 	}
 	
+	/**
+	 * Notify winner.
+	 * @return the string
+	 */
 	public String notifyWinner() {
-		return "Congradulations! You have just placed the winning bid of: " + this.currentBid + " for:" 
+		return "Congratulations! You have just placed the winning bid of: "
+				+ this.currentBid + " for:" 
 				+ this.getCurrentArtTitle();
 	}
 	
+	/**
+	 * Check if bid valid.
+	 * @param bidder the bidder
+	 * @param speculativeBid the speculative bid
+	 * @return true, if successful
+	 */
 	public boolean checkIfBidValid(String bidder, double speculativeBid) {
-		return(speculativeBid > this.currentBid && speculativeBid >= reserveBid && !bidder.equalsIgnoreCase(this.currentBidder));
+		return(speculativeBid > this.currentBid && speculativeBid
+				>= reserveBid && !bidder.equalsIgnoreCase(this.currentBidder));
 	}
 	
 	/**
+	 * Gets the completed auctions.
 	 * @return a list of the completed Auction
 	 */
 	public ArrayList<Auction> getCompletedAuctions(){
 		return completedAuctions;
-	}
-	
+	}	
 }
