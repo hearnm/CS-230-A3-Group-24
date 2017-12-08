@@ -535,7 +535,7 @@ public class SystemGUI extends Application {
 		Button createNewAuctionButton = new Button("Create a new\nauction.");
 		
 		createNewAuctionButton.setOnAction(e -> {
-			newAuction = new Scene(buildCreateNewAuctionGUI(), MAIN_STAGE_WIDTH-200, MAIN_STAGE_HEIGHT+280);
+			newAuction = new Scene(buildCreateNewAuctionGUI(), MAIN_STAGE_WIDTH-200, MAIN_STAGE_HEIGHT+20);
 			window.setResizable(false);
 			window.setScene(newAuction);
         });
@@ -1330,7 +1330,7 @@ public class SystemGUI extends Application {
         }
 	}
 	
-	private Pane buildCreateNewAuctionGUI() {
+	private ScrollPane buildCreateNewAuctionGUI() {
 		
 		BorderPane root = new BorderPane();
 		VBox vert = new VBox(8);
@@ -1338,7 +1338,10 @@ public class SystemGUI extends Application {
 		VBox imgContainer = new VBox();
 		HBox dimensions1 = new HBox(5);
 		HBox dimensions2 = new HBox(5);
+		ScrollPane scroll = new ScrollPane();
 
+		scroll.setFitToHeight(true);	
+		scroll.setFitToWidth(true);
 		
 		root.getStylesheets().add("artatawe.css");
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
@@ -1479,7 +1482,8 @@ public class SystemGUI extends Application {
 		
 
 		root.setTop(vert);
-		return root;
+		scroll.setContent(root);
+		return scroll;
 	}
 	
 	private void addArtworkImg(String artName) {
