@@ -1446,12 +1446,6 @@ public class SystemGUI extends Application {
 		RadioButton paintingRadio = new RadioButton("Painting");
 		RadioButton sculptureRadio = new RadioButton("Sculpture");
 		
-		
-		mainMaterialBox.setStyle("-fx-opacity: 0.5;");
-		depthBox.setStyle("-fx-opacity: 0.5;");
-		mainMaterialBox.setEditable(false);
-		depthBox.setEditable(false);
-		
 		sculptureRadio.setOnAction(e -> {
 			mainMaterialBox.setEditable(true);
 			mainMaterialBox.setOpacity(1);
@@ -1469,8 +1463,8 @@ public class SystemGUI extends Application {
 		});
 		
 		paintingRadio.setToggleGroup(radioSelectionToggle);
-		paintingRadio.setSelected(true);
 		sculptureRadio.setToggleGroup(radioSelectionToggle);
+		sculptureRadio.setSelected(true);
 		
 
 		createAuctionButton.setOnAction(e -> {
@@ -1498,7 +1492,7 @@ public class SystemGUI extends Application {
 
 
 		toggles.setAlignment(Pos.BASELINE_CENTER);
-		toggles.getChildren().addAll(paintingRadio, sculptureRadio);
+		toggles.getChildren().addAll(sculptureRadio, paintingRadio);
 		vert.setAlignment(Pos.BASELINE_CENTER);
 		imgContainer.setAlignment(Pos.BASELINE_CENTER);
 		dimensions2.setAlignment(Pos.BASELINE_CENTER);
