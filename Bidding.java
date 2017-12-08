@@ -1,15 +1,21 @@
 import java.util.ArrayList;
+
+/**
+ * Bidding.java
+ * @author
+ */
 public class Bidding {
-
+	/** The username. */
 	private String username;
+	/** The bid amount. */
 	private double bidAmount;
+	/** The bids. */
 	private ArrayList<Bidding> bids = new ArrayList<Bidding>();
-	
-	public Bidding() {
-		
-	}
 
-	
-	
-	
+	/**
+	 * Instantiates a new bidding.
+	 */
+	public Bidding() {
+
+	}
 }
