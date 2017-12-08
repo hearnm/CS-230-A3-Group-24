@@ -132,7 +132,7 @@ public class SystemGUI extends Application {
 		window = primaryStage;	
 		
 		Pane root = buildLoginGUI();
-		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+		root.setId("PANE");
 		
 		login = new Scene(root, MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
 		
@@ -166,8 +166,8 @@ public class SystemGUI extends Application {
 	 */
 	private Pane buildLoginGUI() {
 		BorderPane root = new BorderPane();
-		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		root.getStylesheets().add("artatawe.css");
+		root.setId("PANE");
 		
 		BorderPane innerMid = new BorderPane();
 		StackPane title = new StackPane();
@@ -246,8 +246,8 @@ public class SystemGUI extends Application {
 	 */
 	private Pane buildSignUpGUI() {
 		BorderPane root = new BorderPane();
-		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		root.getStylesheets().add("artatawe.css");
+		root.setId("PANE");
 	
 		BorderPane innerMid = new BorderPane();
 		StackPane titleSection = new StackPane();
@@ -429,8 +429,8 @@ public class SystemGUI extends Application {
 	private Pane buildHomePageGUI(){
 		window.setResizable(true);
 		BorderPane root = new BorderPane();
-		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		root.getStylesheets().add("artatawe.css");
+		root.setId("PANE");
 		
 		HBox mainTop = new HBox(15);
 		VBox titleBlock = new VBox();
@@ -657,7 +657,7 @@ public class SystemGUI extends Application {
 		root.setFitToWidth(true);
 		
 		mainSection.getStylesheets().add("artatawe.css");
-		mainSection.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+		mainSection.setId("PANE");
 	
 		topBar.setPadding(new Insets(0,0,50,0));
 		mainSection.setPadding(new Insets(25,10,10,10));
@@ -854,7 +854,7 @@ public class SystemGUI extends Application {
 		root.setFitToWidth(true);
 		
 		mainSection.getStylesheets().add("artatawe.css");
-		mainSection.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+		root.setId("PANE");
 	
 		topBar.setPadding(new Insets(0,0,50,0));
 		mainSection.setPadding(new Insets(25,10,10,10));
@@ -962,7 +962,7 @@ public class SystemGUI extends Application {
 		root.getStylesheets().add("artatawe.css");
 		window.setResizable(true);
 		root.setPadding(new Insets(10,10,10,10));
-		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+		root.setId("PANE");
 		
 		HBox mainTop = new HBox(20);
 		VBox titleBlock = new VBox();
@@ -1073,7 +1073,7 @@ public class SystemGUI extends Application {
 	private Pane buildAvatarsGUI() {
 		BorderPane root = new BorderPane();
 		root.getStylesheets().add("artatawe.css");
-		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+		root.setId("PANE");
 		
 		HBox line1 = new HBox(20);
 		HBox line2 = new HBox(20);
@@ -1229,7 +1229,7 @@ public class SystemGUI extends Application {
 		window.setResizable(false);
 		BorderPane root = new BorderPane();
 		root.getStylesheets().add("artatawe.css");
-		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+		root.setId("PANE");
 		
 		canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
 		previewCanvas = new Canvas(PREVIEW_CANVAS_WIDTH, PREVIEW_CANVAS_HEIGHT);
@@ -1521,7 +1521,7 @@ public class SystemGUI extends Application {
 		scroll.setFitToWidth(true);
 		
 		root.getStylesheets().add("artatawe.css");
-		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
+		root.setId("PANE");
 	
 		vert.setPadding(new Insets(0,0,25,0));
 		root.setPadding(new Insets(25,10,10,10));
@@ -1704,8 +1704,8 @@ public class SystemGUI extends Application {
 
 	private Pane buildDetailedAuctionViewGUI() {
 		BorderPane root = new BorderPane();
-		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		root.getStylesheets().add("artatawe.css");
+		root.setId("PANE");
 		root.setPadding(new Insets(20,20,20,20));
 		
 		HBox mainTop = new HBox(15);

@@ -22,6 +22,10 @@
     
 }
 
+#PANE {
+	-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);
+}
+
 .button {
     -fx-text-fill: black;
     -fx-font-size: 14px;
