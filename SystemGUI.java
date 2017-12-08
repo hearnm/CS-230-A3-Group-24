@@ -1588,12 +1588,6 @@ public class SystemGUI extends Application {
 		RadioButton paintingRadio = new RadioButton("Painting");
 		RadioButton sculptureRadio = new RadioButton("Sculpture");
 		
-		
-		mainMaterialBox.setStyle("-fx-opacity: 0.5;");
-		depthBox.setStyle("-fx-opacity: 0.5;");
-		mainMaterialBox.setEditable(false);
-		depthBox.setEditable(false);
-		
 		sculptureRadio.setOnAction(e -> {
 			mainMaterialBox.setEditable(true);
 			mainMaterialBox.setOpacity(1);
@@ -1611,8 +1605,8 @@ public class SystemGUI extends Application {
 		});
 		
 		paintingRadio.setToggleGroup(radioSelectionToggle);
-		paintingRadio.setSelected(true);
 		sculptureRadio.setToggleGroup(radioSelectionToggle);
+		sculptureRadio.setSelected(true);
 		
 
 		createAuctionButton.setOnAction(e -> {
@@ -1640,7 +1634,7 @@ public class SystemGUI extends Application {
 
 
 		toggles.setAlignment(Pos.BASELINE_CENTER);
-		toggles.getChildren().addAll(paintingRadio, sculptureRadio);
+		toggles.getChildren().addAll(sculptureRadio, paintingRadio);
 		vert.setAlignment(Pos.BASELINE_CENTER);
 		imgContainer.setAlignment(Pos.BASELINE_CENTER);
 		dimensions2.setAlignment(Pos.BASELINE_CENTER);
@@ -1691,10 +1685,7 @@ public class SystemGUI extends Application {
 		return null;
 	}
 
-
-	
 	private Pane buildDetailedAuctionViewGUI() {
-		
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		root.getStylesheets().add("artatawe.css");
@@ -1720,16 +1711,13 @@ public class SystemGUI extends Application {
 		artworkImg.setFitWidth(180);
 		artworkImg.setFitHeight(180);
 		
-		
 		Button back = new Button("Return to home");
 		
 		back.setOnAction(e -> {
 			selectedAuction = null;
 			window.setScene(home);
 		});
-		
-		
-		
+			
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("Auction Page");
 		Text artName = new Text(selectedAuction.getAuctionedArtwork().getTitle());
@@ -1738,7 +1726,9 @@ public class SystemGUI extends Application {
 		Text artCreator = new Text("Artwork Creator: " + selectedAuction.getAuctionedArtwork().getCreator());
 		Text artYear = new Text("Creation Year: " + Integer.toString(selectedAuction.getAuctionedArtwork().getArtCreationYear()));
 		Text artHeight = new Text("Height: " + Double.toString(selectedAuction.getAuctionedArtwork().getHeight()) + "cm");
-		Text artWidth = new Text("Width " + Double.toString(selectedAuction.getAuctionedArtwork().getWidth()) + "cm");
+		Text artWidth = new Text("Width: " + Double.toString(selectedAuction.getAuctionedArtwork().getWidth()) + "cm");
+		Text artDepth = new Text("Depth: " + Double.toString(selectedAuction.getAuctionedArtwork().getDepth()) + "cm");
+		Text artMaterial = new Text("Material: " + selectedAuction.getAuctionedArtwork().getMaterial());
 		
 		title.setScaleX(4);
 		title.setScaleY(4);
@@ -1750,7 +1740,11 @@ public class SystemGUI extends Application {
 		title.setTextAlignment(TextAlignment.LEFT);
 		artName.setTextAlignment(TextAlignment.LEFT);
 		
-		leftVSubSec1.getChildren().addAll(artAuctioneer, artCreator, artYear, artHeight, artWidth);
+		if(selectedAuction.getAuctionedArtwork().getArtType().equalsIgnoreCase("Painting")) {
+			artDepth.setVisible(false);
+			artMaterial.setVisible(false);
+		}
+		leftVSubSec1.getChildren().addAll(artAuctioneer, artCreator, artYear, artHeight, artWidth, artDepth, artMaterial);
 		leftHSubSec1.getChildren().addAll(artworkImg, leftVSubSec1);
 		leftVBar.setAlignment(Pos.BASELINE_CENTER);
 		leftVBar.getChildren().addAll(leftHSubSec1, artName, artType);
@@ -1766,6 +1760,7 @@ public class SystemGUI extends Application {
 		
 		return root;
 	}
+
 	
 	
 
