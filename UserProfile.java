@@ -276,6 +276,17 @@ public class UserProfile {
 		return false;
 	}
 	
+	public boolean searchFavorite(String username) {
+		
+		for(int i = 0; i < favoriteUsers.size(); i++) {
+			if(favoriteUsers.get(i).getUsername().equalsIgnoreCase(username)) {
+				
+			return true;
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * Method to get all of the Favorite users for the given instance.
 	 * @return favoriteUsers An ArrayList of Users that are marked as favorite by this instance of the User.
