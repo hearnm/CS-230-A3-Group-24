@@ -1518,12 +1518,19 @@ public class SystemGUI extends Application {
 		root.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
 		root.getStylesheets().add("artatawe.css");
 		root.setPadding(new Insets(20,20,20,20));
+		
 		HBox mainTop = new HBox(15);
 		VBox titleBlock = new VBox();
 		HBox bottomBar = new HBox();
 		BorderPane innerCenter = new BorderPane();
+		VBox leftVBar = new VBox(10);
+		HBox leftHSubSec1 = new HBox(10);
+		VBox leftVSubSec1 = new VBox(10);
+		HBox leftHSubSec2 = new HBox(10);
+		HBox leftHSubSec3 = new HBox(10);
+		HBox leftHSubSec4 = new HBox(10);
 		
-		mainTop.setPadding(new Insets(25,10,10,10));
+		mainTop.setPadding(new Insets(25,30,10,10));
 		titleBlock.setAlignment(Pos.BASELINE_CENTER);
 		mainTop.setAlignment(Pos.BASELINE_CENTER);
 		
@@ -1544,19 +1551,33 @@ public class SystemGUI extends Application {
 		
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("Auction Page");
-
+		Text artName = new Text(selectedAuction.getAuctionedArtwork().getTitle());
+		Text artType = new Text(selectedAuction.getAuctionedArtwork().getArtType());
+		Text artAuctioneer = new Text("Auctioner: " + selectedAuction.getAuctionedArtwork().getAuctioneer());
+		Text artCreator = new Text("Artwork Creator: " + selectedAuction.getAuctionedArtwork().getCreator());
+		Text artYear = new Text("Creation Year: " + Integer.toString(selectedAuction.getAuctionedArtwork().getArtCreationYear()));
+		Text artHeight = new Text("Height: " + Double.toString(selectedAuction.getAuctionedArtwork().getHeight()) + "cm");
+		Text artWidth = new Text("Width " + Double.toString(selectedAuction.getAuctionedArtwork().getWidth()) + "cm");
 		
 		title.setScaleX(4);
 		title.setScaleY(4);
+		artName.setScaleX(2.5);
+		artName.setScaleY(2.5);
 		title.setId("ARTATAWE2");
 		subTitle.setScaleX(2.5);
 		subTitle.setScaleY(2.5);
 		title.setTextAlignment(TextAlignment.LEFT);
+		artName.setTextAlignment(TextAlignment.LEFT);
+		
+		leftVSubSec1.getChildren().addAll(artAuctioneer, artCreator, artYear, artHeight, artWidth);
+		leftHSubSec1.getChildren().addAll(artworkImg, leftVSubSec1);
+		leftVBar.setAlignment(Pos.BASELINE_CENTER);
+		leftVBar.getChildren().addAll(leftHSubSec1, artName, artType);
 		
 		bottomBar.getChildren().add(back);
 		titleBlock.getChildren().addAll(title, subTitle);
 		mainTop.getChildren().addAll(titleBlock);
-		innerCenter.setLeft(artworkImg);
+		innerCenter.setLeft(leftVBar);
 		
 		root.setCenter(innerCenter);
 		root.setTop(mainTop);
