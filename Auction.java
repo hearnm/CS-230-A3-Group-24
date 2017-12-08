@@ -89,6 +89,16 @@ public class Auction {
 		return this.auctionedArtwork;
 	}
 	
+
+	
+	public boolean getIsCompleted() {
+		if(this.remainingBids == 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	
 	/**
 	* Attempts to add a new bid by first checking if the bid is valid
 	* (using the checkIfBidValid method), then assigning the bid information and decreasing the
@@ -98,21 +108,23 @@ public class Auction {
 	* @return Winning Notification message is final bid, Null otherwise
 	*/
 	public String attemptNewBid(String newBidder, double newBid) {
+		
+		
+		if(checkIfBidValid(newBidder, newBid) && this.remainingBids == 1) {
+			completedAuctions.add(this);
+			return "win";
+		}
+
 		if(checkIfBidValid(newBidder, newBid)) {
 			this.currentBidder = newBidder;
 			this.currentBid = newBid;
 			this.remainingBids -= 1;
-			
 			Bidding bid = new Bidding(newBidder, newBid);
 			this.bids.add(bid);
-			
-			if(this.remainingBids == 0) {
-				completedAuctions.add(this);
-				return notifyWinner();
-			}
-			return "Bid Successfully Placed";
+	
+			return "valid";
 		}
-		return "Unable to add new bid";
+		return "invalid";
 	}
 	
 	public ArrayList<Bidding> getAuctionBidHistory() {

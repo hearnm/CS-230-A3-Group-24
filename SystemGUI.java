@@ -38,6 +38,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -1590,8 +1591,8 @@ public class SystemGUI extends Application {
             public void handle(final ActionEvent e) {
             	addArtworkImg(artNameBox.getText());
             	preview.setImage(setArtImage(artNameBox.getText()));
-        	    preview.setFitHeight(100);
-        	    preview.setFitWidth(100);
+            	preview.setFitHeight(100);
+            	preview.setFitWidth(100);
             }
 		});
 
@@ -1636,13 +1637,11 @@ public class SystemGUI extends Application {
 					Artwork newSculpture = new Sculpture(currentUserObject.getUsername(), artNameBox.getText(), artCreatorBox.getText(), Integer.parseInt(artCreationYearBox.getText()), 
 							Double.parseDouble(reservePriceBox.getText()), Integer.parseInt(maxBiddersBox.getText()), Double.parseDouble(widthBox.getText()), 
 							Double.parseDouble(heightBox.getText()), Double.parseDouble(depthBox.getText()), mainMaterialBox.getText(), true, true);
-					SaveData.saveNewArtwork(newSculpture);
+					
 					
 					// Duplication here
 					auctions.add(Auction.getGivenAuction(artNameBox.getText()));
-				
-					
-					
+					SaveData.saveNewArtwork(newSculpture);
 					
 					home = new Scene(buildHomePageGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
 					window.setScene(home);
@@ -1728,17 +1727,7 @@ public class SystemGUI extends Application {
 		artworkImg.setFitWidth(180);
 		artworkImg.setFitHeight(180);
 		
-		Button bid = new Button("Bid on Artwork");
-		Button back = new Button("Return to home");
-		
-		back.setPrefWidth(180);
-		bid.setMaxSize(Double.MAX_VALUE, 55);
-		
-		back.setOnAction(e -> {
-			selectedAuction = null;
-			window.setScene(home);
-		});
-			
+		TextField bidInput = new TextField();
 		Text title = new Text("Artatawe\n");
 		Text subTitle = new Text("Auction Page");
 		Text artName = new Text(selectedAuction.getAuctionedArtwork().getTitle());
@@ -1750,6 +1739,30 @@ public class SystemGUI extends Application {
 		Text artWidth = new Text("Width: " + Double.toString(selectedAuction.getAuctionedArtwork().getWidth()) + "cm");
 		Text artDepth = new Text("Depth: " + Double.toString(selectedAuction.getAuctionedArtwork().getDepth()) + "cm");
 		Text artMaterial = new Text("Material: " + selectedAuction.getAuctionedArtwork().getMaterial());
+		
+		
+		Button bid = new Button("Bid on Artwork");
+		Button back = new Button("Return to home");
+		
+		bid.setMaxSize(Double.MAX_VALUE, 55);
+		back.setPrefWidth(180);
+	
+		bid.setOnAction(e -> {
+			double userBid = convertBidInput(bidInput.getText());
+			attemptBid(selectedAuction, userBid);
+	
+			if(selectedAuction.getIsCompleted()) {
+				bid.setVisible(false);
+			}
+			
+		});
+		
+		
+		back.setOnAction(e -> {
+			selectedAuction = null;
+			window.setScene(home);
+		});
+		
 		
 		TableView bidHistory = new TableView();
 		bidHistory.setEditable(false);
@@ -1791,7 +1804,7 @@ public class SystemGUI extends Application {
 		leftVBar.getChildren().addAll(artworkImg, artName, artType);
 		
 		leftHBoxMain.getChildren().addAll(leftVBar, leftVBar2);
-		rightVBar.getChildren().addAll(bidHistory, bid);
+		rightVBar.getChildren().addAll(bidHistory, bidInput, bid);
 		
 		
 		innerCenter.setLeft(leftHBoxMain);
@@ -1804,6 +1817,30 @@ public class SystemGUI extends Application {
 		return root;
 	}
 
+	private double convertBidInput(String bid) {
+		try {
+		double bidConvert = Double.parseDouble(bid);
+		return bidConvert;
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+	
+	private void attemptBid(Auction auction, double bid) {
+		
+		String bidResult = auction.attemptNewBid(currentUserObject.getUsername(), bid);
+		
+		if(bidResult.equalsIgnoreCase("valid")) {
+			notificationBox("System Confirmation", "Bid Successful!", "Your bid of: " + bid + " has been added to the system");
+
+		} else if(bidResult.equalsIgnoreCase("invalid")) {
+			notificationBox("System Warrning", "Bid Unsuccessful!", "Your bid of: " + bid + " has not been added to the system,\n please check your bid and try again");
+
+		} else if(bidResult.equalsIgnoreCase("win")) {
+			notificationBox("System Confirmation", "Congradulations you won!", "You have just placed the winning bid: " + bid);
+		}
+	
+	}
 	
 	
 
