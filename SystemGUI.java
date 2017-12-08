@@ -1725,6 +1725,10 @@ public class SystemGUI extends Application {
 		title.setTextAlignment(TextAlignment.LEFT);
 		artName.setTextAlignment(TextAlignment.LEFT);
 		
+		if(selectedAuction.getAuctionedArtwork().getArtType().equalsIgnoreCase("Painting")) {
+			artDepth.setVisible(false);
+			artMaterial.setVisible(false);
+		}
 		leftVSubSec1.getChildren().addAll(artAuctioneer, artCreator, artYear, artHeight, artWidth, artDepth, artMaterial);
 		leftHSubSec1.getChildren().addAll(artworkImg, leftVSubSec1);
 		leftVBar.setAlignment(Pos.BASELINE_CENTER);
