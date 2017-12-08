@@ -2,20 +2,22 @@ import java.util.ArrayList;
 
 /**
  * BidHistory.java
- * @author James Shoemark-Smith
  * Class to view two sets of bidding history (seller / buyer).
+ * @author James Shoemark-Smith
  */
-
 public class BidHistory {
-	
-	private static int idCounter = 1; 	// Static variable used to set a unique ID
-	
-	private int bidHistoryID;			// Variable for a unique ID
-	private String bidDateTime;			// Variable for the time of the bid
-	private String artworkName;			// Variable for the name of the Artwork
-	private String currentBidder;		// Variable for the active bidder
-	private double bidAmount;			// Variable for the current amount bid
-	
+	/** The id counter. */
+	private static int idCounter = 1;
+	/** The bid history ID. */
+	private int bidHistoryID;
+	/** The time of the bid. */
+	private String bidDateTime;
+	/** The artwork name. */
+	private String artworkName;
+	/** The current bidder. */
+	private String currentBidder;
+	/** The current bid amount. */
+	private double bidAmount;
 
 	/**
 	 * Constructor for Bid History.
@@ -33,11 +35,9 @@ public class BidHistory {
 		return this.bidHistoryID;
 	}
 	
-	
-	
 	/**
-	 * 
-	 * @return
+	 * Gets the placed bids.
+	 * @return the placed bids
 	 */
 	public String getPlacedBids() {
 		// This will return all of the placed bids (by the logged on user)
@@ -45,16 +45,11 @@ public class BidHistory {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Gets the received bids.
+	 * @return the received bids
 	 */
 	public String getReceivedBids() {
 		// This will return all of the received bids (by the logged on user)
 		return null;
-	}
-	
-	
-	
-
-	
+	}	
 }
