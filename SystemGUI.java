@@ -450,7 +450,7 @@ public class SystemGUI extends Application {
 		mainCenter.setPadding(new Insets(25,10,10,10));
 		newAuctionBlock.setPadding(new Insets(20,10,10,10));
 		
-		newAuctionBlock.setVgap(35);
+		newAuctionBlock.setVgap(7);
 		newAuctionBlock.setHgap(35);
 		
 		TextField search = new TextField();
@@ -474,7 +474,7 @@ public class SystemGUI extends Application {
 
 		
 		ArrayList<ImageView> artworkPreview = new ArrayList<>();
-
+		ArrayList<String> artworkDetails = new ArrayList<>();
 		for(int i = 0; i < auctions.size(); i++) {
 
 			ImageView previewArt = new ImageView();
@@ -482,6 +482,10 @@ public class SystemGUI extends Application {
 			previewArt.setFitHeight(128);
 			previewArt.setFitWidth(128);
 			previewArt.setId("" + i);
+			
+			artworkDetails.add(auctions.get(i).getAuctionedArtwork().getTitle());
+			artworkDetails.add(auctions.get(i).getAuctionedArtwork().getArtType());
+			artworkDetails.add(auctions.get(i).getAuctionedArtwork().getAuctioneer());
 			
 			artworkPreview.add(previewArt);
 		}
@@ -502,9 +506,18 @@ public class SystemGUI extends Application {
 		}
 	
 		for(int n = 0; n < artworkPreview.size() - 1; n++) {
+			final VBox previewDetails = new VBox(2);
+			final Text previewTitle = new Text(auctions.get(n).getAuctionedArtwork().getTitle());
+			final Text previewType = new Text(auctions.get(n).getAuctionedArtwork().getArtType());
+			final Text previewAuctioneer = new Text(auctions.get(n).getAuctionedArtwork().getAuctioneer());
+			previewDetails.setAlignment(Pos.BASELINE_CENTER);
+			previewDetails.getChildren().addAll(previewTitle, previewType, previewAuctioneer);
+			
 			GridPane.setConstraints(artworkPreview.get(n), n, 0);
-			newAuctionBlock.getChildren().add(artworkPreview.get(n));
-			System.out.println("Test");
+			GridPane.setConstraints(previewDetails, n, 1);
+			
+			newAuctionBlock.getChildren().addAll(artworkPreview.get(n), previewDetails);
+			System.out.println("Artwork Loaded");
 		}
 		
 		
