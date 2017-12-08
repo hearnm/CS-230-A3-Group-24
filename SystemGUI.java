@@ -333,8 +333,8 @@ public class SystemGUI extends Application {
     							
     				UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
     								postcodeBox.getText(), cityTownBox.getText(), intPhoneNo, true);
-    				allUsers.add(newUser);
-    				System.out.println(allUsers.size());
+    				
+    		
     				notificationBox("Account Creation", "Account Creation Successful", "Congratulations you now have an Artatawe Account!\nYour username is: " + usernameBox.getText());
     				window.setScene(login);
     		    	window.setResizable(true);
@@ -646,8 +646,6 @@ public class SystemGUI extends Application {
 		window.setResizable(false);
 		
 		// Local Variables (for dynamic construction of User List)
-		ArrayList<Integer> placeid = new ArrayList<>();		// Placement Id of the user in the list
-		ArrayList<Integer> actualid = new ArrayList<>();	// Corresponding Id of the user relative to Placement Id
 		ArrayList<Label> listname = new ArrayList<>();		// List of unique names (excluding current user)
 		ArrayList<ImageView> listPic = new ArrayList<>();	// List of corresponding profile pictures (excluding current user)
 		ArrayList<Button> buttons = new ArrayList<>();		// List of buttons
@@ -656,6 +654,9 @@ public class SystemGUI extends Application {
 		BorderPane mainSection = new BorderPane();
 		VBox topBar = new VBox(25);
 		GridPane center = new GridPane();
+		
+		root.setFitToHeight(true);
+		root.setFitToWidth(true);
 		
 		mainSection.getStylesheets().add("artatawe.css");
 		mainSection.setStyle("-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);");
@@ -681,13 +682,13 @@ public class SystemGUI extends Application {
 		for(int i = 0; i < allUsers.size(); i++) {
 			try {
 				if(allUsers.get(i).getUsername() != currentUserObject.getUsername()) {
-					placeid.add(i);
-					actualid.add(allUsers.get(i).getUserId());
+					
 					Label listUsername = new Label(allUsers.get(i).getUsername());
 					listUsername.setScaleX(1.5);
 					listUsername.setScaleY(1.5);
-					ImageView listUserImg;
-					listUserImg = new ImageView(getUserImage(allUsers.get(i)));
+					
+					ImageView listUserImg = new ImageView(getUserImage(allUsers.get(i)));
+					listUserImg.setId("" + i);
 					listUserImg.setFitHeight(100);
 					listUserImg.setFitWidth(100);
 					listname.add(listUsername);
@@ -710,7 +711,7 @@ public class SystemGUI extends Application {
 			
 			markFavorite.setOnAction((ActionEvent)->{			
 			int selection = Integer.parseInt(markFavorite.getText().substring(16, 17));
-			addUserToFavorites(UserProfile.getCurrentUserObject(actualid.get(selection)));
+		//	addUserToFavorites(UserProfile.getCurrentUserObject());
 			SaveData.saveProfileFavorites(currentUserObject);
 			markFavorite.setVisible(false);
 			});
