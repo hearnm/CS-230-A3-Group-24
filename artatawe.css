@@ -36,5 +36,14 @@
 }
 
 .text-field {
+	-fx-background-color: linear-gradient(white, d3d3d3);
 	-fx-font-family: "Arial";
+}
+
+.choice-box {
+	-fx-background-color: #d3d3d3;
+}
+
+.choice-box .context-menu {
+	-fx-background-color: linear-gradient(white, d3d3d3);
 }

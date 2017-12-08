@@ -11,25 +11,45 @@ import java.util.Date;
 import javafx.collections.ObservableList;
 
 public class Artwork {
-	protected int artworkID;		// The Unique ID of an artwork piece.
-	protected String auctioneer;	// The user that placed the Artwork on auction.
-	protected String title;			// The Title of the Artwork.
-	protected String description;	// The Description of the Artwork.
-	protected String creator;		// The Creator of the Artwork.
-	protected int artCreationYear;	// The Creation Year of the Artwork.
-	protected double reservePrice;	// The Reserve Price of the Artwork.
-	protected String artTimeDate;	// The Time and Date the Artwork was put up.
-	protected int numBidsAllowed;	// The Maximum Number of Bids an Artwork can have.
-	protected String mainImagePath;	// The Directory Path to the Main Artwork Image.
-	protected double height;		// The Height Dimension of the Artwork.
-	protected double width;			// The Width Dimension of the Artwork.
-	protected double depth;			// The Depth Dimension of the Artwork.
-	protected String material;		// The Material of the Artwork.
-	protected String artType;		// The Type of the Artwork (Sculpture / Painting).
-	protected boolean newArt;		// The boolean value that sets the Artwork as new to the System.
-	protected boolean onAuction;	// The boolean value that sets the Artwork to on auction.
-	
+	/** The artworks. */
 	protected static ArrayList<Artwork> artworks = new ArrayList<>();
+	/** The won artworks */
+	public static ArrayList<Artwork> wonArtworks = new ArrayList<>();
+	
+	/** The artwork ID - The Unique ID of an artwork piece. */
+	protected int artworkID;
+	/** The auctioneer - The user that placed the Artwork on auction. */
+	protected String auctioneer;
+	/** The title of the Artwork. */
+	protected String title;
+	/** The description of the Artwork. */
+	protected String description;
+	/** The creator of the Artwork.*/
+	protected String creator;
+	/** The Creation Year of the Artwork. */
+	protected int artCreationYear;
+	/** The Reserve Price of the Artwork. */
+	protected double reservePrice;
+	/** The Time and Date the Artwork was put up. */
+	protected String artTimeDate;
+	/** The Maximum Number of Bids an Artwork can have. */
+	protected int numBidsAllowed;
+	/** The Directory Path to the Main Artwork Image. */
+	protected String mainImagePath;
+	/** The Height Dimension of the Artwork. */
+	protected double height;
+	/** The Width Dimension of the Artwork. */
+	protected double width;
+	/** The Depth Dimension of the Artwork. */
+	protected double depth;
+	/** The Material of the Artwork. */
+	protected String material;
+	/** The Type of the Artwork (Sculpture / Painting). */
+	protected String artType;
+	/** The boolean value sets the Artwork as new to the System. */
+	protected boolean newArt;
+	/** The boolean value sets the Artwork to on auction. */
+	protected boolean onAuction;
 	
 	/**
 	 * Constructor of Artwork objects.
@@ -42,9 +62,10 @@ public class Artwork {
 	 * @param newArt The boolean value that sets the Artwork as new to the System.
 	 * @param onAuction The boolean value that sets the Artwork to on auction.
 	 */
-	public Artwork(String auctioneer, String title, String creator, int artCreationYear, double reservePrice, int numBidsAllowed, boolean newArt, boolean onAuction) {
+	public Artwork(String auctioneer, String title, String creator,
+			int artCreationYear, double reservePrice, int numBidsAllowed,
+			boolean newArt, boolean onAuction) {
 		this.auctioneer = auctioneer;
-
 		this.title = title;
 		this.creator = creator;
 		this.artCreationYear = artCreationYear;
@@ -62,7 +83,7 @@ public class Artwork {
 	 * Method to sort Artwork between on auction and finished auction.
 	 */
 	public void sortArtwork() {
-		if(this.onAuction == true) {
+		if (this.onAuction == true) {
 			Auction newAuction = new Auction(this);
 		}
 	}
@@ -285,4 +306,12 @@ public class Artwork {
 		Date generatedDate = new Date();
 		artTimeDate = generatedDate.toString();
 	}
+	
+	/**
+	 * Gets the won artworks.
+	 * @return a list of won artworks
+	 */
+	public ArrayList<Artwork> getWonArtworks(){
+		return wonArtworks;
+	}	
 }
