@@ -662,7 +662,11 @@ public class SystemGUI extends Application {
 		
 		Button back = new Button("Back");
 		back.setPrefWidth(50);
-		back.setOnAction(e -> window.setScene(home));
+		back.setOnAction(e -> {
+			saveFavorites();
+			window.setScene(home);
+			
+		});
 		
 		
 		for(int i = 0; i < allUsers.size(); i++) {
@@ -743,6 +747,13 @@ public class SystemGUI extends Application {
 		return false;
 	}
 	
+	private void saveFavorites() {
+		if(currentUserObject.getFavoriteUsers() != null) {
+		SaveData.saveProfileFavorites(currentUserObject);
+		} else {
+			
+		}
+	}
 	
 	
 	/**
@@ -848,7 +859,11 @@ public class SystemGUI extends Application {
 		
 		Button back = new Button("Back");
 		back.setPrefWidth(50);
-		back.setOnAction(e -> window.setScene(home));
+		back.setOnAction(e -> {
+			saveFavorites();
+			window.setScene(home);
+			
+		});
 		
 		
 		
