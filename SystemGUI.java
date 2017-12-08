@@ -13,6 +13,7 @@ import java.util.regex.*;
 import javax.imageio.ImageIO;
 
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
@@ -434,9 +435,10 @@ public class SystemGUI extends Application {
 		VBox titleBlock = new VBox();
 		VBox optionsBlock = new VBox(4);
 		GridPane newAuctionBlock = new GridPane();
+		ScrollPane scroll = new ScrollPane();
 		HBox buttonBar = new HBox(10);
 		HBox searchBlock = new HBox(5);
-		Pane mainCenter = new Pane();
+		StackPane mainCenter = new StackPane();
 
 		
 		mainCenter.setBorder(new Border(new BorderStroke(Color.BLACK, 
@@ -449,6 +451,9 @@ public class SystemGUI extends Application {
 		searchBlock.setPadding(new Insets(25,0,0,10));
 		mainCenter.setPadding(new Insets(25,10,10,10));
 		newAuctionBlock.setPadding(new Insets(20,10,10,10));
+		
+		scroll.setFitToHeight(true);
+		scroll.setFitToWidth(true);
 		
 		newAuctionBlock.setVgap(7);
 		newAuctionBlock.setHgap(35);
@@ -477,7 +482,7 @@ public class SystemGUI extends Application {
 		ArrayList<String> artworkDetails = new ArrayList<>();
 		for(int i = 0; i < auctions.size(); i++) {
 
-			ImageView previewArt = new ImageView();
+			final ImageView previewArt = new ImageView();
 			previewArt.setImage(setArtImage(auctions.get(i).getCurrentArtTitle()));
 			previewArt.setFitHeight(128);
 			previewArt.setFitWidth(128);
@@ -562,19 +567,16 @@ public class SystemGUI extends Application {
 			optionsMenu.setValue("Select an Option"); 
 			
 		});
-		searchBlock.getChildren().addAll(search,searchBtn, buttonBar);
+		
+		
 		titleBlock.setAlignment(Pos.BASELINE_CENTER);
 		
+		
+		searchBlock.getChildren().addAll(search,searchBtn, buttonBar);
 		buttonBar.getChildren().addAll(textAll, filterAll, textPaintings, filterPaintings, textSculptures, filterSculptures);
 		optionsBlock.getChildren().addAll(options, optionsMenu, createNewAuctionButton);
 		titleBlock.getChildren().addAll(title, subTitle, searchBlock);
-
-		
 		mainTop.getChildren().addAll(titleBlock, optionsBlock);
-		
-		// Add artwork imageView objects
-		//innerCenterLine1.getChildren().addAll(art1, art2);
-		//innerCenter.getChildren().addAll(innerCenterLine1, );
 		mainCenter.getChildren().addAll(newAuctionBlock);
 		
 		root.setTop(mainTop);
@@ -1635,7 +1637,13 @@ public class SystemGUI extends Application {
 							Double.parseDouble(reservePriceBox.getText()), Integer.parseInt(maxBiddersBox.getText()), Double.parseDouble(widthBox.getText()), 
 							Double.parseDouble(heightBox.getText()), Double.parseDouble(depthBox.getText()), mainMaterialBox.getText(), true, true);
 					SaveData.saveNewArtwork(newSculpture);
+					
+					// Duplication here
 					auctions.add(Auction.getGivenAuction(artNameBox.getText()));
+				
+					
+					
+					
 					home = new Scene(buildHomePageGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
 					window.setScene(home);
 				}
@@ -1705,10 +1713,12 @@ public class SystemGUI extends Application {
 		VBox titleBlock = new VBox();
 		HBox bottomBar = new HBox();
 		BorderPane innerCenter = new BorderPane();
-		HBox leftHBoxMain = new HBox(10);
+		HBox leftHBoxMain = new HBox(35);
 		VBox leftVBar = new VBox(10);
 		VBox leftVBar2 = new VBox(10);
-
+		VBox rightVBar = new VBox(10);
+		
+		leftVBar2.setPadding(new Insets(25,0,0,0));
 		mainTop.setPadding(new Insets(20,50,10,10));
 		titleBlock.setAlignment(Pos.BASELINE_CENTER);
 		mainTop.setAlignment(Pos.BASELINE_CENTER);
@@ -1718,7 +1728,11 @@ public class SystemGUI extends Application {
 		artworkImg.setFitWidth(180);
 		artworkImg.setFitHeight(180);
 		
+		Button bid = new Button("Bid on Artwork");
 		Button back = new Button("Return to home");
+		
+		back.setPrefWidth(180);
+		bid.setMaxSize(Double.MAX_VALUE, 55);
 		
 		back.setOnAction(e -> {
 			selectedAuction = null;
@@ -1777,12 +1791,14 @@ public class SystemGUI extends Application {
 		leftVBar.getChildren().addAll(artworkImg, artName, artType);
 		
 		leftHBoxMain.getChildren().addAll(leftVBar, leftVBar2);
+		rightVBar.getChildren().addAll(bidHistory, bid);
+		
 		
 		innerCenter.setLeft(leftHBoxMain);
 		root.setCenter(innerCenter);
 		root.setTop(mainTop);
 		root.setBottom(bottomBar);
-		root.setRight(bidHistory);
+		root.setRight(rightVBar);
 		
 		
 		return root;
