@@ -69,7 +69,7 @@ import javafx.stage.Stage;
  * This class creates the System GUI.
  */
 public class SystemGUI extends Application {
-	private static final int MAIN_STAGE_WIDTH = 700;		// Width of the Main Scene
+	private static final int MAIN_STAGE_WIDTH = 800;		// Width of the Main Scene
 	private static final int MAIN_STAGE_HEIGHT= 500;		// Height of the Main Scene
 	private static final int SIGNUP_STAGE_WIDTH = 600;		// Width of the Main Scene
 	private static final int SIGNUP_STAGE_HEIGHT= 600;		// Height of the Main Scene
