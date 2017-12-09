@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Auction.java
@@ -124,7 +125,8 @@ public class Auction {
 			this.currentBidder = newBidder;
 			this.currentBid = newBid;
 			this.remainingBids -= 1;
-			Bidding bid = new Bidding(newBidder, newBid);
+			
+			Bidding bid = new Bidding(newBidder, newBid, generateDateTime());
 			this.bids.add(bid);
 	
 			return "valid";
@@ -212,4 +214,14 @@ public class Auction {
 	public ArrayList<Auction> getCompletedAuctions(){
 		return completedAuctions;
 	}	
+	
+	
+	private String generateDateTime() {
+		Date generatedDate = new Date();
+		return generatedDate.toString();
+	}
+	
+	
 }
+
+
