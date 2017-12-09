@@ -5,7 +5,6 @@ import java.util.ArrayList;
  * @author Christiana Meli
  * A class that shows to the user a list of Artworks for which they placed the winning bid.
  */
-
 public class WonArtworks {
 	
 	private ArrayList<Artwork>listOfArtworks;

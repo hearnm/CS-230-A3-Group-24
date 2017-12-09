@@ -1,11 +1,10 @@
+import java.util.ArrayList;
+
 /**
  * Sculpture.java
  * @author Emily Fothergill
  * Class to create Sculpture objects and its related methods.
  */
-
-import java.util.ArrayList;
-
 public class Sculpture extends Artwork {
 	protected ArrayList <String> additionalImages = new ArrayList <String> ();
 	protected double depth;
