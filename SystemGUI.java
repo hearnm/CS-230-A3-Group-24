@@ -1784,13 +1784,14 @@ public class SystemGUI extends Application {
 		back.setPrefWidth(180);
 		
 		
-		bid.setVisible(selectedAuction.getAuctionedArtwork().getOnAuction());
+		
 		
 		
 		bid.setOnAction(e -> {
 			double userBid = convertBidInput(bidInput.getText());
 			attemptBid(selectedAuction, userBid);
-			
+			bid.setVisible(selectedAuction.getAuctionedArtwork().getOnAuction());
+			bidInput.setVisible(selectedAuction.getAuctionedArtwork().getOnAuction());
 			
 		});
 		
