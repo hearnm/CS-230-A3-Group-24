@@ -23,7 +23,21 @@
 }
 
 #PANE {
-	-fx-background-color: linear-gradient(to bottom, #f2f2f2, #778899);
+	-fx-background-image: url("landscape-and-cityscape-view-of-swansea.jpg");
+	-fx-background-size: cover;
+}
+
+#WHITETEXT {
+	-fx-fill: white;
+	-fx-effect: dropshadow(three-pass-box, black, 10, 0.0, 2, 2);
+}
+
+#SIGNUPBACKGROUND {
+	-fx-background-color: rgba(225,225,225,0.2);
+}
+
+.label {
+	-fx-text-fill: white;
 }
 
 .button {
@@ -46,6 +60,10 @@
 
 .choice-box {
 	-fx-background-color: #d3d3d3;
+}
+
+.choice-box .label {
+	-fx-text-fill: black;
 }
 
 .choice-box .context-menu {
