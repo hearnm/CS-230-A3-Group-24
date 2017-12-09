@@ -99,6 +99,7 @@ public class Auction {
 	
 	public boolean getIsCompleted() {
 		if(this.remainingBids == 0) {
+			this.auctionedArtwork.setOnAuction(false);
 			return true;
 		}
 		return false;

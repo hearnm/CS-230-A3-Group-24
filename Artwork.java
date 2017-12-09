@@ -8,8 +8,6 @@
 import java.util.ArrayList;
 import java.util.Date;
 
-import javafx.collections.ObservableList;
-
 public class Artwork {
 	/** The artworks. */
 	protected static ArrayList<Artwork> artworks = new ArrayList<>();
