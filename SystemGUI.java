@@ -200,6 +200,9 @@ public class SystemGUI extends Application {
         usernameLogin.setScaleY(1.5);
         usernameInput.setMaxWidth(250);
         
+        text2.setId("WHITETEXT");
+        usernameLogin.setId("WHITETEXT");
+        
         text2.setTextAlignment(TextAlignment.CENTER);
         text.setTextAlignment(TextAlignment.CENTER);
         usernameLogin.setTextAlignment(TextAlignment.CENTER);
@@ -269,8 +272,9 @@ public class SystemGUI extends Application {
 		bottomBar.setPadding(new Insets(20,100,1,100));
 		details.setPadding(new Insets(1,1,1,1));
 
-		midSection.setBorder(new Border(new BorderStroke(Color.BLACK, 
-				BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+		midSection.setId("SIGNUPBACKGROUND");
+		//midSection.setBorder(new Border(new BorderStroke(Color.BLACK, 
+		//		BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 	
 		midSection.setMinSize(200, 150);
 		midSection.setMaxHeight(320);
@@ -293,6 +297,15 @@ public class SystemGUI extends Application {
 		TextField postcodeBox = new TextField();
 		TextField cityTownBox = new TextField();
 		TextField phoneNoBox = new TextField();
+		
+		subTitle.setId("WHITETEXT");
+		username.setId("WHITETEXT");
+		firstname.setId("WHITETEXT");
+		lastname.setId("WHITETEXT");
+		street.setId("WHITETEXT");
+		postcode.setId("WHITETEXT");
+		cityTown.setId("WHITETEXT");
+		phoneNo.setId("WHITETEXT");
    
 		Button createProfile = new Button("Create Account");
 		Button back = new Button("Back");
@@ -468,6 +481,11 @@ public class SystemGUI extends Application {
 		Text textPaintings = new Text("Paintings: ");
 		Text textSculptures = new Text("Sculptures: ");
 		Button searchBtn = new Button("Search");
+		
+		subTitle.setId("WHITETEXT");
+		textAll.setId("WHITETEXT");
+		textPaintings.setId("WHITETEXT");
+		textSculptures.setId("WHITETEXT");
 
 		RadioButton filterAll = new RadioButton();
 		RadioButton filterPaintings = new RadioButton();
@@ -674,6 +692,8 @@ public class SystemGUI extends Application {
 		subTitle.setScaleY(2.5);
 		title.setTextAlignment(TextAlignment.LEFT);
 		
+		subTitle.setId("WHITETEXT");
+		
 		Button back = new Button("Back");
 		back.setPrefWidth(50);
 		back.setOnAction(e -> {
@@ -855,7 +875,7 @@ public class SystemGUI extends Application {
 		root.setFitToWidth(true);
 		
 		mainSection.getStylesheets().add("artatawe.css");
-		root.setId("PANE");
+		mainSection.setId("PANE");
 	
 		topBar.setPadding(new Insets(0,0,50,0));
 		mainSection.setPadding(new Insets(25,10,10,10));
@@ -870,6 +890,7 @@ public class SystemGUI extends Application {
 		subTitle.setScaleX(2.5);
 		subTitle.setScaleY(2.5);
 		title.setTextAlignment(TextAlignment.LEFT);
+		subTitle.setId("WHITETEXT");
 		
 		Button back = new Button("Back");
 		back.setPrefWidth(50);
@@ -985,6 +1006,13 @@ public class SystemGUI extends Application {
 		Label postcode = new Label("Postcode: " + currentUserObject.getPostcode());
 		Label cityTown = new Label("City/Town: " + currentUserObject.getCityTown());
 		Label phoneNo = new Label("Phone Number: " + currentUserObject.getPhoneNumber());
+		
+		subTitle.setId("WHITETEXT");
+		firstName.setId("WHITETEXT");
+		street.setId("WHITETEXT");
+		postcode.setId("WHITETEXT");
+		cityTown.setId("WHITETEXT");
+		phoneNo.setId("WHITETEXT");
 		
 		title.setScaleX(4);
 		title.setScaleY(4);
@@ -1547,6 +1575,16 @@ public class SystemGUI extends Application {
 		Text widthTxt = new Text("Width(cm):");
 		Text depthTxt = new Text("Depth(cm):");
 		Text mainMaterialTxt = new Text("Main Material:");
+		
+		artNameTxt.setId("WHITETEXT");
+		artCreatorTxt.setId("WHITETEXT");
+		artCreationYearTxt.setId("WHITETEXT");
+		maxBiddersTxt.setId("WHITETEXT");
+		reservePriceTxt.setId("WHITETEXT");
+		heightTxt.setId("WHITETEXT");
+		widthTxt.setId("WHITETEXT");
+		depthTxt.setId("WHITETEXT");
+		mainMaterialTxt.setId("WHITETEXT");
 		
 		TextField artNameBox = new TextField();
 		TextField artCreatorBox = new TextField();
