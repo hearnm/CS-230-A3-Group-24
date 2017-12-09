@@ -8,9 +8,11 @@ import java.util.ArrayList;
 public class Auction {
 	/** The completed auctions. */
 	// Personal note, completed auctions might require a boolean (completed) parameter in the auction constructor.
-	public static ArrayList<Auction> completedAuctions = new ArrayList<Auction>();
+	public static ArrayList<Auction> completedAuctions = new ArrayList<>();
 	/** The auctions. */
-	public static ArrayList<Auction> auctions = new ArrayList<Auction>();
+	public static ArrayList<Auction> auctions = new ArrayList<>();
+	
+	public ArrayList<Bidding> bids = new ArrayList<>();
 
 	/** The next id. */
 	private static int nextId = 1;
