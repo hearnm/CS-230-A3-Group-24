@@ -512,7 +512,7 @@ public class SystemGUI extends Application {
 			});
 		}
 	
-		for(int n = 0; n < artworkPreview.size() - 1; n++) {
+		for(int n = 0; n < artworkPreview.size(); n++) {
 			final VBox previewDetails = new VBox(2);
 			final Text previewTitle = new Text(auctions.get(n).getAuctionedArtwork().getTitle());
 			final Text previewType = new Text(auctions.get(n).getAuctionedArtwork().getArtType());
