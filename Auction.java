@@ -121,6 +121,7 @@ public class Auction {
 		
 		if(checkIfBidValid(newBidder, newBid) && this.remainingBids == 1) {
 			completedAuctions.add(this);
+			auctionedArtwork.setOnAuction(false);
 			return "win";
 		}
 
