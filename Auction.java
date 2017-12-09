@@ -179,6 +179,10 @@ public class Auction {
 		return this.currentBid;
 	}
 	
+	public String getCurrentBidder() {
+		return this.currentBidder;
+	}
+	
 	/**
 	 * Display accepted bid.
 	 */

@@ -530,7 +530,7 @@ public class SystemGUI extends Application {
 			});
 		}
 	
-		for(int n = 0; n < artworkPreview.size() - 1; n++) {
+		for(int n = 0; n < artworkPreview.size(); n++) {
 			final VBox previewDetails = new VBox(2);
 			final Text previewTitle = new Text(auctions.get(n).getAuctionedArtwork().getTitle());
 			final Text previewType = new Text(auctions.get(n).getAuctionedArtwork().getArtType());
@@ -1668,18 +1668,15 @@ public class SystemGUI extends Application {
 					Artwork newPainting = new Painting(currentUserObject.getUsername(), artNameBox.getText(), artCreatorBox.getText(), Integer.parseInt(artCreationYearBox.getText()), 
 														Double.parseDouble(reservePriceBox.getText()), Integer.parseInt(maxBiddersBox.getText()), Double.parseDouble(widthBox.getText()), 
 														Double.parseDouble(heightBox.getText()), true, true);
+					
 					SaveData.saveNewArtwork(newPainting);
-					auctions.add(Auction.getGivenAuction(artNameBox.getText()));
 					home = new Scene(buildHomePageGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
 					window.setScene(home);
 				} else if(sculptureRadio.isSelected() == true) {
 					Artwork newSculpture = new Sculpture(currentUserObject.getUsername(), artNameBox.getText(), artCreatorBox.getText(), Integer.parseInt(artCreationYearBox.getText()), 
 							Double.parseDouble(reservePriceBox.getText()), Integer.parseInt(maxBiddersBox.getText()), Double.parseDouble(widthBox.getText()), 
 							Double.parseDouble(heightBox.getText()), Double.parseDouble(depthBox.getText()), mainMaterialBox.getText(), true, true);
-					
-					
-					// Duplication here
-					auctions.add(Auction.getGivenAuction(artNameBox.getText()));
+
 					SaveData.saveNewArtwork(newSculpture);
 					
 					home = new Scene(buildHomePageGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
@@ -1886,9 +1883,11 @@ public class SystemGUI extends Application {
 		if(bidResult.equalsIgnoreCase("valid")) {
 			notificationBox("System Confirmation", "Bid Successful!", "Your bid of: " + bid + " has been added to the system");
 
-		} else if(bidResult.equalsIgnoreCase("invalid")) {
-			notificationBox("System Warrning", "Bid Unsuccessful!", "Your bid of: " + bid + " has not been added to the system,\n please check your bid and try again");
-
+		} else if(bidResult.equalsIgnoreCase("invalid") && currentUserObject.getUsername().equalsIgnoreCase(auction.getCurrentBidder())) {
+			notificationBox("System Warrning", "Bid Unsuccessful!", "You are currently the highest bidder, you cannot out bid yourself!");
+		} else if(bidResult.equalsIgnoreCase("invalid") && !currentUserObject.getUsername().equalsIgnoreCase(auction.getCurrentBidder())) {
+			notificationBox("System Warrning", "Bid Unsuccessful!", "Your bid of: " + bid + " is less than the current bid of: " + auction.getCurrentBid() + "\nor less than the reservation amount: "
+					 		+ auction.getAuctionedArtwork().getReservePrice());
 		} else if(bidResult.equalsIgnoreCase("win")) {
 			notificationBox("System Confirmation", "Congradulations you won!", "You have just placed the winning bid: " + bid);
 		}
