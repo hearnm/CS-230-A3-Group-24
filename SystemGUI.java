@@ -272,7 +272,7 @@ public class SystemGUI extends Application {
 		bottomBar.setPadding(new Insets(20,100,1,100));
 		details.setPadding(new Insets(1,1,1,1));
 
-		midSection.setId("SIGNUPBACKGROUND");
+		midSection.setId("INFORMATIONHIGHLIGHTER");
 		//midSection.setBorder(new Border(new BorderStroke(Color.BLACK, 
 		//		BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 	
@@ -456,8 +456,8 @@ public class SystemGUI extends Application {
 		StackPane mainCenter = new StackPane();
 
 		
-		mainCenter.setBorder(new Border(new BorderStroke(Color.BLACK, 
-	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+		//mainCenter.setBorder(new Border(new BorderStroke(Color.BLACK, 
+	    //        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		
 
 		root.setPadding(new Insets(25,10,10,10));
@@ -466,6 +466,7 @@ public class SystemGUI extends Application {
 		searchBlock.setPadding(new Insets(25,0,0,10));
 		mainCenter.setPadding(new Insets(25,10,10,10));
 		newAuctionBlock.setPadding(new Insets(20,10,10,10));
+		newAuctionBlock.setId("INFORMATIONHIGHLIGHTER");
 		
 		scroll.setFitToHeight(true);
 		scroll.setFitToWidth(true);
@@ -983,20 +984,20 @@ public class SystemGUI extends Application {
 		BorderPane root = new BorderPane();
 		root.getStylesheets().add("artatawe.css");
 		window.setResizable(true);
-		root.setPadding(new Insets(10,10,10,10));
 		root.setId("PANE");
 		
 		HBox mainTop = new HBox(20);
 		VBox titleBlock = new VBox();
 		VBox lSideBar = new VBox(15);
-		VBox midSection = new VBox(15);
+		VBox midSection = new VBox(20);
 		VBox rSideBar = new VBox(20);
 		Pane profPicBox = new Pane();
 		
 		root.setPadding(new Insets(50,20,20,20));
 		lSideBar.setPadding(new Insets(10,10,10,0));
 		rSideBar.setPadding(new Insets(30,0,0,10));
-		midSection.setPadding(new Insets(50,10,10,50));
+		midSection.setPadding(new Insets(30,10,10,50));
+		midSection.setId("INFORMATIONHIGHLIGHTER");
 
 		Text title = new Text("Artatawe\n");
 		title.setId("#ARTATAWE2");
