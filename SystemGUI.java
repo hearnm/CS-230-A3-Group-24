@@ -40,6 +40,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -1764,18 +1765,32 @@ public class SystemGUI extends Application {
 		});
 		
 		
-		TableView bidHistory = new TableView();
+		
+		TableView<Bidding> bidHistory = new TableView<>();
 		bidHistory.setEditable(false);
 		
-		TableColumn bidderName = new TableColumn("Bidder");
-        TableColumn bidAmount = new TableColumn("Bid");
-        TableColumn bidDate = new TableColumn("Date of Bid");
-        bidderName.setMinWidth(100);
-        bidAmount.setMinWidth(100);
-        bidDate.setMinWidth(100);
-        
-        bidHistory.getColumns().addAll(bidderName, bidAmount, bidDate);
+		TableColumn<Bidding, String> bidderName = new TableColumn<>("Bidder");
+		bidderName.setMinWidth(100);
+		bidderName.setCellValueFactory(
+                new PropertyValueFactory<Bidding, String>("Username"));
 		
+        TableColumn<Bidding, Double> bidAmount = new TableColumn<>("Bid");
+        bidAmount.setMinWidth(100);
+        bidAmount.setCellValueFactory(
+                new PropertyValueFactory<Bidding, Double>("Bid"));
+        
+        TableColumn<Bidding, String> bidDate = new TableColumn<>("Date of Bid");
+        bidDate.setMinWidth(100);
+        bidDate.setCellValueFactory(
+                new PropertyValueFactory<Bidding, String>("Date of Bid"));
+
+        
+        bidHistory.getColumns().addAll(bidderName,bidAmount,bidDate);
+        
+        
+        
+        
+        
         title.setScaleX(4);
 		title.setScaleY(4);
 		artName.setScaleX(2.5);

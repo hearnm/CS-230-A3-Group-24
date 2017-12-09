@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Date;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /**
  * Auction.java
  * The class that contains information related to an auction of an artwork.
@@ -134,9 +137,6 @@ public class Auction {
 		return "invalid";
 	}
 	
-	public ArrayList<Bidding> getAuctionBidHistory() {
-		return this.bids;	
-	}
 	
 	/**
 	* Class for assigning a new bidder.
