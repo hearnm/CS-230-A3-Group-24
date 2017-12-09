@@ -1630,8 +1630,8 @@ public class SystemGUI extends Application {
 					Artwork newPainting = new Painting(currentUserObject.getUsername(), artNameBox.getText(), artCreatorBox.getText(), Integer.parseInt(artCreationYearBox.getText()), 
 														Double.parseDouble(reservePriceBox.getText()), Integer.parseInt(maxBiddersBox.getText()), Double.parseDouble(widthBox.getText()), 
 														Double.parseDouble(heightBox.getText()), true, true);
+					
 					SaveData.saveNewArtwork(newPainting);
-					auctions.add(Auction.getGivenAuction(artNameBox.getText()));
 					home = new Scene(buildHomePageGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
 					window.setScene(home);
 				} else if(sculptureRadio.isSelected() == true) {
