@@ -1,14 +1,13 @@
-import java.util.ArrayList;
-import java.util.Date;
-
-import javafx.collections.ObservableList;
-
 /**
  * Artwork.java
  * @author Emily Fothergill
  * This class creates and stores Artwork.
  * This is a Super Class with two subclasses :- Painting and Sculpture
  */
+
+import java.util.ArrayList;
+import java.util.Date;
+
 public class Artwork {
 	/** The artworks. */
 	protected static ArrayList<Artwork> artworks = new ArrayList<>();
