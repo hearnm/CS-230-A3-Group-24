@@ -1845,9 +1845,11 @@ public class SystemGUI extends Application {
 		if(bidResult.equalsIgnoreCase("valid")) {
 			notificationBox("System Confirmation", "Bid Successful!", "Your bid of: " + bid + " has been added to the system");
 
-		} else if(bidResult.equalsIgnoreCase("invalid")) {
-			notificationBox("System Warrning", "Bid Unsuccessful!", "Your bid of: " + bid + " has not been added to the system,\n please check your bid and try again");
-
+		} else if(bidResult.equalsIgnoreCase("invalid") && currentUserObject.getUsername().equalsIgnoreCase(auction.getCurrentBidder())) {
+			notificationBox("System Warrning", "Bid Unsuccessful!", "You are currently the highest bidder, you cannot out bid yourself!");
+		} else if(bidResult.equalsIgnoreCase("invalid") && !currentUserObject.getUsername().equalsIgnoreCase(auction.getCurrentBidder())) {
+			notificationBox("System Warrning", "Bid Unsuccessful!", "Your bid of: " + bid + " is less than the current bid of: " + auction.getCurrentBid() + "\nor less than the reservation amount: "
+					 		+ auction.getAuctionedArtwork().getReservePrice());
 		} else if(bidResult.equalsIgnoreCase("win")) {
 			notificationBox("System Confirmation", "Congradulations you won!", "You have just placed the winning bid: " + bid);
 		}
