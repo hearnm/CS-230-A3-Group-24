@@ -1638,10 +1638,7 @@ public class SystemGUI extends Application {
 					Artwork newSculpture = new Sculpture(currentUserObject.getUsername(), artNameBox.getText(), artCreatorBox.getText(), Integer.parseInt(artCreationYearBox.getText()), 
 							Double.parseDouble(reservePriceBox.getText()), Integer.parseInt(maxBiddersBox.getText()), Double.parseDouble(widthBox.getText()), 
 							Double.parseDouble(heightBox.getText()), Double.parseDouble(depthBox.getText()), mainMaterialBox.getText(), true, true);
-					
-					
-					// Duplication here
-					auctions.add(Auction.getGivenAuction(artNameBox.getText()));
+
 					SaveData.saveNewArtwork(newSculpture);
 					
 					home = new Scene(buildHomePageGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
