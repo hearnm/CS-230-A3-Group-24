@@ -1612,7 +1612,7 @@ public class SystemGUI extends Application {
 		
 		Button back = new Button("Back");
 		back.setPrefWidth(50);
-		back.setOnAction(e -> window.setScene(home));
+		back.setOnAction(e -> {window.setScene(home); window.setResizable(true);});
 		
 		Button createAuctionButton = new Button("Create Auction");
 		createAuctionButton.setPrefWidth(150);
