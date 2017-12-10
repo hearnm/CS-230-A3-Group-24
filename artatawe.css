@@ -24,6 +24,7 @@
 
 #PANE {
 	-fx-background-image: url("background.png");
+	/*Background Source: https://pixabay.com/en/color-triangle-geometric-textured-2174049/ */
 	-fx-background-size: cover;
 }
 

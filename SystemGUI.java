@@ -5,11 +5,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.logging.Level;
-import java.util.regex.*;
 
 import javax.imageio.ImageIO;
 
@@ -376,7 +374,7 @@ public class SystemGUI extends Application {
 		if(usernameDuplicationCheck(username)) {
 			notificationBox("Sign-Up Notification", "Input Error", "Username taken, please select another");
 			return false;
-		} else if (phoneNoChecker(phoneNo)) {
+		} else if (phoneNoChecker(phoneNo) == false) {
 			notificationBox("Sign-Up Notification", "Input Error", "Phone number is in an incorrect format");
 			return false;
 		} else if (postcode.length() < 6 || postcode.length() > 7) {
@@ -386,14 +384,18 @@ public class SystemGUI extends Application {
 		if (username.length() > 1) {
 			return true;
 		} else {
+			notificationBox("Sign-Up Notification", "Input Error", "Username must be at least two characters long");
 			return false;
 		}
 	}
 	
 	public boolean phoneNoChecker(String phoneNo) {
-		if(phoneNo.matches("^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?\\#(\\d{4}|\\d{3}))?$\r\n")) {
+		System.out.println("Phone No: "+phoneNo);
+		if(phoneNo.matches("[0-9]{11}")) {
+			System.out.println("why are we matching");
 			return true;
 		} else {
+			System.out.println("test");
 			return false;
 		}
 	}
