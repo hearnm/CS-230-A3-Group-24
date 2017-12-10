@@ -11,13 +11,10 @@ import java.util.Scanner;
  * @author Tom Durman
  */
 public class LoadData {
-	/** The Constant File path for the system data. */
-	private static final String PROFILE_DATA_PATH = "ArtataweProfiles.txt";
-	/** The Constant File path to save all the data to.. */
-	private static final String PROFILE_FAVORITE_PATH = "_FavoriteProfiles.txt";
-	/** The Constant File path to the Artwork data (including bidding info). */
-	private static final String ARTWORK_FAVORITE_PATH = "Artworks.txt";
-	
+	private static final String PROFILE_DATA_PATH = "ArtataweProfiles.txt";			//The Constant File path for the system data.
+	private static final String PROFILE_FAVORITE_PATH = "_FavoriteProfiles.txt";	//The Constant File path to save all the data to.
+	private static final String ARTWORK_FAVORITE_PATH = "Artworks.txt";				//The Constant File path to the Artwork data (including bidding info).
+
 	/** The input stream connected to the given file. */
 	private static Scanner inputStream;
 
