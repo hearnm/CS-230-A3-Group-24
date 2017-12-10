@@ -88,7 +88,7 @@ public class Artwork {
 	
 	/**
 	 * Method to put Artwork on auction.
-	 * @param onAuction
+	 * @param onAuction The boolean value that sets the Artwork to on auction.
 	 */
 	public void setOnAuction(boolean onAuction) {
 		this.onAuction = onAuction;
@@ -130,7 +130,7 @@ public class Artwork {
 	
 	/**
 	 * Method to change the material of the Sculpture.
-	 * @param material
+	 * @param material The Material of the Artwork.
 	 */
 	public void setMaterial(String material) {
 		this.material = material;
@@ -146,7 +146,7 @@ public class Artwork {
 	
 	/**
 	 * Method to change the depth of the Sculpture.
-	 * @param depth
+	 * @param depth The Depth Dimension of the Artwork.
 	 */
 	public void setDepth(double depth) {
 		this.depth = depth;
@@ -282,7 +282,7 @@ public class Artwork {
 	
 	/**
 	 * Method to get the type of Artwork.
-	 * @param artType The current Artwork Type
+	 * @return artType The Artwork Type
 	 */
 	public String getArtType() {
 		return this.artType;
@@ -298,7 +298,6 @@ public class Artwork {
 	
 	/**
 	 * Method to generate the time and date the Artwork goes on the system.
-	 * @return artTimeDate
 	 */
 	public void generateTimeDate() {
 		Date generatedDate = new Date();
