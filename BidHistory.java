@@ -22,7 +22,7 @@ public class BidHistory {
 	/**
 	 * Constructor for Bid History.
 	 */
-	public BidHistory() { 	
+	public BidHistory() {
 		this.bidHistoryID = idCounter;
 		idCounter++;
 	}
@@ -34,7 +34,7 @@ public class BidHistory {
 	public int getBidHistoryID() {
 		return this.bidHistoryID;
 	}
-	
+
 	/**
 	 * Gets the placed bids.
 	 * @return the placed bids
@@ -43,7 +43,7 @@ public class BidHistory {
 		// This will return all of the placed bids (by the logged on user)
 		return null;
 	}
-	
+
 	/**
 	 * Gets the received bids.
 	 * @return the received bids
@@ -51,5 +51,5 @@ public class BidHistory {
 	public String getReceivedBids() {
 		// This will return all of the received bids (by the logged on user)
 		return null;
-	}	
+	}
 }
