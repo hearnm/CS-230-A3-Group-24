@@ -204,8 +204,8 @@ public class SystemGUI extends Application {
         usernameLogin.setScaleY(1.5);
         usernameInput.setMaxWidth(250);
 
-        text2.setId("WHITETEXT");
-        usernameLogin.setId("WHITETEXT");
+        text2.setId("TEXTFORMAT");
+        usernameLogin.setId("TEXTFORMAT");
 
         text2.setTextAlignment(TextAlignment.CENTER);
         text.setTextAlignment(TextAlignment.CENTER);
@@ -299,14 +299,14 @@ public class SystemGUI extends Application {
 		TextField cityTownBox = new TextField();
 		TextField phoneNoBox = new TextField();
 
-		subTitle.setId("WHITETEXT");
-		username.setId("WHITETEXT");
-		firstname.setId("WHITETEXT");
-		lastname.setId("WHITETEXT");
-		street.setId("WHITETEXT");
-		postcode.setId("WHITETEXT");
-		cityTown.setId("WHITETEXT");
-		phoneNo.setId("WHITETEXT");
+		subTitle.setId("TEXTFORMAT");
+		username.setId("TEXTFORMAT");
+		firstname.setId("TEXTFORMAT");
+		lastname.setId("TEXTFORMAT");
+		street.setId("TEXTFORMAT");
+		postcode.setId("TEXTFORMAT");
+		cityTown.setId("TEXTFORMAT");
+		phoneNo.setId("TEXTFORMAT");
 
 		Button createProfile = new Button("Create Account");
 		Button back = new Button("Back");
@@ -486,15 +486,21 @@ public class SystemGUI extends Application {
 		Text textSculptures = new Text("Sculptures: ");
 		Button searchBtn = new Button("Search");
 		
-		subTitle.setId("WHITETEXT");
-		textAll.setId("WHITETEXT");
-		textPaintings.setId("WHITETEXT");
-		textSculptures.setId("WHITETEXT");
+		subTitle.setId("TEXTFORMAT");
+		textAll.setId("TEXTFORMAT");
+		textPaintings.setId("TEXTFORMAT");
+		textSculptures.setId("TEXTFORMAT");
 
+		ToggleGroup radioSelectionToggle = new ToggleGroup();
+		
 		RadioButton filterAll = new RadioButton();
 		RadioButton filterPaintings = new RadioButton();
 		RadioButton filterSculptures = new RadioButton();
 		filterAll.setSelected(true);
+		
+		filterAll.setToggleGroup(radioSelectionToggle);
+		filterPaintings.setToggleGroup(radioSelectionToggle);
+		filterSculptures.setToggleGroup(radioSelectionToggle);
 		
 		filterAll.setOnAction(e -> {filterPaintings.setSelected(false); filterSculptures.setSelected(false);});
 		filterPaintings.setOnAction(e -> filterAll.setSelected(false));
@@ -687,7 +693,7 @@ public class SystemGUI extends Application {
 		subTitle.setScaleY(2.5);
 		title.setTextAlignment(TextAlignment.LEFT);
 		
-		subTitle.setId("WHITETEXT");
+		subTitle.setId("TEXTFORMAT");
 		
 		Button back = new Button("Back");
 		back.setPrefWidth(150);
@@ -881,7 +887,7 @@ public class SystemGUI extends Application {
 		subTitle.setScaleX(2.5);
 		subTitle.setScaleY(2.5);
 		title.setTextAlignment(TextAlignment.LEFT);
-		subTitle.setId("WHITETEXT");
+		subTitle.setId("TEXTFORMAT");
 		
 		Button back = new Button("Back");
 		back.setPrefWidth(150);
@@ -1010,12 +1016,12 @@ public class SystemGUI extends Application {
 		Label cityTown = new Label("City/Town: " + currentUserObject.getCityTown());
 		Label phoneNo = new Label("Phone Number: " + currentUserObject.getPhoneNumber());
 		
-		subTitle.setId("WHITETEXT");
-		firstName.setId("WHITETEXT");
-		street.setId("WHITETEXT");
-		postcode.setId("WHITETEXT");
-		cityTown.setId("WHITETEXT");
-		phoneNo.setId("WHITETEXT");
+		subTitle.setId("TEXTFORMAT");
+		firstName.setId("TEXTFORMAT");
+		street.setId("TEXTFORMAT");
+		postcode.setId("TEXTFORMAT");
+		cityTown.setId("TEXTFORMAT");
+		phoneNo.setId("TEXTFORMAT");
 		
 		title.setScaleX(4);
 		title.setScaleY(4);
@@ -1609,15 +1615,15 @@ public class SystemGUI extends Application {
 		Text depthTxt = new Text("Depth(cm):");
 		Text mainMaterialTxt = new Text("Main Material:");
 		
-		artNameTxt.setId("WHITETEXT");
-		artCreatorTxt.setId("WHITETEXT");
-		artCreationYearTxt.setId("WHITETEXT");
-		maxBiddersTxt.setId("WHITETEXT");
-		reservePriceTxt.setId("WHITETEXT");
-		heightTxt.setId("WHITETEXT");
-		widthTxt.setId("WHITETEXT");
-		depthTxt.setId("WHITETEXT");
-		mainMaterialTxt.setId("WHITETEXT");
+		artNameTxt.setId("TEXTFORMAT");
+		artCreatorTxt.setId("TEXTFORMAT");
+		artCreationYearTxt.setId("TEXTFORMAT");
+		maxBiddersTxt.setId("TEXTFORMAT");
+		reservePriceTxt.setId("TEXTFORMAT");
+		heightTxt.setId("TEXTFORMAT");
+		widthTxt.setId("TEXTFORMAT");
+		depthTxt.setId("TEXTFORMAT");
+		mainMaterialTxt.setId("TEXTFORMAT");
 		
 		TextField artNameBox = new TextField();
 		TextField artCreatorBox = new TextField();

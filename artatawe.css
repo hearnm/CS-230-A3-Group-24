@@ -28,7 +28,7 @@
 	-fx-background-size: cover;
 }
 
-#WHITETEXT {
+#TEXTFORMAT {
 	-fx-fill: #3333cc;
 	-fx-font-family: "Arial";
 	-fx-effect: dropshadow(three-pass-box, #3333cc, 10, 0.0, 2, 2);
