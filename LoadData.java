@@ -104,7 +104,6 @@ public class LoadData {
 		return favoriteUsers;
 	}
 	
-	
 	/**
 	 * Method to read the File and take out data, constructing appropriate artwork objects in the system.
 	 */
