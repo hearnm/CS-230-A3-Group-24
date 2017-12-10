@@ -124,6 +124,13 @@ public class Auction {
 				&& this.remainingBids == 1) {
 			completedAuctions.add(this);
 			auctionedArtwork.setOnAuction(false);
+			this.currentBidder = newBidder;
+			this.currentBid = newBid;
+			this.remainingBids -= 1;
+			// create a new bid object
+			Bidding bid = new Bidding(newBidder, newBid,
+					generateDateTime());
+			this.bidHistory.add(bid);
 			return "win";
 		}
 
