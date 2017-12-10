@@ -8,10 +8,9 @@ import java.util.Date;
  * This is a Super Class with two subclasses :- Painting and Sculpture
  */
 public class Artwork {
-	
 	/** The artworks. */
 	protected static ArrayList<Artwork> artworks = new ArrayList<>();
-	/** The won artworks */
+	/** The won artworks. */
 	public static ArrayList<Artwork> wonArtworks = new ArrayList<>();
 	/** The artwork ID - The Unique ID of an artwork piece. */
 	protected int artworkID;
@@ -47,7 +46,7 @@ public class Artwork {
 	protected boolean newArt;
 	/** The boolean value sets the Artwork to on auction. */
 	protected boolean onAuction;
-	
+
 	/**
 	 * Constructor of Artwork objects.
 	 * @param auctioneer The user that placed the Artwork on auction.
@@ -56,8 +55,8 @@ public class Artwork {
 	 * @param artCreationYear Creation year of the Artwork.
 	 * @param reservePrice Given reservation price of the Artwork.
 	 * @param numBidsAllowed The set Number of Bids allowed on the Artwork.
-	 * @param newArt The boolean value that sets the Artwork as new to the System.
-	 * @param onAuction The boolean value that sets the Artwork to on auction.
+	 * @param newArt The boolean value that sets Artwork as new to System.
+	 * @param onAuction The boolean value that sets Artwork to on auction.
 	 */
 	public Artwork(String auctioneer, String title, String creator,
 			int artCreationYear, double reservePrice, int numBidsAllowed,
@@ -72,10 +71,10 @@ public class Artwork {
 		this.onAuction = onAuction;
 		generateTimeDate();
 		artworks.add(this);
-		
+
 		sortArtwork();
 	}
-	
+
 	/**
 	 * Method to sort Artwork between on auction and finished auction.
 	 */
@@ -85,7 +84,7 @@ public class Artwork {
 			Auction newAuction = new Auction(this);
 		}
 	}
-	
+
 	/**
 	 * Method to put Artwork on auction.
 	 * @param onAuction The boolean value that sets the Artwork to on auction.
@@ -93,7 +92,7 @@ public class Artwork {
 	public void setOnAuction(boolean onAuction) {
 		this.onAuction = onAuction;
 	}
-	
+
 	/**
 	 * Method to retrieve the boolean value of whether or not the
 	 * Artwork is on auction.
@@ -102,7 +101,7 @@ public class Artwork {
 	public boolean getOnAuction() {
 		return this.onAuction;
 	}
-	
+
 	/**
 	 * Method to change the title of the Artwork.
 	 * @param title The new Title
@@ -110,7 +109,7 @@ public class Artwork {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+
 	/**
 	 * Method to retrieve the title of the Artwork.
 	 * @return title The current Title
@@ -118,7 +117,7 @@ public class Artwork {
 	public String getTitle() {
 		return this.title;
 	}
-	
+
 	/**
 	 * Method to retrieve the username of the UserProfile set as the
 	 * auctioneer of the Artwork.
@@ -127,7 +126,7 @@ public class Artwork {
 	public String getAuctioneer() {
 		return this.auctioneer;
 	}
-	
+
 	/**
 	 * Method to change the material of the Sculpture.
 	 * @param material The Material of the Artwork.
@@ -135,7 +134,7 @@ public class Artwork {
 	public void setMaterial(String material) {
 		this.material = material;
 	}
-	
+
 	/**
 	 * Method to retrieve the material of the Sculpture.
 	 * @return material
@@ -143,7 +142,7 @@ public class Artwork {
 	public String getMaterial() {
 		return material;
 	}
-	
+
 	/**
 	 * Method to change the depth of the Sculpture.
 	 * @param depth The Depth Dimension of the Artwork.
@@ -151,7 +150,7 @@ public class Artwork {
 	public void setDepth(double depth) {
 		this.depth = depth;
 	}
-	
+
 	/**
 	 * Method to retrieve the depth of the Sculpture.
 	 * @return depth
@@ -159,7 +158,7 @@ public class Artwork {
 	public double getDepth() {
 		return depth;
 	}
-	
+
 	/**
 	 * Method to change set the description of the Artwork.
 	 * @param description The new Description
@@ -167,7 +166,7 @@ public class Artwork {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	/**
 	 * Method to retrieve the description of the Artwork.
 	 * @return description The current Description
@@ -175,7 +174,7 @@ public class Artwork {
 	public String getDescription() {
 		return this.description;
 	}
-	
+
 	/**
 	 * Method to change the creator of the Artwork.
 	 * @param creator The new Creator
@@ -183,7 +182,7 @@ public class Artwork {
 	public void setCreator(String creator) {
 		this.creator = creator;
 	}
-	
+
 	/**
 	 * Method to retrieve the creator of the Artwork.
 	 * @return creator The current Creator
@@ -191,7 +190,7 @@ public class Artwork {
 	public String getCreator() {
 		return this.creator;
 	}
-	
+
 	/**
 	 * Method to change the year the Artwork was created.
 	 * @param artCreationYear The new Creation Year
@@ -199,7 +198,7 @@ public class Artwork {
 	public void setArtCreationYear(int artCreationYear) {
 		this.artCreationYear = artCreationYear;
 	}
-	
+
 	/**
 	 * Method to retrieve the year the Artwork was created.
 	 * @return artCreationYear The current Creation Year
@@ -207,7 +206,7 @@ public class Artwork {
 	public int getArtCreationYear() {
 		return this.artCreationYear;
 	}
-	
+
 	/**
 	 * Method to change the reserve price of the Artwork.
 	 * @param reservePrice The new Reserve Price
@@ -215,7 +214,7 @@ public class Artwork {
 	public void setReservePrice(double reservePrice) {
 		this.reservePrice = reservePrice;
 	}
-	
+
 	/**
 	 * Method to retrieve the reserve price of the Artwork.
 	 * @return reserve price The current Reserve Price
@@ -223,7 +222,7 @@ public class Artwork {
 	public double getReservePrice() {
 		return this.reservePrice;
 	}
-	
+
 	/**
 	 * Method to change the max number of bids allowed on the Artwork.
 	 * @param numBidsAllowed The new Maximum number of Bids Allowed
@@ -231,7 +230,7 @@ public class Artwork {
 	public void setNumBidAllowed(int numBidsAllowed) {
 		this.numBidsAllowed = numBidsAllowed;
 	}
-	
+
 	/**
 	 * Method to retrieve the max number bids allowed on the Artwork.
 	 * @return numBidsAllowed the current Maximum number of Bids Allowed
@@ -239,7 +238,7 @@ public class Artwork {
 	public int getNumBidAllowed() {
 		return this.numBidsAllowed;
 	}
-	
+
 	/**
 	 * Method to change the height.
 	 * @param height The new Height Value
@@ -247,15 +246,15 @@ public class Artwork {
 	public void setHeight(double height) {
 		this.height = height;
 	}
-	
+
 	/**
 	 * Method to retrieve height.
-	 * @return height The current Height 
+	 * @return height The current Height
 	 */
 	public double getHeight() {
 		return this.height;
 	}
-	
+
 	/**
 	 * Method to change the width.
 	 * @param width The new Width Value
@@ -263,7 +262,7 @@ public class Artwork {
 	public void setWidth(double width) {
 		this.width = width;
 	}
-	
+
 	/**
 	 * Method to retrieve the width.
 	 * @return width The current Width
@@ -271,7 +270,7 @@ public class Artwork {
 	public double getWidth() {
 		return this.width;
 	}
-	
+
 	/**
 	 * Method to set the type of Artwork.
 	 * @param artType The new Artwork Type
@@ -279,7 +278,7 @@ public class Artwork {
 	public void setArtType(String artType) {
 		this.artType = artType;
 	}
-	
+
 	/**
 	 * Method to get the type of Artwork.
 	 * @return artType The Artwork Type
@@ -287,15 +286,15 @@ public class Artwork {
 	public String getArtType() {
 		return this.artType;
 	}
-	
+
 	/**
-	 * Method to get the current artworks date and time
+	 * Method to get the current artworks date and time.
 	 * @return artTimeDate The Artworks creation time and date
 	 */
 	public String getArtworkDateTime() {
 		return this.artTimeDate;
 	}
-	
+
 	/**
 	 * Method to generate the time and date the Artwork goes on the system.
 	 */
@@ -303,14 +302,12 @@ public class Artwork {
 		Date generatedDate = new Date();
 		artTimeDate = generatedDate.toString();
 	}
-	
-	/**
-	 * Gets the won artworks.
-	 * @return a list of won artworks
-	 */
-	public ArrayList<Artwork> getWonArtworks(){
-		return wonArtworks;
-	}	
-	
 
+	/**
+	 * Gets the Artwork won.
+	 * @return a list of Artwork won
+	 */
+	public ArrayList<Artwork> getWonArtworks() {
+		return wonArtworks;
+	}
 }
