@@ -2,8 +2,7 @@ import java.util.ArrayList;
 
 /**
  * WonArtworks.java
- * A class that shows the user a list of Artwork for which they
- * placed the winning bid.
+ * A class that shows the user a list of Artwork for which they placed the winning bid.
  * @author Christiana Meli
  */
 public class WonArtworks {

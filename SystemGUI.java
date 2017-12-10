@@ -63,8 +63,8 @@ import javafx.stage.Stage;
 
 /**
  * SystemGUI.java
- * @author Tom Durman
  * This class creates the System GUI and handles interaction response for the user.
+ * @author Tom Durman
  */
 public class SystemGUI extends Application {
 	private static final int HOME_STAGE_WIDTH = 840;			// Width of the Main Stage
