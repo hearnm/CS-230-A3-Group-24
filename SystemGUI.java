@@ -523,7 +523,6 @@ public class SystemGUI extends Application {
 				public void handle(MouseEvent event) {
 					
 					int selection = Integer.parseInt(event.getPickResult().getIntersectedNode().getId());
-					//System.out.println(selectedAuction.getBids().get(0).getUsername());
 					selectedAuction = auctions.get(selection);
 					selectedAuctionView = new Scene(buildDetailedAuctionViewGUI(), AUCTION_DETAILS_STAGE_WIDTH, AUCTION_DETAILS_STAGE_HEIGHT);
 					window.setScene(selectedAuctionView);
@@ -675,7 +674,7 @@ public class SystemGUI extends Application {
 		mainSection.setId("PANE");
 	
 		topBar.setPadding(new Insets(0,0,50,0));
-		mainSection.setPadding(new Insets(25,10,10,10));
+		mainSection.setPadding(new Insets(45,10,10,10));
 		center.setHgap(25);
 		center.setVgap(10);
 
@@ -870,7 +869,7 @@ public class SystemGUI extends Application {
 		mainSection.setId("PANE");
 	
 		topBar.setPadding(new Insets(0,0,50,0));
-		mainSection.setPadding(new Insets(25,10,10,10));
+		mainSection.setPadding(new Insets(45,10,10,10));
 		center.setHgap(25);
 		center.setVgap(10);
 
@@ -1756,7 +1755,7 @@ public class SystemGUI extends Application {
 		HBox bidTableTitle = new HBox(10);
 		
 		bidTableMain.setBorder(new Border(new BorderStroke(Color.BLACK, 
-				BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+				BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 	
 		leftVBar2.setPadding(new Insets(25,0,0,0));
 		mainTop.setPadding(new Insets(20,50,10,10));
@@ -1890,6 +1889,10 @@ public class SystemGUI extends Application {
 		
 		String bidResult = auction.attemptNewBid(currentUserObject.getUsername(), bid);
 		
+		if(bidResult.equalsIgnoreCase("SelfBid")) {
+			notificationBox("System Warrning", "Bid Unsuccessful", "You cannot bid on your own artwork!");
+			return false;
+		} 
 		if(bidResult.equalsIgnoreCase("valid")) {
 			notificationBox("System Confirmation", "Bid Successful!", "Your bid of: " + bid + " has been added to the system");
 			return true;

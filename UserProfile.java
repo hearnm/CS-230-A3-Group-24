@@ -18,7 +18,7 @@ public class UserProfile {
 	private String postcode;	// The Postcode of the users address
 	private String cityTown;	// The City or Town the User lives at
 	private String phoneNumber;	// A Valid UK Phone number
-	private String profileImg = "DefaultPicture.png";	//The profile
+	private String profileImg = "DefaultPicture.png";	//The profile image
 	private boolean newAccount;	// A check to see if an account is new or pre-existing
 	private static ArrayList<UserProfile> profiles = new ArrayList<UserProfile>();  // An ArrayList of all profiles in the system
 	private ArrayList<UserProfile> favoriteUsers = new ArrayList<UserProfile>();	// An Array of users marked as favorite by one instance of a user
@@ -27,7 +27,6 @@ public class UserProfile {
 	 * Constructor for UserProfile which creates new Users.
 	 * When a User Profile is created a check is made to see if
 	 * they are a pre-existing user or new and saves to the system
-	 *
 	 * @param username The username of the User.
 	 * @param firstName The first name of the User.
 	 * @param lastName The last name of the User.
@@ -60,7 +59,6 @@ public class UserProfile {
 
 	/**
 	 * Method to get the newAccount Attribute.
-	 *
 	 * @return newAccount True if new account, false if pre-existing.
 	 */
 	public boolean getNewAccount() {
@@ -76,7 +74,6 @@ public class UserProfile {
 
 	/**
 	 * Sets the profile image.
-	 *
 	 * @param imagePath the new profile image
 	 */
 	public void setProfileImage(String imagePath) {
@@ -85,7 +82,6 @@ public class UserProfile {
 
 	/**
 	 * Gets the profile image.
-	 *
 	 * @return the profile image
 	 */
 	public String getProfileImage() {
@@ -157,7 +153,7 @@ public class UserProfile {
 
 	/**
 	 * Method to get the street.
-	 * @return the street
+	 * @return The street
 	 */
 	public String getStreet() {
 		return street;
@@ -165,7 +161,7 @@ public class UserProfile {
 
 	/**
 	 * Method to set a new street address.
-	 * @param street the street to set
+	 * @param street The street to set
 	 */
 	public void setStreet(String street) {
 		this.street = street;
@@ -173,7 +169,7 @@ public class UserProfile {
 
 	/**
 	 * Method to get the postcode.
-	 * @return the postcode
+	 * @return The postcode
 	 */
 	public String getPostcode() {
 		return postcode;
@@ -181,7 +177,7 @@ public class UserProfile {
 
 	/**
 	 * Method to set a new postcode.
-	 * @param postcode the postcode to set
+	 * @param postcode The postcode to set
 	 */
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
@@ -189,7 +185,7 @@ public class UserProfile {
 
 	/**
 	 * Method to get the city / town.
-	 * @return the cityTown
+	 * @return The cityTown
 	 */
 	public String getCityTown() {
 		return cityTown;
@@ -197,7 +193,7 @@ public class UserProfile {
 
 	/**
 	 * Method to set a new city / town.
-	 * @param cityTown the cityTown to set
+	 * @param cityTown The cityTown to set
 	 */
 	public void setCityTown(String cityTown) {
 		this.cityTown = cityTown;
@@ -205,7 +201,7 @@ public class UserProfile {
 
 	/**
 	 * Method to get the phone number.
-	 * @return the phoneNumber
+	 * @return The phoneNumber
 	 */
 	public String getPhoneNumber() {
 		return phoneNumber;
@@ -213,7 +209,7 @@ public class UserProfile {
 
 	/**
 	 * Method to set a new phone number.
-	 * @param phoneNumber the phoneNumber to set
+	 * @param phoneNumber The phoneNumber to set
 	 */
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
@@ -221,7 +217,7 @@ public class UserProfile {
 
 	/**
 	 * Gets the profiles.
-	 * @return the profiles
+	 * @return The profiles
 	 */
 	public static ArrayList<UserProfile> getProfiles() {
 		return profiles;
@@ -233,9 +229,8 @@ public class UserProfile {
 	 * @return The current user object
 	 */
 	public static UserProfile getCurrentUserObject(String username) {
-		
-		for(int i = 0; i < profiles.size(); i++) {
-			if(username.equalsIgnoreCase(profiles.get(i).getUsername())) {
+		for (int i = 0; i < profiles.size(); i++) {
+			if (username.equalsIgnoreCase(profiles.get(i).getUsername())) {
 				System.out.println("Found: " + profiles.get(i).getUsername());
 				return profiles.get(i);
 			}
@@ -243,17 +238,15 @@ public class UserProfile {
 		System.out.println("Not found - null");
 		return null;
 	}
-	
+
 	/**
 	 * Gets the current user object.
-
-	 * @param id the id
-	 * @return the current user object
+	 * @param id The id
+	 * @return The current user object
 	 */
 	public static UserProfile getCurrentUserObject(int id) {
-		
-		for(int i = 0; i < profiles.size(); i++) {
-			if(id == profiles.get(i).getUserId()) {
+		for (int i = 0; i < profiles.size(); i++) {
+			if (id == profiles.get(i).getUserId()) {
 				System.out.println(profiles.get(i).getUsername());
 				return profiles.get(i);
 			}
@@ -261,11 +254,10 @@ public class UserProfile {
 		System.out.println("Not found - null");
 		return null;
 	}
-	
+
 	/**
 	 * Removes the favorite user.
-	 *
-	 * @param user the user
+	 * @param user The user
 	 */
 	public void removeFavoriteUser(UserProfile user) {
 		for(int i = 0; i < favoriteUsers.size(); i++) {
@@ -273,68 +265,58 @@ public class UserProfile {
 				favoriteUsers.remove(i);
 			}
 		}
-		
 	}
-	
+
 	/**
 	 * Adds the favorite user.
-	 *
-	 * @param user the user
+	 * @param user The user
 	 */
 	public void addFavoriteUser(UserProfile user) {
 		favoriteUsers.add(user);
 	}
-	
+
 	/**
 	 * Adds the favorite multiple users.
-	 *
-	 * @param favorites the favorites
+	 * @param favorites The favorites
 	 */
 	public void addFavoriteMultipleUsers(ArrayList<UserProfile> favorites) {
-		
-		for(int i = 0; i < favorites.size(); i++) {
-			
-		favoriteUsers.add(favorites.get(i));
+		for (int i = 0; i < favorites.size(); i++) {
+			favoriteUsers.add(favorites.get(i));
 		}
 	}
-	
+
 	/**
 	 * Search favorite.
-	 *
 	 * @param user the user
 	 * @return true, if successful
 	 */
 	public boolean searchFavorite(UserProfile user) {
-		
-		for(int i = 0; i < favoriteUsers.size(); i++) {
-			if(favoriteUsers.get(i).getUsername().equalsIgnoreCase(user.getUsername())) {
-				
+		for (int i = 0; i < favoriteUsers.size(); i++) {
+			if (favoriteUsers.get(i).getUsername().equalsIgnoreCase(user.getUsername())) {
 			return true;
 			}
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Search favorite.
-	 *
 	 * @param username the username
 	 * @return true, if successful
 	 */
 	public boolean searchFavorite(String username) {
-		
-		for(int i = 0; i < favoriteUsers.size(); i++) {
-			if(favoriteUsers.get(i).getUsername().equalsIgnoreCase(username)) {
-				
+		for (int i = 0; i < favoriteUsers.size(); i++) {
+			if (favoriteUsers.get(i).getUsername().equalsIgnoreCase(username)) {
 			return true;
 			}
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Method to get all of the Favorite users for the given instance.
-	 * @return favoriteUsers An ArrayList of Users that are marked as favorite by this instance of the User.
+	 * @return favoriteUsers An ArrayList of Users that are marked as
+	 * favorite by this instance of the User.
 	 */
 	public ArrayList<UserProfile> getFavoriteUsers() {
 		return this.favoriteUsers;
