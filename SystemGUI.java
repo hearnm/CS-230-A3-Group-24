@@ -53,6 +53,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
@@ -118,6 +119,9 @@ public class SystemGUI extends Application {
 	private ArrayList<ImageView> avatars = new ArrayList<>();				// an Arraylist of paths to 6 pre-made user Avatars (stored locally)
 	public static ArrayList<Auction> auctions = new ArrayList<Auction>();	// an Arraylist of all Auctions on the system
 
+	private boolean lineStarted = false;
+	private double lineStartX;
+	private double lineStartY;
 	/**
 	 * Main Method to start the GUI.
 	 * @param args The arguments of this class.
@@ -1388,15 +1392,23 @@ public class SystemGUI extends Application {
 		
 		if(drawEraser == true) {
 			gc.clearRect(mouseX, mouseY,  sliderValue, sliderValue);
-			} else if(drawParticle == true && shape == "Circle") {
+		} else if(drawParticle == true && shape == "Circle") {
 			gc.fillOval(mouseX, mouseY,  sliderValue, sliderValue);
-			} else if(drawParticle == true && shape == "Square") {
-				gc.fillRect(mouseX, mouseY, sliderValue, sliderValue);
-			} else if(drawLine == true) { // IMPLEMENT A LINE (why is this so hard)
-				
+		} else if(drawParticle == true && shape == "Square") {
+			gc.fillRect(mouseX, mouseY, sliderValue, sliderValue);
+		} else if(drawLine == true) {
+			if(lineStarted == true) {
+				gc.setLineWidth(sliderValue);
+				gc.strokeLine(lineStartX, lineStartY, mouseX, mouseY);
+				lineStarted = false;
+			} else {
+				lineStartX = mouseX;
+				lineStartY = mouseY;
+				lineStarted = true;
+			}
 			
-			}	
-		}
+		}	
+	}
 
 	/**
 	 * Method to draw/erase at a tracked mouse X and Y coordinates
