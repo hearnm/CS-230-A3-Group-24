@@ -66,7 +66,6 @@ import javafx.stage.Stage;
  * This class creates the System GUI and handles interaction response for the user.
  */
 public class SystemGUI extends Application {
-	
 	private static final int MAIN_STAGE_WIDTH = 800;			// Width of the Main Stage
 	private static final int MAIN_STAGE_HEIGHT= 500;			// Height of the Main Stage
 	private static final int SIGNUP_STAGE_WIDTH = 600;			// Width of the Signup Stage
@@ -83,7 +82,7 @@ public class SystemGUI extends Application {
 	private static final int PREVIEW_CANVAS_HEIGHT = 102; 		// Height of the Preview Canvas
 	private static final int PREVIEW_CANVAS_DRAW_X = 25;		// Draw Preview Location X
 	private static final int PREVIEW_CANVAS_DRAW_Y = 2;			// Draw Preview Location Y
-	
+
 	private Canvas canvas;					// The canvas which the user can draw an image
 	private Canvas previewCanvas;			// The canvas which shows the current pen style
 	private double mouseX = 0.0;			// Mouse Coordinate X
@@ -94,7 +93,7 @@ public class SystemGUI extends Application {
 	private boolean drawLine = false;		// True if drawing a Straight Line
 	private boolean drawEraser = false;		// True if using an eraser
 	private double sliderValue = 20;		// Value of the Draw image slider
-	
+
 	private Stage window;					// The main stage, displaying the current Scene
 	private Scene login;					// The Scene to hold the login Page GUI
 	private Scene signUp;					// The Scene to hold the Sign Up GUI
@@ -113,26 +112,26 @@ public class SystemGUI extends Application {
 	private ArrayList<UserProfile> allUsers = new ArrayList<>();			// an Array List of all users currently on the system
 	private ArrayList<ImageView> avatars = new ArrayList<>();				// an Arraylist of paths to 6 pre-made user Avatars (stored locally)
 	public static ArrayList<Auction> auctions = new ArrayList<Auction>();	// an Arraylist of all Auctions on the system
-	
+
 	/**
-	 * Main Method to start the GUI
+	 * Main Method to start the GUI.
 	 * @param args The arguments of this class.
 	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
+
 	/**
 	 * Method to initialize the GUI.
 	 */
 	public void start(Stage primaryStage) {
 		window = primaryStage;	
-		
+
 		Pane root = buildLoginGUI();
 		root.setId("PANE");
-		
+
 		login = new Scene(root, MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
-		
+
 		window.setTitle("Artatawe Application");
 		window.setScene(login);
 		window.show();
@@ -140,53 +139,52 @@ public class SystemGUI extends Application {
 		allUsers = UserProfile.getProfiles();
 		auctions = Auction.getCurrentAuctions();
 	}
-	
+
 	/**
-	 * Method to set the current user of the system when called
+	 * Method to set the current user of the system when called.
 	 * @param username The username of the current user
 	 * @return True if the user exists (and set user), False if user does not exist
 	 */
 	private boolean setCurrentUser(String username) {
-
-		for(int i = 0; i < allUsers.size(); i++) {
-			if(username.equalsIgnoreCase(allUsers.get(i).getUsername())) {
+		for (int i = 0; i < allUsers.size(); i++) {
+			if (username.equalsIgnoreCase(allUsers.get(i).getUsername())) {
 				currentUserObject = allUsers.get(i);
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	/**
-	 * Method to build the Login GUI window
+	 * Method to build the Login GUI window.
 	 * @return root The Constructed Pane with all the Login GUI elements
 	 */
 	private Pane buildLoginGUI() {
 		BorderPane root = new BorderPane();
 		root.getStylesheets().add("artatawe.css");
 		root.setId("PANE");
-		
+
 		BorderPane innerMid = new BorderPane();
 		StackPane title = new StackPane();
 		StackPane loginBox = new StackPane();
-		
+
 		root.setPadding(new Insets(10,10,10,10));
 		innerMid.setPadding(new Insets(100,100,100,100));
 		loginBox.setPadding(new Insets(10,10,10,10));
-		
+
 		loginBox.setMinSize(200, 150);
 		loginBox.setMaxHeight(200);
-		
+
 		Button loginButton = new Button("Login");
 		Button signupButton  = new Button("Sign up");
-		
+
 		loginButton.setMaxWidth(100);
-		
+
         Text text = new Text("Artatawe\n");
         Text text2 = new Text("\n\nLogin Screen\n");
         Text usernameLogin = new Text("\nUsername");
         TextField usernameInput = new TextField();
-       
+
         text.setScaleX(2);
         text.setScaleY(2);
         text.setId("ARTATAWE1");
@@ -195,30 +193,28 @@ public class SystemGUI extends Application {
         usernameLogin.setScaleX(1.5);
         usernameLogin.setScaleY(1.5);
         usernameInput.setMaxWidth(250);
-        
+
         text2.setId("WHITETEXT");
         usernameLogin.setId("WHITETEXT");
-        
+
         text2.setTextAlignment(TextAlignment.CENTER);
         text.setTextAlignment(TextAlignment.CENTER);
         usernameLogin.setTextAlignment(TextAlignment.CENTER);
-        
+
         StackPane.setAlignment(text, Pos.CENTER);
         StackPane.setAlignment(text2, Pos.CENTER);
         StackPane.setAlignment(usernameLogin, Pos.TOP_CENTER);
         StackPane.setAlignment(usernameInput, Pos.CENTER);
         StackPane.setAlignment(loginButton, Pos.BOTTOM_CENTER);
-		
+
         loginButton.setOnAction(e -> {
-        	if(usernameInput.getText().length() == 0) {
+        	if (usernameInput.getText().length() == 0) {
         		notificationBox("Login Notification", "Missing Information", "Login field cannot be left blank");
-        	} else if(setCurrentUser(usernameInput.getText()) == true) {
+        	} else if (setCurrentUser(usernameInput.getText()) == true) {
         		home = new Scene(buildHomePageGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
         		currentUserObject.addFavoriteMultipleUsers(LoadData.loadUserFavorites(currentUserObject));
         		window.setScene(home);
         		usernameInput.setText("");	
-
-        		
         	} else {
         		notificationBox("Login Notification", "Login Error", "Username not found");
         		usernameInput.setText("");
@@ -235,20 +231,20 @@ public class SystemGUI extends Application {
 		innerMid.setCenter(loginBox);
 		innerMid.setTop(title);
 		innerMid.setBottom(signupButton);
-		
+
 		root.setCenter(innerMid);
 		return root;
 	}
-	
+
 	/**
-	 * Method to build the Sign Up GUI window
+	 * Method to build the Sign Up GUI window.
 	 * @return root The Constructed Pane with all the Signup GUI elements
 	 */
 	private Pane buildSignUpGUI() {
 		BorderPane root = new BorderPane();
 		root.getStylesheets().add("artatawe.css");
 		root.setId("PANE");
-	
+
 		BorderPane innerMid = new BorderPane();
 		StackPane titleSection = new StackPane();
 		StackPane midSection = new StackPane();
@@ -261,7 +257,7 @@ public class SystemGUI extends Application {
 		HBox innerDetails6 = new HBox(10);
 		HBox innerDetails7 = new HBox(10);
 		VBox bottomBar = new VBox(20);
-	
+
 		root.setPadding(new Insets(10,10,10,10));
 		innerMid.setPadding(new Insets(50,100,1,100));
 		midSection.setPadding(new Insets(10,10,10,10));
@@ -271,7 +267,6 @@ public class SystemGUI extends Application {
 		midSection.setId("INFORMATIONHIGHLIGHTER");
 		//midSection.setBorder(new Border(new BorderStroke(Color.BLACK, 
 		//		BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-	
 		midSection.setMinSize(200, 150);
 		midSection.setMaxHeight(320);
 		midSection.setMaxWidth(250);
@@ -285,7 +280,7 @@ public class SystemGUI extends Application {
 		Text postcode = new Text("Postcode\t\t");
 		Text cityTown = new Text("City/Town\t");
 		Text phoneNo = new Text("Phone Number");
-    
+
 		TextField usernameBox = new TextField();
 		TextField firstnameBox = new TextField();
 		TextField lastnameBox = new TextField();
@@ -293,7 +288,7 @@ public class SystemGUI extends Application {
 		TextField postcodeBox = new TextField();
 		TextField cityTownBox = new TextField();
 		TextField phoneNoBox = new TextField();
-		
+
 		subTitle.setId("WHITETEXT");
 		username.setId("WHITETEXT");
 		firstname.setId("WHITETEXT");
@@ -302,13 +297,13 @@ public class SystemGUI extends Application {
 		postcode.setId("WHITETEXT");
 		cityTown.setId("WHITETEXT");
 		phoneNo.setId("WHITETEXT");
-   
+
 		Button createProfile = new Button("Create Account");
 		Button back = new Button("Back");
-    
+
 		createProfile.setMaxWidth(Double.MAX_VALUE);
 		back.setMaxWidth(Double.MAX_VALUE);
-    
+
 		title.setScaleX(2);
 		title.setScaleY(2);
 		title.setId("ARTATAWE1");
@@ -318,31 +313,28 @@ public class SystemGUI extends Application {
     	subTitle.setTextAlignment(TextAlignment.CENTER);
     	StackPane.setAlignment(title, Pos.CENTER);
     	StackPane.setAlignment(subTitle, Pos.CENTER);
-    	
+
     	back.setOnAction(e -> {
     		window.setScene(login);
     		window.setResizable(true);
     	});
-    	
     	createProfile.setOnAction(e -> {
-    		if(signupInputExistenceCheck(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
+    		if (signupInputExistenceCheck(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
     							postcodeBox.getText(), cityTownBox.getText(), phoneNoBox.getText()) == true) {
-    			
-    			if(validateSignUpDetails(usernameBox.getText(), phoneNoBox.getText(), postcodeBox.getText()) == true) {
+    			if (validateSignUpDetails(usernameBox.getText(), phoneNoBox.getText(), postcodeBox.getText()) == true) {
     							Integer intPhoneNo = Integer.parseInt(phoneNoBox.getText());
-    							
     				@SuppressWarnings("unused")
-					UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
-    								postcodeBox.getText(), cityTownBox.getText(), intPhoneNo, true);
-    				
-    		
-    				notificationBox("Account Creation", "Account Creation Successful", "Congratulations you now have an Artatawe Account!\nYour username is: " + usernameBox.getText());
+					UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), 
+											streetBox.getText(), postcodeBox.getText(), cityTownBox.getText(), intPhoneNo, true);
+
+    				notificationBox("Account Creation", "Account Creation Successful",
+    								"Congratulations you now have an Artatawe Account!\nYour username is: "
+    								+ usernameBox.getText());
     				window.setScene(login);
     		    	window.setResizable(true);
     			}
-    		} 
+    		}
     	});
-    	
     	innerDetails1.getChildren().addAll(username, usernameBox);
     	innerDetails2.getChildren().addAll(firstname, firstnameBox);
     	innerDetails3.getChildren().addAll(lastname, lastnameBox);
@@ -350,23 +342,23 @@ public class SystemGUI extends Application {
     	innerDetails5.getChildren().addAll(postcode, postcodeBox);
     	innerDetails6.getChildren().addAll(cityTown, cityTownBox);
     	innerDetails7.getChildren().addAll(phoneNo, phoneNoBox);
-    
+
     	details.getChildren().addAll(innerDetails1, innerDetails2, innerDetails3, innerDetails4, innerDetails5, innerDetails6, innerDetails7);
     	midSection.getChildren().addAll(details);
     	titleSection.getChildren().addAll(title, subTitle);
     	bottomBar.getChildren().addAll(createProfile, back);
-	
+
     	innerMid.setCenter(midSection);
     	innerMid.setTop(titleSection);
     	innerMid.setBottom(bottomBar);
-	
+
     	root.setCenter(innerMid);
-	
+
     	return root;
 	}
-	
+
 	/**
-	 * Method to validate the details entered on the sign up window
+	 * Method to validate the details entered on the sign up window.
 	 * @param username The username entered by the user
 	 * @param phoneNo The phone number entered by the user
 	 * @return True if details are valid, False if details are invalid
@@ -390,13 +382,14 @@ public class SystemGUI extends Application {
 		} catch (NumberFormatException e) {
 			notificationBox("Sign-Up Notification", "Input Error", "System Error (We need to fix this to allow for >9 numbers");
 			return false;
-		} if(username.length() > 1) {
-				return true;
-			} else {
-				return false;
-			}
+		}
+		if (username.length() > 1) {
+			return true;
+		} //else {
+			//return false;
+		//}
 	}
-	
+
 	/**
 	 * Method to check check the currently stored profiles too see if there is a duplicate
 	 * @param username The username to be compared / checked
@@ -432,9 +425,9 @@ public class SystemGUI extends Application {
 		}
 		return true;
 	}
-	
+
 	/**
-	 * Method to build the Home Page GUI window
+	 * Method to build the Home Page GUI window.
 	 * @return root The Constructed Pane with all the Home Page GUI elements
 	 */
 	private Pane buildHomePageGUI(){
@@ -442,7 +435,7 @@ public class SystemGUI extends Application {
 		BorderPane root = new BorderPane();
 		root.getStylesheets().add("artatawe.css");
 		root.setId("PANE");
-		
+
 		HBox mainTop = new HBox(15);
 		VBox titleBlock = new VBox();
 		VBox optionsBlock = new VBox(4);
