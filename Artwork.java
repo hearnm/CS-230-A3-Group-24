@@ -12,40 +12,24 @@ public class Artwork {
 	protected static ArrayList<Artwork> artworks = new ArrayList<>();
 	/** The won artworks. */
 	public static ArrayList<Artwork> wonArtworks = new ArrayList<>();
-	/** The artwork ID - The Unique ID of an artwork piece. */
-	protected int artworkID;
-	/** The auctioneer - The user that placed the Artwork on auction. */
-	protected String auctioneer;
-	/** The title of the Artwork. */
-	protected String title;
-	/** The description of the Artwork. */
-	protected String description;
-	/** The creator of the Artwork.*/
-	protected String creator;
-	/** The Creation Year of the Artwork. */
-	protected int artCreationYear;
-	/** The Reserve Price of the Artwork. */
-	protected double reservePrice;
-	/** The Time and Date the Artwork was put up. */
-	protected String artTimeDate;
-	/** The Maximum Number of Bids an Artwork can have. */
-	protected int numBidsAllowed;
-	/** The Directory Path to the Main Artwork Image. */
-	protected String mainImagePath;
-	/** The Height Dimension of the Artwork. */
-	protected double height;
-	/** The Width Dimension of the Artwork. */
-	protected double width;
-	/** The Depth Dimension of the Artwork. */
-	protected double depth;
-	/** The Material of the Artwork. */
-	protected String material;
-	/** The Type of the Artwork (Sculpture / Painting). */
-	protected String artType;
-	/** The boolean value sets the Artwork as new to the System. */
-	protected boolean newArt;
-	/** The boolean value sets the Artwork to on auction. */
-	protected boolean onAuction;
+
+	protected int artworkID; 			//The Unique ID of an artwork piece.
+	protected String auctioneer; 		//The user that placed the Artwork on auction.
+	protected String title; 			//The title of the Artwork.
+	protected String description;		//The description of the Artwork.
+	protected String creator;			//The creator of the Artwork.
+	protected int artCreationYear;		// The Creation Year of the Artwork.
+	protected double reservePrice; 		//The Reserve Price of the Artwork.
+	protected String artTimeDate;		//The Time and Date the Artwork was put up.
+	protected int numBidsAllowed;		//The Maximum Number of Bids an Artwork can have.
+	protected String mainImagePath;		//The Directory Path to the Main Artwork Image.
+	protected double height;			//The Height Dimension of the Artwork.
+	protected double width;				//The Width Dimension of the Artwork.
+	protected double depth;				//The Depth Dimension of the Artwork.
+	protected String material;			//The Material of the Artwork.
+	protected String artType;			//The Type of the Artwork (Sculpture / Painting).
+	protected boolean newArt;			//The boolean value sets the Artwork as new to the System.
+	protected boolean onAuction;		//The boolean value sets the Artwork to on auction.
 
 	/**
 	 * Constructor of Artwork objects.
