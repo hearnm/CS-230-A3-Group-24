@@ -3,23 +3,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 /**
  * Auction.java
  * The class that contains information related to an auction of an artwork.
  * @author Matthew Hearn
  */
 public class Auction {
+	
 	/** The completed auctions. */
-	// Personal note, completed auctions might require a boolean (completed) parameter in the auction constructor.
 	public static ArrayList<Auction> completedAuctions = new ArrayList<>();
 	/** The auctions. */
 	public static ArrayList<Auction> auctions = new ArrayList<>();
-	
-	public ArrayList<Bidding> bidHistory = new ArrayList<>();
-
 	/** The next id. */
 	private static int nextId = 1;
 	/** The auction id. */
@@ -36,6 +30,8 @@ public class Auction {
 	private double reserveBid;
 	/** The auctioned artwork. */
 	private Artwork auctionedArtwork;
+	/** The bid history for an instance of an auction. */
+	public ArrayList<Bidding> bidHistory = new ArrayList<>();
 	
 	/**
 	* Constructor method to create the auction.
@@ -101,17 +97,6 @@ public class Auction {
 		return this.auctionedArtwork;
 	}
 	
-
-	
-	public boolean getIsCompleted() {
-		if(this.remainingBids == 0) {
-			this.auctionedArtwork.setOnAuction(false);
-			return true;
-		}
-		return false;
-	}
-	
-	
 	/**
 	* Attempts to add a new bid in an Auction.
 	* @param newBidder The new bidder to be added to the auction.
@@ -120,18 +105,19 @@ public class Auction {
 	*/
 	public String attemptNewBid(String newBidder, double newBid) {
 		
-		
+		// Check if the bid is valid and the final bid
 		if(checkIfBidValid(newBidder, newBid) && this.remainingBids == 1) {
 			completedAuctions.add(this);
 			auctionedArtwork.setOnAuction(false);
 			return "win";
 		}
 
+		// Check if the bid is valid
 		if(checkIfBidValid(newBidder, newBid)) {
 			this.currentBidder = newBidder;
 			this.currentBid = newBid;
 			this.remainingBids -= 1;
-			
+			// create a new bid object
 			Bidding bid = new Bidding(newBidder, newBid, generateDateTime());
 			this.bidHistory.add(bid);
 	
@@ -139,7 +125,6 @@ public class Auction {
 		}
 		return "invalid";
 	}
-	
 	
 	/**
 	* Class for assigning a new bidder.
@@ -182,32 +167,19 @@ public class Auction {
 		return this.currentBid;
 	}
 	
+	/**
+	 * Method to get the current (highest) bidder on the instance of an auction.
+	 * @return currentBidder The current bidders username
+	 */
 	public String getCurrentBidder() {
 		return this.currentBidder;
 	}
-	
+
 	/**
-	 * Display accepted bid.
-	 */
-	public void displayAcceptedBid() {
-		//do something
-	}
-	
-	/**
-	 * Notify winner.
-	 * @return the string
-	 */
-	public String notifyWinner() {
-		return "Congratulations! You have just placed the winning bid of: "
-				+ this.currentBid + " for:" 
-				+ this.getCurrentArtTitle();
-	}
-	
-	/**
-	 * Check if bid valid.
-	 * @param bidder the bidder
-	 * @param speculativeBid the speculative bid
-	 * @return true, if successful
+	 * Method to check if bid valid.
+	 * @param bidder The bidder
+	 * @param speculativeBid The speculative bid
+	 * @return true, if valid
 	 */
 	public boolean checkIfBidValid(String bidder, double speculativeBid) {
 		return(speculativeBid > this.currentBid && speculativeBid
@@ -222,7 +194,10 @@ public class Auction {
 		return completedAuctions;
 	}	
 	
-	
+	/**
+	 * Method to generate the time of a bid.
+	 * @return time The time of the bid (format hh:mm:ss a)
+	 */
 	private String generateDateTime() {
 		DateFormat dateFormat = new SimpleDateFormat("hh:mm:ss a");
         Date date = new Date();
@@ -231,20 +206,25 @@ public class Auction {
 		return time.toString();
 	}
 	
+	/**
+	 * Method to get the current bid history of an auction
+	 * @return bidHistory An arraylist of Bids
+	 */
 	public ArrayList<Bidding> getBids() {
 		return this.bidHistory;
 	}
 	
+	/**
+	 * Method to load in existing bids when the system loads
+	 * @param username The username of the bidder
+	 * @param bid The bid of the user
+	 * @param time The time the bid was placed
+	 */
 	public void addExistingBids(String username, String bid, String time) {
 		double bidConvert = Double.parseDouble(bid);
 		Bidding loadedBid = new Bidding(username, bidConvert, time);
 		bidHistory.add(loadedBid);
 		this.currentBid = bidConvert;
 		this.currentBidder = username;
-		
 	}
-	
-	
 }
-
-
