@@ -3,9 +3,9 @@ import java.util.Date;
 
 /**
  * Artwork.java
- * @author Emily Fothergill
  * This class creates and stores Artwork.
  * This is a Super Class with two subclasses :- Painting and Sculpture
+ * @author Emily Fothergill
  */
 public class Artwork {
 	/** The artworks. */

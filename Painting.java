@@ -1,11 +1,9 @@
 /**
  * Painting.java
- * @author Emily Fothergill
  * Class to create Painting objects.
+ * @author Emily Fothergill
  */
-
 public class Painting extends Artwork {
-
 	/**
 	 * Constructor of Painting objects.
 	 * @param auctioneer The user that placed the Painting on auction.
@@ -16,8 +14,8 @@ public class Painting extends Artwork {
 	 * @param numBidsAllowed The Maximum Number of Bids a Painting can have.
 	 * @param width The Width Dimension of the Painting.
 	 * @param height The Height Dimension of the Painting.
-	 * @param newArt The boolean value that sets the Painting as new to the System.
-	 * @param onAuction The boolean value that sets the Painting to on auction.
+	 * @param newArt The boolean value that sets Painting as new to System.
+	 * @param onAuction The boolean value that sets Painting to on auction.
 	 */
 	public Painting(String auctioneer, String title, String creator, int artCreationYear, 
 					double reservePrice, int numBidsAllowed, double width, double height, boolean newArt, boolean onAuction) {
