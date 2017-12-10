@@ -4,12 +4,9 @@
  * @author Tom Durman
  */
 public class Bidding {
-	/** The username. */
-	private String username;
-	/** The bid amount. */
-	private double bidAmount;
-	/** The time of the bid. */
-	private String timeOfBid;
+	private String username;	//The username.
+	private double bidAmount;	//The bid amount.
+	private String timeOfBid;	//The time of the bid.
 
 	/**
 	 * Instantiates a new bid.
