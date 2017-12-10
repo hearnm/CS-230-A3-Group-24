@@ -52,15 +52,17 @@ public class Auction {
 		}
 	}
 	
-	public ArrayList<Auction> getGivenUserWonArtworks(String username) {
+	public static ArrayList<Auction> getGivenUserWonArtworks(String username) {
 		ArrayList<Auction> usersWonArtworks = new ArrayList<>();
 		for(int i = 0; i < completedAuctions.size(); i++) {
 			if(username.equalsIgnoreCase(completedAuctions.get(i).getCurrentBidder())) {
-				
+				usersWonArtworks.add(completedAuctions.get(i));
 			}
 		}
-		return null;
+		return usersWonArtworks;
 	}
+	
+
 	
 	
 	/**
@@ -242,5 +244,6 @@ public class Auction {
 		bidHistory.add(loadedBid);
 		this.currentBid = bidConvert;
 		this.currentBidder = username;
+		this.remainingBids--;
 	}
 }

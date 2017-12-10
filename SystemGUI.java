@@ -973,6 +973,26 @@ public class SystemGUI extends Application {
 		VBox lSideBar = new VBox(15);
 		VBox midSection = new VBox(20);
 		VBox rSideBar = new VBox(20);
+		HBox completedAuctionsTitleSection = new HBox(10);
+		VBox completedAuctionsArtworkSection = new VBox(10);
+		VBox completedAuctionsUsernameSection = new VBox(10);
+		VBox completedAuctionsBidSection = new VBox(10);
+		
+		completedAuctionsTitleSection.getChildren().addAll( completedAuctionsArtworkSection, 
+				completedAuctionsUsernameSection, completedAuctionsBidSection);
+		
+		Text completedAuctionsTitle = new Text("Completed Auctions");
+		Text winArtwork = new Text("Artwork");
+		Text winUsername = new Text("Username");
+		Text winBid = new Text("Winning Bid");
+		
+		completedAuctionsTitle.setScaleX(1.3);
+		completedAuctionsTitle.setScaleY(1.3);
+		
+		completedAuctionsArtworkSection.getChildren().add(winArtwork);
+		completedAuctionsUsernameSection.getChildren().add(winUsername);
+		completedAuctionsBidSection.getChildren().add(winBid);
+		
 		Pane profPicBox = new Pane();
 		
 		root.setPadding(new Insets(50,20,20,20));
@@ -1022,6 +1042,26 @@ public class SystemGUI extends Application {
 		});
 		back.setOnAction(e -> window.setScene(home));
 
+		ArrayList<Auction> currentWonAuctions = new ArrayList<>();
+		currentWonAuctions = Auction.getGivenUserWonArtworks(currentUserObject.getUsername());
+		
+		for(int i = 0; i < currentWonAuctions.size(); i++) {
+
+			Text artTitle = new Text(currentWonAuctions.get(i).getAuctionedArtwork().getTitle());
+			Text artWinner = new Text(currentWonAuctions.get(i).getCurrentBidder());
+			Text artBid = new Text(String.valueOf(currentWonAuctions.get(i).getCurrentBid()));
+	
+			completedAuctionsArtworkSection.getChildren().add(artTitle);
+			completedAuctionsUsernameSection.getChildren().add(artWinner);
+			completedAuctionsBidSection.getChildren().add(artBid);
+			
+			completedAuctionsTitleSection.getChildren().addAll( completedAuctionsArtworkSection, 
+					completedAuctionsUsernameSection, completedAuctionsBidSection);
+		}
+		
+		
+		
+		
 		changePicButton.setMaxWidth(Double.MAX_VALUE);
 		avatarButton.setMaxWidth(Double.MAX_VALUE);
 		back.setMinWidth(changePicButton.getWidth());
@@ -1032,12 +1072,17 @@ public class SystemGUI extends Application {
 		imageView.setFitHeight(150);
 		
 		mainTop.setAlignment(Pos.BASELINE_CENTER);
+		rSideBar.setAlignment(Pos.BASELINE_CENTER);
 		
 		titleBlock.getChildren().addAll(title, subTitle);
 		mainTop.getChildren().addAll(titleBlock);
 		profPicBox.getChildren().addAll(imageView);
 		midSection.getChildren().addAll(firstName,street,postcode,cityTown,phoneNo);
 		lSideBar.getChildren().addAll(profPicBox, changePicButton, avatarButton);
+		rSideBar.getChildren().addAll(completedAuctionsTitle, completedAuctionsTitleSection);
+		
+		
+		
 		
 		root.setTop(mainTop);
 		root.setLeft(lSideBar);
@@ -1815,9 +1860,9 @@ public class SystemGUI extends Application {
 			double userBid = convertBidInput(bidInput.getText());
 			if(attemptBid(selectedAuction, userBid) == true) {
 			SaveData.updateAuction(auctions, selectedAuction);
-			}
 			selectedAuctionView = new Scene(buildDetailedAuctionViewGUI(), AUCTION_DETAILS_STAGE_WIDTH, AUCTION_DETAILS_STAGE_HEIGHT);
 			window.setScene(selectedAuctionView);
+			}
 
 		});
 		
@@ -1908,7 +1953,11 @@ public class SystemGUI extends Application {
 			
 		} else if(bidResult.equalsIgnoreCase("win")) {
 			notificationBox("System Confirmation", "Congradulations you won!", "You have just placed the winning bid: " + bid);
-			return true;
+			SaveData.updateAuction(auctions, selectedAuction);
+			auctions.remove(selectedAuction);
+			home = new Scene(buildHomePageGUI(), HOME_STAGE_WIDTH, HOME_STAGE_HEIGHT);
+			window.setScene(home);
+			return false;
 			
 		}
 		return false;
