@@ -17,6 +17,7 @@ public class Auction {
 	/** The next id. */
 	private static int nextId = 1;
 	/** The auction id. */
+	@SuppressWarnings("unused")
 	private final int AUCTION_ID;
 	/** The title. */
 	private String title;

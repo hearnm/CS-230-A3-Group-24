@@ -81,6 +81,7 @@ public class Artwork {
 	 */
 	public void sortArtwork() {
 		if (this.onAuction == true) {
+			@SuppressWarnings("unused")
 			Auction newAuction = new Auction(this);
 		}
 	}
