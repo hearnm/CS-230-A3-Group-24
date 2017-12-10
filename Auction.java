@@ -9,7 +9,6 @@ import java.util.Date;
  * @author Matthew Hearn
  */
 public class Auction {
-	
 	/** The completed auctions. */
 	public static ArrayList<Auction> completedAuctions = new ArrayList<>();
 	/** The auctions. */
@@ -33,7 +32,7 @@ public class Auction {
 	private Artwork auctionedArtwork;
 	/** The bid history for an instance of an auction. */
 	public ArrayList<Bidding> bidHistory = new ArrayList<>();
-	
+
 	/**
 	* Constructor method to create the auction.
 	* @param auctionedArtwork The artwork that is to be auctioned.
@@ -49,7 +48,7 @@ public class Auction {
 		this.reserveBid = auctionedArtwork.getReservePrice();
 		auctions.add(this);
 	}
-	
+
 	/**
 	 * Method to get the current auctions on the system
 	 * @return auctions ArrayList of all current auctions
@@ -57,21 +56,21 @@ public class Auction {
 	public static ArrayList<Auction> getCurrentAuctions() {
 		return auctions;
 	}
-	
+
 	/**
 	 * Method to get an auction object given an artwork name
 	 * @param artworkName Name of the artwork to be searched for
 	 * @return Auction Object if exists
 	 */
 	public static Auction getGivenAuction(String artworkName) {
-		for(int i = 0; i < auctions.size(); i++) {
-			if(auctions.get(i).getCurrentArtTitle().equalsIgnoreCase(artworkName)) {
+		for (int i = 0; i < auctions.size(); i++) {
+			if (auctions.get(i).getCurrentArtTitle().equalsIgnoreCase(artworkName)) {
 				return auctions.get(i);
 			}
-		}	
+		}
 		return null;
 	}
-	
+
 	/**
 	 * Method to get the current Art title.
 	 * @return title The current Art Title
@@ -79,7 +78,7 @@ public class Auction {
 	public String getCurrentArtTitle() {
 		return this.title;
 	}
-	
+
 	/**
 	* Set method for assigning the auctioned artwork.
 	* @param auctionedArtwork The artwork to be auctioned.
@@ -87,7 +86,7 @@ public class Auction {
 	public void setAuctionedArtwork(Artwork auctionedArtwork) {
 		this.auctionedArtwork = auctionedArtwork;
 	}
-	
+
 	/**
 	* Get method for obtaining the auctioned artwork.
 	* @return Artwork auctionedArtwork The artwork associated with the auction.
@@ -95,7 +94,7 @@ public class Auction {
 	public Artwork getAuctionedArtwork() {
 		return this.auctionedArtwork;
 	}
-	
+
 	/**
 	* Attempts to add a new bid in an Auction.
 	* @param newBidder The new bidder to be added to the auction.
@@ -103,28 +102,27 @@ public class Auction {
 	* @return Winning Notification message is final bid, Null otherwise
 	*/
 	public String attemptNewBid(String newBidder, double newBid) {
-		
 		// Check if the bid is valid and the final bid
-		if(checkIfBidValid(newBidder, newBid) && this.remainingBids == 1) {
+		if (checkIfBidValid(newBidder, newBid) && this.remainingBids == 1) {
 			completedAuctions.add(this);
 			auctionedArtwork.setOnAuction(false);
 			return "win";
 		}
 
 		// Check if the bid is valid
-		if(checkIfBidValid(newBidder, newBid)) {
+		if (checkIfBidValid(newBidder, newBid)) {
 			this.currentBidder = newBidder;
 			this.currentBid = newBid;
 			this.remainingBids -= 1;
 			// create a new bid object
 			Bidding bid = new Bidding(newBidder, newBid, generateDateTime());
 			this.bidHistory.add(bid);
-	
+
 			return "valid";
 		}
 		return "invalid";
 	}
-	
+
 	/**
 	* Class for assigning a new bidder.
 	* @param currentBidder The new current bidder to be assigned.
@@ -132,16 +130,15 @@ public class Auction {
 	public void setCurrentBidder(String currentBidder) {
 		this.currentBidder = currentBidder;
 	}
-	
+
 	/**
 	* Class for assigning a new bid.
 	* @param newBid The new current bid to be assigned.
 	*/
 	public void setCurrentBid(double newBid) {
 		this.currentBid = newBid;
-	
 	}
-	
+
 	/**
 	 * Sets the remaining bids.
 	 * @param remainingBids the new remaining bids
@@ -149,7 +146,7 @@ public class Auction {
 	public void setRemainingBids(int remainingBids) {
 		this.remainingBids = remainingBids;
 	}
-	
+
 	/**
 	 * Gets the remaining bids.
 	 * @return the remaining bids
@@ -157,7 +154,7 @@ public class Auction {
 	public int getRemainingBids() {
 		return this.remainingBids;
 	}
-	
+
 	/**
 	 * Gets the current bid.
 	 * @return the current bid
@@ -165,7 +162,7 @@ public class Auction {
 	public double getCurrentBid() {
 		return this.currentBid;
 	}
-	
+
 	/**
 	 * Method to get the current (highest) bidder on the instance of an auction.
 	 * @return currentBidder The current bidders username
@@ -181,18 +178,18 @@ public class Auction {
 	 * @return true, if valid
 	 */
 	public boolean checkIfBidValid(String bidder, double speculativeBid) {
-		return(speculativeBid > this.currentBid && speculativeBid
+		return (speculativeBid > this.currentBid && speculativeBid
 				>= reserveBid && !bidder.equalsIgnoreCase(this.currentBidder));
 	}
-	
+
 	/**
-	 * Gets the completed auctions.
+	 * Gets the completed Auctions.
 	 * @return a list of the completed Auction
 	 */
-	public ArrayList<Auction> getCompletedAuctions(){
+	public ArrayList<Auction> getCompletedAuctions() {
 		return completedAuctions;
-	}	
-	
+	}
+
 	/**
 	 * Method to generate the time of a bid.
 	 * @return time The time of the bid (format hh:mm:ss a)
@@ -200,22 +197,22 @@ public class Auction {
 	private String generateDateTime() {
 		DateFormat dateFormat = new SimpleDateFormat("hh:mm:ss a");
         Date date = new Date();
-        String time=dateFormat.format(date);
+        String time = dateFormat.format(date);
 
 		return time.toString();
 	}
-	
+
 	/**
-	 * Method to get the current bid history of an auction
-	 * @return bidHistory An arraylist of Bids
+	 * Method to get the current bid history of an auction.
+	 * @return bidHistory An ArrayList of Bids
 	 */
 	public ArrayList<Bidding> getBids() {
 		return this.bidHistory;
 	}
-	
+
 	/**
-	 * Method to load in existing bids when the system loads
-	 * @param username The username of the bidder
+	 * Method to load in existing bids when the system loads.
+	 * @param username The Username of the bidder
 	 * @param bid The bid of the user
 	 * @param time The time the bid was placed
 	 */
