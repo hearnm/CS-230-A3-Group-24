@@ -674,7 +674,7 @@ public class SystemGUI extends Application {
 		mainSection.setId("PANE");
 	
 		topBar.setPadding(new Insets(0,0,50,0));
-		mainSection.setPadding(new Insets(25,10,10,10));
+		mainSection.setPadding(new Insets(45,10,10,10));
 		center.setHgap(25);
 		center.setVgap(10);
 
@@ -869,7 +869,7 @@ public class SystemGUI extends Application {
 		mainSection.setId("PANE");
 	
 		topBar.setPadding(new Insets(0,0,50,0));
-		mainSection.setPadding(new Insets(25,10,10,10));
+		mainSection.setPadding(new Insets(45,10,10,10));
 		center.setHgap(25);
 		center.setVgap(10);
 
