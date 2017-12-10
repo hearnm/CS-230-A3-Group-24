@@ -377,13 +377,21 @@ public class SystemGUI extends Application {
 			notificationBox("Sign-Up Notification", "Input Error", "Username taken, please select another");
 			return false;
 		} else if (phoneNoChecker(phoneNo)) {
-			notificationBox("Sign-Up Notification", "Input Error", "Phone Number cannot exceed 11 digits");
+			notificationBox("Sign-Up Notification", "Input Error", "Phone number is in an incorrect format");
 			return false;
 		} else if (postcode.length() < 6 || postcode.length() > 7) {
 			notificationBox("Sign-Up Notification", "Input Error", "Postcode can only be 6 or 7 characters long");
 			return false;
 		}
 		if (username.length() > 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean phoneNoChecker(String phoneNo) {
+		if(phoneNo.matches("^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?\\#(\\d{4}|\\d{3}))?$\r\n")) {
 			return true;
 		} else {
 			return false;
