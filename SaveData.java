@@ -45,7 +45,7 @@ public class SaveData {
 	
 	/**
 	 * Static Method that will save the system according to a given Username
-	 * @param username The username of the current or any other saved in the system.
+	 * @param user The current user object that is logged onto the system.
 	 */
 	public static void saveProfileFavorites(UserProfile user) {
 		currentUser = user;
