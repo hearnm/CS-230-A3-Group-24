@@ -22,6 +22,7 @@ public class Bidding {
 		this.timeOfBid = timeOfBid;
 	}
 
+	
 	/**
 	 * Gets the username.
 	 * @return the username
@@ -41,5 +42,8 @@ public class Bidding {
 	public String getTimeOfBid() {
 		return this.timeOfBid;
 	}
+	
+
+	
 	
 }

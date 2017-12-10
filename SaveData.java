@@ -29,9 +29,9 @@ public class SaveData {
 	private static UserProfile currentUser;					// The current user object that is logged onto the system
 	private static Artwork currentArtwork;
 	private static PrintWriter printWriter;
-	
 	private static Scanner inputStream;	
 	
+	private static ArrayList<Auction> currentAuctions = new ArrayList<>();
 	private static ArrayList<UserProfile> allUsers = new ArrayList<>();
 	
 	private boolean newAccount;
@@ -71,10 +71,11 @@ public class SaveData {
 		
 	}
 	
-	public static void updateArtwork(ArrayList allart, Artwork artwork) {
-		currentArtwork = artwork;
+	public static void updateAuction(ArrayList<Auction> allAuctions, Auction auction) {
+		currentArtwork = auction.getAuctionedArtwork();
+		currentAuctions = allAuctions;
 		openProfileFile(artworkFavoritePath, true);
-		addNewArtwork(printWriter);
+		updateAuctions(printWriter, auction);
 		
 	}
 	
@@ -184,7 +185,7 @@ public class SaveData {
 			boolean status = currentArtwork.getOnAuction();
 
 			outputStream.println(auctioneer + "," + artType + "," + title + "," + creator + "," + artCreationYear + "," 
-					+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + "," + status + "," + "" + "," + "0.0" + "," + numBidsAllowed + ",");
+					+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + "," + status + ",");
 
 		} else {
 			
@@ -209,30 +210,57 @@ public class SaveData {
 	}
 	
 	
-	private void updateExistingArtwork(PrintWriter outputStream) {
+	private static void updateAuctions(PrintWriter outputStream, Auction auction) {
 		
-		for(int i = 0; i < allUsers.size(); i++) {
-			int userId = allUsers.get(i).getUserId();
-			String username = allUsers.get(i).getUsername();
-			String firstname = allUsers.get(i).getFirstName();
-			String lastname = allUsers.get(i).getLastName();
-			String street = allUsers.get(i).getStreet();
-			String postcode = allUsers.get(i).getPostcode();
-			String cityTown = allUsers.get(i).getCityTown();
-			Integer phoneNo = allUsers.get(i).getPhoneNumber();
-			boolean newAccount = allUsers.get(i).getNewAccount();
+		for(int i = 0; i < currentAuctions.size(); i++) {
 			
-			outputStream.println(userId + "," + username + "," + firstname + "," + lastname + "," + street 
-			   		  + "," + postcode + "," + cityTown + "," + phoneNo + "," + newAccount + ",\n");
+			if(currentAuctions.get(i).getAuctionedArtwork().getArtType().equalsIgnoreCase("Painting")) {
+				String auctioneer = currentAuctions.get(i).getAuctionedArtwork().getAuctioneer();
+				String artType = currentAuctions.get(i).getAuctionedArtwork().getArtType();
+				String title = currentAuctions.get(i).getAuctionedArtwork().getTitle();
+				String creator = currentAuctions.get(i).getAuctionedArtwork().getCreator();
+				int artCreationYear = currentAuctions.get(i).getAuctionedArtwork().getArtCreationYear();
+				double reservePrice = currentAuctions.get(i).getAuctionedArtwork().getReservePrice();
+				int numBidsAllowed = currentAuctions.get(i).getAuctionedArtwork().getNumBidAllowed();
+				double width = currentAuctions.get(i).getAuctionedArtwork().getWidth();
+				double height = currentAuctions.get(i).getAuctionedArtwork().getHeight();
+				boolean status = currentAuctions.get(i).getAuctionedArtwork().getOnAuction();
+
+				outputStream.print(auctioneer + "," + artType + "," + title + "," + creator + "," + artCreationYear + "," 
+						+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + "," + status + ",");
+				
+				for(int ii = 0; ii < currentAuctions.get(i).getBids().size(); ii++) {
+					outputStream.print(currentAuctions.get(i).getBids().get(ii).getUsername() + "," + currentAuctions.get(i).getBids().get(ii).getBidAmount() + "," + currentAuctions.get(i).getBids().get(ii).getTimeOfBid() + ",");
+				}
+				
+			} else {
+				
+				String auctioneer = currentAuctions.get(i).getAuctionedArtwork().getAuctioneer();
+				String artType = currentAuctions.get(i).getAuctionedArtwork().getArtType();
+				String title = currentAuctions.get(i).getAuctionedArtwork().getTitle();
+				String creator = currentAuctions.get(i).getAuctionedArtwork().getCreator();
+				int artCreationYear = currentAuctions.get(i).getAuctionedArtwork().getArtCreationYear();
+				double reservePrice = currentAuctions.get(i).getAuctionedArtwork().getReservePrice();
+				int numBidsAllowed = currentAuctions.get(i).getAuctionedArtwork().getNumBidAllowed();
+				double width = currentAuctions.get(i).getAuctionedArtwork().getWidth();
+				double height = currentAuctions.get(i).getAuctionedArtwork().getHeight();
+				double depth = currentAuctions.get(i).getAuctionedArtwork().getDepth();
+				String material = currentAuctions.get(i).getAuctionedArtwork().getMaterial();
+				boolean status = currentAuctions.get(i).getAuctionedArtwork().getOnAuction();
+				
+				outputStream.print(auctioneer + "," + artType + "," + title + "," + creator + "," + artCreationYear + "," 
+						+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + "," + depth + "," + material + "," + status + ",");
+
+				for(int ii = 0; ii < currentAuctions.get(i).getBids().size(); ii++) {
+					outputStream.print(currentAuctions.get(i).getBids().get(ii).getUsername() + "," + currentAuctions.get(i).getBids().get(ii).getBidAmount() + "," + currentAuctions.get(i).getBids().get(ii).getTimeOfBid() + ",");
+				}
+
+			}
+			outputStream.println("");
 		}
-		
 		closeFile(outputStream);
 	}
-	
-	
-	
-	
-	
+
 	/**
 	 * Method to close the file path
 	 * @param x the output stream

@@ -528,6 +528,7 @@ public class SystemGUI extends Application {
 				public void handle(MouseEvent event) {
 					
 					int selection = Integer.parseInt(event.getPickResult().getIntersectedNode().getId());
+					//System.out.println(selectedAuction.getBids().get(0).getUsername());
 					selectedAuction = auctions.get(selection);
 					selectedAuctionView = new Scene(buildDetailedAuctionViewGUI(), AUCTION_DETAILS_STAGE_WIDTH, AUCTION_DETAILS_STAGE_HEIGHT);
 					window.setScene(selectedAuctionView);
@@ -1808,7 +1809,9 @@ public class SystemGUI extends Application {
 		
 		bid.setOnAction(e -> {
 			double userBid = convertBidInput(bidInput.getText());
-			attemptBid(selectedAuction, userBid);
+			if(attemptBid(selectedAuction, userBid) == true) {
+			SaveData.updateAuction(auctions, selectedAuction);
+			}
 			selectedAuctionView = new Scene(buildDetailedAuctionViewGUI(), AUCTION_DETAILS_STAGE_WIDTH, AUCTION_DETAILS_STAGE_HEIGHT);
 			window.setScene(selectedAuctionView);
 
@@ -1874,21 +1877,29 @@ public class SystemGUI extends Application {
 		}
 	}
 	
-	private void attemptBid(Auction auction, double bid) {
+	private boolean attemptBid(Auction auction, double bid) {
 		
 		String bidResult = auction.attemptNewBid(currentUserObject.getUsername(), bid);
 		
 		if(bidResult.equalsIgnoreCase("valid")) {
 			notificationBox("System Confirmation", "Bid Successful!", "Your bid of: " + bid + " has been added to the system");
-
+			return true;
+			
 		} else if(bidResult.equalsIgnoreCase("invalid") && currentUserObject.getUsername().equalsIgnoreCase(auction.getCurrentBidder())) {
 			notificationBox("System Warrning", "Bid Unsuccessful!", "You are currently the highest bidder, you cannot out bid yourself!");
+			return false;
+			
 		} else if(bidResult.equalsIgnoreCase("invalid") && !currentUserObject.getUsername().equalsIgnoreCase(auction.getCurrentBidder())) {
 			notificationBox("System Warrning", "Bid Unsuccessful!", "Your bid of: " + bid + " is less than the current bid of: " + auction.getCurrentBid() + "\nor less than the reservation amount: "
 					 		+ auction.getAuctionedArtwork().getReservePrice());
+			return false;
+			
 		} else if(bidResult.equalsIgnoreCase("win")) {
 			notificationBox("System Confirmation", "Congradulations you won!", "You have just placed the winning bid: " + bid);
+			return true;
+			
 		}
+		return false;
 	
 	}
 	

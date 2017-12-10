@@ -13,6 +13,8 @@ public class Artwork {
 	/** The won artworks */
 	public static ArrayList<Artwork> wonArtworks = new ArrayList<>();
 	
+	public ArrayList<Bidding> bidHistory = new ArrayList<>();
+	
 	/** The artwork ID - The Unique ID of an artwork piece. */
 	protected int artworkID;
 	/** The auctioneer - The user that placed the Artwork on auction. */
@@ -311,4 +313,6 @@ public class Artwork {
 	public ArrayList<Artwork> getWonArtworks(){
 		return wonArtworks;
 	}	
+	
+
 }

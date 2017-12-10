@@ -1,8 +1,14 @@
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 /**
  * LoadData.java
@@ -27,7 +33,7 @@ public class LoadData {
 	public static void loadSystemData() {
 		openProfileFile(profileDataPath);
 		readProfileFile();
-		openProfileFile(artworkFavoritePath);
+		//openProfileFile(artworkFavoritePath);
 		readArtworksFile();
 
 	}
@@ -124,63 +130,80 @@ public class LoadData {
 	 */
 	private static void readArtworksFile() {
 		
-		while(inputStream.hasNext()) {
-			
-			String auctioner = inputStream.next();
-			System.out.println("Found: " + auctioner);
-			String artType = inputStream.next();
-			System.out.println("Found: " + artType);
-			
-			if(artType.equalsIgnoreCase("Painting")) {
-				
-				// Artwork data
-				String title = inputStream.next();
-				String creator = inputStream.next();
-				int artCreationYear = inputStream.nextInt();
-				double reservePrice = inputStream.nextDouble();
-				int numBidsAllowed = inputStream.nextInt();
-				double width = inputStream.nextDouble();
-				double height = inputStream.nextDouble();
-				boolean status = inputStream.nextBoolean();
-				// Auction data
-				
-				String currentBidder = inputStream.next();
-				double currentBid = inputStream.nextDouble();
-				int remainingBids = inputStream.nextInt();
-				
-				inputStream.nextLine();
-
-				Artwork loadedPainting = new Painting(auctioner, title, creator, artCreationYear, reservePrice, numBidsAllowed, width, height, false, status);
-			
-				Auction.getGivenAuction(title).setCurrentBid(currentBid);
-				Auction.getGivenAuction(title).setCurrentBidder(currentBidder);
-				Auction.getGivenAuction(title).setRemainingBids(remainingBids);
-				
-			} else {
-				
-				String title = inputStream.next();
-				String creator = inputStream.next();
-				int artCreationYear = inputStream.nextInt();
-				double reservePrice = inputStream.nextDouble();
-				int numBidsAllowed = inputStream.nextInt();
-				double width = inputStream.nextDouble();
-				double height = inputStream.nextDouble();
-				double depth = inputStream.nextDouble();
-				String material = inputStream.next();
-				boolean status = inputStream.nextBoolean();
-				inputStream.nextLine();
-
-				Artwork loadedPainting = new Sculpture(auctioner, title, creator, artCreationYear, reservePrice, numBidsAllowed, width, height, depth, material, false, status);
-			}
-			}
+		Scanner fileScanner = null;
+		try {
+			fileScanner = new Scanner(new File(artworkFavoritePath));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-	
-	
-	
-	
-	
-	
-	
+		while (fileScanner.hasNextLine()) {
+		  String line = fileScanner.nextLine();
+
+		  Scanner lineScanner = new Scanner(line);
+		  lineScanner.useDelimiter(",");
+		  while (lineScanner.hasNext()) {
+
+
+	        String auctioner = lineScanner.next();
+	        System.out.println(auctioner);
+			String artType = lineScanner.next();
+			System.out.println(artType);
+			if(artType.equalsIgnoreCase("Painting")) {
+						
+						// Artwork data
+						String title = lineScanner.next();
+						String creator = lineScanner.next();
+						int artCreationYear = lineScanner.nextInt();
+						double reservePrice = lineScanner.nextDouble();
+						int numBidsAllowed = lineScanner.nextInt();
+						double width = lineScanner.nextDouble();
+						double height = lineScanner.nextDouble();
+						boolean status = lineScanner.nextBoolean();
+						// Auction data
+
+
+						Artwork loadedPainting = new Painting(auctioner, title, creator, artCreationYear, reservePrice, numBidsAllowed, width, height, false, status);
+					
+						while(lineScanner.hasNext()) {
+							Auction.getGivenAuction(title).addExistingBids(lineScanner.next(), lineScanner.next(), lineScanner.next());
+						}
+						
+				
+						
+					} else {
+						
+						String title = lineScanner.next();
+						String creator = lineScanner.next();
+						int artCreationYear = lineScanner.nextInt();
+						double reservePrice = lineScanner.nextDouble();
+						int numBidsAllowed = lineScanner.nextInt();
+						double width = lineScanner.nextDouble();
+						double height = lineScanner.nextDouble();
+						double depth = lineScanner.nextDouble();
+						String material = lineScanner.next();
+						boolean status = lineScanner.nextBoolean();
+						
+
+						Artwork loadedPainting = new Sculpture(auctioner, title, creator, artCreationYear, reservePrice, numBidsAllowed, width, height, depth, material, false, status);
+						
+						while(lineScanner.hasNext()) {
+							
+							String x = lineScanner.next();
+							String y = lineScanner.next();
+							String z = lineScanner.next();
+							
+							Auction.getGivenAuction(title).addExistingBids(x,y,z);
+							
+							System.out.println("Loaded Bidding: " + x + " " + y + " " + z);
+							
+						}
+					}
+				}
+		  	}
+		}
+			    
+
 	
 	/**
 	 * Method to close the input stream to the file.

@@ -235,6 +235,13 @@ public class Auction {
 		return this.bidHistory;
 	}
 	
+	public void addExistingBids(String username, String bid, String time) {
+		double bidConvert = Double.parseDouble(bid);
+		Bidding loadedBid = new Bidding(username, bidConvert, time);
+		bidHistory.add(loadedBid);
+		
+	}
+	
 	
 }
 
