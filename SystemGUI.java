@@ -1755,6 +1755,8 @@ public class SystemGUI extends Application {
 		Text bidHistoryBid = new Text("Bid Amount");
 		Text bidHistoryDate = new Text("Date of Bid");
 		
+		bidInput.setPromptText("Enter your bid");
+		
 		Button bid = new Button("Bid on Artwork");
 		Button back = new Button("Return to homepage");
 		
