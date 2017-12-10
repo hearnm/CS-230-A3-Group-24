@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * @author Nikolina Antoniou
  */
 public class CompletedAuctions {
-	/** The list of artworks. */
+	/** The list of Artwork. */
 	private ArrayList<Artwork> listOfArtworks;
 
 	/** The artwork name. */
