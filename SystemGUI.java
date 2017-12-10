@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -328,10 +329,9 @@ public class SystemGUI extends Application {
     		if (signupInputExistenceCheck(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
     							postcodeBox.getText(), cityTownBox.getText(), phoneNoBox.getText()) == true) {
     			if (validateSignUpDetails(usernameBox.getText(), phoneNoBox.getText(), postcodeBox.getText()) == true) {
-    							Integer intPhoneNo = Integer.parseInt(phoneNoBox.getText());
     				@SuppressWarnings("unused")
 					UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), 
-											streetBox.getText(), postcodeBox.getText(), cityTownBox.getText(), intPhoneNo, true);
+											streetBox.getText(), postcodeBox.getText(), cityTownBox.getText(), phoneNoBox.getText(), true);
 
     				notificationBox("Account Creation", "Account Creation Successful",
     								"Congratulations you now have an Artatawe Account!\nYour username is: "
@@ -376,17 +376,11 @@ public class SystemGUI extends Application {
 		if(usernameDuplicationCheck(username)) {
 			notificationBox("Sign-Up Notification", "Input Error", "Username taken, please select another");
 			return false;
-		} else if (phoneNo.length() > 11) {
+		} else if (phoneNoChecker(phoneNo)) {
 			notificationBox("Sign-Up Notification", "Input Error", "Phone Number cannot exceed 11 digits");
 			return false;
 		} else if (postcode.length() < 6 || postcode.length() > 7) {
 			notificationBox("Sign-Up Notification", "Input Error", "Postcode can only be 6 or 7 characters long");
-			return false;
-		}
-		try {
-			Integer.parseInt(phoneNo);
-		} catch (NumberFormatException e) {
-			notificationBox("Sign-Up Notification", "Input Error", "System Error (We need to fix this to allow for >9 numbers");
 			return false;
 		}
 		if (username.length() > 1) {
