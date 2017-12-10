@@ -116,7 +116,7 @@ public class SystemGUI extends Application {
 	
 	/**
 	 * Main Method to start the GUI
-	 * @param args
+	 * @param args The arguments of this class.
 	 */
 	public static void main(String[] args) {
 		launch(args);
