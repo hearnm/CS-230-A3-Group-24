@@ -102,6 +102,7 @@ public class SystemGUI extends Application {
 	private double lineStartX;
 	private double lineStartY;
 	private Label lineActiveTxt = new Label("Line initial node selected");
+	private String filterSelected = null;
 	
 
 	private Stage window;					// The main stage, displaying the current Scene
@@ -496,60 +497,92 @@ public class SystemGUI extends Application {
 		RadioButton filterAll = new RadioButton();
 		RadioButton filterPaintings = new RadioButton();
 		RadioButton filterSculptures = new RadioButton();
-		filterAll.setSelected(true);
+		
+		if(filterSelected == null) {
+			filterAll.setSelected(true);
+		} else if (filterSelected == "Painting") {
+			filterPaintings.setSelected(true);
+		} else if (filterSelected == "Sculpture") {
+			filterSculptures.setSelected(true);
+		}
+		
+		filterPaintings.setOnAction(e -> {
+			filterSelected = "Painting";
+			home = new Scene(buildHomePageGUI(), HOME_STAGE_WIDTH, HOME_STAGE_HEIGHT);
+			System.out.println("reload");
+			window.setScene(home);
+		});
+		
+		filterSculptures.setOnAction(e -> {
+			filterSelected = "Sculpture";
+			home = new Scene(buildHomePageGUI(), HOME_STAGE_WIDTH, HOME_STAGE_HEIGHT);
+			window.setScene(home);
+		});
+		
+		filterAll.setOnAction(e -> {
+			filterSelected = null;
+			home = new Scene(buildHomePageGUI(), HOME_STAGE_WIDTH, HOME_STAGE_HEIGHT);
+			window.setScene(home);
+		});
 		
 		filterAll.setToggleGroup(radioSelectionToggle);
 		filterPaintings.setToggleGroup(radioSelectionToggle);
 		filterSculptures.setToggleGroup(radioSelectionToggle);
-		
-		filterAll.setOnAction(e -> {filterPaintings.setSelected(false); filterSculptures.setSelected(false);});
-		filterPaintings.setOnAction(e -> filterAll.setSelected(false));
-		filterSculptures.setOnAction(e -> filterAll.setSelected(false));
 	
 		ArrayList<ImageView> artworkPreview = new ArrayList<>();
 		ArrayList<String> artworkDetails = new ArrayList<>();
 		for(int i = 0; i < auctions.size(); i++) {
 			
-			final ImageView previewArt = new ImageView();
-			previewArt.setImage(setArtImage(auctions.get(i).getCurrentArtTitle()));
-			previewArt.setFitHeight(128);
-			previewArt.setFitWidth(128);	
-			previewArt.setId("" + i);
+			if(auctions.get(i).getAuctionedArtwork().getArtType() == filterSelected || filterSelected == null) {
 			
-			artworkDetails.add(auctions.get(i).getAuctionedArtwork().getTitle());
-			artworkDetails.add(auctions.get(i).getAuctionedArtwork().getArtType());
-			artworkDetails.add(auctions.get(i).getAuctionedArtwork().getAuctioneer());
-			artworkPreview.add(previewArt);
+				System.out.println(auctions.get(i).getAuctionedArtwork().getArtType());
+				final ImageView previewArt = new ImageView();
+				previewArt.setImage(setArtImage(auctions.get(i).getCurrentArtTitle()));
+				previewArt.setFitHeight(128);
+				previewArt.setFitWidth(128);	
+				previewArt.setId("" + i);
+				
+				artworkDetails.add(auctions.get(i).getAuctionedArtwork().getTitle());
+				artworkDetails.add(auctions.get(i).getAuctionedArtwork().getArtType());
+				artworkDetails.add(auctions.get(i).getAuctionedArtwork().getAuctioneer());
+				artworkPreview.add(previewArt);
+			}
 		}
 		
 		for(int k = 0; k < artworkPreview.size(); k++) {
 			
-			artworkPreview.get(k).setOnMouseClicked(new EventHandler<MouseEvent>() {
-				@Override
-				public void handle(MouseEvent event) {
-					
-					int selection = Integer.parseInt(event.getPickResult().getIntersectedNode().getId());
-					selectedAuction = auctions.get(selection);
-					selectedAuctionView = new Scene(buildDetailedAuctionViewGUI(), AUCTION_DETAILS_STAGE_WIDTH, AUCTION_DETAILS_STAGE_HEIGHT);
-					window.setScene(selectedAuctionView);
-				};
-			});
+			if(auctions.get(k).getAuctionedArtwork().getArtType() == filterSelected || filterSelected == null) {
+
+				artworkPreview.get(k).setOnMouseClicked(new EventHandler<MouseEvent>() {
+					@Override
+					public void handle(MouseEvent event) {
+						
+						int selection = Integer.parseInt(event.getPickResult().getIntersectedNode().getId());
+						selectedAuction = auctions.get(selection);
+						selectedAuctionView = new Scene(buildDetailedAuctionViewGUI(), AUCTION_DETAILS_STAGE_WIDTH, AUCTION_DETAILS_STAGE_HEIGHT);
+						window.setScene(selectedAuctionView);
+					};
+				});
+			}
 		}
 	
 		for(int n = 0; n < artworkPreview.size(); n++) {
 			
-			final VBox previewDetails = new VBox(2);
-			final Text previewTitle = new Text(auctions.get(n).getAuctionedArtwork().getTitle());
-			final Text previewType = new Text(auctions.get(n).getAuctionedArtwork().getArtType());
-			final Text previewAuctioneer = new Text(auctions.get(n).getAuctionedArtwork().getAuctioneer());
-			previewDetails.setAlignment(Pos.BASELINE_CENTER);
-			previewDetails.getChildren().addAll(previewTitle, previewType, previewAuctioneer);
-			
-			GridPane.setConstraints(artworkPreview.get(n), n, 0);
-			GridPane.setConstraints(previewDetails, n, 1);
-			
-			newAuctionBlock.getChildren().addAll(artworkPreview.get(n), previewDetails);
-			System.out.println("Artwork Loaded");
+			if(auctions.get(n).getAuctionedArtwork().getArtType() == filterSelected || filterSelected == null) {
+	
+				final VBox previewDetails = new VBox(2);
+				final Text previewTitle = new Text(auctions.get(n).getAuctionedArtwork().getTitle());
+				final Text previewType = new Text(auctions.get(n).getAuctionedArtwork().getArtType());
+				final Text previewAuctioneer = new Text(auctions.get(n).getAuctionedArtwork().getAuctioneer());
+				previewDetails.setAlignment(Pos.BASELINE_CENTER);
+				previewDetails.getChildren().addAll(previewTitle, previewType, previewAuctioneer);
+				
+				GridPane.setConstraints(artworkPreview.get(n), n, 0);
+				GridPane.setConstraints(previewDetails, n, 1);
+				
+				newAuctionBlock.getChildren().addAll(artworkPreview.get(n), previewDetails);
+				System.out.println("Artwork Loaded");
+			}
 		}
 		
 		Button createNewAuctionButton = new Button("Create a new auction");
@@ -1958,7 +1991,7 @@ public class SystemGUI extends Application {
 			return false;
 			
 		} else if(bidResult.equalsIgnoreCase("win")) {
-			notificationBox("System Confirmation", "Congradulations you won!", "You have just placed the winning bid: " + bid);
+			notificationBox("System Confirmation", "Congratulations you won!", "You have just placed the winning bid: " + bid);
 			SaveData.updateAuction(auctions, selectedAuction);
 			auctions.remove(selectedAuction);
 			home = new Scene(buildHomePageGUI(), HOME_STAGE_WIDTH, HOME_STAGE_HEIGHT);
