@@ -371,7 +371,7 @@ public class SystemGUI extends Application {
 			notificationBox("Sign-Up Notification", "Input Error", "Username taken, please select another");
 			return false;
 		} else if (phoneNoChecker(phoneNo)) {
-			notificationBox("Sign-Up Notification", "Input Error", "Phone Number cannot exceed 11 digits");
+			notificationBox("Sign-Up Notification", "Input Error", "Phone number is in an incorrect format");
 			return false;
 		} else if (postcode.length() < 6 || postcode.length() > 7) {
 			notificationBox("Sign-Up Notification", "Input Error", "Postcode can only be 6 or 7 characters long");
