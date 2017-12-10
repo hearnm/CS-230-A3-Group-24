@@ -8,13 +8,11 @@ import java.util.Date;
  * This is a Super Class with two subclasses :- Painting and Sculpture
  */
 public class Artwork {
+	
 	/** The artworks. */
 	protected static ArrayList<Artwork> artworks = new ArrayList<>();
 	/** The won artworks */
 	public static ArrayList<Artwork> wonArtworks = new ArrayList<>();
-	
-	public ArrayList<Bidding> bidHistory = new ArrayList<>();
-	
 	/** The artwork ID - The Unique ID of an artwork piece. */
 	protected int artworkID;
 	/** The auctioneer - The user that placed the Artwork on auction. */
