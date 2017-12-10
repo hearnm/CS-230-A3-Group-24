@@ -1,12 +1,8 @@
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
 
 /**
@@ -17,24 +13,14 @@ import java.util.*;
  */
 public class SaveData {
 
-	// *************************************
-	// BugList
-	// ***********
-	// 1. The profile can be created on the system but not saved to the datafile (If the phone number too long or contains anything but a int)
-	// ***************************************
-	
-	private static final String profileDataPath = "ArtataweProfiles.txt";  // The File path to save all the data to.
+	private static final String profileDataPath = "ArtataweProfiles.txt";		// The File path for the system data
 	private static final String profileFavoritePath = "_FavoriteProfiles.txt";  // The File path to save all the data to.
-	private static final String artworkFavoritePath = "Artworks.txt";
-	private static UserProfile currentUser;					// The current user object that is logged onto the system
-	private static Artwork currentArtwork;
-	private static PrintWriter printWriter;
-	private static Scanner inputStream;	
-	
-	private static ArrayList<Auction> currentAuctions = new ArrayList<>();
-	private static ArrayList<UserProfile> allUsers = new ArrayList<>();
-	
-	private boolean newAccount;
+	private static final String artworkFavoritePath = "Artworks.txt";			// The File path to the artworks data (including bidding info)
+	private static UserProfile currentUser;			// The current user object that is logged onto the system
+	private static Artwork currentArtwork;			// The current artwork object
+	private static PrintWriter printWriter;			// Print Writer for writing to a file
+	private static ArrayList<Auction> currentAuctions = new ArrayList<>(); 	// An arraylist of current auctions to be saved / updated
+	private static ArrayList<UserProfile> allUsers = new ArrayList<>();		// An arraylist of current users to be saved / updated
 	
 	
 	/**
@@ -47,6 +33,10 @@ public class SaveData {
 		addProfileData(printWriter);
 	}
 	
+	/**
+	 * Static Method to update all profiles appropriately
+	 * @param allUsersUpdated An arraylist of all users
+	 */
 	public static void updateProfiles(ArrayList<UserProfile> allUsersUpdated) {
 		allUsers = allUsersUpdated;
 		openProfileFile(profileDataPath, true);
@@ -64,25 +54,32 @@ public class SaveData {
 	}
 	
 	
+	/**
+	 * Static Method to save a newly created artwork to the current storage file
+	 * @param artwork The new artwork to be saved
+	 */
 	public static void saveNewArtwork(Artwork artwork) {
 		currentArtwork = artwork;
 		openProfileFile(artworkFavoritePath, false);
 		addNewArtwork(printWriter);
-		
 	}
 	
+	/**
+	 * Static Method to update an existing auction
+	 * @param allAuctions All of the current auctions on the system
+	 * @param auction The auction to be updated
+	 */
 	public static void updateAuction(ArrayList<Auction> allAuctions, Auction auction) {
 		currentArtwork = auction.getAuctionedArtwork();
 		currentAuctions = allAuctions;
 		openProfileFile(artworkFavoritePath, true);
-		updateAuctions(printWriter, auction);
-		
+		updateAuctions(printWriter);
 	}
-	
 	
 	/**
 	 * Method to open a file path to store data locally
 	 * @param filename Absolute or relative path to a file
+	 * @param overwrite Whether the file needs to be overwritted (updated) or not (adding new objects)
 	 * @return The file output stream opened by filename
 	 */
 	private static void openProfileFile(String filePath, boolean overwrite){
@@ -98,11 +95,9 @@ public class SaveData {
 				BufferedWriter buffer = new BufferedWriter(fileWriter);
 				printWriter = new PrintWriter(buffer);
 			}
-			
-
-			} catch (IOException e) {
-				System.out.println("error occured with file");
-			}
+		} catch (IOException e) {
+			System.out.println("error occured with file");
+		}
 	}
 
 	/**
@@ -128,6 +123,10 @@ public class SaveData {
 		closeFile(outputStream);
 	}
 	
+	/**
+	 * Static Method to update all existing user objects
+	 * @param outputStream The file which the data is being stored
+	 */
 	private static void updateProfileData(PrintWriter outputStream) {
 		
 		for(int i = 0; i < allUsers.size(); i++) {
@@ -148,7 +147,6 @@ public class SaveData {
 		closeFile(outputStream);
 	}
 	
-
 	/**
 	 * Method to save a new Profile to a locally stored file
 	 * @param outputStream The file which the data is being stored
@@ -157,22 +155,21 @@ public class SaveData {
 		ArrayList<UserProfile> favoriteUsers = new ArrayList<>();
 		favoriteUsers = currentUser.getFavoriteUsers();
 
-		
 		for(int i = 0; i < favoriteUsers.size(); i++) {
-			
 			outputStream.print(favoriteUsers.get(i).getUsername() + ",");
 		}
 		closeFile(outputStream);
 	}
 	
-	
-	
-	
-
+	/**
+	 * Static Method of adding a new Artwork to the system - determines its artwork type
+	 * @param outputStream The file which the data is being stored
+	 */
 	public static void addNewArtwork(PrintWriter outputStream) {
 		
 		
 		if(currentArtwork.getArtType().equalsIgnoreCase("Painting")) {
+			// A new Painting artwork
 			String auctioneer = currentArtwork.getAuctioneer();
 			String artType = currentArtwork.getArtType();
 			String title = currentArtwork.getTitle();
@@ -189,6 +186,7 @@ public class SaveData {
 
 		} else {
 			
+			// A new Sculpture artwork
 			String auctioneer = currentArtwork.getAuctioneer();
 			String artType = currentArtwork.getArtType();
 			String title = currentArtwork.getTitle();
@@ -209,8 +207,12 @@ public class SaveData {
 		closeFile(outputStream);
 	}
 	
-	
-	private static void updateAuctions(PrintWriter outputStream, Auction auction) {
+	/**
+	 * Static Method to update all existing auctions.
+	 * (Used when updating a single auction mainly - prevents loss of data)
+	 * @param outputStream The file which the data is being stored
+	 */
+	private static void updateAuctions(PrintWriter outputStream) {
 		
 		for(int i = 0; i < currentAuctions.size(); i++) {
 			
@@ -254,7 +256,6 @@ public class SaveData {
 				for(int ii = 0; ii < currentAuctions.get(i).getBids().size(); ii++) {
 					outputStream.print(currentAuctions.get(i).getBids().get(ii).getUsername() + "," + currentAuctions.get(i).getBids().get(ii).getBidAmount() + "," + currentAuctions.get(i).getBids().get(ii).getTimeOfBid() + ",");
 				}
-
 			}
 			outputStream.println("");
 		}
@@ -263,10 +264,9 @@ public class SaveData {
 
 	/**
 	 * Method to close the file path
-	 * @param x the output stream
+	 * @param stream The output stream
 	 */
-	private static void closeFile(PrintWriter x) {
-		x.close();
+	private static void closeFile(PrintWriter stream) {
+		stream.close();
 	}
-
 }
