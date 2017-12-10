@@ -491,10 +491,16 @@ public class SystemGUI extends Application {
 		textPaintings.setId("TEXTFORMAT");
 		textSculptures.setId("TEXTFORMAT");
 
+		ToggleGroup radioSelectionToggle = new ToggleGroup();
+		
 		RadioButton filterAll = new RadioButton();
 		RadioButton filterPaintings = new RadioButton();
 		RadioButton filterSculptures = new RadioButton();
 		filterAll.setSelected(true);
+		
+		filterAll.setToggleGroup(radioSelectionToggle);
+		filterPaintings.setToggleGroup(radioSelectionToggle);
+		filterSculptures.setToggleGroup(radioSelectionToggle);
 		
 		filterAll.setOnAction(e -> {filterPaintings.setSelected(false); filterSculptures.setSelected(false);});
 		filterPaintings.setOnAction(e -> filterAll.setSelected(false));
