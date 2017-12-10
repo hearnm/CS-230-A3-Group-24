@@ -13,23 +13,18 @@ public class Auction {
 	public static ArrayList<Auction> completedAuctions = new ArrayList<>();
 	/** The auctions. */
 	public static ArrayList<Auction> auctions = new ArrayList<>();
-	/** The next id. */
-	private static int nextId = 1;
-	/** The auction id. */
+
+	private static int nextId = 1;		//The next id.
 	@SuppressWarnings("unused")
-	private final int AUCTION_ID;
-	/** The title. */
-	private String title;
-	/** The current bid. */
-	private double currentBid;
-	/** The current bidder. */
-	private String currentBidder;
-	/** The remaining bids. */
-	private int remainingBids;
-	/** The reserve bid. */
-	private double reserveBid;
-	/** The auctioned artwork. */
-	private Artwork auctionedArtwork;
+	private final int AUCTION_ID;		//The auction id.
+
+	private String title;				//The title.
+	private double currentBid;			//The current bid.
+	private String currentBidder;		//The current bidder.
+	private int remainingBids;			//The remaining bids.
+	private double reserveBid;			//The reserve bid.
+	private Artwork auctionedArtwork;	//The auctioned artwork.
+
 	/** The bid history for an instance of an auction. */
 	public ArrayList<Bidding> bidHistory = new ArrayList<>();
 
