@@ -1,4 +1,3 @@
-
 import java.awt.Point;
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,10 +12,7 @@ import java.util.regex.*;
 
 import javax.imageio.ImageIO;
 
-
-
 import javafx.application.Application;
-import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
@@ -41,9 +37,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -69,9 +63,10 @@ import javafx.stage.Stage;
 /**
  * SystemGUI.java
  * @author Tom Durman
- * This class creates the System GUI.
+ * This class creates the System GUI and handles interaction response for the user.
  */
 public class SystemGUI extends Application {
+	
 	private static final int MAIN_STAGE_WIDTH = 800;		// Width of the Main Scene
 	private static final int MAIN_STAGE_HEIGHT= 500;		// Height of the Main Scene
 	private static final int SIGNUP_STAGE_WIDTH = 600;		// Width of the Main Scene
@@ -93,13 +88,12 @@ public class SystemGUI extends Application {
 	private Canvas previewCanvas;			// The canvas which shows the current pen style
 	private double mouseX = 0.0;			// Mouse Coordinate X
 	private double mouseY = 0.0;			// Mouse Coordinate Y
-	private Point start;
-	private Point end;
+	private Point start;					// Start coordinates for Drawing a Line
+	private Point end;						// End coordinates for Drawing a Line
 	private boolean drawParticle = true; 	// True if drawing a particle trace
 	private boolean drawLine = false;		// True if drawing a Straight Line
 	private boolean drawEraser = false;		// True if using an eraser
 	private double sliderValue = 20;		// Value of the Draw image slider
-	private int artworkCounter = 0;
 	
 	private Stage window;			// The main stage, displaying the current Scene
 	private Scene login;			// The Scene to hold the login Page GUI
@@ -108,7 +102,6 @@ public class SystemGUI extends Application {
 	private Scene profile;			// The Scene to hold the Profile Page GUI
 	private Scene profileDrawImg;	// The Scene to hold the Profile Draw Image GUI
 	private Scene profileAvatars;	// The Scene to hold the Profile Default Avatars GUI
-	private Scene profileUpdateData;
 	private Scene viewUsers;
 	private Scene favoriteUsersList;
 	private Scene newAuction;		// The Scene to hold the Create New Auction GUI
@@ -338,7 +331,8 @@ public class SystemGUI extends Application {
     			if(validateSignUpDetails(usernameBox.getText(), phoneNoBox.getText(), postcodeBox.getText()) == true) {
     							Integer intPhoneNo = Integer.parseInt(phoneNoBox.getText());
     							
-    				UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
+    				@SuppressWarnings("unused")
+					UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
     								postcodeBox.getText(), cityTownBox.getText(), intPhoneNo, true);
     				
     		
@@ -771,6 +765,9 @@ public class SystemGUI extends Application {
 		return false;
 	}
 	
+	/**
+	 * Method to save the current favorites as they are added
+	 */
 	private void saveFavorites() {
 		if(currentUserObject.getFavoriteUsers() != null) {
 		SaveData.saveProfileFavorites(currentUserObject);
@@ -1026,19 +1023,6 @@ public class SystemGUI extends Application {
 		imageView.setFitWidth(150);
 		imageView.setFitHeight(150);
 		
-		// If you know how to fix this please do its giving me cancer
-		TableView myAuctions = new TableView();
-		TableColumn artworkName = new TableColumn("Artwork");
-        TableColumn currentBid = new TableColumn("Bid");
-        TableColumn remainingBids = new TableColumn("Remaining\nBids");
-        myAuctions.getColumns().addAll(artworkName, currentBid, remainingBids);
-        
-        TableView myBids = new TableView();
-		TableColumn artworkName2 = new TableColumn("Artwork");
-        TableColumn currentBid2 = new TableColumn("Current Bid");
-        TableColumn myBid = new TableColumn("My Bid");
-        myBids.getColumns().addAll(artworkName2, currentBid2, myBid);
-		
 		mainTop.setAlignment(Pos.BASELINE_CENTER);
 		
 		titleBlock.getChildren().addAll(title, subTitle);
@@ -1046,7 +1030,6 @@ public class SystemGUI extends Application {
 		profPicBox.getChildren().addAll(imageView);
 		midSection.getChildren().addAll(firstName,street,postcode,cityTown,phoneNo);
 		lSideBar.getChildren().addAll(profPicBox, changePicButton, avatarButton);
-		rSideBar.getChildren().addAll(myAuctions, myBids);
 		
 		root.setTop(mainTop);
 		root.setLeft(lSideBar);
@@ -1233,6 +1216,7 @@ public class SystemGUI extends Application {
 	 * Method to build the Profile Draw Image GUI window
 	 * @return root The Constructed Pane with all the Profile Draw Image GUI elements
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private Pane buildDrawImgGUI() {
 		window.setResizable(false);
 		BorderPane root = new BorderPane();
@@ -1429,7 +1413,6 @@ public class SystemGUI extends Application {
 		
 	}
 	
-	
 	/**
 	 * Method to get the color choice and set the draw color
 	 * @param colorOption The choice of color
@@ -1508,6 +1491,10 @@ public class SystemGUI extends Application {
         }
 	}
 	
+	/**
+	 * Method to build the Create new Auctions GUI window
+	 * @return root The Constructed ScrollPane with all the auction creation GUI elements
+	 */
 	private ScrollPane buildCreateNewAuctionGUI() {
 		
 		BorderPane root = new BorderPane();
@@ -1674,6 +1661,11 @@ public class SystemGUI extends Application {
 		return scroll;
 	}
 	
+	/**
+	 * Method when called prompts the user with a file chooser window, the selected image
+	 * is duplicated and saved locally with the artworks name for efficent search / storage.
+	 * @param artName The name of the artwork
+	 */
 	private void addArtworkImg(String artName) {
 		FileChooser fileChooser = new FileChooser();
     	fileChooser.setTitle("Open Resource File");
@@ -1697,6 +1689,11 @@ public class SystemGUI extends Application {
         }
 	}
 
+	/**
+	 * Method sets the art image of a given artwork
+	 * @param artName The name of the artwork to have the image set
+	 * @return img The image object if found, error message if not.
+	 */
 	private Image setArtImage(String artName) {
 		try {
 			Image img = new Image(new FileInputStream(artName + ".png"));
@@ -1707,6 +1704,10 @@ public class SystemGUI extends Application {
 		return null;
 	}
 
+	/**
+	 * Method to build and create a new detailed auction view GUI window for a selected Auction
+	 * @return root The Constructed Pane with all the selected auction detail GUI elements
+	 */
 	private Pane buildDetailedAuctionViewGUI() {
 		BorderPane root = new BorderPane();
 		root.getStylesheets().add("artatawe.css");
@@ -1833,6 +1834,11 @@ public class SystemGUI extends Application {
 		return root;
 	}
 
+	/**
+	 * Method to convert the text input to a double variable
+	 * @param bid The bid to be converted (String)
+	 * @return bidConvert the converted bid (Double)
+	 */
 	private double convertBidInput(String bid) {
 		try {
 		double bidConvert = Double.parseDouble(bid);
@@ -1842,6 +1848,12 @@ public class SystemGUI extends Application {
 		}
 	}
 	
+	/**
+	 * Method to handle creating a new bid - user if prompted with approriate details
+	 * @param auction The given auction for the bid to be placed
+	 * @param bid The bid amount to be placed on the auction
+	 * @return True if bid was successfully added, False if bid was rejected
+	 */
 	private boolean attemptBid(Auction auction, double bid) {
 		
 		String bidResult = auction.attemptNewBid(currentUserObject.getUsername(), bid);
@@ -1867,6 +1879,14 @@ public class SystemGUI extends Application {
 		return false;
 	}
 	
+	/**
+	 * Method to check if all fields ahve been filled out when creating a new auction
+	 * @param auctionNameInput The name input
+	 * @param artCreatorInput The creator input
+	 * @param artCreationYearInput The creation year input
+	 * @param maxBiddersInput The max bidders input
+	 * @return True if all fields are filled out, False if 1 or more fields do not have input
+	 */
 	public boolean newAuctionInputExistenceCheck(String auctionNameInput, String artCreatorInput, String artCreationYearInput, String maxBiddersInput) {
 		if(auctionNameInput.length() == 0 || artCreatorInput.length() == 0 || artCreationYearInput.length() == 0 ||  maxBiddersInput.length() == 0 ) {
 			notificationBox("Sign-Up Notification", "Input Error", "All fields must be filled out");
