@@ -37,8 +37,6 @@ public class Auction {
 	/**
 	* Constructor method to create the auction.
 	* @param auctionedArtwork The artwork that is to be auctioned.
-	* @param maxBids The maximum number of bids that may be placed on the artwork.
-	* @param reserveBid The minimum bid that may be placed.
 	*/
 	public Auction(Artwork auctionedArtwork) {
 		this.AUCTION_ID = nextId;
@@ -137,7 +135,7 @@ public class Auction {
 	
 	/**
 	* Class for assigning a new bid.
-	* @param currentBid The new current bid to be assigned.
+	* @param newBid The new current bid to be assigned.
 	*/
 	public void setCurrentBid(double newBid) {
 		this.currentBid = newBid;
