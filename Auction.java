@@ -9,10 +9,8 @@ import java.util.Date;
  * @author Matthew Hearn
  */
 public class Auction {
-	/** The completed auctions. */
-	public static ArrayList<Auction> completedAuctions = new ArrayList<>();
-	/** The auctions. */
-	public static ArrayList<Auction> auctions = new ArrayList<>();
+	private static ArrayList<Auction> completedAuctions = new ArrayList<>();	//The completed auctions.
+	private static ArrayList<Auction> auctions = new ArrayList<>();				//The auctions.
 
 	private static int nextId = 1;		//The next id.
 	@SuppressWarnings("unused")
@@ -25,8 +23,7 @@ public class Auction {
 	private double reserveBid;			//The reserve bid.
 	private Artwork auctionedArtwork;	//The auctioned artwork.
 
-	/** The bid history for an instance of an auction. */
-	public ArrayList<Bidding> bidHistory = new ArrayList<>();
+	private ArrayList<Bidding> bidHistory = new ArrayList<>();	//The bid history for an instance of an auction.
 
 	/**
 	* Constructor method to create the auction.
