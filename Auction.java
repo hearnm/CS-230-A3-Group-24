@@ -62,7 +62,16 @@ public class Auction {
 		return usersWonArtworks;
 	}
 	
-
+	public static Auction getGivenWonArtworks(String title) {
+		
+		
+		for(int i = 0; i < completedAuctions.size(); i++) {
+			if(title.equalsIgnoreCase(completedAuctions.get(i).getAuctionedArtwork().getTitle())) {
+				return completedAuctions.get(i);
+			}
+		}
+		return null;
+	}
 	
 	
 	/**

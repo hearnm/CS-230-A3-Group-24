@@ -128,14 +128,20 @@ public class LoadData {
 					double width = lineScanner.nextDouble();
 					double height = lineScanner.nextDouble();
 					boolean status = lineScanner.nextBoolean();
+					String curBidder = lineScanner.next();
 
-					// Construct existing Painting object
+				
 					@SuppressWarnings("unused")
 					Artwork loadedPainting = new Painting(auctioner, title, creator,
 							artCreationYear, reservePrice, numBidsAllowed, width,
 							height, false, status);
 
-					// Inner loop to add bidding data to an auction if it exists.
+					
+					if(status == true) {
+						Auction.getGivenAuction(title).setCurrentBidder(curBidder);
+					} else if(Auction.getGivenWonArtworks(title) != null) {
+						Auction.getGivenWonArtworks(title).setCurrentBidder(curBidder);
+					}
 					
 					while(lineScanner.hasNext()) {
 						if(status == true) {
@@ -156,14 +162,20 @@ public class LoadData {
 					double depth = lineScanner.nextDouble();
 					String material = lineScanner.next();
 					boolean status = lineScanner.nextBoolean();
+					String curBidder = lineScanner.next();
 
-					// Construct existing Sculpture object
+					
 					@SuppressWarnings("unused")
 					Artwork loadedPainting = new Sculpture(auctioner, title, creator,
 							artCreationYear, reservePrice, numBidsAllowed, width,
 							height, depth, material, false, status);
 				
-					// Inner loop to add bidding data to an auction if it exists.
+					
+					if(status == true) {
+						Auction.getGivenAuction(title).setCurrentBidder(curBidder);
+					} else if (Auction.getGivenWonArtworks(title) != null) {
+						Auction.getGivenWonArtworks(title).setCurrentBidder(curBidder);
+					}
 					
 					while(lineScanner.hasNext()) {
 						if(status == true) {
