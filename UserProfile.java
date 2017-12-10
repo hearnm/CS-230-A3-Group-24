@@ -257,8 +257,7 @@ public class UserProfile {
 
 	/**
 	 * Removes the favorite user.
-	 *
-	 * @param user the user
+	 * @param user The user
 	 */
 	public void removeFavoriteUser(UserProfile user) {
 		for(int i = 0; i < favoriteUsers.size(); i++) {
@@ -266,68 +265,58 @@ public class UserProfile {
 				favoriteUsers.remove(i);
 			}
 		}
-		
 	}
-	
+
 	/**
 	 * Adds the favorite user.
-	 *
-	 * @param user the user
+	 * @param user The user
 	 */
 	public void addFavoriteUser(UserProfile user) {
 		favoriteUsers.add(user);
 	}
-	
+
 	/**
 	 * Adds the favorite multiple users.
-	 *
-	 * @param favorites the favorites
+	 * @param favorites The favorites
 	 */
 	public void addFavoriteMultipleUsers(ArrayList<UserProfile> favorites) {
-		
-		for(int i = 0; i < favorites.size(); i++) {
-			
-		favoriteUsers.add(favorites.get(i));
+		for (int i = 0; i < favorites.size(); i++) {
+			favoriteUsers.add(favorites.get(i));
 		}
 	}
-	
+
 	/**
 	 * Search favorite.
-	 *
 	 * @param user the user
 	 * @return true, if successful
 	 */
 	public boolean searchFavorite(UserProfile user) {
-		
-		for(int i = 0; i < favoriteUsers.size(); i++) {
-			if(favoriteUsers.get(i).getUsername().equalsIgnoreCase(user.getUsername())) {
-				
+		for (int i = 0; i < favoriteUsers.size(); i++) {
+			if (favoriteUsers.get(i).getUsername().equalsIgnoreCase(user.getUsername())) {
 			return true;
 			}
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Search favorite.
-	 *
 	 * @param username the username
 	 * @return true, if successful
 	 */
 	public boolean searchFavorite(String username) {
-		
-		for(int i = 0; i < favoriteUsers.size(); i++) {
-			if(favoriteUsers.get(i).getUsername().equalsIgnoreCase(username)) {
-				
+		for (int i = 0; i < favoriteUsers.size(); i++) {
+			if (favoriteUsers.get(i).getUsername().equalsIgnoreCase(username)) {
 			return true;
 			}
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Method to get all of the Favorite users for the given instance.
-	 * @return favoriteUsers An ArrayList of Users that are marked as favorite by this instance of the User.
+	 * @return favoriteUsers An ArrayList of Users that are marked as
+	 * favorite by this instance of the User.
 	 */
 	public ArrayList<UserProfile> getFavoriteUsers() {
 		return this.favoriteUsers;
