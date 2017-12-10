@@ -239,6 +239,8 @@ public class Auction {
 		double bidConvert = Double.parseDouble(bid);
 		Bidding loadedBid = new Bidding(username, bidConvert, time);
 		bidHistory.add(loadedBid);
+		this.currentBid = bidConvert;
+		this.currentBidder = username;
 		
 	}
 	
