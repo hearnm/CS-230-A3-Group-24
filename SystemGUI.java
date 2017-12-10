@@ -1002,7 +1002,7 @@ public class SystemGUI extends Application {
 
 		Button changePicButton = new Button("Create an Avatar");
 		Button avatarButton = new Button("Use an Avatar");
-		Button back = new Button("Return to Home Page");
+		Button back = new Button("Return to home");
 		
 		changePicButton.setOnAction(e -> {
 			profileDrawImg = new Scene(buildDrawImgGUI(), P_DRAW_IMG_STAGE_WIDTH, P_DRAW_IMG_STAGE_HEIGHT);
@@ -1017,6 +1017,7 @@ public class SystemGUI extends Application {
 
 		changePicButton.setMaxWidth(Double.MAX_VALUE);
 		avatarButton.setMaxWidth(Double.MAX_VALUE);
+		back.setMinWidth(changePicButton.getWidth());
 		
 		ImageView imageView = new ImageView();
 		imageView.setImage(profImg);
@@ -1077,7 +1078,7 @@ public class SystemGUI extends Application {
 		coll1.setAlignment(Pos.BASELINE_CENTER);
 		
 		Button back = new Button("Back");
-		back.setPrefWidth(150);
+		back.setPrefWidth(175);
 		
 		back.setOnAction(e -> window.setScene(profile));
 		
@@ -1568,7 +1569,7 @@ public class SystemGUI extends Application {
 		mainMaterialBox.setMaxWidth(200);
 		
 		Button back = new Button("Back");
-		back.setPrefWidth(50);
+		back.setPrefWidth(75);
 		back.setOnAction(e -> {window.setScene(home); window.setResizable(true);});
 		
 		Button createAuctionButton = new Button("Create Auction");
@@ -1755,7 +1756,7 @@ public class SystemGUI extends Application {
 		Text bidHistoryDate = new Text("Date of Bid");
 		
 		Button bid = new Button("Bid on Artwork");
-		Button back = new Button("Return to home");
+		Button back = new Button("Return to homepage");
 		
 		bid.setMaxSize(Double.MAX_VALUE, 55);
 		back.setPrefWidth(180);
