@@ -6,15 +6,11 @@ import java.util.ArrayList;
  * @author Nikolina Antoniou
  */
 public class CompletedAuctions {
-	/** The list of Artwork. */
-	private ArrayList<Artwork> listOfArtworks;
+	private ArrayList<Artwork> listOfArtworks;	//The list of Artwork.
 
-	/** The artwork name. */
-	private String artworkName;
-	/** The winning bid. */
-	private double winningBid;
-	/** The winning bidder. */
-	private String winningBidder;
+	private String artworkName;					//The artwork name.
+	private double winningBid;					//The winning bid.
+	private String winningBidder;				//The winning bidder.
 
 	/**
 	 * Instantiates a new completed Auction.
