@@ -103,7 +103,9 @@ public class Auction {
 			return "win";
 		}
 
-		// Check if the bid is valid
+		if(newBidder.equalsIgnoreCase(this.auctionedArtwork.getAuctioneer())){
+			return "selfbid";
+		}
 		if (checkIfBidValid(newBidder, newBid)) {
 			this.currentBidder = newBidder;
 			this.currentBid = newBid;

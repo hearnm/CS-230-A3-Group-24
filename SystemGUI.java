@@ -522,7 +522,6 @@ public class SystemGUI extends Application {
 				public void handle(MouseEvent event) {
 					
 					int selection = Integer.parseInt(event.getPickResult().getIntersectedNode().getId());
-					//System.out.println(selectedAuction.getBids().get(0).getUsername());
 					selectedAuction = auctions.get(selection);
 					selectedAuctionView = new Scene(buildDetailedAuctionViewGUI(), AUCTION_DETAILS_STAGE_WIDTH, AUCTION_DETAILS_STAGE_HEIGHT);
 					window.setScene(selectedAuctionView);
@@ -1876,6 +1875,10 @@ public class SystemGUI extends Application {
 		
 		String bidResult = auction.attemptNewBid(currentUserObject.getUsername(), bid);
 		
+		if(bidResult.equalsIgnoreCase("SelfBid")) {
+			notificationBox("System Warrning", "Bid Unsuccessful", "You cannot bid on your own artwork!");
+			return false;
+		} 
 		if(bidResult.equalsIgnoreCase("valid")) {
 			notificationBox("System Confirmation", "Bid Successful!", "Your bid of: " + bid + " has been added to the system");
 			return true;
