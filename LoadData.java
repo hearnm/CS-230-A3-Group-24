@@ -1,14 +1,9 @@
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.stream.Stream;
+
 
 /**
  * LoadData.java
@@ -21,8 +16,7 @@ public class LoadData {
 	private static final String profileFavoritePath = "_FavoriteProfiles.txt";  // The File path to save all the data to.
 	private static final String artworkFavoritePath = "Artworks.txt";			// The File path to the artworks data (including bidding info)
 	private static Scanner inputStream;			// The input stream connected to the given file
-	private static UserProfile currentUser;		// The current User object	
-	
+
 	
 	/**
 	 * Static Method that can be called to load the data from the file to the system.
@@ -39,8 +33,7 @@ public class LoadData {
 	 * @return ArrayList of use objects.
 	 */
 	public static ArrayList<UserProfile> loadUserFavorites(UserProfile user) {
-		currentUser = user;
-		
+
 		try {
 			openProfileFile(user.getUsername() + profileFavoritePath);
 			} catch (Exception e) {
@@ -84,6 +77,7 @@ public class LoadData {
 			Integer phoneNo = inputStream.nextInt();
 			inputStream.nextLine();
 			
+			@SuppressWarnings("unused")
 			UserProfile loadedUser = new UserProfile(username, firstname, lastname, street, postcode, cityTown, phoneNo, false);
 		}
 	}
@@ -147,6 +141,7 @@ public class LoadData {
 				boolean status = lineScanner.nextBoolean();
 				
 				// Construct existing Painting object
+				@SuppressWarnings("unused")
 				Artwork loadedPainting = new Painting(auctioner, title, creator, artCreationYear, reservePrice, numBidsAllowed, width, height, false, status);
 				
 				// Inner loop to add bidding data to an auction if it exists.
@@ -168,6 +163,7 @@ public class LoadData {
 				boolean status = lineScanner.nextBoolean();
 						
 				// Construct existing Sculpture object
+				@SuppressWarnings("unused")
 				Artwork loadedPainting = new Sculpture(auctioner, title, creator, artCreationYear, reservePrice, numBidsAllowed, width, height, depth, material, false, status);
 				
 				// Inner loop to add bidding data to an auction if it exists.	
@@ -176,13 +172,15 @@ public class LoadData {
 				}
 			}
 		  }
+		  closeFile(lineScanner);
 		}
 	}
 			  
 	/**
-	 * Method to close the input stream to the file.
+	 * Method to close a given file stream
+	 * @param stream The Stream to be closed
 	 */
-	private static void closeFile() {
-		inputStream.close();
+	private static void closeFile(Scanner stream) {
+		stream.close();
 	}
 }
