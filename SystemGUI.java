@@ -1742,7 +1742,7 @@ public class SystemGUI extends Application {
 		HBox bidTableTitle = new HBox(10);
 		
 		bidTableMain.setBorder(new Border(new BorderStroke(Color.BLACK, 
-				BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+				BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 	
 		leftVBar2.setPadding(new Insets(25,0,0,0));
 		mainTop.setPadding(new Insets(20,50,10,10));
