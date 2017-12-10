@@ -67,22 +67,22 @@ import javafx.stage.Stage;
  */
 public class SystemGUI extends Application {
 	
-	private static final int MAIN_STAGE_WIDTH = 800;		// Width of the Main Scene
-	private static final int MAIN_STAGE_HEIGHT= 500;		// Height of the Main Scene
-	private static final int SIGNUP_STAGE_WIDTH = 600;		// Width of the Main Scene
-	private static final int SIGNUP_STAGE_HEIGHT= 600;		// Height of the Main Scene
-	private static final int P_DRAW_IMG_STAGE_WIDTH = 600;	// Width of the Draw Image Scene
-	private static final int P_DRAW_IMG_STAGE_HEIGHT= 580;	// Height of the Draw Image Scene
-	private static final int AUCTION_DETAILS_STAGE_WIDTH = 850;	// Width of the Draw Image Scene
-	private static final int AUCTION_DETAILS_STAGE_HEIGHT= 500;
-	private static final int CREATE_AUCTION_STAGE_WIDTH = 400;
-	private static final int CREATE_AUCTION_STAGE_HEIGHT = 550;
-	private static final int CANVAS_WIDTH = 365;			// Width of the Canvas
-	private static final int CANVAS_HEIGHT = 447;			// Height of the Canvas
-	private static final int PREVIEW_CANVAS_WIDTH = 150;	// Width of the Preview Canvas
-	private static final int PREVIEW_CANVAS_HEIGHT = 102; 	// Height of the Preview Canvas
-	private static final int PREVIEW_CANVAS_DRAW_X = 25;	// Draw Preview Location X
-	private static final int PREVIEW_CANVAS_DRAW_Y = 2;		// Draw Preview Location Y
+	private static final int MAIN_STAGE_WIDTH = 800;			// Width of the Main Stage
+	private static final int MAIN_STAGE_HEIGHT= 500;			// Height of the Main Stage
+	private static final int SIGNUP_STAGE_WIDTH = 600;			// Width of the Signup Stage
+	private static final int SIGNUP_STAGE_HEIGHT= 600;			// Height of the Signup Stage
+	private static final int P_DRAW_IMG_STAGE_WIDTH = 600;		// Width of the Draw Image Stage
+	private static final int P_DRAW_IMG_STAGE_HEIGHT= 580;		// Height of the Draw Image Stage
+	private static final int AUCTION_DETAILS_STAGE_WIDTH = 850;	// Width of the Auction Details Stage
+	private static final int AUCTION_DETAILS_STAGE_HEIGHT= 500; // Height of the Auction Details Stage
+	private static final int CREATE_AUCTION_STAGE_WIDTH = 400; 	// Width of the Create Auction Stage
+	private static final int CREATE_AUCTION_STAGE_HEIGHT = 550;	// Height of the Create Auction Stage
+	private static final int CANVAS_WIDTH = 365;				// Width of the Draw Canvas
+	private static final int CANVAS_HEIGHT = 447;				// Height of the Draw Canvas
+	private static final int PREVIEW_CANVAS_WIDTH = 150;		// Width of the Preview Canvas
+	private static final int PREVIEW_CANVAS_HEIGHT = 102; 		// Height of the Preview Canvas
+	private static final int PREVIEW_CANVAS_DRAW_X = 25;		// Draw Preview Location X
+	private static final int PREVIEW_CANVAS_DRAW_Y = 2;			// Draw Preview Location Y
 	
 	private Canvas canvas;					// The canvas which the user can draw an image
 	private Canvas previewCanvas;			// The canvas which shows the current pen style
@@ -95,24 +95,24 @@ public class SystemGUI extends Application {
 	private boolean drawEraser = false;		// True if using an eraser
 	private double sliderValue = 20;		// Value of the Draw image slider
 	
-	private Stage window;			// The main stage, displaying the current Scene
-	private Scene login;			// The Scene to hold the login Page GUI
-	private Scene signUp;			// The Scene to hold the Sign Up GUI
-	private Scene home;				// The Scene to hold the Home Page GUI
-	private Scene profile;			// The Scene to hold the Profile Page GUI
-	private Scene profileDrawImg;	// The Scene to hold the Profile Draw Image GUI
-	private Scene profileAvatars;	// The Scene to hold the Profile Default Avatars GUI
-	private Scene viewUsers;
-	private Scene favoriteUsersList;
-	private Scene newAuction;		// The Scene to hold the Create New Auction GUI
-	private Scene selectedAuctionView;
-	private Image profImg;			// Currently selected Profile image for a profile
-	private UserProfile currentUserObject;
-	private Auction selectedAuction;
+	private Stage window;					// The main stage, displaying the current Scene
+	private Scene login;					// The Scene to hold the login Page GUI
+	private Scene signUp;					// The Scene to hold the Sign Up GUI
+	private Scene home;						// The Scene to hold the Home Page GUI
+	private Scene profile;					// The Scene to hold the Profile Page GUI
+	private Scene profileDrawImg;			// The Scene to hold the Profile Draw Image GUI
+	private Scene profileAvatars;			// The Scene to hold the Profile Default Avatars GUI
+	private Scene viewUsers;				// The Scene to hold the View of all Users GUI
+	private Scene favoriteUsersList;		// The Scene to hold the View of the current Users Favorites GUI
+	private Scene newAuction;				// The Scene to hold the Create New Auction GUI
+	private Scene selectedAuctionView;		// The Scene to hold the Selected Auction view GUI
+	private Image profImg;					// The Currently selected Profile image for a profile
+	private UserProfile currentUserObject;	// The Current User Object logged into the system
+	private Auction selectedAuction;		// The Currently selected Auction Object
 
-	private ArrayList<UserProfile> allUsers = new ArrayList<>();	// an Array List of all users currently on the system
-	private ArrayList<ImageView> avatars = new ArrayList<>();		// an Arraylist of paths to 6 pre-made user Avatars (stored locally)
-	public static ArrayList<Auction> auctions = new ArrayList<Auction>();
+	private ArrayList<UserProfile> allUsers = new ArrayList<>();			// an Array List of all users currently on the system
+	private ArrayList<ImageView> avatars = new ArrayList<>();				// an Arraylist of paths to 6 pre-made user Avatars (stored locally)
+	public static ArrayList<Auction> auctions = new ArrayList<Auction>();	// an Arraylist of all Auctions on the system
 	
 	/**
 	 * Main Method to start the GUI
