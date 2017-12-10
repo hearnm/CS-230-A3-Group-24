@@ -35,6 +35,7 @@ public class UserProfile {
 	 * @param cityTown The Users city or town.
 	 * @param postcode The Users current postcode.
 	 * @param phoneNumber The Users current phone number.
+	 * @param newAccount A check to see if an account is new or pre-existing.
 	 */
 	public UserProfile(String username, String firstName, String lastName, String street,
 			 		   String postcode, String cityTown, Integer phoneNumber, boolean newAccount) {
