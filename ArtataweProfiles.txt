@@ -1,0 +1,8 @@
+1,Durman2008,tom,durman,54 highStreet,SA1 4JN,Swansea,738472,true,
+2,Ash225,Ashley,Fung,64 LowStreet,cf628ah,Hong Kong,236236,true,
+3,Ben123,Ben,Herin,55 RightStreet,c84aKK,Barry,63452,true,
+4,jam,Jamie,Hoki,98 North Ave,uh829jb,London,8823742,true,
+5,quick1,John,Doe,66 FlingStreet,8jskasf,Northrook,827364,true,
+6,merry,Jin,Donn,22 DiagonalStreet,ij827da,Flian,345321,true,
+7,Seven77,Greg,Geryy,77 Streeto,ujs729a,Swansea,533453,true,
+8,Niko,nikolina,Antoniou,edessis 6,1234567,swansea,753275477,true,

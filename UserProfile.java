@@ -57,9 +57,6 @@ public class UserProfile {
 			profiles.add(this);
 		}
 	}
-
-
-	
 	
 	/**
 	 * Method to get the newAccount Attribute
@@ -211,14 +208,9 @@ public class UserProfile {
 		this.phoneNumber = phoneNumber;
 	}
 	
-	
-	
-	
-	
 	public static ArrayList<UserProfile> getProfiles() {
 		return profiles;
 	}
-	
 	
 	public static UserProfile getCurrentUserObject(String username) {
 		
@@ -294,6 +286,4 @@ public class UserProfile {
 	public ArrayList<UserProfile> getFavoriteUsers() {
 		return this.favoriteUsers;
 	}
-	
-	
 }
