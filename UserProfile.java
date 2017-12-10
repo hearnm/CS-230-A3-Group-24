@@ -2,8 +2,8 @@ import java.util.*;
 
 /**
  * UserProfile.java
- * @author Tom Durman
  * Class to create and store User Profiles.
+ * @author Tom Durman
  */
 public class UserProfile {
 

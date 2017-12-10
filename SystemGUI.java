@@ -381,7 +381,7 @@ public class SystemGUI extends Application {
 		} else if (phoneNoChecker(phoneNo) == false) {
 			notificationBox("Sign-Up Notification", "Input Error", "Phone number is in an incorrect format");
 			return false;
-		} else if (postcode.length() < 6 || postcode.length() > 7) {
+		} else if (postcode.length() < 6 || postcode.length() >= 9) {
 			notificationBox("Sign-Up Notification", "Input Error", "Postcode can only be 6 or 7 characters long");
 			return false;
 		}

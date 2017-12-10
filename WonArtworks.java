@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * @author Christiana Meli
  */
 public class WonArtworks {
-	private ArrayList<Artwork>listOfArtworks;	//The list of Artwork.
+	private ArrayList<Artwork> listOfArtworks = new ArrayList<>();	//The list of Artwork.
 
 	/**
 	 * Instantiates an Artwork won.
