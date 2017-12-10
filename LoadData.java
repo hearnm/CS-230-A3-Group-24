@@ -13,18 +13,15 @@ import java.util.stream.Stream;
 /**
  * LoadData.java
  * @author Tom Durman
- * This class searches for a preset file and takes the information out of that file and puts it into the system
+ * This class searches for an existing file and takes the information out of that file and puts it into the system
  */
 public class LoadData {
-	
 
-	
-	
-	private static final String profileDataPath = "ArtataweProfiles.txt";	// The set filename path for the system data
+	private static final String profileDataPath = "ArtataweProfiles.txt";		// The File path for the system data
 	private static final String profileFavoritePath = "_FavoriteProfiles.txt";  // The File path to save all the data to.
-	private static final String artworkFavoritePath = "Artworks.txt";
-	private static Scanner inputStream;						// The input stream connected to the given file
-	private static UserProfile currentUser;
+	private static final String artworkFavoritePath = "Artworks.txt";			// The File path to the artworks data (including bidding info)
+	private static Scanner inputStream;			// The input stream connected to the given file
+	private static UserProfile currentUser;		// The current User object	
 	
 	
 	/**
@@ -33,38 +30,32 @@ public class LoadData {
 	public static void loadSystemData() {
 		openProfileFile(profileDataPath);
 		readProfileFile();
-		//openProfileFile(artworkFavoritePath);
 		readArtworksFile();
-
-	}
-	
-	public static void loadFavorites(UserProfile current) {
-		currentUser = current;
-		openProfileFile(currentUser.getUsername() + profileFavoritePath);
-		
-		ArrayList<UserProfile> currentFavorites = new ArrayList<>();
-		currentFavorites = readUserfavoritesFile();
-		currentUser.addFavoriteMultipleUsers(currentFavorites);
-		
-	}
-	
-	public static ArrayList<UserProfile> loadUserFavorites(UserProfile user) {
-		currentUser = user;
-		try {
-		openProfileFile(user.getUsername() + profileFavoritePath);
-		} catch (Exception e) {
-
-			return null;
-		}
-		
-		return readUserfavoritesFile();
-		
 	}
 	
 	/**
-	 * Method to open the file if it exists
+	 * Static Method that can be called to get an arraylist of all user favorites to be loaded into the system
+	 * @param user The current user object
+	 * @return ArrayList of use objects.
+	 */
+	public static ArrayList<UserProfile> loadUserFavorites(UserProfile user) {
+		currentUser = user;
+		
+		try {
+			openProfileFile(user.getUsername() + profileFavoritePath);
+			} catch (Exception e) {
+
+				return null;
+			}
+		return readUserfavoritesFile();
+	}
+	
+	/**
+	 * Method to open a file if it exists
+	 * @param filePath The path to the file wanted to be opened.
 	 */
 	private static void openProfileFile(String filePath) {
+		
 		try {
 			File x = new File(filePath);
 
@@ -77,11 +68,12 @@ public class LoadData {
 	}
 	
 	/**
-	 * Method to read the File and take out data, constructing appropriate objects in the system.
+	 * Static Method to read the File and take out data, constructing appropriate objects in the system.
 	 */
 	private static void readProfileFile() {
 		
 		while(inputStream.hasNext()) {
+			
 			inputStream.next();
 			String username = inputStream.next();
 			String firstname = inputStream.next();
@@ -92,20 +84,15 @@ public class LoadData {
 			Integer phoneNo = inputStream.nextInt();
 			inputStream.nextLine();
 			
-			UserProfile x = new UserProfile(username, firstname, lastname, street, postcode, cityTown, phoneNo, false);
-			
-
-			
+			UserProfile loadedUser = new UserProfile(username, firstname, lastname, street, postcode, cityTown, phoneNo, false);
 		}
-		}
+	}
 	
-
-	
-	
-	
-		
+	/**
+	 * Static Method which reads the current users favorite users and returns an ArrayList of user objects to be loaded in
+	 * @return
+	 */
 	private static ArrayList<UserProfile> readUserfavoritesFile() {
-		
 		ArrayList<UserProfile> favoriteUsers = new ArrayList<>();
 
 		try {
@@ -120,23 +107,22 @@ public class LoadData {
 		} catch (NoSuchElementException e) {
 			System.out.println("No favorites in file");
 		}
-		
 		return favoriteUsers;
-		}
+	}
 	
 	
 	/**
-	 * Method to read the File and take out data, constructing appropriate objects in the system.
+	 * Method to read the File and take out data, constructing appropriate artwork objects in the system.
 	 */
 	private static void readArtworksFile() {
-		
 		Scanner fileScanner = null;
+		
 		try {
 			fileScanner = new Scanner(new File(artworkFavoritePath));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(artworkFavoritePath + " File not found!");
 		}
+		
 		while (fileScanner.hasNextLine()) {
 		  String line = fileScanner.nextLine();
 
@@ -146,70 +132,57 @@ public class LoadData {
 
 
 	        String auctioner = lineScanner.next();
-	        System.out.println(auctioner);
 			String artType = lineScanner.next();
-			System.out.println(artType);
+
+			// Checking artwork type (Painting / Sculpture)
 			if(artType.equalsIgnoreCase("Painting")) {
-						
-						// Artwork data
-						String title = lineScanner.next();
-						String creator = lineScanner.next();
-						int artCreationYear = lineScanner.nextInt();
-						double reservePrice = lineScanner.nextDouble();
-						int numBidsAllowed = lineScanner.nextInt();
-						double width = lineScanner.nextDouble();
-						double height = lineScanner.nextDouble();
-						boolean status = lineScanner.nextBoolean();
-						// Auction data
-
-
-						Artwork loadedPainting = new Painting(auctioner, title, creator, artCreationYear, reservePrice, numBidsAllowed, width, height, false, status);
-					
-						while(lineScanner.hasNext()) {
-							Auction.getGivenAuction(title).addExistingBids(lineScanner.next(), lineScanner.next(), lineScanner.next());
-						}
-						
+							
+				String title = lineScanner.next();
+				String creator = lineScanner.next();
+				int artCreationYear = lineScanner.nextInt();
+				double reservePrice = lineScanner.nextDouble();
+				int numBidsAllowed = lineScanner.nextInt();
+				double width = lineScanner.nextDouble();
+				double height = lineScanner.nextDouble();
+				boolean status = lineScanner.nextBoolean();
 				
-						
-					} else {
-						
-						String title = lineScanner.next();
-						String creator = lineScanner.next();
-						int artCreationYear = lineScanner.nextInt();
-						double reservePrice = lineScanner.nextDouble();
-						int numBidsAllowed = lineScanner.nextInt();
-						double width = lineScanner.nextDouble();
-						double height = lineScanner.nextDouble();
-						double depth = lineScanner.nextDouble();
-						String material = lineScanner.next();
-						boolean status = lineScanner.nextBoolean();
-						
-
-						Artwork loadedPainting = new Sculpture(auctioner, title, creator, artCreationYear, reservePrice, numBidsAllowed, width, height, depth, material, false, status);
-						
-						while(lineScanner.hasNext()) {
-							
-							String x = lineScanner.next();
-							String y = lineScanner.next();
-							String z = lineScanner.next();
-							
-							Auction.getGivenAuction(title).addExistingBids(x,y,z);
-							
-							System.out.println("Loaded Bidding: " + x + " " + y + " " + z);
-							
-						}
-					}
+				// Construct existing Painting object
+				Artwork loadedPainting = new Painting(auctioner, title, creator, artCreationYear, reservePrice, numBidsAllowed, width, height, false, status);
+				
+				// Inner loop to add bidding data to an auction if it exists.
+				while(lineScanner.hasNext()) {
+					Auction.getGivenAuction(title).addExistingBids(lineScanner.next(), lineScanner.next(), lineScanner.next());
 				}
-		  	}
+		
+			} else {
+						
+				String title = lineScanner.next();
+				String creator = lineScanner.next();
+				int artCreationYear = lineScanner.nextInt();
+				double reservePrice = lineScanner.nextDouble();
+				int numBidsAllowed = lineScanner.nextInt();
+				double width = lineScanner.nextDouble();
+				double height = lineScanner.nextDouble();
+				double depth = lineScanner.nextDouble();
+				String material = lineScanner.next();
+				boolean status = lineScanner.nextBoolean();
+						
+				// Construct existing Sculpture object
+				Artwork loadedPainting = new Sculpture(auctioner, title, creator, artCreationYear, reservePrice, numBidsAllowed, width, height, depth, material, false, status);
+				
+				// Inner loop to add bidding data to an auction if it exists.	
+				while(lineScanner.hasNext()) {
+					Auction.getGivenAuction(title).addExistingBids(lineScanner.next(), lineScanner.next(), lineScanner.next());	
+				}
+			}
+		  }
 		}
-			    
-
-	
+	}
+			  
 	/**
 	 * Method to close the input stream to the file.
 	 */
 	private static void closeFile() {
 		inputStream.close();
 	}
-
 }
