@@ -6,18 +6,12 @@ import java.util.ArrayList;
  * @author James Shoemark-Smith
  */
 public class BidHistory {
-	/** The id counter. */
-	private static int idCounter = 1;
-	/** The bid history ID. */
-	private int bidHistoryID;
-	/** The time of the bid. */
-	private String bidDateTime;
-	/** The artwork name. */
-	private String artworkName;
-	/** The current bidder. */
-	private String currentBidder;
-	/** The current bid amount. */
-	private double bidAmount;
+	private static int idCounter = 1;	//The id counter.
+	private int bidHistoryID;			//The bid history ID.
+	private String bidDateTime;			//The time of the bid.
+	private String artworkName;			//The artwork name.
+	private String currentBidder;		//The current bidder.
+	private double bidAmount;			//The current bid amount.
 
 	/**
 	 * Constructor for Bid History.
