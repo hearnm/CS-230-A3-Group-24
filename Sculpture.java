@@ -2,14 +2,14 @@ import java.util.ArrayList;
 
 /**
  * Sculpture.java
- * @author Emily Fothergill
  * Class to create Sculpture objects and its related methods.
+ * @author Emily Fothergill
  */
 public class Sculpture extends Artwork {
-	protected ArrayList <String> additionalImages = new ArrayList <String> ();
-	protected double depth;
-	protected String material;
-	
+	protected ArrayList <String> additionalImages = new ArrayList <String> ();	//The additional images.
+	protected double depth;		//The depth.
+	protected String material;	//The material.
+
 	/**
 	 * Constructor of Sculpture objects.
 	* @param auctioneer The user that placed the Sculpture on auction.
@@ -36,7 +36,7 @@ public class Sculpture extends Artwork {
 		this.material = material;
 		setArtType("Sculpture");
 	}
-	
+
 	/**
 	 * Method to change the material of the Sculpture.
 	 * @param material The Material of the Sculpture.
@@ -44,7 +44,7 @@ public class Sculpture extends Artwork {
 	public void setMaterial(String material) {
 		this.material = material;
 	}
-	
+
 	/**
 	 * Method to retrieve the material of the Sculpture.
 	 * @return material
@@ -52,7 +52,7 @@ public class Sculpture extends Artwork {
 	public String getMaterial() {
 		return material;
 	}
-	
+
 	/**
 	 * Method to change the depth of the Sculpture.
 	 * @param depth The Depth Dimension of the Sculpture.
@@ -60,7 +60,7 @@ public class Sculpture extends Artwork {
 	public void setDepth(double depth) {
 		this.depth = depth;
 	}
-	
+
 	/**
 	 * Method to retrieve the depth of the Sculpture.
 	 * @return depth
@@ -68,17 +68,18 @@ public class Sculpture extends Artwork {
 	public double getDepth() {
 		return depth;
 	}
-	
+
 	/**
 	 * Method to change the images of the Sculpture.
-	 * @param additionalImages
+	 *
+	 * @param newAdditionalImages the new additional images
 	 */
 	protected void setAdditionalImages(ArrayList<String> newAdditionalImages) {
-		for(int i = 0; i < newAdditionalImages.size(); i++) {
+		for (int i = 0; i < newAdditionalImages.size(); i++) {
 			additionalImages.add(newAdditionalImages.get(i));
 		}
 	}
-	
+
 	/**
 	 * Method to retrieve the additional images of the Sculpture.
 	 * @return additional images
