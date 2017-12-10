@@ -71,7 +71,7 @@ public class LoadData {
 			String street = inputStream.next();
 			String postcode = inputStream.next();
 			String cityTown = inputStream.next();
-			Integer phoneNo = inputStream.nextInt();
+			String phoneNo = inputStream.next();
 			inputStream.nextLine();
 
 			@SuppressWarnings("unused")
