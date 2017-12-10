@@ -1,4 +1,5 @@
 
+import java.awt.Point;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,6 +12,8 @@ import java.util.logging.Level;
 import java.util.regex.*;
 
 import javax.imageio.ImageIO;
+
+
 
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
@@ -90,8 +93,8 @@ public class SystemGUI extends Application {
 	private Canvas previewCanvas;			// The canvas which shows the current pen style
 	private double mouseX = 0.0;			// Mouse Coordinate X
 	private double mouseY = 0.0;			// Mouse Coordinate Y
-	private double initialmouseX;			// Mouse Coordinate X
-	private double initialmouseY;
+	private Point start;
+	private Point end;
 	private boolean drawParticle = true; 	// True if drawing a particle trace
 	private boolean drawLine = false;		// True if drawing a Straight Line
 	private boolean drawEraser = false;		// True if using an eraser
@@ -435,7 +438,6 @@ public class SystemGUI extends Application {
 		return true;
 	}
 	
-
 	/**
 	 * Method to build the Home Page GUI window
 	 * @return root The Constructed Pane with all the Home Page GUI elements
@@ -457,7 +459,7 @@ public class SystemGUI extends Application {
 
 		
 		//mainCenter.setBorder(new Border(new BorderStroke(Color.BLACK, 
-	    //        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+	   //         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		
 
 		root.setPadding(new Insets(25,10,10,10));
@@ -502,11 +504,13 @@ public class SystemGUI extends Application {
 		ArrayList<ImageView> artworkPreview = new ArrayList<>();
 		ArrayList<String> artworkDetails = new ArrayList<>();
 		for(int i = 0; i < auctions.size(); i++) {
-
+			
 			final ImageView previewArt = new ImageView();
 			previewArt.setImage(setArtImage(auctions.get(i).getCurrentArtTitle()));
 			previewArt.setFitHeight(128);
 			previewArt.setFitWidth(128);
+			
+			
 			previewArt.setId("" + i);
 			
 			artworkDetails.add(auctions.get(i).getAuctionedArtwork().getTitle());
@@ -532,6 +536,7 @@ public class SystemGUI extends Application {
 		}
 	
 		for(int n = 0; n < artworkPreview.size(); n++) {
+			
 			final VBox previewDetails = new VBox(2);
 			final Text previewTitle = new Text(auctions.get(n).getAuctionedArtwork().getTitle());
 			final Text previewType = new Text(auctions.get(n).getAuctionedArtwork().getArtType());
@@ -652,9 +657,6 @@ public class SystemGUI extends Application {
 		alert.setContentText(message);
 		alert.showAndWait();
 	}
-	
-	
-
 	
 	/**
 	 * Method to build the User List GUI window
@@ -790,7 +792,6 @@ public class SystemGUI extends Application {
 		}
 	}
 	
-	
 	/**
 	 * Method to add a given user to the current users favorites
 	 * @param user The user to be added to the Current users Favorite List.
@@ -823,8 +824,6 @@ public class SystemGUI extends Application {
 			}
 		}
 	}
-	
-	
 	
 	/**
 	 * Method to be used to get the defaultImage (for users without an image)
@@ -971,10 +970,6 @@ public class SystemGUI extends Application {
 		root.setContent(mainSection);
 		return root;
 	}
-	
-	
-	
-	
 	
 	/**
 	 * Method to build the Profile GUI window
@@ -1251,6 +1246,7 @@ public class SystemGUI extends Application {
 	            BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 	}
 	
+
 	/**
 	 * Method to build the Profile Draw Image GUI window
 	 * @return root The Constructed Pane with all the Profile Draw Image GUI elements
@@ -1364,7 +1360,8 @@ public class SystemGUI extends Application {
 	    		drawPreview(colorOption.getValue(), shapeOptions.getValue());
 	    	}
 	    });
-		canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		
+	    canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				String shape = shapeChoice(shapeOptions);
@@ -1382,8 +1379,12 @@ public class SystemGUI extends Application {
 				mouseY = event.getY() - (slider.getValue() / 2);
 				sliderValue = slider.getValue();
 				drawOnDrag(shape, colorOption);
-				}
+
+			}
 		});	
+		
+
+		
 		previewSection.getChildren().add(previewCanvas);
 	    topLeftBar.getChildren().addAll(draw, line, erase);
 	    topBar.getChildren().add(title);
@@ -1408,8 +1409,6 @@ public class SystemGUI extends Application {
 		drawParticle = true;
 	}
 	
-
-	
 	/**
 	 * Method to draw/erase at a tracked mouse X and Y coordinates
 	 * @param shape The given shape to be drawn
@@ -1426,16 +1425,12 @@ public class SystemGUI extends Application {
 			} else if(drawParticle == true && shape == "Square") {
 				gc.fillRect(mouseX, mouseY, sliderValue, sliderValue);
 			} else if(drawLine == true) { // IMPLEMENT A LINE (why is this so hard)
-
-				if(initialmouseX != mouseX && initialmouseY != mouseY) {
-				initialmouseX = mouseX;
-				initialmouseY = mouseY;
+				
 			
-				}	
+			}	
 		}
-	}
-
 	
+
 	/**
 	 * Method to draw/erase at a tracked mouse X and Y coordinates
 	 * @param shape The given shape to be drawn
@@ -1452,12 +1447,9 @@ public class SystemGUI extends Application {
 			} else if(drawParticle == true && shape == "Square") {
 				gc.fillRect(mouseX, mouseY, sliderValue, sliderValue);
 		} 
-		if(drawLine == true) { // IMPLEMENT A LINE (why is this so hard)
-			drawOnClick(shape, colorOption);
-			gc.strokeLine(initialmouseX, initialmouseY, mouseX, mouseY);
-			gc.setLineWidth(sliderValue);
-		}
+		
 	}
+	
 	
 	/**
 	 * Method to get the color choice and set the draw color
@@ -1753,7 +1745,14 @@ public class SystemGUI extends Application {
 		VBox leftVBar = new VBox(10);
 		VBox leftVBar2 = new VBox(10);
 		VBox rightVBar = new VBox(10);
+		VBox bidTableMain = new VBox(10);
+		HBox bidTableTitle = new HBox(10);
 		
+		
+		
+		bidTableMain.setBorder(new Border(new BorderStroke(Color.BLACK, 
+				BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+	
 		leftVBar2.setPadding(new Insets(25,0,0,0));
 		mainTop.setPadding(new Insets(20,50,10,10));
 		titleBlock.setAlignment(Pos.BASELINE_CENTER);
@@ -1776,7 +1775,9 @@ public class SystemGUI extends Application {
 		Text artWidth = new Text("Width: " + Double.toString(selectedAuction.getAuctionedArtwork().getWidth()) + "cm");
 		Text artDepth = new Text("Depth: " + Double.toString(selectedAuction.getAuctionedArtwork().getDepth()) + "cm");
 		Text artMaterial = new Text("Material: " + selectedAuction.getAuctionedArtwork().getMaterial());
-		
+		Text bidHistoryName = new Text("Username");
+		Text bidHistoryBid = new Text("Bid Amount");
+		Text bidHistoryDate = new Text("Date of Bid");
 		
 		Button bid = new Button("Bid on Artwork");
 		Button back = new Button("Return to home");
@@ -1784,16 +1785,33 @@ public class SystemGUI extends Application {
 		bid.setMaxSize(Double.MAX_VALUE, 55);
 		back.setPrefWidth(180);
 		
+		bidTableTitle.getChildren().addAll(bidHistoryName, bidHistoryBid, bidHistoryDate);
+		bidTableMain.getChildren().addAll(bidTableTitle);
+		
+		ArrayList<Bidding> currentBids = new ArrayList<>();
+		currentBids = selectedAuction.getBids();
 		
 		
 		
+		
+		
+		for(int i = 0; i < currentBids.size(); i++) {
+			HBox newRow = new HBox(10);
+			
+			Text name = new Text(currentBids.get(i).getUsername());
+			Text curbid = new Text(Double.toString(currentBids.get(i).getBidAmount()));
+			Text date = new Text(currentBids.get(i).getTimeOfBid());
+			
+			newRow.getChildren().addAll(name, curbid, date);
+			bidTableMain.getChildren().add(newRow);
+		}
 		
 		bid.setOnAction(e -> {
 			double userBid = convertBidInput(bidInput.getText());
 			attemptBid(selectedAuction, userBid);
-			bid.setVisible(selectedAuction.getAuctionedArtwork().getOnAuction());
-			bidInput.setVisible(selectedAuction.getAuctionedArtwork().getOnAuction());
-			
+			selectedAuctionView = new Scene(buildDetailedAuctionViewGUI(), AUCTION_DETAILS_STAGE_WIDTH, AUCTION_DETAILS_STAGE_HEIGHT);
+			window.setScene(selectedAuctionView);
+
 		});
 		
 		
@@ -1802,33 +1820,7 @@ public class SystemGUI extends Application {
 			window.setScene(home);
 		});
 		
-		
-		
-		TableView<Bidding> bidHistory = new TableView<>();
-		bidHistory.setEditable(false);
-		
-		TableColumn<Bidding, String> bidderName = new TableColumn<>("Bidder");
-		bidderName.setMinWidth(100);
-		bidderName.setCellValueFactory(
-                new PropertyValueFactory<Bidding, String>("Username"));
-		
-        TableColumn<Bidding, Double> bidAmount = new TableColumn<>("Bid");
-        bidAmount.setMinWidth(100);
-        bidAmount.setCellValueFactory(
-                new PropertyValueFactory<Bidding, Double>("Bid"));
-        
-        TableColumn<Bidding, String> bidDate = new TableColumn<>("Date of Bid");
-        bidDate.setMinWidth(100);
-        bidDate.setCellValueFactory(
-                new PropertyValueFactory<Bidding, String>("Date of Bid"));
-
-        
-        bidHistory.getColumns().addAll(bidderName,bidAmount,bidDate);
-        
-        
-        
-        
-        
+ 
         title.setScaleX(4);
 		title.setScaleY(4);
 		artName.setScaleX(2.5);
@@ -1846,9 +1838,12 @@ public class SystemGUI extends Application {
 			artDepth.setVisible(false);
 			artMaterial.setVisible(false);
 		}
+		
+
 
 		leftVBar.setAlignment(Pos.BASELINE_CENTER);
 
+		
 		bottomBar.getChildren().addAll(back);
 		titleBlock.getChildren().addAll(title, subTitle);
 		mainTop.getChildren().addAll(titleBlock);
@@ -1857,7 +1852,7 @@ public class SystemGUI extends Application {
 		leftVBar.getChildren().addAll(artworkImg, artName, artType);
 		
 		leftHBoxMain.getChildren().addAll(leftVBar, leftVBar2);
-		rightVBar.getChildren().addAll(bidHistory, bidInput, bid);
+		rightVBar.getChildren().addAll(bid, bidInput, bidTableMain);
 		
 		
 		innerCenter.setLeft(leftHBoxMain);
@@ -1897,8 +1892,6 @@ public class SystemGUI extends Application {
 	
 	}
 	
-	
-
 	public boolean newAuctionInputExistenceCheck(String auctionNameInput, String artCreatorInput, String artCreationYearInput, String maxBiddersInput) {
 		if(auctionNameInput.length() == 0 || artCreatorInput.length() == 0 || artCreationYearInput.length() == 0 ||  maxBiddersInput.length() == 0 ) {
 			notificationBox("Sign-Up Notification", "Input Error", "All fields must be filled out");

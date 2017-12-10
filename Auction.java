@@ -1,3 +1,5 @@
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -16,7 +18,7 @@ public class Auction {
 	/** The auctions. */
 	public static ArrayList<Auction> auctions = new ArrayList<>();
 	
-	public ArrayList<Bidding> bids = new ArrayList<>();
+	public ArrayList<Bidding> bidHistory = new ArrayList<>();
 
 	/** The next id. */
 	private static int nextId = 1;
@@ -131,7 +133,7 @@ public class Auction {
 			this.remainingBids -= 1;
 			
 			Bidding bid = new Bidding(newBidder, newBid, generateDateTime());
-			this.bids.add(bid);
+			this.bidHistory.add(bid);
 	
 			return "valid";
 		}
@@ -222,8 +224,15 @@ public class Auction {
 	
 	
 	private String generateDateTime() {
-		Date generatedDate = new Date();
-		return generatedDate.toString();
+		DateFormat dateFormat = new SimpleDateFormat("hh:mm:ss a");
+        Date date = new Date();
+        String time=dateFormat.format(date);
+
+		return time.toString();
+	}
+	
+	public ArrayList<Bidding> getBids() {
+		return this.bidHistory;
 	}
 	
 	

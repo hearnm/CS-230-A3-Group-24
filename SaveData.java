@@ -71,6 +71,12 @@ public class SaveData {
 		
 	}
 	
+	public static void updateArtwork(ArrayList allart, Artwork artwork) {
+		currentArtwork = artwork;
+		openProfileFile(artworkFavoritePath, true);
+		addNewArtwork(printWriter);
+		
+	}
 	
 	
 	/**
@@ -201,6 +207,31 @@ public class SaveData {
 		}
 		closeFile(outputStream);
 	}
+	
+	
+	private void updateExistingArtwork(PrintWriter outputStream) {
+		
+		for(int i = 0; i < allUsers.size(); i++) {
+			int userId = allUsers.get(i).getUserId();
+			String username = allUsers.get(i).getUsername();
+			String firstname = allUsers.get(i).getFirstName();
+			String lastname = allUsers.get(i).getLastName();
+			String street = allUsers.get(i).getStreet();
+			String postcode = allUsers.get(i).getPostcode();
+			String cityTown = allUsers.get(i).getCityTown();
+			Integer phoneNo = allUsers.get(i).getPhoneNumber();
+			boolean newAccount = allUsers.get(i).getNewAccount();
+			
+			outputStream.println(userId + "," + username + "," + firstname + "," + lastname + "," + street 
+			   		  + "," + postcode + "," + cityTown + "," + phoneNo + "," + newAccount + ",\n");
+		}
+		
+		closeFile(outputStream);
+	}
+	
+	
+	
+	
 	
 	/**
 	 * Method to close the file path
