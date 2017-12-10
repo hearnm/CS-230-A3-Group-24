@@ -29,7 +29,7 @@
 
 #WHITETEXT {
 	-fx-fill: #3333cc;
-	-fx-font-family: "Lucida Sans";
+	-fx-font-family: "Arial";
 	-fx-effect: dropshadow(three-pass-box, #3333cc, 10, 0.0, 2, 2);
 }
 
@@ -45,7 +45,7 @@
 .button {
     -fx-text-fill: black;
     -fx-font-size: 14px;
-    -fx-font-family: "Lucida Sans";
+    -fx-font-family: "Arial";
     -fx-background-color: #d3d3d3;
     -fx-effect: dropshadow(three-pass-box, grey, 10, 0.0, 2, 2);
 }
@@ -57,7 +57,7 @@
 
 .text-field {
 	-fx-background-color: linear-gradient(white, d3d3d3);
-	-fx-font-family: "Lucida Sans";
+	-fx-font-family: "Arial";
 }
 
 .choice-box {
