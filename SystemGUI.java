@@ -389,6 +389,14 @@ public class SystemGUI extends Application {
 			return false;
 		}
 	}
+	
+	private boolean phoneNoChecker(String phoneNo) {
+		if (phoneNo.matches("^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?\\#(\\d{4}|\\d{3}))?$\r\n")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	/**
 	 * Method to check check the currently stored profiles too see if there is a duplicate
