@@ -540,7 +540,7 @@ public class SystemGUI extends Application {
 			System.out.println("Artwork Loaded");
 		}
 		
-		Button createNewAuctionButton = new Button("Create a new\nauction.");
+		Button createNewAuctionButton = new Button("Create a new auction.");
 		
 		createNewAuctionButton.setOnAction(e -> {
 			newAuction = new Scene(buildCreateNewAuctionGUI(), CREATE_AUCTION_STAGE_WIDTH , CREATE_AUCTION_STAGE_HEIGHT);
