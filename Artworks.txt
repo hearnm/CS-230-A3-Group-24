@@ -1,0 +1,4 @@
+Niko,Sculpture,David,Michelangelo,1501,200.0,12,14.0,34.0,24.0,Marble,true,
+Niko,Painting,Mona Lisa,Leonardo Da Vinci,1513,300.0,3,14.0,18.0,true,
+Niko,Painting,The Starry Night,Vincent Van Gogh,1889,200.0,30,35.0,20.0,true,
+
