@@ -385,9 +385,9 @@ public class SystemGUI extends Application {
 		}
 		if (username.length() > 1) {
 			return true;
-		} //else {
-			//return false;
-		//}
+		} else {
+			return false;
+		}
 	}
 
 	/**
