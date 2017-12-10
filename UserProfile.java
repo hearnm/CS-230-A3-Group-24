@@ -6,11 +6,10 @@ import java.util.*;
  * @author Tom Durman
  */
 public class UserProfile {
-
 	private static int userCount = 1;		// Static attribute to ensure unique user Id creation
 	@SuppressWarnings("unused")
 	private static int currentUserId = -1;	// The current userId that is logged into the system
-	
+
 	private int userId;			// The unique User identifier
 	private String username;	// The unique Username associated with the profile
 	private String firstName;	// The First name of the user
@@ -18,29 +17,28 @@ public class UserProfile {
 	private String street;		// The Street the user lives on
 	private String postcode;	// The Postcode of the users address
 	private String cityTown;	// The City or Town the User lives at
-	private String phoneNumber;	// A Valid UK Phone number (NOTE: this needs to be an Integer)
-	private String profileImg = "DefaultPicture.png";
+	private String phoneNumber;	// A Valid UK Phone number
+	private String profileImg = "DefaultPicture.png";	//The profile
 	private boolean newAccount;	// A check to see if an account is new or pre-existing
-	
 	private static ArrayList<UserProfile> profiles = new ArrayList<UserProfile>();  // An ArrayList of all profiles in the system
 	private ArrayList<UserProfile> favoriteUsers = new ArrayList<UserProfile>();	// An Array of users marked as favorite by one instance of a user
-	
-	
+
 	/**
 	 * Constructor for UserProfile which creates new Users.
-	 * When a User Profile is created a check is made to see if they are a pre-existing user or new and saves to the system
+	 * When a User Profile is created a check is made to see if
+	 * they are a pre-existing user or new and saves to the system
+	 *
 	 * @param username The username of the User.
 	 * @param firstName The first name of the User.
 	 * @param lastName The last name of the User.
 	 * @param street The Users current street address.
-	 * @param cityTown The Users city or town.
 	 * @param postcode The Users current postcode.
-	 * @param phoneno The Users current phone number.
+	 * @param cityTown The Users city or town.
+	 * @param phoneNo the phone no
 	 * @param newAccount A check to see if an account is new or pre-existing.
 	 */
 	public UserProfile(String username, String firstName, String lastName, String street,
 			 		   String postcode, String cityTown, String phoneNo, boolean newAccount) {
-		
 		this.username = username;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -50,7 +48,7 @@ public class UserProfile {
 		this.phoneNumber = phoneNo;
 		this.userId = userCount++;
 		this.newAccount = newAccount;
-		
+
 		if(this.newAccount == true) {
 			profiles.add(this);
 			saveProfile();
@@ -59,26 +57,37 @@ public class UserProfile {
 			profiles.add(this);
 		}
 	}
-	
+
 	/**
-	 * Method to get the newAccount Attribute
+	 * Method to get the newAccount Attribute.
+	 *
 	 * @return newAccount True if new account, false if pre-existing.
 	 */
 	public boolean getNewAccount() {
 		return this.newAccount;
 	}
-	
+
 	/**
-	 * Method to Save the current Users data
+	 * Method to Save the current Users data.
 	 */
 	public void saveProfile() {
 		SaveData.saveNewProfile(this.username);
 	}
-	
+
+	/**
+	 * Sets the profile image.
+	 *
+	 * @param imagePath the new profile image
+	 */
 	public void setProfileImage(String imagePath) {
 		this.profileImg = imagePath;
 	}
-	
+
+	/**
+	 * Gets the profile image.
+	 *
+	 * @return the profile image
+	 */
 	public String getProfileImage() {
 		return this.profileImg;
 	}
@@ -209,11 +218,20 @@ public class UserProfile {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	
+
+	/**
+	 * Gets the profiles.
+	 * @return the profiles
+	 */
 	public static ArrayList<UserProfile> getProfiles() {
 		return profiles;
 	}
-	
+
+	/**
+	 * Gets the current user object.
+	 * @param username The username
+	 * @return The current user object
+	 */
 	public static UserProfile getCurrentUserObject(String username) {
 		
 		for(int i = 0; i < profiles.size(); i++) {
@@ -226,6 +244,12 @@ public class UserProfile {
 		return null;
 	}
 	
+	/**
+	 * Gets the current user object.
+
+	 * @param id the id
+	 * @return the current user object
+	 */
 	public static UserProfile getCurrentUserObject(int id) {
 		
 		for(int i = 0; i < profiles.size(); i++) {
@@ -238,6 +262,11 @@ public class UserProfile {
 		return null;
 	}
 	
+	/**
+	 * Removes the favorite user.
+	 *
+	 * @param user the user
+	 */
 	public void removeFavoriteUser(UserProfile user) {
 		for(int i = 0; i < favoriteUsers.size(); i++) {
 			if(user.getUsername().equalsIgnoreCase(favoriteUsers.get(i).getUsername())) {
@@ -247,10 +276,20 @@ public class UserProfile {
 		
 	}
 	
+	/**
+	 * Adds the favorite user.
+	 *
+	 * @param user the user
+	 */
 	public void addFavoriteUser(UserProfile user) {
 		favoriteUsers.add(user);
 	}
 	
+	/**
+	 * Adds the favorite multiple users.
+	 *
+	 * @param favorites the favorites
+	 */
 	public void addFavoriteMultipleUsers(ArrayList<UserProfile> favorites) {
 		
 		for(int i = 0; i < favorites.size(); i++) {
@@ -259,6 +298,12 @@ public class UserProfile {
 		}
 	}
 	
+	/**
+	 * Search favorite.
+	 *
+	 * @param user the user
+	 * @return true, if successful
+	 */
 	public boolean searchFavorite(UserProfile user) {
 		
 		for(int i = 0; i < favoriteUsers.size(); i++) {
@@ -270,6 +315,12 @@ public class UserProfile {
 		return false;
 	}
 	
+	/**
+	 * Search favorite.
+	 *
+	 * @param username the username
+	 * @return true, if successful
+	 */
 	public boolean searchFavorite(String username) {
 		
 		for(int i = 0; i < favoriteUsers.size(); i++) {
