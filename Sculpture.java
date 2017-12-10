@@ -39,7 +39,7 @@ public class Sculpture extends Artwork {
 	
 	/**
 	 * Method to change the material of the Sculpture.
-	 * @param material
+	 * @param material The Material of the Sculpture.
 	 */
 	public void setMaterial(String material) {
 		this.material = material;
@@ -55,7 +55,7 @@ public class Sculpture extends Artwork {
 	
 	/**
 	 * Method to change the depth of the Sculpture.
-	 * @param depth
+	 * @param depth The Depth Dimension of the Sculpture.
 	 */
 	public void setDepth(double depth) {
 		this.depth = depth;

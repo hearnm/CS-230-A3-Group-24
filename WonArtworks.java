@@ -14,16 +14,16 @@ public class WonArtworks {
 	}
 	
 	/**
-	 * Returns the list of artworks
-	 * @return list of artworks
+	 * Returns the list of Artwork
+	 * @return list of Artwork
 	 */
 	public ArrayList<Artwork> getListOfArtworks() {
 		return listOfArtworks;
 	}
 	
 	/**
-	 * Sets the list of Artworks
-	 * @param listOfArtworks
+	 * Sets the list of Artwork
+	 * @param listOfArtworks The list of Artwork
 	 */
 	public void setListOfArtworks(ArrayList<Artwork> listOfArtworks) {
 		this.listOfArtworks = listOfArtworks;

@@ -13,8 +13,9 @@ public class Bidding {
 
 	/**
 	 * Instantiates a new bid.
-	 * @param username the username
-	 * @param bidAmount the bid amount
+	 * @param username the username.
+	 * @param bidAmount the bid amount.
+	 * @param timeOfBid The time of the bid.
 	 */
 	public Bidding(String username, double bidAmount, String timeOfBid) {
 		this.username = username;
@@ -37,9 +38,9 @@ public class Bidding {
 	public double getBidAmount() {
 		return this.bidAmount;
 	}
-	
+
 	/**
-	 * Gets the Time of the bid
+	 * Gets the Time of the bid.
 	 * @return timeOfBid The time the bid was placed
 	 */
 	public String getTimeOfBid() {

@@ -28,8 +28,9 @@
 }
 
 #WHITETEXT {
-	-fx-fill: white;
-	-fx-effect: dropshadow(three-pass-box, black, 10, 0.0, 2, 2);
+	-fx-fill: #3333cc;
+	-fx-font-family: "Lucida Sans";
+	-fx-effect: dropshadow(three-pass-box, #3333cc, 10, 0.0, 2, 2);
 }
 
 #INFORMATIONHIGHLIGHTER {
@@ -38,13 +39,13 @@
 }
 
 .label {
-	-fx-text-fill: white;
+	-fx-text-fill: #3333cc;
 }
 
 .button {
     -fx-text-fill: black;
     -fx-font-size: 14px;
-    -fx-font-family: "Calibri";
+    -fx-font-family: "Lucida Sans";
     -fx-background-color: #d3d3d3;
     -fx-effect: dropshadow(three-pass-box, grey, 10, 0.0, 2, 2);
 }
@@ -56,7 +57,7 @@
 
 .text-field {
 	-fx-background-color: linear-gradient(white, d3d3d3);
-	-fx-font-family: "Arial";
+	-fx-font-family: "Lucida Sans";
 }
 
 .choice-box {
