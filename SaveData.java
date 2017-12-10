@@ -12,24 +12,16 @@ import java.util.*;
  * @author Tom Durman
  */
 public class SaveData {
-	/** The Constant File path for the system data. */
-	private static final String PROFILE_DATA_PATH = "ArtataweProfiles.txt";
-	/** The Constant File path to save all the data to. */
-	private static final String PROFILE_FAVORITE_PATH = "_FavoriteProfiles.txt";
-	/** The Constant File path to the artworks data (including bidding info). */
-	private static final String ARTWORK_FAVORITE_PATH = "Artworks.txt";
+	private static final String PROFILE_DATA_PATH = "ArtataweProfiles.txt";			//The Constant File path for the system data.
+	private static final String PROFILE_FAVORITE_PATH = "_FavoriteProfiles.txt";	//The Constant File path to save all the data to.
+	private static final String ARTWORK_FAVORITE_PATH = "Artworks.txt";				//The Constant File path to the artworks data (including bidding info).
 
-	/** The current user that is logged onto the system. */
-	private static UserProfile currentUser;
-	/** The current artwork. */
-	private static Artwork currentArtwork;
-	/** The print writer for writing to a file. */
-	private static PrintWriter printWriter;
+	private static UserProfile currentUser;		//The current user that is logged onto the system.
+	private static Artwork currentArtwork;		//The current artwork.
+	private static PrintWriter printWriter;		//The print writer for writing to a file.
 
-	/** The current auctions to be saved / updated. */
-	private static ArrayList<Auction> currentAuctions = new ArrayList<>();
-	/** The users to be saved / updated. */
-	private static ArrayList<UserProfile> allUsers = new ArrayList<>();
+	private static ArrayList<Auction> currentAuctions = new ArrayList<>();	//The current auctions to be saved/updated.
+	private static ArrayList<UserProfile> allUsers = new ArrayList<>();		//The users to be saved/updated.
 
 	/**
 	 * Static Method that saves the system according to a given Username.
