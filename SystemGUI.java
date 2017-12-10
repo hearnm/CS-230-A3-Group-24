@@ -54,6 +54,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
@@ -77,13 +78,13 @@ public class SystemGUI extends Application {
 	private static final int LOGIN_STAGE_HEIGHT= 600;
 	private static final int LOGIN_STAGE_WIDTH = 750;
 	private static final int P_DRAW_IMG_STAGE_WIDTH = 605;		// Width of the Draw Image Stage
-	private static final int P_DRAW_IMG_STAGE_HEIGHT= 580;		// Height of the Draw Image Stage
+	private static final int P_DRAW_IMG_STAGE_HEIGHT= 610;		// Height of the Draw Image Stage
 	private static final int AUCTION_DETAILS_STAGE_WIDTH = 850;	// Width of the Auction Details Stage
 	private static final int AUCTION_DETAILS_STAGE_HEIGHT= 500; // Height of the Auction Details Stage
 	private static final int CREATE_AUCTION_STAGE_WIDTH = 400; 	// Width of the Create Auction Stage
 	private static final int CREATE_AUCTION_STAGE_HEIGHT = 550;	// Height of the Create Auction Stage
 	private static final int CANVAS_WIDTH = 356;				// Width of the Draw Canvas
-	private static final int CANVAS_HEIGHT = 449;				// Height of the Draw Canvas
+	private static final int CANVAS_HEIGHT = 459;				// Height of the Draw Canvas
 	private static final int PREVIEW_CANVAS_WIDTH = 150;		// Width of the Preview Canvas
 	private static final int PREVIEW_CANVAS_HEIGHT = 102; 		// Height of the Preview Canvas
 	private static final int PREVIEW_CANVAS_DRAW_X = 25;		// Draw Preview Location X
@@ -93,12 +94,15 @@ public class SystemGUI extends Application {
 	private Canvas previewCanvas;			// The canvas which shows the current pen style
 	private double mouseX = 0.0;			// Mouse Coordinate X
 	private double mouseY = 0.0;			// Mouse Coordinate Y
-	private Point start;					// Start coordinates for Drawing a Line
-	private Point end;						// End coordinates for Drawing a Line
 	private boolean drawParticle = true; 	// True if drawing a particle trace
 	private boolean drawLine = false;		// True if drawing a Straight Line
 	private boolean drawEraser = false;		// True if using an eraser
 	private double sliderValue = 20;		// Value of the Draw image slider
+	private boolean lineStarted = false;
+	private double lineStartX;
+	private double lineStartY;
+	private Label lineActiveTxt = new Label("Line initial node selected");
+	
 
 	private Stage window;					// The main stage, displaying the current Scene
 	private Scene login;					// The Scene to hold the login Page GUI
@@ -118,10 +122,7 @@ public class SystemGUI extends Application {
 	private ArrayList<UserProfile> allUsers = new ArrayList<>();			// an Array List of all users currently on the system
 	private ArrayList<ImageView> avatars = new ArrayList<>();				// an Arraylist of paths to 6 pre-made user Avatars (stored locally)
 	public static ArrayList<Auction> auctions = new ArrayList<Auction>();	// an Arraylist of all Auctions on the system
-
-	private boolean lineStarted = false;
-	private double lineStartX;
-	private double lineStartY;
+	
 	/**
 	 * Main Method to start the GUI.
 	 * @param args The arguments of this class.
@@ -1269,6 +1270,8 @@ public class SystemGUI extends Application {
 	    options.setScaleX(1.5);
 	    options.setScaleY(1.5);
 	    options.setPadding(new Insets(1,1,1,15));
+	    
+	    lineActiveTxt.setVisible(false);
 
 	    // Create reset button and add it into the side bar VBox
 	    Button reset = new Button("Reset Canvas");
@@ -1359,7 +1362,7 @@ public class SystemGUI extends Application {
 		previewSection.getChildren().add(previewCanvas);
 	    topLeftBar.getChildren().addAll(draw, line, erase);
 	    topBar.getChildren().add(title);
-	    sideBar.getChildren().addAll(options, topLeftBar, color, colorOption, shape, shapeOptions,sizeModifer, slider, reset, drawPreview, previewSection);
+	    sideBar.getChildren().addAll(options, lineActiveTxt, topLeftBar, color, colorOption, shape, shapeOptions, sizeModifer, slider, reset, drawPreview, previewSection);
 	    bottomBar.getChildren().addAll(back, setImage);
 	    middleSection.getChildren().add(canvas);
 	   
@@ -1397,13 +1400,24 @@ public class SystemGUI extends Application {
 			gc.fillRect(mouseX, mouseY, sliderValue, sliderValue);
 		} else if(drawLine == true) {
 			if(lineStarted == true) {
+				gc.setStroke(colorOption.getValue());
+				if(shape == "Circle") {
+					gc.setLineCap(StrokeLineCap.ROUND);
+				} else {
+					gc.setLineCap(StrokeLineCap.SQUARE);
+				}
 				gc.setLineWidth(sliderValue);
-				gc.strokeLine(lineStartX, lineStartY, mouseX, mouseY);
+				
+				double offset = sliderValue/2;
+				
+				gc.strokeLine(lineStartX + offset, lineStartY + offset, mouseX + offset, mouseY + offset);
 				lineStarted = false;
+				lineActiveTxt.setVisible(false);
 			} else {
 				lineStartX = mouseX;
 				lineStartY = mouseY;
 				lineStarted = true;
+				lineActiveTxt.setVisible(true);
 			}
 			
 		}	
