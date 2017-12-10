@@ -38,9 +38,31 @@ public class Auction {
 		this.currentBidder = null;
 		this.remainingBids = auctionedArtwork.getNumBidAllowed();
 		this.reserveBid = auctionedArtwork.getReservePrice();
-		auctions.add(this);
+		
+		sortAuctions();
+
 	}
 
+	
+	private void sortAuctions() {
+		if(this.auctionedArtwork.getOnAuction() == true) {
+			auctions.add(this);
+		} else {
+			completedAuctions.add(this);
+		}
+	}
+	
+	public ArrayList<Auction> getGivenUserWonArtworks(String username) {
+		ArrayList<Auction> usersWonArtworks = new ArrayList<>();
+		for(int i = 0; i < completedAuctions.size(); i++) {
+			if(username.equalsIgnoreCase(completedAuctions.get(i).getCurrentBidder())) {
+				
+			}
+		}
+		return null;
+	}
+	
+	
 	/**
 	 * Method to get the current auctions on the system.
 	 * @return auctions ArrayList of all current auctions
