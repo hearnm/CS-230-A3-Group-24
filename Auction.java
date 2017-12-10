@@ -42,7 +42,7 @@ public class Auction {
 	}
 
 	/**
-	 * Method to get the current auctions on the system
+	 * Method to get the current auctions on the system.
 	 * @return auctions ArrayList of all current auctions
 	 */
 	public static ArrayList<Auction> getCurrentAuctions() {
@@ -50,7 +50,7 @@ public class Auction {
 	}
 
 	/**
-	 * Method to get an auction object given an artwork name
+	 * Method to get an auction object given an artwork name.
 	 * @param artworkName Name of the artwork to be searched for
 	 * @return Auction Object if exists
 	 */
@@ -81,7 +81,8 @@ public class Auction {
 
 	/**
 	* Get method for obtaining the auctioned artwork.
-	* @return Artwork auctionedArtwork The artwork associated with the auction.
+	* @return Artwork auctionedArtwork The artwork associated with the
+	* auction.
 	*/
 	public Artwork getAuctionedArtwork() {
 		return this.auctionedArtwork;
@@ -95,7 +96,8 @@ public class Auction {
 	*/
 	public String attemptNewBid(String newBidder, double newBid) {
 		// Check if the bid is valid and the final bid
-		if (checkIfBidValid(newBidder, newBid) && this.remainingBids == 1) {
+		if (checkIfBidValid(newBidder, newBid)
+				&& this.remainingBids == 1) {
 			completedAuctions.add(this);
 			auctionedArtwork.setOnAuction(false);
 			return "win";
@@ -107,7 +109,8 @@ public class Auction {
 			this.currentBid = newBid;
 			this.remainingBids -= 1;
 			// create a new bid object
-			Bidding bid = new Bidding(newBidder, newBid, generateDateTime());
+			Bidding bid = new Bidding(newBidder, newBid,
+					generateDateTime());
 			this.bidHistory.add(bid);
 
 			return "valid";
@@ -156,7 +159,8 @@ public class Auction {
 	}
 
 	/**
-	 * Method to get the current (highest) bidder on the instance of an auction.
+	 * Method to get the current (highest) bidder on the instance of an
+	 * auction.
 	 * @return currentBidder The current bidders username
 	 */
 	public String getCurrentBidder() {
