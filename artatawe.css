@@ -23,7 +23,7 @@
 }
 
 #PANE {
-	-fx-background-image: url("landscape-and-cityscape-view-of-swansea.jpg");
+	-fx-background-image: url("Background.jpg");
 	-fx-background-size: cover;
 }
 
@@ -70,3 +70,5 @@
 .choice-box .context-menu {
 	-fx-background-color: linear-gradient(white, d3d3d3);
 }
+
+

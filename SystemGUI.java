@@ -348,6 +348,7 @@ public class SystemGUI extends Application {
     			}
     		} 
     	});
+    	
     	innerDetails1.getChildren().addAll(username, usernameBox);
     	innerDetails2.getChildren().addAll(firstname, firstnameBox);
     	innerDetails3.getChildren().addAll(lastname, lastnameBox);
@@ -457,11 +458,9 @@ public class SystemGUI extends Application {
 		HBox searchBlock = new HBox(5);
 		StackPane mainCenter = new StackPane();
 
-		
 		//mainCenter.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	   //         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		
-
 		root.setPadding(new Insets(25,10,10,10));
 		mainTop.setPadding(new Insets(25,10,10,10));
 		buttonBar.setPadding(new Insets(25,10,10,10));
@@ -498,9 +497,7 @@ public class SystemGUI extends Application {
 		filterAll.setOnAction(e -> {filterPaintings.setSelected(false); filterSculptures.setSelected(false);});
 		filterPaintings.setOnAction(e -> filterAll.setSelected(false));
 		filterSculptures.setOnAction(e -> filterAll.setSelected(false));
-		
-
-		
+	
 		ArrayList<ImageView> artworkPreview = new ArrayList<>();
 		ArrayList<String> artworkDetails = new ArrayList<>();
 		for(int i = 0; i < auctions.size(); i++) {
@@ -508,18 +505,14 @@ public class SystemGUI extends Application {
 			final ImageView previewArt = new ImageView();
 			previewArt.setImage(setArtImage(auctions.get(i).getCurrentArtTitle()));
 			previewArt.setFitHeight(128);
-			previewArt.setFitWidth(128);
-			
-			
+			previewArt.setFitWidth(128);	
 			previewArt.setId("" + i);
 			
 			artworkDetails.add(auctions.get(i).getAuctionedArtwork().getTitle());
 			artworkDetails.add(auctions.get(i).getAuctionedArtwork().getArtType());
 			artworkDetails.add(auctions.get(i).getAuctionedArtwork().getAuctioneer());
-			
 			artworkPreview.add(previewArt);
 		}
-		
 		
 		for(int k = 0; k < artworkPreview.size(); k++) {
 			
@@ -551,7 +544,6 @@ public class SystemGUI extends Application {
 			newAuctionBlock.getChildren().addAll(artworkPreview.get(n), previewDetails);
 			System.out.println("Artwork Loaded");
 		}
-		
 		
 		Button createNewAuctionButton = new Button("Create a new\nauction.");
 		
@@ -595,9 +587,7 @@ public class SystemGUI extends Application {
 			
 		});
 		
-		
 		titleBlock.setAlignment(Pos.BASELINE_CENTER);
-		
 		
 		searchBlock.getChildren().addAll(search,searchBtn, buttonBar);
 		buttonBar.getChildren().addAll(textAll, filterAll, textPaintings, filterPaintings, textSculptures, filterSculptures);
@@ -706,7 +696,6 @@ public class SystemGUI extends Application {
 			
 		});
 		
-		
 		for(int i = 0; i < allUsers.size(); i++) {
 			try {
 				if(allUsers.get(i).getUsername() != currentUserObject.getUsername()) {
@@ -719,7 +708,6 @@ public class SystemGUI extends Application {
 					final ImageView listUserImg = new ImageView(getUserImage(allUsers.get(i)));
 					listUserImg.setFitHeight(100);
 					listUserImg.setFitWidth(100);
-					
 					
 					final Button mark = new Button();
 					mark.setId(allUsers.get(i).getUsername());
@@ -746,8 +734,7 @@ public class SystemGUI extends Application {
 							}
 						};
 					});
-					
-					
+						
 					listname.add(listUsername);
 					listPic.add(listUserImg);
 					buttons.add(mark);
@@ -757,7 +744,6 @@ public class SystemGUI extends Application {
 				}
 		}
 	
-		
 		for(int j = 0; j < allUsers.size() - 1; j++) {
 			GridPane.setConstraints(listPic.get(j), 0, j);
 			GridPane.setConstraints(listname.get(j), 1, j);
@@ -901,9 +887,6 @@ public class SystemGUI extends Application {
 			
 		});
 		
-		
-		
-		
 		for(int i = 0; i < allUsers.size(); i++) {
 			try {
 				if(allUsers.get(i).getUsername() != currentUserObject.getUsername()) {
@@ -916,7 +899,6 @@ public class SystemGUI extends Application {
 					final ImageView listUserImg = new ImageView(getUserImage(allUsers.get(i)));
 					listUserImg.setFitHeight(100);
 					listUserImg.setFitWidth(100);
-					
 					
 					final Button mark = new Button();
 					mark.setId(allUsers.get(i).getUsername());
@@ -1246,7 +1228,6 @@ public class SystemGUI extends Application {
 		p.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 	}
-	
 
 	/**
 	 * Method to build the Profile Draw Image GUI window
@@ -1383,9 +1364,7 @@ public class SystemGUI extends Application {
 
 			}
 		});	
-		
-
-		
+	
 		previewSection.getChildren().add(previewCanvas);
 	    topLeftBar.getChildren().addAll(draw, line, erase);
 	    topBar.getChildren().add(title);
@@ -1430,7 +1409,6 @@ public class SystemGUI extends Application {
 			
 			}	
 		}
-	
 
 	/**
 	 * Method to draw/erase at a tracked mouse X and Y coordinates
@@ -1591,7 +1569,6 @@ public class SystemGUI extends Application {
 		TextField depthBox = new TextField();
 		TextField mainMaterialBox = new TextField();
 		
-		
 		heightBox.setMaxWidth(50);
 		widthBox.setMaxWidth(50);
 		depthBox.setMaxWidth(50);
@@ -1654,7 +1631,6 @@ public class SystemGUI extends Application {
 		sculptureRadio.setToggleGroup(radioSelectionToggle);
 		sculptureRadio.setSelected(true);
 		
-
 		createAuctionButton.setOnAction(e -> {
 			if(newAuctionInputExistenceCheck(artNameBox.getText(), artCreatorBox.getText(), artCreationYearBox.getText(), maxBiddersBox.getText()) == true) {
 				
@@ -1678,7 +1654,6 @@ public class SystemGUI extends Application {
 				}
 			}
 		});
-
 
 		toggles.setAlignment(Pos.BASELINE_CENTER);
 		toggles.getChildren().addAll(sculptureRadio, paintingRadio);
@@ -1749,8 +1724,6 @@ public class SystemGUI extends Application {
 		VBox bidTableMain = new VBox(10);
 		HBox bidTableTitle = new HBox(10);
 		
-		
-		
 		bidTableMain.setBorder(new Border(new BorderStroke(Color.BLACK, 
 				BorderStrokeStyle.DASHED, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 	
@@ -1786,15 +1759,14 @@ public class SystemGUI extends Application {
 		bid.setMaxSize(Double.MAX_VALUE, 55);
 		back.setPrefWidth(180);
 		
+		artName.setFill(Color.WHITE);
+		artType.setFill(Color.WHITE);
+		
 		bidTableTitle.getChildren().addAll(bidHistoryName, bidHistoryBid, bidHistoryDate);
 		bidTableMain.getChildren().addAll(bidTableTitle);
 		
 		ArrayList<Bidding> currentBids = new ArrayList<>();
 		currentBids = selectedAuction.getBids();
-		
-		
-		
-		
 		
 		for(int i = 0; i < currentBids.size(); i++) {
 			HBox newRow = new HBox(10);
@@ -1817,13 +1789,11 @@ public class SystemGUI extends Application {
 
 		});
 		
-		
 		back.setOnAction(e -> {
 			selectedAuction = null;
 			window.setScene(home);
 		});
 		
- 
         title.setScaleX(4);
 		title.setScaleY(4);
 		artName.setScaleX(2.5);
@@ -1842,11 +1812,8 @@ public class SystemGUI extends Application {
 			artMaterial.setVisible(false);
 		}
 		
-
-
 		leftVBar.setAlignment(Pos.BASELINE_CENTER);
 
-		
 		bottomBar.getChildren().addAll(back);
 		titleBlock.getChildren().addAll(title, subTitle);
 		mainTop.getChildren().addAll(titleBlock);
@@ -1857,13 +1824,11 @@ public class SystemGUI extends Application {
 		leftHBoxMain.getChildren().addAll(leftVBar, leftVBar2);
 		rightVBar.getChildren().addAll(bid, bidInput, bidTableMain);
 		
-		
 		innerCenter.setLeft(leftHBoxMain);
 		root.setCenter(innerCenter);
 		root.setTop(mainTop);
 		root.setBottom(bottomBar);
 		root.setRight(rightVBar);
-		
 		
 		return root;
 	}
@@ -1900,7 +1865,6 @@ public class SystemGUI extends Application {
 			
 		}
 		return false;
-	
 	}
 	
 	public boolean newAuctionInputExistenceCheck(String auctionNameInput, String artCreatorInput, String artCreationYearInput, String maxBiddersInput) {
