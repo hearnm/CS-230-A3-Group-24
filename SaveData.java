@@ -111,7 +111,7 @@ public class SaveData {
 			String street = currentUser.getStreet();
 			String postcode = currentUser.getPostcode();
 			String cityTown = currentUser.getCityTown();
-			Integer phoneNo = currentUser.getPhoneNumber();
+			String phoneNo = currentUser.getPhoneNumber();
 			boolean newAccount = currentUser.getNewAccount();
 
 		outputStream.println(userId + "," + username + "," + firstname + "," + lastname + "," + street 
@@ -132,7 +132,7 @@ public class SaveData {
 			String street = allUsers.get(i).getStreet();
 			String postcode = allUsers.get(i).getPostcode();
 			String cityTown = allUsers.get(i).getCityTown();
-			Integer phoneNo = allUsers.get(i).getPhoneNumber();
+			String phoneNo = allUsers.get(i).getPhoneNumber();
 			boolean newAccount = allUsers.get(i).getNewAccount();
 
 			outputStream.println(userId + "," + username + "," + firstname + "," + lastname + "," + street 

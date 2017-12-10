@@ -18,7 +18,7 @@ public class UserProfile {
 	private String street;		// The Street the user lives on
 	private String postcode;	// The Postcode of the users address
 	private String cityTown;	// The City or Town the User lives at
-	private Integer phoneNumber;	// A Valid UK Phone number (NOTE: this needs to be an Integer)
+	private String phoneNumber;	// A Valid UK Phone number (NOTE: this needs to be an Integer)
 	private String profileImg = "DefaultPicture.png";
 	private boolean newAccount;	// A check to see if an account is new or pre-existing
 	
@@ -35,11 +35,11 @@ public class UserProfile {
 	 * @param street The Users current street address.
 	 * @param cityTown The Users city or town.
 	 * @param postcode The Users current postcode.
-	 * @param phoneNumber The Users current phone number.
+	 * @param phoneno The Users current phone number.
 	 * @param newAccount A check to see if an account is new or pre-existing.
 	 */
 	public UserProfile(String username, String firstName, String lastName, String street,
-			 		   String postcode, String cityTown, Integer phoneNumber, boolean newAccount) {
+			 		   String postcode, String cityTown, String phoneNo, boolean newAccount) {
 		
 		this.username = username;
 		this.firstName = firstName;
@@ -47,7 +47,7 @@ public class UserProfile {
 		this.street = street;
 		this.postcode = postcode;
 		this.cityTown = cityTown;
-		this.phoneNumber = phoneNumber;
+		this.phoneNumber = phoneNo;
 		this.userId = userCount++;
 		this.newAccount = newAccount;
 		
@@ -198,7 +198,7 @@ public class UserProfile {
 	 * Method to get the phone number.
 	 * @return the phoneNumber
 	 */
-	public Integer getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
@@ -206,7 +206,7 @@ public class UserProfile {
 	 * Method to set a new phone number.
 	 * @param phoneNumber the phoneNumber to set
 	 */
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 	

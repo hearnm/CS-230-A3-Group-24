@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -66,18 +67,24 @@ import javafx.stage.Stage;
  * This class creates the System GUI and handles interaction response for the user.
  */
 public class SystemGUI extends Application {
-	private static final int MAIN_STAGE_WIDTH = 800;			// Width of the Main Stage
-	private static final int MAIN_STAGE_HEIGHT= 500;			// Height of the Main Stage
+	private static final int HOME_STAGE_WIDTH = 840;			// Width of the Main Stage
+	private static final int HOME_STAGE_HEIGHT= 800;			// Height of the Main Stage
 	private static final int SIGNUP_STAGE_WIDTH = 600;			// Width of the Signup Stage
 	private static final int SIGNUP_STAGE_HEIGHT= 600;			// Height of the Signup Stage
-	private static final int P_DRAW_IMG_STAGE_WIDTH = 600;		// Width of the Draw Image Stage
+	private static final int PROFILE_STAGE_WIDTH = 750;			// Width of the Signup Stage
+	private static final int PROFILE_STAGE_HEIGHT= 600;
+	private static final int VIEW_STAGE_WIDTH = 500;			// Width of the Signup Stage
+	private static final int VIEW_STAGE_HEIGHT= 600;
+	private static final int LOGIN_STAGE_HEIGHT= 600;
+	private static final int LOGIN_STAGE_WIDTH = 750;
+	private static final int P_DRAW_IMG_STAGE_WIDTH = 605;		// Width of the Draw Image Stage
 	private static final int P_DRAW_IMG_STAGE_HEIGHT= 580;		// Height of the Draw Image Stage
 	private static final int AUCTION_DETAILS_STAGE_WIDTH = 850;	// Width of the Auction Details Stage
 	private static final int AUCTION_DETAILS_STAGE_HEIGHT= 500; // Height of the Auction Details Stage
 	private static final int CREATE_AUCTION_STAGE_WIDTH = 400; 	// Width of the Create Auction Stage
 	private static final int CREATE_AUCTION_STAGE_HEIGHT = 550;	// Height of the Create Auction Stage
-	private static final int CANVAS_WIDTH = 365;				// Width of the Draw Canvas
-	private static final int CANVAS_HEIGHT = 447;				// Height of the Draw Canvas
+	private static final int CANVAS_WIDTH = 356;				// Width of the Draw Canvas
+	private static final int CANVAS_HEIGHT = 449;				// Height of the Draw Canvas
 	private static final int PREVIEW_CANVAS_WIDTH = 150;		// Width of the Preview Canvas
 	private static final int PREVIEW_CANVAS_HEIGHT = 102; 		// Height of the Preview Canvas
 	private static final int PREVIEW_CANVAS_DRAW_X = 25;		// Draw Preview Location X
@@ -130,7 +137,7 @@ public class SystemGUI extends Application {
 		Pane root = buildLoginGUI();
 		root.setId("PANE");
 
-		login = new Scene(root, MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+		login = new Scene(root, LOGIN_STAGE_WIDTH, LOGIN_STAGE_HEIGHT);
 
 		window.setTitle("Artatawe Application");
 		window.setScene(login);
@@ -211,7 +218,7 @@ public class SystemGUI extends Application {
         	if (usernameInput.getText().length() == 0) {
         		notificationBox("Login Notification", "Missing Information", "Login field cannot be left blank");
         	} else if (setCurrentUser(usernameInput.getText()) == true) {
-        		home = new Scene(buildHomePageGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+        		home = new Scene(buildHomePageGUI(), HOME_STAGE_WIDTH, HOME_STAGE_HEIGHT);
         		currentUserObject.addFavoriteMultipleUsers(LoadData.loadUserFavorites(currentUserObject));
         		window.setScene(home);
         		usernameInput.setText("");	
@@ -322,10 +329,9 @@ public class SystemGUI extends Application {
     		if (signupInputExistenceCheck(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), streetBox.getText(), 
     							postcodeBox.getText(), cityTownBox.getText(), phoneNoBox.getText()) == true) {
     			if (validateSignUpDetails(usernameBox.getText(), phoneNoBox.getText(), postcodeBox.getText()) == true) {
-    							Integer intPhoneNo = Integer.parseInt(phoneNoBox.getText());
     				@SuppressWarnings("unused")
 					UserProfile newUser = new UserProfile(usernameBox.getText(), firstnameBox.getText(), lastnameBox.getText(), 
-											streetBox.getText(), postcodeBox.getText(), cityTownBox.getText(), intPhoneNo, true);
+											streetBox.getText(), postcodeBox.getText(), cityTownBox.getText(), phoneNoBox.getText(), true);
 
     				notificationBox("Account Creation", "Account Creation Successful",
     								"Congratulations you now have an Artatawe Account!\nYour username is: "
@@ -370,28 +376,14 @@ public class SystemGUI extends Application {
 		if(usernameDuplicationCheck(username)) {
 			notificationBox("Sign-Up Notification", "Input Error", "Username taken, please select another");
 			return false;
-		} else if (phoneNo.length() > 11) {
+		} else if (phoneNoChecker(phoneNo)) {
 			notificationBox("Sign-Up Notification", "Input Error", "Phone Number cannot exceed 11 digits");
 			return false;
 		} else if (postcode.length() < 6 || postcode.length() > 7) {
 			notificationBox("Sign-Up Notification", "Input Error", "Postcode can only be 6 or 7 characters long");
 			return false;
 		}
-		try {
-			Integer.parseInt(phoneNo);
-		} catch (NumberFormatException e) {
-			notificationBox("Sign-Up Notification", "Input Error", "System Error (We need to fix this to allow for >9 numbers");
-			return false;
-		}
 		if (username.length() > 1) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	private boolean phoneNoChecker(String phoneNo) {
-		if (phoneNo.matches("^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?\\#(\\d{4}|\\d{3}))?$\r\n")) {
 			return true;
 		} else {
 			return false;
@@ -603,15 +595,15 @@ public class SystemGUI extends Application {
 	private void optionsMenuSelection(String selection) {
 		if(selection == "My Account") {
 			Pane draw = buildProfileGUI();
-			profile = new Scene(draw, MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+			profile = new Scene(draw, PROFILE_STAGE_WIDTH, PROFILE_STAGE_HEIGHT);
 			window.setScene(profile);
 		} else if(selection == "Logout") {
 			logoutConfirmation();
 		} else if(selection == "View Users") {
-			viewUsers = new Scene(buildUserListGUI(), MAIN_STAGE_WIDTH - 222, MAIN_STAGE_HEIGHT);
+			viewUsers = new Scene(buildUserListGUI(), VIEW_STAGE_WIDTH, VIEW_STAGE_HEIGHT);
 			window.setScene(viewUsers);
 		} else if(selection == "My Favorite Users") {
-			favoriteUsersList = new Scene(buildFavoriteUserListGUI(), MAIN_STAGE_WIDTH - 222, MAIN_STAGE_HEIGHT);
+			favoriteUsersList = new Scene(buildFavoriteUserListGUI(), VIEW_STAGE_WIDTH, VIEW_STAGE_HEIGHT);
 			window.setScene(favoriteUsersList);
 		}
 	}
@@ -684,7 +676,7 @@ public class SystemGUI extends Application {
 		subTitle.setId("WHITETEXT");
 		
 		Button back = new Button("Back");
-		back.setPrefWidth(50);
+		back.setPrefWidth(150);
 		back.setOnAction(e -> {
 			saveFavorites();
 			window.setScene(home);
@@ -878,7 +870,7 @@ public class SystemGUI extends Application {
 		subTitle.setId("WHITETEXT");
 		
 		Button back = new Button("Back");
-		back.setPrefWidth(50);
+		back.setPrefWidth(150);
 		back.setOnAction(e -> {
 			saveFavorites();
 			window.setScene(home);
@@ -1176,7 +1168,7 @@ public class SystemGUI extends Application {
 	 */
 	private void reloadProfile() {
 		Pane profileR = buildProfileGUI();
-		profile = new Scene(profileR, MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+		profile = new Scene(profileR, PROFILE_STAGE_WIDTH, PROFILE_STAGE_HEIGHT);
 		window.setScene(profile);
 	}
 	
@@ -1294,13 +1286,13 @@ public class SystemGUI extends Application {
 	    setImage.setOnAction(e -> {
 	    	saveImage();
 	    	setProfileImage();
-	    	profile = new Scene(buildProfileGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+	    	profile = new Scene(buildProfileGUI(), PROFILE_STAGE_WIDTH, PROFILE_STAGE_HEIGHT);
 	    	window.setScene(profile);
 	    	window.setResizable(true);
 	    	});
 	    
 	    back.setOnAction(e -> {
-			profile = new Scene(buildProfileGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+			profile = new Scene(buildProfileGUI(), PROFILE_STAGE_WIDTH, PROFILE_STAGE_HEIGHT);
 			window.setScene(profile);
 		});
 	    
@@ -1629,7 +1621,7 @@ public class SystemGUI extends Application {
 														Double.parseDouble(heightBox.getText()), true, true);
 					
 					SaveData.saveNewArtwork(newPainting);
-					home = new Scene(buildHomePageGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+					home = new Scene(buildHomePageGUI(), HOME_STAGE_WIDTH, HOME_STAGE_HEIGHT);
 					window.setScene(home);
 				} else if(sculptureRadio.isSelected() == true) {
 					Artwork newSculpture = new Sculpture(currentUserObject.getUsername(), artNameBox.getText(), artCreatorBox.getText(), Integer.parseInt(artCreationYearBox.getText()), 
@@ -1638,7 +1630,7 @@ public class SystemGUI extends Application {
 
 					SaveData.saveNewArtwork(newSculpture);
 					
-					home = new Scene(buildHomePageGUI(), MAIN_STAGE_WIDTH, MAIN_STAGE_HEIGHT);
+					home = new Scene(buildHomePageGUI(), HOME_STAGE_WIDTH, HOME_STAGE_HEIGHT);
 					window.setScene(home);
 				}
 			}
