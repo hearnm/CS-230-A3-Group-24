@@ -2,27 +2,30 @@ import java.util.ArrayList;
 
 /**
  * WonArtworks.java
+ * A class that shows the user a list of Artwork for which they
+ * placed the winning bid.
  * @author Christiana Meli
- * A class that shows to the user a list of Artworks for which they placed the winning bid.
  */
 public class WonArtworks {
-	
-	private ArrayList<Artwork>listOfArtworks;
-	
-	public WonArtworks(){
-		
-	}
-	
+	private ArrayList<Artwork>listOfArtworks;	//The list of Artwork.
+
 	/**
-	 * Returns the list of Artwork
-	 * @return list of Artwork
+	 * Instantiates an Artwork won.
+	 */
+	public WonArtworks() {
+
+	}
+
+	/**
+	 * Returns the list of Artwork.
+	 * @return List of Artwork
 	 */
 	public ArrayList<Artwork> getListOfArtworks() {
 		return listOfArtworks;
 	}
-	
+
 	/**
-	 * Sets the list of Artwork
+	 * Sets the list of Artwork.
 	 * @param listOfArtworks The list of Artwork
 	 */
 	public void setListOfArtworks(ArrayList<Artwork> listOfArtworks) {
