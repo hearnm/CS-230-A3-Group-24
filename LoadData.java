@@ -136,9 +136,14 @@ public class LoadData {
 							height, false, status);
 
 					// Inner loop to add bidding data to an auction if it exists.
+					
 					while(lineScanner.hasNext()) {
+						if(status == true) {
 						Auction.getGivenAuction(title).addExistingBids(lineScanner.next(),
 								lineScanner.next(), lineScanner.next());
+					}  else { 
+						lineScanner.next();
+					}
 					}
 				} else {
 					String title = lineScanner.next();
@@ -159,9 +164,15 @@ public class LoadData {
 							height, depth, material, false, status);
 				
 					// Inner loop to add bidding data to an auction if it exists.
+					
 					while(lineScanner.hasNext()) {
-						Auction.getGivenAuction(title).addExistingBids(lineScanner.next(),
+						if(status == true) {
+							Auction.getGivenAuction(title).addExistingBids(lineScanner.next(),
 								lineScanner.next(), lineScanner.next());
+					} else { 
+						lineScanner.next();
+						
+					}
 					}
 				}
 			}
