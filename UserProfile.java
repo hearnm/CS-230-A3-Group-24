@@ -8,6 +8,7 @@ import java.util.*;
 public class UserProfile {
 
 	private static int userCount = 1;		// Static attribute to ensure unique user Id creation
+	@SuppressWarnings("unused")
 	private static int currentUserId = -1;	// The current userId that is logged into the system
 	
 	private int userId;			// The unique User identifier
