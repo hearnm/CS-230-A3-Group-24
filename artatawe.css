@@ -23,7 +23,7 @@
 }
 
 #PANE {
-	-fx-background-image: url("Background.jpg");
+	-fx-background-image: url("background.png");
 	-fx-background-size: cover;
 }
 
