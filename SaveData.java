@@ -85,7 +85,7 @@ public class SaveData {
 		FileWriter fileWriter;
 		try {
 			File dataFile = new File(filePath);
-			if(overwrite == true) {
+			if (overwrite == true) {
 				fileWriter = new FileWriter(dataFile, false);
 				printWriter = new PrintWriter(fileWriter);
 			} else {
@@ -242,7 +242,7 @@ public class SaveData {
 						+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + "," + depth + "," + material +
 						"," + status + ",");
 
-				for(int ii = 0; ii < currentAuctions.get(i).getBids().size(); ii++) {
+				for (int ii = 0; ii < currentAuctions.get(i).getBids().size(); ii++) {
 					outputStream.print(currentAuctions.get(i).getBids().get(ii).getUsername() + "," +
 							currentAuctions.get(i).getBids().get(ii).getBidAmount() + "," +
 							currentAuctions.get(i).getBids().get(ii).getTimeOfBid() + ",");
