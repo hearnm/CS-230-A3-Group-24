@@ -1919,14 +1919,12 @@ public class SystemGUI extends Application {
 			artDepth.setVisible(false);
 			artMaterial.setVisible(false);
 		}
-		
-		if(!currentUserObject.getUsername().equalsIgnoreCase(selectedAuction.getAuctionedArtwork().getAuctioneer())) {
+		if (!currentUserObject.getUsername().equalsIgnoreCase(selectedAuction.getAuctionedArtwork().getAuctioneer())) {
 			rightVBar.setVisible(false);
 		} else {
 			bid.setVisible(false);
 			bidInput.setVisible(false);
 		}
-	
 		leftVBar.setAlignment(Pos.BASELINE_CENTER);
 
 		bottomBar.getChildren().addAll(back);
@@ -1969,27 +1967,26 @@ public class SystemGUI extends Application {
 	 * @return True if bid was successfully added, False if bid was rejected
 	 */
 	private boolean attemptBid(Auction auction, double bid) {
-		
 		String bidResult = auction.attemptNewBid(currentUserObject.getUsername(), bid);
 		
-		if(bidResult.equalsIgnoreCase("SelfBid")) {
+		if (bidResult.equalsIgnoreCase("SelfBid")) {
 			notificationBox("System Warrning", "Bid Unsuccessful", "You cannot bid on your own artwork!");
 			return false;
 		} 
-		if(bidResult.equalsIgnoreCase("valid")) {
+		if (bidResult.equalsIgnoreCase("valid")) {
 			notificationBox("System Confirmation", "Bid Successful!", "Your bid of: " + bid + " has been added to the system");
 			return true;
 			
-		} else if(bidResult.equalsIgnoreCase("invalid") && currentUserObject.getUsername().equalsIgnoreCase(auction.getCurrentBidder())) {
+		} else if (bidResult.equalsIgnoreCase("invalid") && currentUserObject.getUsername().equalsIgnoreCase(auction.getCurrentBidder())) {
 			notificationBox("System Warrning", "Bid Unsuccessful!", "You are currently the highest bidder, you cannot out bid yourself!");
 			return false;
 			
-		} else if(bidResult.equalsIgnoreCase("invalid") && !currentUserObject.getUsername().equalsIgnoreCase(auction.getCurrentBidder())) {
+		} else if (bidResult.equalsIgnoreCase("invalid") && !currentUserObject.getUsername().equalsIgnoreCase(auction.getCurrentBidder())) {
 			notificationBox("System Warrning", "Bid Unsuccessful!", "Your bid of: " + bid + " is less than the current bid of: " + auction.getCurrentBid() + "\nor less than the reservation amount: "
 					 		+ auction.getAuctionedArtwork().getReservePrice());
 			return false;
 			
-		} else if(bidResult.equalsIgnoreCase("win")) {
+		} else if (bidResult.equalsIgnoreCase("win")) {
 			notificationBox("System Confirmation", "Congratulations you won!", "You have just placed the winning bid: " + bid);
 			SaveData.updateAuction(auctions, selectedAuction);
 			auctions.remove(selectedAuction);
@@ -2010,7 +2007,7 @@ public class SystemGUI extends Application {
 	 * @return True if all fields are filled out, False if 1 or more fields do not have input
 	 */
 	public boolean newAuctionInputExistenceCheck(String auctionNameInput, String artCreatorInput, String artCreationYearInput, String maxBiddersInput) {
-		if(auctionNameInput.length() == 0 || artCreatorInput.length() == 0 || artCreationYearInput.length() == 0 ||  maxBiddersInput.length() == 0 ) {
+		if (auctionNameInput.length() == 0 || artCreatorInput.length() == 0 || artCreationYearInput.length() == 0 ||  maxBiddersInput.length() == 0 ) {
 			notificationBox("Sign-Up Notification", "Input Error", "All fields must be filled out");
 			return false;
 		}
