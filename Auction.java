@@ -54,7 +54,7 @@ public class Auction {
 		}
 	}
 	
-	public static ArrayList<Auction> getGivenUserWonArtworks(String username) {
+	public static ArrayList<Auction> getGivenSellersCompletedAuctions(String username) {
 		
 		ArrayList<Auction> usersWonArtworks = new ArrayList<>();
 		
@@ -66,6 +66,21 @@ public class Auction {
 		}
 		return usersWonArtworks;
 	}
+	
+	public static ArrayList<Auction> getGivenWonAuctions(String username) {
+		
+		ArrayList<Auction> usersWonArtworks = new ArrayList<>();
+		
+		for(int i = 0; i < completedAuctions.size(); i++) {
+			if(username.equalsIgnoreCase(completedAuctions.get(i).getCurrentBidder())) {
+	
+				usersWonArtworks.add(completedAuctions.get(i));
+			}
+		}
+		return usersWonArtworks;
+	}
+	
+	
 	
 	public static void setGivenWonArtworks(String title, String curBidder, Double curBid) {
 		

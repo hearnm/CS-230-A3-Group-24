@@ -1027,20 +1027,29 @@ public class SystemGUI extends Application {
 		VBox completedAuctionsUsernameSection = new VBox(10);
 		VBox completedAuctionsBidSection = new VBox(10);
 		
+		VBox wonArtworksList = new VBox(10);
+		
 		completedAuctionsTitleSection.getChildren().addAll( completedAuctionsArtworkSection, 
 				completedAuctionsUsernameSection, completedAuctionsBidSection);
 		
 		Text completedAuctionsTitle = new Text("Completed Auctions");
-		Text winArtwork = new Text("Artwork");
-		Text winUsername = new Text("Username");
-		Text winBid = new Text("Winning Bid");
+		Text completedArtwork = new Text("Artwork");
+		Text completedName = new Text("Username");
+		Text completedBid = new Text("Winning Bid");
 		
 		completedAuctionsTitle.setScaleX(1.3);
 		completedAuctionsTitle.setScaleY(1.3);
 		
-		completedAuctionsArtworkSection.getChildren().add(winArtwork);
-		completedAuctionsUsernameSection.getChildren().add(winUsername);
-		completedAuctionsBidSection.getChildren().add(winBid);
+		completedAuctionsArtworkSection.getChildren().add(completedArtwork);
+		completedAuctionsUsernameSection.getChildren().add(completedName);
+		completedAuctionsBidSection.getChildren().add(completedBid);
+		
+		Text wonArtworks = new Text("Won Auctions");
+		wonArtworks.setScaleX(1.3);
+		wonArtworks.setScaleY(1.3);
+		
+		wonArtworksList.getChildren().addAll(wonArtworks);
+		
 		
 		Pane profPicBox = new Pane();
 		
@@ -1091,23 +1100,33 @@ public class SystemGUI extends Application {
 		});
 		back.setOnAction(e -> window.setScene(home));
 
-		ArrayList<Auction> currentWonAuctions = new ArrayList<>();
-		currentWonAuctions = Auction.getGivenUserWonArtworks(currentUserObject.getUsername());
+		ArrayList<Auction> completedAuctions = new ArrayList<>();
+		completedAuctions = Auction.getGivenSellersCompletedAuctions(currentUserObject.getUsername());
 		
-		System.out.println(currentWonAuctions);
+	
 		
-		for(int i = 0; i < currentWonAuctions.size(); i++) {
+		for(int i = 0; i < completedAuctions.size(); i++) {
 
-			Text artTitle = new Text(currentWonAuctions.get(i).getAuctionedArtwork().getTitle());
-			Text artWinner = new Text(currentWonAuctions.get(i).getCurrentBidder());
-			System.out.println(currentWonAuctions.get(i).getCurrentBid());
-			Text artBid = new Text(String.valueOf(currentWonAuctions.get(i).getCurrentBid()));
+			Text artTitle = new Text(completedAuctions.get(i).getAuctionedArtwork().getTitle());
+			Text artWinner = new Text(completedAuctions.get(i).getCurrentBidder());
+			System.out.println(completedAuctions.get(i).getCurrentBid());
+			Text artBid = new Text(String.valueOf(completedAuctions.get(i).getCurrentBid()));
 	
 			completedAuctionsArtworkSection.getChildren().add(artTitle);
 			completedAuctionsUsernameSection.getChildren().add(artWinner);
 			completedAuctionsBidSection.getChildren().add(artBid);
 			
 
+		}
+		
+		ArrayList<Auction> WonAuctions = new ArrayList<>();
+		WonAuctions = Auction.getGivenWonAuctions(currentUserObject.getUsername());
+		
+		
+		for(int i = 0; i < WonAuctions.size(); i++) {
+
+			Text wonArtwork = new Text(WonAuctions.get(i).getAuctionedArtwork().getTitle());
+			wonArtworksList.getChildren().add(wonArtwork);
 		}
 		
 		
@@ -1124,14 +1143,14 @@ public class SystemGUI extends Application {
 		
 		mainTop.setAlignment(Pos.BASELINE_CENTER);
 		rSideBar.setAlignment(Pos.BASELINE_CENTER);
+		wonArtworksList.setAlignment(Pos.BASELINE_CENTER);
 		
 		titleBlock.getChildren().addAll(title, subTitle);
 		mainTop.getChildren().addAll(titleBlock);
 		profPicBox.getChildren().addAll(imageView);
 		midSection.getChildren().addAll(firstName,street,postcode,cityTown,phoneNo);
 		lSideBar.getChildren().addAll(profPicBox, changePicButton, avatarButton);
-		rSideBar.getChildren().addAll(completedAuctionsTitle, completedAuctionsTitleSection);
-		
+		rSideBar.getChildren().addAll(completedAuctionsTitle, completedAuctionsTitleSection, wonArtworksList);
 		
 		
 		
