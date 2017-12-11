@@ -80,7 +80,7 @@ public class SystemGUI extends Application {
 	private static final int P_DRAW_IMG_STAGE_WIDTH = 605;		// Width of the Draw Image Stage
 	private static final int P_DRAW_IMG_STAGE_HEIGHT= 610;		// Height of the Draw Image Stage
 	private static final int AUCTION_DETAILS_STAGE_WIDTH = 850;	// Width of the Auction Details Stage
-	private static final int AUCTION_DETAILS_STAGE_HEIGHT= 500; // Height of the Auction Details Stage
+	private static final int AUCTION_DETAILS_STAGE_HEIGHT= 550; // Height of the Auction Details Stage
 	private static final int CREATE_AUCTION_STAGE_WIDTH = 400; 	// Width of the Create Auction Stage
 	private static final int CREATE_AUCTION_STAGE_HEIGHT = 550;	// Height of the Create Auction Stage
 	private static final int CANVAS_WIDTH = 356;				// Width of the Draw Canvas
@@ -1962,15 +1962,13 @@ public class SystemGUI extends Application {
 			artMaterial.setVisible(false);
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		if(!currentUserObject.getUsername().equalsIgnoreCase(selectedAuction.getAuctionedArtwork().getAuctioneer())) {
+			rightVBar.setVisible(false);
+		} else {
+			bid.setVisible(false);
+			bidInput.setVisible(false);
+		}
+	
 		leftVBar.setAlignment(Pos.BASELINE_CENTER);
 
 		bottomBar.getChildren().addAll(back);
@@ -1978,10 +1976,10 @@ public class SystemGUI extends Application {
 		mainTop.getChildren().addAll(titleBlock);
 		
 		leftVBar2.getChildren().addAll(artAuctioneer, artCreator, artYear, artHeight, artWidth, artDepth, artMaterial);
-		leftVBar.getChildren().addAll(artworkImg, artName, artType, currentBid);
+		leftVBar.getChildren().addAll(artworkImg, artName, artType, currentBid, bidInput, bid);
 		
 		leftHBoxMain.getChildren().addAll(leftVBar, leftVBar2);
-		rightVBar.getChildren().addAll(bid, bidInput, bidTableMain);
+		rightVBar.getChildren().addAll(bidTableMain);
 		
 		innerCenter.setLeft(leftHBoxMain);
 		root.setCenter(innerCenter);
