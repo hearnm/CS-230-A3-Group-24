@@ -649,7 +649,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to carry out the functionality of what was selected in the options menu
+	 * Method to carry out the functionality of what was selected in the options menu.
 	 * @param selection The selected option
 	 */
 	private void optionsMenuSelection(String selection) {
@@ -669,7 +669,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to construct a new stage to carry out functionality of signing out or canceling
+	 * Method to construct a new stage to carry out functionality of signing out or cancelling.
 	 */
 	private void logoutConfirmation() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -684,7 +684,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to create a general purpose notification box
+	 * Method to create a general purpose notification box.
 	 * @param title The title of the notification box
 	 * @param message The message of the notification box
 	 */
@@ -697,7 +697,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to build the User List GUI window
+	 * Method to build the User List GUI window.
 	 * @return root The Constructed Scroll Pane with all the View User GUI elements
 	 */
 	private ScrollPane buildUserListGUI() {
@@ -799,7 +799,7 @@ public class SystemGUI extends Application {
 	}
 
 	/**
-	 * Method to check if a user is marked by the current user as a favorite
+	 * Method to check if a user is marked by the current user as a favorite.
 	 * @param username The username to be checked
 	 * @return True if user is marked as favorite, False if not marked
 	 */
@@ -813,7 +813,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to save the current favorites as they are added
+	 * Method to save the current favorites as they are added.
 	 */
 	private void saveFavorites() {
 		if (currentUserObject.getFavoriteUsers() != null) {
@@ -824,7 +824,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to add a given user to the current users favorites
+	 * Method to add a given user to the current users favorites.
 	 * @param user The user to be added to the Current users Favorite List.
 	 */
 	private void addUserToFavorites(String username) {
@@ -840,7 +840,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to remove a given user from the current users favorites
+	 * Method to remove a given user from the current users favorites.
 	 * @param user The user to be removed from the Current users Favorite List.
 	 */
 	private void removeUserFavorite(String username) {
@@ -855,7 +855,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to be used to get the defaultImage (for users without an image)
+	 * Method to be used to get the defaultImage (for users without an image).
 	 * @return The default Image to be used
 	 */
 	private Image setDefaultImage() {
@@ -869,7 +869,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to get the given user profile image
+	 * Method to get the given user profile image.
 	 * @param user The UserObject whose image is wanted
 	 * @return The profile image if found, Default image otherwise
 	 */
@@ -884,7 +884,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to build the User List GUI window
+	 * Method to build the User List GUI window.
 	 * @return root The Constructed Scroll Pane with all the View User GUI elements
 	 */
 	private ScrollPane buildFavoriteUserListGUI() {
@@ -962,8 +962,6 @@ public class SystemGUI extends Application {
 							}
 						};
 					});
-					
-					
 					listname.add(listUsername);
 					listPic.add(listUserImg);
 					buttons.add(mark);
@@ -971,9 +969,7 @@ public class SystemGUI extends Application {
 			} catch (Exception e) {
 				System.out.println("user does not exist");
 				}
-		}
-	
-		
+		}		
 		for (int j = 0; j < allUsers.size() - 1; j++) {
 			if (currentUserObject.searchFavorite(listname.get(j).getText())) {
 				GridPane.setConstraints(listPic.get(j), 0, j);
@@ -992,7 +988,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to build the Profile GUI window
+	 * Method to build the Profile GUI window.
 	 * @return root The Constructed Pane with all the Profile GUI elements
 	 */
 	private Pane buildProfileGUI() {
@@ -1133,7 +1129,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to set the Profile image of the current user
+	 * Method to set the Profile image of the current user.
 	 * @param imagePath The directory path to the image
 	 */
 	private void setProfileImage() {
@@ -1150,7 +1146,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to build the Avatars GUI window
+	 * Method to build the Avatars GUI window.
 	 * @return root The Constructed Pane with all the Avatar GUI elements
 	 */
 	private Pane buildAvatarsGUI() {
@@ -1262,7 +1258,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to reload the User Profile GUI (refresh the page for updated information)
+	 * Method to reload the User Profile GUI (refresh the page for updated information).
 	 */
 	private void reloadProfile() {
 		Pane profileR = buildProfileGUI();
@@ -1271,7 +1267,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to assign an image to a user by creating a new version of that image with a unique identifyer (username)
+	 * Method to assign an image to a user by creating a new version of that image with a unique identifyer (username).
 	 * @param path The path to the image
 	 */
 	private void updateUserProfile(String path) {
@@ -1296,7 +1292,7 @@ public class SystemGUI extends Application {
 	}
 
 	/**
-	 * Method to set border as there was duplication in code
+	 * Method to set border as there was duplication in code.
 	 * @param p
 	 */
 	private void setThisBorder(Pane p) {
@@ -1305,7 +1301,7 @@ public class SystemGUI extends Application {
 	}
 
 	/**
-	 * Method to build the Profile Draw Image GUI window
+	 * Method to build the Profile Draw Image GUI window.
 	 * @return root The Constructed Pane with all the Profile Draw Image GUI elements
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -1444,7 +1440,8 @@ public class SystemGUI extends Application {
 		previewSection.getChildren().add(previewCanvas);
 	    topLeftBar.getChildren().addAll(draw, line, erase);
 	    topBar.getChildren().add(title);
-	    sideBar.getChildren().addAll(options, lineActiveTxt, topLeftBar, color, colorOption, shape, shapeOptions, sizeModifer, slider, reset, drawPreview, previewSection);
+	    sideBar.getChildren().addAll(options, lineActiveTxt, topLeftBar, color, colorOption,
+	    	 shape, shapeOptions, sizeModifer, slider, reset, drawPreview, previewSection);
 	    bottomBar.getChildren().addAll(back, setImage);
 	    middleSection.getChildren().add(canvas);
 	   
@@ -1457,7 +1454,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to clear the Draw Image Canvas of any shapes / elements
+	 * Method to clear the Draw Image Canvas of any shapes / elements.
 	 */
 	private void resetCanvas() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -1466,7 +1463,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to draw/erase at a tracked mouse X and Y coordinates
+	 * Method to draw/erase at a tracked mouse X and Y coordinates.
 	 * @param shape The given shape to be drawn
 	 * @param colorOption The Color for a shape to be drawn in.
 	 */
@@ -1500,13 +1497,12 @@ public class SystemGUI extends Application {
 				lineStartY = mouseY;
 				lineStarted = true;
 				lineActiveTxt.setVisible(true);
-			}
-			
+			}	
 		}	
 	}
 
 	/**
-	 * Method to draw/erase at a tracked mouse X and Y coordinates
+	 * Method to draw/erase at a tracked mouse X and Y coordinates.
 	 * @param shape The given shape to be drawn
 	 * @param colorOption The Color for a shape to be drawn in.
 	 */
@@ -1524,7 +1520,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to get the color choice and set the draw color
+	 * Method to get the color choice and set the draw color.
 	 * @param colorOption The choice of color
 	 */
 	private void getColorChoice(ColorPicker colorOption) {
@@ -1533,7 +1529,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to get the color choice and set the preview draw color
+	 * Method to get the color choice and set the preview draw color.
 	 * @param color The choice of color
 	 */
 	private void getPreviewColorChoice(Color color) {
@@ -1542,7 +1538,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to get the shape choice and convert it to a string
+	 * Method to get the shape choice and convert it to a string.
 	 * @param shapeOption The choice box of shapes
 	 * @return The String of the shape choice
 	 */
@@ -1576,7 +1572,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to initialize the Preview of the draw style
+	 * Method to initialize the Preview of the draw style.
 	 */
 	private void initialisePreview() {
 		GraphicsContext gc2 = previewCanvas.getGraphicsContext2D();
@@ -1585,7 +1581,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to save a drawn image
+	 * Method to save a drawn image.
 	 */
 	private void saveImage() {
 		String saveName = currentUserObject.getUsername() + ".png";
@@ -1602,11 +1598,10 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to build the Create new Auctions GUI window
+	 * Method to build the Create new Auctions GUI window.
 	 * @return root The Constructed ScrollPane with all the auction creation GUI elements
 	 */
 	private ScrollPane buildCreateNewAuctionGUI() {
-		
 		BorderPane root = new BorderPane();
 		VBox vert = new VBox(8);
 		HBox toggles = new HBox(5);
@@ -1796,7 +1791,7 @@ public class SystemGUI extends Application {
 	}
 
 	/**
-	 * Method sets the art image of a given artwork
+	 * Method sets the art image of a given artwork.
 	 * @param artName The name of the artwork to have the image set
 	 * @return img The image object if found, error message if not.
 	 */
@@ -1811,7 +1806,7 @@ public class SystemGUI extends Application {
 	}
 
 	/**
-	 * Method to build and create a new detailed auction view GUI window for a selected Auction
+	 * Method to build and create a new detailed auction view GUI window for a selected Auction.
 	 * @return root The Constructed Pane with all the selected auction detail GUI elements
 	 */
 	private Pane buildDetailedAuctionViewGUI() {
@@ -1888,7 +1883,6 @@ public class SystemGUI extends Application {
 			newRow.getChildren().addAll(name, curbid, date);
 			bidTableMain.getChildren().add(newRow);
 		}
-		
 		bid.setOnAction(e -> {
 			double userBid = convertBidInput(bidInput.getText());
 			if (attemptBid(selectedAuction, userBid) == true) {
@@ -1947,7 +1941,7 @@ public class SystemGUI extends Application {
 	}
 
 	/**
-	 * Method to convert the text input to a double variable
+	 * Method to convert the text input to a double variable.
 	 * @param bid The bid to be converted (String)
 	 * @return bidConvert the converted bid (Double)
 	 */
@@ -1961,7 +1955,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to handle creating a new bid - user if prompted with approriate details
+	 * Method to handle creating a new bid - user if prompted with approriate details.
 	 * @param auction The given auction for the bid to be placed
 	 * @param bid The bid amount to be placed on the auction
 	 * @return True if bid was successfully added, False if bid was rejected
@@ -1980,12 +1974,12 @@ public class SystemGUI extends Application {
 		} else if (bidResult.equalsIgnoreCase("invalid") && currentUserObject.getUsername().equalsIgnoreCase(auction.getCurrentBidder())) {
 			notificationBox("System Warrning", "Bid Unsuccessful!", "You are currently the highest bidder, you cannot out bid yourself!");
 			return false;
-			
+
 		} else if (bidResult.equalsIgnoreCase("invalid") && !currentUserObject.getUsername().equalsIgnoreCase(auction.getCurrentBidder())) {
 			notificationBox("System Warrning", "Bid Unsuccessful!", "Your bid of: " + bid + " is less than the current bid of: " + auction.getCurrentBid() + "\nor less than the reservation amount: "
 					 		+ auction.getAuctionedArtwork().getReservePrice());
 			return false;
-			
+
 		} else if (bidResult.equalsIgnoreCase("win")) {
 			notificationBox("System Confirmation", "Congratulations you won!", "You have just placed the winning bid: " + bid);
 			SaveData.updateAuction(auctions, selectedAuction);
@@ -1993,13 +1987,12 @@ public class SystemGUI extends Application {
 			home = new Scene(buildHomePageGUI(), HOME_STAGE_WIDTH, HOME_STAGE_HEIGHT);
 			window.setScene(home);
 			return false;
-			
 		}
 		return false;
 	}
 	
 	/**
-	 * Method to check if all fields ahve been filled out when creating a new auction
+	 * Method to check if all fields ahve been filled out when creating a new auction.
 	 * @param auctionNameInput The name input
 	 * @param artCreatorInput The creator input
 	 * @param artCreationYearInput The creation year input
