@@ -1084,18 +1084,20 @@ public class SystemGUI extends Application {
 		ArrayList<Auction> currentWonAuctions = new ArrayList<>();
 		currentWonAuctions = Auction.getGivenUserWonArtworks(currentUserObject.getUsername());
 		
+		System.out.println(currentWonAuctions);
+		
 		for(int i = 0; i < currentWonAuctions.size(); i++) {
 
 			Text artTitle = new Text(currentWonAuctions.get(i).getAuctionedArtwork().getTitle());
 			Text artWinner = new Text(currentWonAuctions.get(i).getCurrentBidder());
+			System.out.println(currentWonAuctions.get(i).getCurrentBid());
 			Text artBid = new Text(String.valueOf(currentWonAuctions.get(i).getCurrentBid()));
 	
 			completedAuctionsArtworkSection.getChildren().add(artTitle);
 			completedAuctionsUsernameSection.getChildren().add(artWinner);
 			completedAuctionsBidSection.getChildren().add(artBid);
 			
-			completedAuctionsTitleSection.getChildren().addAll( completedAuctionsArtworkSection, 
-					completedAuctionsUsernameSection, completedAuctionsBidSection);
+
 		}
 		
 		

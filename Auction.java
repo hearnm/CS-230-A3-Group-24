@@ -50,13 +50,17 @@ public class Auction {
 		} else {
 			
 			completedAuctions.add(this);
+	
 		}
 	}
 	
 	public static ArrayList<Auction> getGivenUserWonArtworks(String username) {
+		
 		ArrayList<Auction> usersWonArtworks = new ArrayList<>();
+		
 		for(int i = 0; i < completedAuctions.size(); i++) {
-			if(username.equalsIgnoreCase(completedAuctions.get(i).getCurrentBidder())) {
+			if(username.equalsIgnoreCase(completedAuctions.get(i).getAuctionedArtwork().getAuctioneer())) {
+	
 				usersWonArtworks.add(completedAuctions.get(i));
 			}
 		}
@@ -136,7 +140,7 @@ public class Auction {
 			auctionedArtwork.setOnAuction(false);
 			this.currentBidder = newBidder;
 			this.currentBid = newBid;
-			this.remainingBids -= 1;
+			this.remainingBids = 0;
 			// create a new bid object
 			Bidding bid = new Bidding(newBidder, newBid,
 					generateDateTime());
