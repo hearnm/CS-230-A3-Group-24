@@ -943,17 +943,15 @@ public class SystemGUI extends Application {
 					final Button mark = new Button();
 					mark.setId(allUsers.get(i).getUsername());
 					
-					if(checkIfMarked(mark.getId())) {
+					if (checkIfMarked(mark.getId())) {
 						mark.setText("Unmark as Favorite");
 					} else {
 						mark.setText("Mark as Favorite");
 					}
-					
 					mark.setOnMouseClicked(new EventHandler<MouseEvent>() {
 						@Override
 						public void handle(MouseEvent event) {
-
-							if(checkIfMarked(mark.getId())) {
+							if (checkIfMarked(mark.getId())) {
 								removeUserFavorite(mark.getId());
 								System.out.println("User Removed");
 								mark.setText("Mark as Favorite");
@@ -976,15 +974,14 @@ public class SystemGUI extends Application {
 		}
 	
 		
-		for(int j = 0; j < allUsers.size() - 1; j++) {
-			if(currentUserObject.searchFavorite(listname.get(j).getText())) {
+		for (int j = 0; j < allUsers.size() - 1; j++) {
+			if (currentUserObject.searchFavorite(listname.get(j).getText())) {
 				GridPane.setConstraints(listPic.get(j), 0, j);
 				GridPane.setConstraints(listname.get(j), 1, j);
 				GridPane.setConstraints(buttons.get(j), 6, j);
 				center.getChildren().addAll(listname.get(j), listPic.get(j), buttons.get(j));
 			}
 		}
-		
 		topBar.setAlignment(Pos.BASELINE_CENTER);
 		topBar.getChildren().addAll(title, subTitle, back);
 		mainSection.setTop(topBar);
@@ -1036,7 +1033,6 @@ public class SystemGUI extends Application {
 		wonArtworks.setScaleY(1.3);
 		
 		wonArtworksList.getChildren().addAll(wonArtworks);
-		
 		
 		Pane profPicBox = new Pane();
 		
@@ -1090,10 +1086,7 @@ public class SystemGUI extends Application {
 		ArrayList<Auction> completedAuctions = new ArrayList<>();
 		completedAuctions = Auction.getGivenSellersCompletedAuctions(currentUserObject.getUsername());
 		
-	
-		
-		for(int i = 0; i < completedAuctions.size(); i++) {
-
+		for (int i = 0; i < completedAuctions.size(); i++) {
 			Text artTitle = new Text(completedAuctions.get(i).getAuctionedArtwork().getTitle());
 			Text artWinner = new Text(completedAuctions.get(i).getCurrentBidder());
 			System.out.println(completedAuctions.get(i).getCurrentBid());
@@ -1102,23 +1095,14 @@ public class SystemGUI extends Application {
 			completedAuctionsArtworkSection.getChildren().add(artTitle);
 			completedAuctionsUsernameSection.getChildren().add(artWinner);
 			completedAuctionsBidSection.getChildren().add(artBid);
-			
-
 		}
-		
 		ArrayList<Auction> WonAuctions = new ArrayList<>();
 		WonAuctions = Auction.getGivenWonAuctions(currentUserObject.getUsername());
 		
-		
-		for(int i = 0; i < WonAuctions.size(); i++) {
-
+		for (int i = 0; i < WonAuctions.size(); i++) {
 			Text wonArtwork = new Text(WonAuctions.get(i).getAuctionedArtwork().getTitle());
 			wonArtworksList.getChildren().add(wonArtwork);
 		}
-		
-		
-		
-		
 		changePicButton.setMaxWidth(Double.MAX_VALUE);
 		avatarButton.setMaxWidth(Double.MAX_VALUE);
 		back.setMinWidth(changePicButton.getWidth());
