@@ -38,24 +38,27 @@ public class Auction {
 		this.currentBidder = null;
 		this.remainingBids = auctionedArtwork.getNumBidAllowed();
 		this.reserveBid = auctionedArtwork.getReservePrice();
-		
 		sortAuctions();
-
 	}
 
-	
+	/**
+	 * Method to sort the auctions, determining whether it is completed or still on auction when
+	 * loading it into the system / creating a new auction.
+	 */
 	private void sortAuctions() {
 		if(this.auctionedArtwork.getOnAuction() == true) {
 			auctions.add(this);
 		} else {
-			
 			completedAuctions.add(this);
-	
 		}
 	}
 	
+	/**
+	 * Method to get all completed auctions of a given username.
+	 * @param username The username to be compared against completed auctions.
+	 * @return userWonArtworks An Arraylist of unique completed auctions.
+	 */
 	public static ArrayList<Auction> getGivenSellersCompletedAuctions(String username) {
-		
 		ArrayList<Auction> usersWonArtworks = new ArrayList<>();
 		
 		for(int i = 0; i < completedAuctions.size(); i++) {
@@ -67,8 +70,12 @@ public class Auction {
 		return usersWonArtworks;
 	}
 	
+	/**
+	 * Method to get all won auctions of a given username.
+	 * @param username The username to be compared against completed auctions
+	 * @return usersWonArtworks An Arraylist of unique completed auctions
+	 */
 	public static ArrayList<Auction> getGivenWonAuctions(String username) {
-		
 		ArrayList<Auction> usersWonArtworks = new ArrayList<>();
 		
 		for(int i = 0; i < completedAuctions.size(); i++) {
@@ -80,19 +87,20 @@ public class Auction {
 		return usersWonArtworks;
 	}
 	
-	
-	
+	/**
+	 * Method to load in and set the  current bidder and bid amount for a won artwork.
+	 * @param title The tite of the auction.
+	 * @param curBidder The current (winner) bidder of the completed auction.
+	 * @param curBid The current (winning) bid of the completed auction.
+	 */
 	public static void setGivenWonArtworks(String title, String curBidder, Double curBid) {
-		
 		
 		for(int i = 0; i < completedAuctions.size(); i++) {
 			if(title.equalsIgnoreCase(completedAuctions.get(i).getAuctionedArtwork().getTitle())) {
 				completedAuctions.get(i).setCurrentBidder(curBidder);
 				completedAuctions.get(i).setCurrentBid(curBid);
-				
 			}
 		}
-	
 	}
 	
 	
@@ -150,7 +158,7 @@ public class Auction {
 	* @return Winning Notification message is final bid, Null otherwise
 	*/
 	public String attemptNewBid(String newBidder, double newBid) {
-		// Check if the bid is valid and the final bid
+
 		if (checkIfBidValid(newBidder, newBid)
 				&& this.remainingBids == 1) {
 			
@@ -158,7 +166,7 @@ public class Auction {
 			this.currentBidder = newBidder;
 			this.currentBid = newBid;
 			this.remainingBids = 0;
-			// create a new bid object
+
 			Bidding bid = new Bidding(newBidder, newBid,
 					generateDateTime());
 			this.bidHistory.add(bid);
@@ -169,11 +177,12 @@ public class Auction {
 		if(newBidder.equalsIgnoreCase(this.auctionedArtwork.getAuctioneer())){
 			return "selfbid";
 		}
+		
 		if (checkIfBidValid(newBidder, newBid)) {
 			this.currentBidder = newBidder;
 			this.currentBid = newBid;
 			this.remainingBids -= 1;
-			// create a new bid object
+
 			Bidding bid = new Bidding(newBidder, newBid,
 					generateDateTime());
 			this.bidHistory.add(bid);

@@ -60,8 +60,6 @@ public class Artwork {
 		
 	}
 
-	
-
 	/**
 	 * Method to put Artwork on auction.
 	 * @param onAuction The boolean value that sets the Artwork to on auction.
