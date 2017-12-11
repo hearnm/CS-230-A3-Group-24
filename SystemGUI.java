@@ -96,7 +96,7 @@ public class SystemGUI extends Application {
 	private boolean lineStarted = false;
 	private double lineStartX;
 	private double lineStartY;
-	private Label lineActiveTxt = new Label("Line initial node selected");
+	private Label lineActiveTxt;
 	private String filterSelected = null;
 	
 	private Stage window;					// The main stage, displaying the current Scene
@@ -1332,6 +1332,7 @@ public class SystemGUI extends Application {
 	    Label color = new Label("Color");
 	    Label shape = new Label("Shape");
 	    Label drawPreview = new Label("Pen Preview");
+	    lineActiveTxt = new Label("Line initial node selected");
 	    
 	    title.setScaleX(3);
 	    title.setScaleY(3);
