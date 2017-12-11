@@ -129,7 +129,7 @@ public class LoadData {
 					double height = lineScanner.nextDouble();
 					boolean status = lineScanner.nextBoolean();
 					String curBidder = lineScanner.next();
-
+					double curBid = lineScanner.nextDouble();
 				
 					@SuppressWarnings("unused")
 					Artwork loadedPainting = new Painting(auctioner, title, creator,
@@ -149,7 +149,7 @@ public class LoadData {
 						
 						if(status == true) {
 					
-							Auction.setGivenWonArtworks(title, curBidder);
+							Auction.setGivenWonArtworks(title, curBidder, curBid);
 							System.out.println("Highest Bidder set in completed: " + curBidder);
 						}
 					
@@ -166,7 +166,7 @@ public class LoadData {
 					String material = lineScanner.next();
 					boolean status = lineScanner.nextBoolean();
 					String curBidder = lineScanner.next();
-
+					double curBid = lineScanner.nextDouble();
 					
 					@SuppressWarnings("unused")
 					Artwork loadedPainting = new Sculpture(auctioner, title, creator,
@@ -185,7 +185,7 @@ public class LoadData {
 					}
 					}
 						if(status == false) {
-							Auction.setGivenWonArtworks(title, curBidder);
+							Auction.setGivenWonArtworks(title, curBidder, curBid);
 							System.out.println("Highest Bidder set in completed: " + curBidder);
 						}
 					}

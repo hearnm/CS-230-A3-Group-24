@@ -67,12 +67,14 @@ public class Auction {
 		return usersWonArtworks;
 	}
 	
-	public static void setGivenWonArtworks(String title, String curBidder) {
+	public static void setGivenWonArtworks(String title, String curBidder, Double curBid) {
 		
 		
 		for(int i = 0; i < completedAuctions.size(); i++) {
 			if(title.equalsIgnoreCase(completedAuctions.get(i).getAuctionedArtwork().getTitle())) {
 				completedAuctions.get(i).setCurrentBidder(curBidder);
+				completedAuctions.get(i).setCurrentBid(curBid);
+				
 			}
 		}
 	
