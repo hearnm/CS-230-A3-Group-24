@@ -828,12 +828,11 @@ public class SystemGUI extends Application {
 	 * @param user The user to be added to the Current users Favorite List.
 	 */
 	private void addUserToFavorites(String username) {
-		
-		for(int i = 0; i < allUsers.size(); i++) {
-			if(username.equalsIgnoreCase(allUsers.get(i).getUsername())) {
+		for (int i = 0; i < allUsers.size(); i++) {
+			if (username.equalsIgnoreCase(allUsers.get(i).getUsername())) {
 				currentUserObject.addFavoriteUser(allUsers.get(i));
 				
-				for(int k = 0; k < currentUserObject.getFavoriteUsers().size(); k++ ) {
+				for (int k = 0; k < currentUserObject.getFavoriteUsers().size(); k++ ) {
 				System.out.println(currentUserObject.getFavoriteUsers().get(k).getUsername());
 				}
 			}
@@ -845,11 +844,10 @@ public class SystemGUI extends Application {
 	 * @param user The user to be removed from the Current users Favorite List.
 	 */
 	private void removeUserFavorite(String username) {
-		
-		for(int i = 0; i < allUsers.size(); i++) {
-			if(username.equalsIgnoreCase(allUsers.get(i).getUsername())) {
+		for (int i = 0; i < allUsers.size(); i++) {
+			if (username.equalsIgnoreCase(allUsers.get(i).getUsername())) {
 				currentUserObject.removeFavoriteUser(allUsers.get(i));
-				for(int k = 0; k < currentUserObject.getFavoriteUsers().size(); k++ ) {
+				for (int k = 0; k < currentUserObject.getFavoriteUsers().size(); k++ ) {
 				System.out.println(currentUserObject.getFavoriteUsers().get(k).getUsername());
 				}
 			}
@@ -930,11 +928,9 @@ public class SystemGUI extends Application {
 			window.setScene(home);
 			
 		});
-		
-		for(int i = 0; i < allUsers.size(); i++) {
+		for (int i = 0; i < allUsers.size(); i++) {
 			try {
-				if(allUsers.get(i).getUsername() != currentUserObject.getUsername()) {
-					
+				if (allUsers.get(i).getUsername() != currentUserObject.getUsername()) {
 					final Label listUsername = new Label(allUsers.get(i).getUsername());
 					listUsername.setScaleX(1.5);
 					listUsername.setScaleY(1.5);
