@@ -8,9 +8,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.logging.Level;
-
 import javax.imageio.ImageIO;
-
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -374,9 +372,6 @@ public class SystemGUI extends Application {
 	 * @return True if details are valid, False if details are invalid
 	 */
 	private boolean validateSignUpDetails(String username, String phoneNo, String postcode) {
-		//String regexUkPhoneNumber = "[0-9]{11}";	//Test
-		//Pattern phoneNoChecker = Pattern.compile(regexUkPhoneNumber);
-		//Matcher phoneNoMatcher = phoneNoChecker.matcher(phoneNo);
 		if(usernameDuplicationCheck(username)) {
 			notificationBox("Sign-Up Notification", "Input Error", "Username taken, please select another");
 			return false;
@@ -395,13 +390,16 @@ public class SystemGUI extends Application {
 		}
 	}
 	
+	/**
+	 * Checks if the phone number is valid
+	 * @param phoneNo
+	 * @return true if phone number is correct, otherwise false
+	 */
 	public boolean phoneNoChecker(String phoneNo) {
 		System.out.println("Phone No: "+phoneNo);
 		if(phoneNo.matches("[0-9]{11}")) {
-			System.out.println("why are we matching");
 			return true;
 		} else {
-			System.out.println("test");
 			return false;
 		}
 	}
@@ -446,6 +444,12 @@ public class SystemGUI extends Application {
 	 * Method to build the Home Page GUI window.
 	 * @return root The Constructed Pane with all the Home Page GUI elements
 	 */
+	/**
+	 * @return
+	 */
+	/**
+	 * @return
+	 */
 	private Pane buildHomePageGUI(){
 		window.setResizable(true);
 		BorderPane root = new BorderPane();
@@ -460,9 +464,6 @@ public class SystemGUI extends Application {
 		HBox buttonBar = new HBox(10);
 		HBox searchBlock = new HBox(5);
 		StackPane mainCenter = new StackPane();
-
-		//mainCenter.setBorder(new Border(new BorderStroke(Color.BLACK, 
-	   //         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		
 		root.setPadding(new Insets(25,10,10,10));
 		mainTop.setPadding(new Insets(25,10,10,10));
@@ -502,11 +503,12 @@ public class SystemGUI extends Application {
 			}
 		});
 		
-		ToggleGroup radioSelectionToggle = new ToggleGroup();
+		ToggleGroup radioSelectionToggle = new ToggleGroup(); //Create a group for Radio Buttons
 		
 		RadioButton filterAll = new RadioButton();
 		RadioButton filterPaintings = new RadioButton();
 		RadioButton filterSculptures = new RadioButton();
+		
 		
 		if(filterSelected == null) {
 			filterAll.setSelected(true);
@@ -535,6 +537,7 @@ public class SystemGUI extends Application {
 			window.setScene(home);
 		});
 		
+		//Put all the filtering buttons in the group
 		filterAll.setToggleGroup(radioSelectionToggle);
 		filterPaintings.setToggleGroup(radioSelectionToggle);
 		filterSculptures.setToggleGroup(radioSelectionToggle);
@@ -1030,29 +1033,20 @@ public class SystemGUI extends Application {
 		VBox completedAuctionsUsernameSection = new VBox(10);
 		VBox completedAuctionsBidSection = new VBox(10);
 		
-		VBox wonArtworksList = new VBox(10);
-		
 		completedAuctionsTitleSection.getChildren().addAll( completedAuctionsArtworkSection, 
 				completedAuctionsUsernameSection, completedAuctionsBidSection);
 		
 		Text completedAuctionsTitle = new Text("Completed Auctions");
-		Text completedArtwork = new Text("Artwork");
-		Text completedName = new Text("Username");
-		Text completedBid = new Text("Winning Bid");
+		Text winArtwork = new Text("Artwork");
+		Text winUsername = new Text("Username");
+		Text winBid = new Text("Winning Bid");
 		
 		completedAuctionsTitle.setScaleX(1.3);
 		completedAuctionsTitle.setScaleY(1.3);
 		
-		completedAuctionsArtworkSection.getChildren().add(completedArtwork);
-		completedAuctionsUsernameSection.getChildren().add(completedName);
-		completedAuctionsBidSection.getChildren().add(completedBid);
-		
-		Text wonArtworks = new Text("Won Auctions");
-		wonArtworks.setScaleX(1.3);
-		wonArtworks.setScaleY(1.3);
-		
-		wonArtworksList.getChildren().addAll(wonArtworks);
-		
+		completedAuctionsArtworkSection.getChildren().add(winArtwork);
+		completedAuctionsUsernameSection.getChildren().add(winUsername);
+		completedAuctionsBidSection.getChildren().add(winBid);
 		
 		Pane profPicBox = new Pane();
 		
@@ -1103,33 +1097,23 @@ public class SystemGUI extends Application {
 		});
 		back.setOnAction(e -> window.setScene(home));
 
-		ArrayList<Auction> completedAuctions = new ArrayList<>();
-		completedAuctions = Auction.getGivenSellersCompletedAuctions(currentUserObject.getUsername());
+		ArrayList<Auction> currentWonAuctions = new ArrayList<>();
+		currentWonAuctions = Auction.getGivenUserWonArtworks(currentUserObject.getUsername());
 		
-	
+		System.out.println(currentWonAuctions);
 		
-		for(int i = 0; i < completedAuctions.size(); i++) {
+		for(int i = 0; i < currentWonAuctions.size(); i++) {
 
-			Text artTitle = new Text(completedAuctions.get(i).getAuctionedArtwork().getTitle());
-			Text artWinner = new Text(completedAuctions.get(i).getCurrentBidder());
-			System.out.println(completedAuctions.get(i).getCurrentBid());
-			Text artBid = new Text(String.valueOf(completedAuctions.get(i).getCurrentBid()));
+			Text artTitle = new Text(currentWonAuctions.get(i).getAuctionedArtwork().getTitle());
+			Text artWinner = new Text(currentWonAuctions.get(i).getCurrentBidder());
+			System.out.println(currentWonAuctions.get(i).getCurrentBid());
+			Text artBid = new Text(String.valueOf(currentWonAuctions.get(i).getCurrentBid()));
 	
 			completedAuctionsArtworkSection.getChildren().add(artTitle);
 			completedAuctionsUsernameSection.getChildren().add(artWinner);
 			completedAuctionsBidSection.getChildren().add(artBid);
 			
 
-		}
-		
-		ArrayList<Auction> WonAuctions = new ArrayList<>();
-		WonAuctions = Auction.getGivenWonAuctions(currentUserObject.getUsername());
-		
-		
-		for(int i = 0; i < WonAuctions.size(); i++) {
-
-			Text wonArtwork = new Text(WonAuctions.get(i).getAuctionedArtwork().getTitle());
-			wonArtworksList.getChildren().add(wonArtwork);
 		}
 		
 		
@@ -1146,14 +1130,14 @@ public class SystemGUI extends Application {
 		
 		mainTop.setAlignment(Pos.BASELINE_CENTER);
 		rSideBar.setAlignment(Pos.BASELINE_CENTER);
-		wonArtworksList.setAlignment(Pos.BASELINE_CENTER);
 		
 		titleBlock.getChildren().addAll(title, subTitle);
 		mainTop.getChildren().addAll(titleBlock);
 		profPicBox.getChildren().addAll(imageView);
 		midSection.getChildren().addAll(firstName,street,postcode,cityTown,phoneNo);
 		lSideBar.getChildren().addAll(profPicBox, changePicButton, avatarButton);
-		rSideBar.getChildren().addAll(completedAuctionsTitle, completedAuctionsTitleSection, wonArtworksList);
+		rSideBar.getChildren().addAll(completedAuctionsTitle, completedAuctionsTitleSection);
+		
 		
 		
 		
