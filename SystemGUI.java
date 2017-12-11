@@ -104,7 +104,6 @@ public class SystemGUI extends Application {
 	private Label lineActiveTxt = new Label("Line initial node selected");
 	private String filterSelected = null;
 	
-
 	private Stage window;					// The main stage, displaying the current Scene
 	private Scene login;					// The Scene to hold the login Page GUI
 	private Scene signUp;					// The Scene to hold the Sign Up GUI
@@ -377,7 +376,7 @@ public class SystemGUI extends Application {
 		//String regexUkPhoneNumber = "[0-9]{11}";	//Test
 		//Pattern phoneNoChecker = Pattern.compile(regexUkPhoneNumber);
 		//Matcher phoneNoMatcher = phoneNoChecker.matcher(phoneNo);
-		if(usernameDuplicationCheck(username)) {
+		if (usernameDuplicationCheck(username)) {
 			notificationBox("Sign-Up Notification", "Input Error", "Username taken, please select another");
 			return false;
 		} else if (phoneNoChecker(phoneNo) == false) {
@@ -395,6 +394,11 @@ public class SystemGUI extends Application {
 		}
 	}
 	
+	/**
+	* Method to check phone number fits certain criteria.
+	* @param phoneNo The phone number
+	* @return True, if correct number of digits, else false
+	*/
 	public boolean phoneNoChecker(String phoneNo) {
 		System.out.println("Phone No: "+phoneNo);
 		if(phoneNo.matches("[0-9]{11}")) {
@@ -407,7 +411,7 @@ public class SystemGUI extends Application {
 	}
 
 	/**
-	 * Method to check check the currently stored profiles too see if there is a duplicate
+	 * Method to check check the currently stored profiles too see if there is a duplicate.
 	 * @param username The username to be compared / checked
 	 * @return True if there is a duplicate, False if it is unique
 	 */
