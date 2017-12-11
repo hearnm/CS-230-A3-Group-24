@@ -1123,8 +1123,6 @@ public class SystemGUI extends Application {
 		lSideBar.getChildren().addAll(profPicBox, changePicButton, avatarButton);
 		rSideBar.getChildren().addAll(completedAuctionsTitle, completedAuctionsTitleSection, wonArtworksList);
 		
-		
-		
 		root.setTop(mainTop);
 		root.setLeft(lSideBar);
 		root.setRight(rSideBar);
@@ -1183,7 +1181,7 @@ public class SystemGUI extends Application {
 		subTitle.setScaleY(2.5);
 		title.setTextAlignment(TextAlignment.LEFT);
 		
-		for(int i = 0; i < 6; i++) {
+		for (int i = 0; i < 6; i++) {
 			try {
 				Image avatar = new Image(new FileInputStream("Avatar" + (i+1) + ".png"));
 				ImageView avatarimg = new ImageView();
@@ -1422,7 +1420,6 @@ public class SystemGUI extends Application {
 	    		drawPreview(colorOption.getValue(), shapeOptions.getValue());
 	    	}
 	    });
-		
 	    canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -1444,7 +1441,6 @@ public class SystemGUI extends Application {
 
 			}
 		});	
-	
 		previewSection.getChildren().add(previewCanvas);
 	    topLeftBar.getChildren().addAll(draw, line, erase);
 	    topBar.getChildren().add(title);
@@ -1478,16 +1474,16 @@ public class SystemGUI extends Application {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		getColorChoice(colorOption);
 		
-		if(drawEraser == true) {
+		if (drawEraser == true) {
 			gc.clearRect(mouseX, mouseY,  sliderValue, sliderValue);
-		} else if(drawParticle == true && shape == "Circle") {
+		} else if (drawParticle == true && shape == "Circle") {
 			gc.fillOval(mouseX, mouseY,  sliderValue, sliderValue);
-		} else if(drawParticle == true && shape == "Square") {
+		} else if (drawParticle == true && shape == "Square") {
 			gc.fillRect(mouseX, mouseY, sliderValue, sliderValue);
-		} else if(drawLine == true) {
-			if(lineStarted == true) {
+		} else if (drawLine == true) {
+			if (lineStarted == true) {
 				gc.setStroke(colorOption.getValue());
-				if(shape == "Circle") {
+				if (shape == "Circle") {
 					gc.setLineCap(StrokeLineCap.ROUND);
 				} else {
 					gc.setLineCap(StrokeLineCap.SQUARE);
