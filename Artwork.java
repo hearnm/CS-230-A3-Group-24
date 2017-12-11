@@ -56,18 +56,11 @@ public class Artwork {
 		generateTimeDate();
 		artworks.add(this);
 
-		sortArtwork();
+		Auction newAuction = new Auction(this);
+		
 	}
 
-	/**
-	 * Method to sort Artwork between on auction and finished auction.
-	 */
-	public void sortArtwork() {
-		if (this.onAuction == true) {
-			@SuppressWarnings("unused")
-			Auction newAuction = new Auction(this);
-		}
-	}
+	
 
 	/**
 	 * Method to put Artwork on auction.

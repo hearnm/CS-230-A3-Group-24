@@ -492,6 +492,16 @@ public class SystemGUI extends Application {
 		textPaintings.setId("TEXTFORMAT");
 		textSculptures.setId("TEXTFORMAT");
 
+		searchBtn.setOnAction(e -> {
+			for(int i = 0; i < auctions.size(); i++) {
+				if(search.getText().equalsIgnoreCase(auctions.get(i).getAuctionedArtwork().getTitle())) {
+					selectedAuction = auctions.get(i);
+					selectedAuctionView = new Scene(buildDetailedAuctionViewGUI(), AUCTION_DETAILS_STAGE_WIDTH, AUCTION_DETAILS_STAGE_HEIGHT);
+					window.setScene(selectedAuctionView);
+				}
+			}
+		});
+		
 		ToggleGroup radioSelectionToggle = new ToggleGroup();
 		
 		RadioButton filterAll = new RadioButton();
@@ -1087,18 +1097,20 @@ public class SystemGUI extends Application {
 		ArrayList<Auction> currentWonAuctions = new ArrayList<>();
 		currentWonAuctions = Auction.getGivenUserWonArtworks(currentUserObject.getUsername());
 		
+		System.out.println(currentWonAuctions);
+		
 		for(int i = 0; i < currentWonAuctions.size(); i++) {
 
 			Text artTitle = new Text(currentWonAuctions.get(i).getAuctionedArtwork().getTitle());
 			Text artWinner = new Text(currentWonAuctions.get(i).getCurrentBidder());
+			System.out.println(currentWonAuctions.get(i).getCurrentBid());
 			Text artBid = new Text(String.valueOf(currentWonAuctions.get(i).getCurrentBid()));
 	
 			completedAuctionsArtworkSection.getChildren().add(artTitle);
 			completedAuctionsUsernameSection.getChildren().add(artWinner);
 			completedAuctionsBidSection.getChildren().add(artBid);
 			
-			completedAuctionsTitleSection.getChildren().addAll( completedAuctionsArtworkSection, 
-					completedAuctionsUsernameSection, completedAuctionsBidSection);
+
 		}
 		
 		

@@ -48,21 +48,37 @@ public class Auction {
 		if(this.auctionedArtwork.getOnAuction() == true) {
 			auctions.add(this);
 		} else {
+			
 			completedAuctions.add(this);
+	
 		}
 	}
 	
 	public static ArrayList<Auction> getGivenUserWonArtworks(String username) {
+		
 		ArrayList<Auction> usersWonArtworks = new ArrayList<>();
+		
 		for(int i = 0; i < completedAuctions.size(); i++) {
-			if(username.equalsIgnoreCase(completedAuctions.get(i).getCurrentBidder())) {
+			if(username.equalsIgnoreCase(completedAuctions.get(i).getAuctionedArtwork().getAuctioneer())) {
+	
 				usersWonArtworks.add(completedAuctions.get(i));
 			}
 		}
 		return usersWonArtworks;
 	}
 	
-
+	public static void setGivenWonArtworks(String title, String curBidder, Double curBid) {
+		
+		
+		for(int i = 0; i < completedAuctions.size(); i++) {
+			if(title.equalsIgnoreCase(completedAuctions.get(i).getAuctionedArtwork().getTitle())) {
+				completedAuctions.get(i).setCurrentBidder(curBidder);
+				completedAuctions.get(i).setCurrentBid(curBid);
+				
+			}
+		}
+	
+	}
 	
 	
 	/**
@@ -122,15 +138,16 @@ public class Auction {
 		// Check if the bid is valid and the final bid
 		if (checkIfBidValid(newBidder, newBid)
 				&& this.remainingBids == 1) {
-			completedAuctions.add(this);
+			
 			auctionedArtwork.setOnAuction(false);
 			this.currentBidder = newBidder;
 			this.currentBid = newBid;
-			this.remainingBids -= 1;
+			this.remainingBids = 0;
 			// create a new bid object
 			Bidding bid = new Bidding(newBidder, newBid,
 					generateDateTime());
 			this.bidHistory.add(bid);
+			completedAuctions.add(this);
 			return "win";
 		}
 

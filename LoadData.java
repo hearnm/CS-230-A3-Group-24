@@ -128,15 +128,16 @@ public class LoadData {
 					double width = lineScanner.nextDouble();
 					double height = lineScanner.nextDouble();
 					boolean status = lineScanner.nextBoolean();
-
-					// Construct existing Painting object
+					String curBidder = lineScanner.next();
+					double curBid = lineScanner.nextDouble();
+				
 					@SuppressWarnings("unused")
 					Artwork loadedPainting = new Painting(auctioner, title, creator,
 							artCreationYear, reservePrice, numBidsAllowed, width,
 							height, false, status);
 
-					// Inner loop to add bidding data to an auction if it exists.
-					
+				
+	
 					while(lineScanner.hasNext()) {
 						if(status == true) {
 						Auction.getGivenAuction(title).addExistingBids(lineScanner.next(),
@@ -145,6 +146,14 @@ public class LoadData {
 						lineScanner.next();
 					}
 					}
+						
+						if(status == true) {
+					
+							Auction.setGivenWonArtworks(title, curBidder, curBid);
+							System.out.println("Highest Bidder set in completed: " + curBidder);
+						}
+					
+					
 				} else {
 					String title = lineScanner.next();
 					String creator = lineScanner.next();
@@ -156,14 +165,16 @@ public class LoadData {
 					double depth = lineScanner.nextDouble();
 					String material = lineScanner.next();
 					boolean status = lineScanner.nextBoolean();
-
-					// Construct existing Sculpture object
+					String curBidder = lineScanner.next();
+					double curBid = lineScanner.nextDouble();
+					
 					@SuppressWarnings("unused")
 					Artwork loadedPainting = new Sculpture(auctioner, title, creator,
 							artCreationYear, reservePrice, numBidsAllowed, width,
 							height, depth, material, false, status);
 				
-					// Inner loop to add bidding data to an auction if it exists.
+					
+					
 					
 					while(lineScanner.hasNext()) {
 						if(status == true) {
@@ -171,10 +182,14 @@ public class LoadData {
 								lineScanner.next(), lineScanner.next());
 					} else { 
 						lineScanner.next();
-						
 					}
 					}
-				}
+						if(status == false) {
+							Auction.setGivenWonArtworks(title, curBidder, curBid);
+							System.out.println("Highest Bidder set in completed: " + curBidder);
+						}
+					}
+				
 			}
 			closeFile(lineScanner);
 		}

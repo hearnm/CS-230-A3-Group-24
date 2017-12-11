@@ -174,7 +174,7 @@ public class SaveData {
 			boolean status = currentArtwork.getOnAuction();
 
 			outputStream.println(auctioneer + "," + artType + "," + title + "," + creator + "," + artCreationYear + "," 
-					+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + "," + status + ",");
+					+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + "," + status + "," + "NULL" + "," + 0.0 + ",");
 		} else {
 			// A new Sculpture artwork
 			String auctioneer = currentArtwork.getAuctioneer();
@@ -192,7 +192,7 @@ public class SaveData {
 
 			outputStream.println(auctioneer + "," + artType + "," + title + "," + creator + "," + 
 					artCreationYear + "," + reservePrice + "," + numBidsAllowed + "," + width +
-					"," + height + "," + depth + "," + material + "," + status + ",");
+					"," + height + "," + depth + "," + material + "," + status + "," + "NULL" + "," +  0.0 + ",");
 		}
 		closeFile(outputStream);
 	}
@@ -215,9 +215,12 @@ public class SaveData {
 				double width = currentAuctions.get(i).getAuctionedArtwork().getWidth();
 				double height = currentAuctions.get(i).getAuctionedArtwork().getHeight();
 				boolean status = currentAuctions.get(i).getAuctionedArtwork().getOnAuction();
+				String currentBidder = currentAuctions.get(i).getCurrentBidder();
+				double currentBid = currentAuctions.get(i).getCurrentBid();
 
+				
 				outputStream.print(auctioneer + "," + artType + "," + title + "," + creator + "," + artCreationYear + "," 
-						+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + "," + status + ",");
+						+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + "," + status + "," + currentBidder + "," + currentBid + ",");
 
 				for(int ii = 0; ii < currentAuctions.get(i).getBids().size(); ii++) {
 					outputStream.print(currentAuctions.get(i).getBids().get(ii).getUsername() +
@@ -237,10 +240,12 @@ public class SaveData {
 				double depth = currentAuctions.get(i).getAuctionedArtwork().getDepth();
 				String material = currentAuctions.get(i).getAuctionedArtwork().getMaterial();
 				boolean status = currentAuctions.get(i).getAuctionedArtwork().getOnAuction();
+				String currentBidder = currentAuctions.get(i).getCurrentBidder();
+				double currentBid = currentAuctions.get(i).getCurrentBid();
 				
 				outputStream.print(auctioneer + "," + artType + "," + title + "," + creator + "," + artCreationYear + "," 
 						+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + "," + depth + "," + material +
-						"," + status + ",");
+						"," + status + "," + currentBidder + ","  + currentBid + ",");
 
 				for (int ii = 0; ii < currentAuctions.get(i).getBids().size(); ii++) {
 					outputStream.print(currentAuctions.get(i).getBids().get(ii).getUsername() + "," +
