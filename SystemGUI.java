@@ -492,6 +492,16 @@ public class SystemGUI extends Application {
 		textPaintings.setId("TEXTFORMAT");
 		textSculptures.setId("TEXTFORMAT");
 
+		searchBtn.setOnAction(e -> {
+			for(int i = 0; i < auctions.size(); i++) {
+				if(search.getText().equalsIgnoreCase(auctions.get(i).getAuctionedArtwork().getTitle())) {
+					selectedAuction = auctions.get(i);
+					selectedAuctionView = new Scene(buildDetailedAuctionViewGUI(), AUCTION_DETAILS_STAGE_WIDTH, AUCTION_DETAILS_STAGE_HEIGHT);
+					window.setScene(selectedAuctionView);
+				}
+			}
+		});
+		
 		ToggleGroup radioSelectionToggle = new ToggleGroup();
 		
 		RadioButton filterAll = new RadioButton();
