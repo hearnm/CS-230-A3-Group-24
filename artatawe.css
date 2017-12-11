@@ -34,6 +34,12 @@
 	-fx-effect: dropshadow(three-pass-box, #3333cc, 10, 0.0, 2, 2);
 }
 
+#TEXTFORMATWHITE {
+	-fx-fill: white;
+	-fx-font-family: "Arial";
+	-fx-effect: dropshadow(three-pass-box, #3333cc, 10, 0.0, 2, 2);
+}
+
 #INFORMATIONHIGHLIGHTER {
 	-fx-background-color: linear-gradient(transparent,rgba(200,200,200,0.8));
 	-fx-effect: dropshadow(gaussian, rgba(200,200,200,0.8), 10, 0.0, 2, 2);
