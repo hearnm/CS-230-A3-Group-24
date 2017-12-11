@@ -8,7 +8,9 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.logging.Level;
+
 import javax.imageio.ImageIO;
+
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -372,6 +374,9 @@ public class SystemGUI extends Application {
 	 * @return True if details are valid, False if details are invalid
 	 */
 	private boolean validateSignUpDetails(String username, String phoneNo, String postcode) {
+		//String regexUkPhoneNumber = "[0-9]{11}";	//Test
+		//Pattern phoneNoChecker = Pattern.compile(regexUkPhoneNumber);
+		//Matcher phoneNoMatcher = phoneNoChecker.matcher(phoneNo);
 		if(usernameDuplicationCheck(username)) {
 			notificationBox("Sign-Up Notification", "Input Error", "Username taken, please select another");
 			return false;
@@ -390,16 +395,13 @@ public class SystemGUI extends Application {
 		}
 	}
 	
-	/**
-	 * Checks if the phone number is valid
-	 * @param phoneNo
-	 * @return true if phone number is correct, otherwise false
-	 */
 	public boolean phoneNoChecker(String phoneNo) {
 		System.out.println("Phone No: "+phoneNo);
 		if(phoneNo.matches("[0-9]{11}")) {
+			System.out.println("why are we matching");
 			return true;
 		} else {
+			System.out.println("test");
 			return false;
 		}
 	}
@@ -444,12 +446,6 @@ public class SystemGUI extends Application {
 	 * Method to build the Home Page GUI window.
 	 * @return root The Constructed Pane with all the Home Page GUI elements
 	 */
-	/**
-	 * @return
-	 */
-	/**
-	 * @return
-	 */
 	private Pane buildHomePageGUI(){
 		window.setResizable(true);
 		BorderPane root = new BorderPane();
@@ -464,6 +460,9 @@ public class SystemGUI extends Application {
 		HBox buttonBar = new HBox(10);
 		HBox searchBlock = new HBox(5);
 		StackPane mainCenter = new StackPane();
+
+		//mainCenter.setBorder(new Border(new BorderStroke(Color.BLACK, 
+	   //         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		
 		root.setPadding(new Insets(25,10,10,10));
 		mainTop.setPadding(new Insets(25,10,10,10));
@@ -503,12 +502,11 @@ public class SystemGUI extends Application {
 			}
 		});
 		
-		ToggleGroup radioSelectionToggle = new ToggleGroup(); //Create a group for Radio Buttons
+		ToggleGroup radioSelectionToggle = new ToggleGroup();
 		
 		RadioButton filterAll = new RadioButton();
 		RadioButton filterPaintings = new RadioButton();
 		RadioButton filterSculptures = new RadioButton();
-		
 		
 		if(filterSelected == null) {
 			filterAll.setSelected(true);
@@ -537,7 +535,6 @@ public class SystemGUI extends Application {
 			window.setScene(home);
 		});
 		
-		//Put all the filtering buttons in the group
 		filterAll.setToggleGroup(radioSelectionToggle);
 		filterPaintings.setToggleGroup(radioSelectionToggle);
 		filterSculptures.setToggleGroup(radioSelectionToggle);
@@ -546,12 +543,9 @@ public class SystemGUI extends Application {
 		ArrayList<String> artworkDetails = new ArrayList<>();
 		for(int i = 0; i < auctions.size(); i++) {
 			
-			String artworkType = auctions.get(i).getAuctionedArtwork().getArtType();
-			if(artworkType == filterSelected || filterSelected == null) {
+			if(auctions.get(i).getAuctionedArtwork().getArtType() == filterSelected || filterSelected == null) {
 			
-				System.out.println("Loaded is of type: "+artworkType);
-				System.out.println("Filter is " + filterSelected);
-				System.out.println("Are they the same? " + auctions.get(i).getAuctionedArtwork().getArtType() == filterSelected);
+				System.out.println(auctions.get(i).getAuctionedArtwork().getArtType());
 				final ImageView previewArt = new ImageView();
 				previewArt.setImage(setArtImage(auctions.get(i).getCurrentArtTitle()));
 				previewArt.setFitHeight(128);
@@ -1033,20 +1027,29 @@ public class SystemGUI extends Application {
 		VBox completedAuctionsUsernameSection = new VBox(10);
 		VBox completedAuctionsBidSection = new VBox(10);
 		
+		VBox wonArtworksList = new VBox(10);
+		
 		completedAuctionsTitleSection.getChildren().addAll( completedAuctionsArtworkSection, 
 				completedAuctionsUsernameSection, completedAuctionsBidSection);
 		
 		Text completedAuctionsTitle = new Text("Completed Auctions");
-		Text winArtwork = new Text("Artwork");
-		Text winUsername = new Text("Username");
-		Text winBid = new Text("Winning Bid");
+		Text completedArtwork = new Text("Artwork");
+		Text completedName = new Text("Username");
+		Text completedBid = new Text("Winning Bid");
 		
 		completedAuctionsTitle.setScaleX(1.3);
 		completedAuctionsTitle.setScaleY(1.3);
 		
-		completedAuctionsArtworkSection.getChildren().add(winArtwork);
-		completedAuctionsUsernameSection.getChildren().add(winUsername);
-		completedAuctionsBidSection.getChildren().add(winBid);
+		completedAuctionsArtworkSection.getChildren().add(completedArtwork);
+		completedAuctionsUsernameSection.getChildren().add(completedName);
+		completedAuctionsBidSection.getChildren().add(completedBid);
+		
+		Text wonArtworks = new Text("Won Auctions");
+		wonArtworks.setScaleX(1.3);
+		wonArtworks.setScaleY(1.3);
+		
+		wonArtworksList.getChildren().addAll(wonArtworks);
+		
 		
 		Pane profPicBox = new Pane();
 		
@@ -1097,23 +1100,33 @@ public class SystemGUI extends Application {
 		});
 		back.setOnAction(e -> window.setScene(home));
 
-		ArrayList<Auction> currentWonAuctions = new ArrayList<>();
-		currentWonAuctions = Auction.getGivenUserWonArtworks(currentUserObject.getUsername());
+		ArrayList<Auction> completedAuctions = new ArrayList<>();
+		completedAuctions = Auction.getGivenSellersCompletedAuctions(currentUserObject.getUsername());
 		
-		System.out.println(currentWonAuctions);
+	
 		
-		for(int i = 0; i < currentWonAuctions.size(); i++) {
+		for(int i = 0; i < completedAuctions.size(); i++) {
 
-			Text artTitle = new Text(currentWonAuctions.get(i).getAuctionedArtwork().getTitle());
-			Text artWinner = new Text(currentWonAuctions.get(i).getCurrentBidder());
-			System.out.println(currentWonAuctions.get(i).getCurrentBid());
-			Text artBid = new Text(String.valueOf(currentWonAuctions.get(i).getCurrentBid()));
+			Text artTitle = new Text(completedAuctions.get(i).getAuctionedArtwork().getTitle());
+			Text artWinner = new Text(completedAuctions.get(i).getCurrentBidder());
+			System.out.println(completedAuctions.get(i).getCurrentBid());
+			Text artBid = new Text(String.valueOf(completedAuctions.get(i).getCurrentBid()));
 	
 			completedAuctionsArtworkSection.getChildren().add(artTitle);
 			completedAuctionsUsernameSection.getChildren().add(artWinner);
 			completedAuctionsBidSection.getChildren().add(artBid);
 			
 
+		}
+		
+		ArrayList<Auction> WonAuctions = new ArrayList<>();
+		WonAuctions = Auction.getGivenWonAuctions(currentUserObject.getUsername());
+		
+		
+		for(int i = 0; i < WonAuctions.size(); i++) {
+
+			Text wonArtwork = new Text(WonAuctions.get(i).getAuctionedArtwork().getTitle());
+			wonArtworksList.getChildren().add(wonArtwork);
 		}
 		
 		
@@ -1130,14 +1143,14 @@ public class SystemGUI extends Application {
 		
 		mainTop.setAlignment(Pos.BASELINE_CENTER);
 		rSideBar.setAlignment(Pos.BASELINE_CENTER);
+		wonArtworksList.setAlignment(Pos.BASELINE_CENTER);
 		
 		titleBlock.getChildren().addAll(title, subTitle);
 		mainTop.getChildren().addAll(titleBlock);
 		profPicBox.getChildren().addAll(imageView);
 		midSection.getChildren().addAll(firstName,street,postcode,cityTown,phoneNo);
 		lSideBar.getChildren().addAll(profPicBox, changePicButton, avatarButton);
-		rSideBar.getChildren().addAll(completedAuctionsTitle, completedAuctionsTitleSection);
-		
+		rSideBar.getChildren().addAll(completedAuctionsTitle, completedAuctionsTitleSection, wonArtworksList);
 		
 		
 		
@@ -1792,11 +1805,6 @@ public class SystemGUI extends Application {
 		return scroll;
 	}
 	
-	//private void verifyNewAuctionDetails(String type, String artName, String artCreator, String creationYear, String maxBidders, String reserveBid,
-	//		String height, String width, String depth, String mainMaterial, boolean imageSelected) {
-	//	if(newAuctionExistence)
-	//}
-	
 	/**
 	 * Method when called prompts the user with a file chooser window, the selected image
 	 * is duplicated and saved locally with the artworks name for efficent search / storage.
@@ -1879,6 +1887,7 @@ public class SystemGUI extends Application {
 		Text subTitle = new Text("Auction Page");
 		Text artName = new Text(selectedAuction.getAuctionedArtwork().getTitle());
 		Text artType = new Text(selectedAuction.getAuctionedArtwork().getArtType());
+		Text currentBid = new Text("Current Bid: " + String.valueOf(selectedAuction.getCurrentBid()));
 		Text artAuctioneer = new Text("Auctioner: " + selectedAuction.getAuctionedArtwork().getAuctioneer());
 		Text artCreator = new Text("Artwork Creator: " + selectedAuction.getAuctionedArtwork().getCreator());
 		Text artYear = new Text("Creation Year: " + Integer.toString(selectedAuction.getAuctionedArtwork().getArtCreationYear()));
@@ -1942,6 +1951,8 @@ public class SystemGUI extends Application {
 		title.setId("ARTATAWE2");
 		subTitle.setScaleX(2.5);
 		subTitle.setScaleY(2.5);
+		currentBid.setScaleX(1.8);
+		currentBid.setScaleY(1.8);
 
 		title.setTextAlignment(TextAlignment.LEFT);
 		
@@ -1951,6 +1962,15 @@ public class SystemGUI extends Application {
 			artMaterial.setVisible(false);
 		}
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		leftVBar.setAlignment(Pos.BASELINE_CENTER);
 
 		bottomBar.getChildren().addAll(back);
@@ -1958,7 +1978,7 @@ public class SystemGUI extends Application {
 		mainTop.getChildren().addAll(titleBlock);
 		
 		leftVBar2.getChildren().addAll(artAuctioneer, artCreator, artYear, artHeight, artWidth, artDepth, artMaterial);
-		leftVBar.getChildren().addAll(artworkImg, artName, artType);
+		leftVBar.getChildren().addAll(artworkImg, artName, artType, currentBid);
 		
 		leftHBoxMain.getChildren().addAll(leftVBar, leftVBar2);
 		rightVBar.getChildren().addAll(bid, bidInput, bidTableMain);
@@ -2026,7 +2046,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to check if all fields have been filled out when creating a new auction
+	 * Method to check if all fields ahve been filled out when creating a new auction
 	 * @param auctionNameInput The name input
 	 * @param artCreatorInput The creator input
 	 * @param artCreationYearInput The creation year input
