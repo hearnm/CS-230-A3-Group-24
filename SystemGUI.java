@@ -543,9 +543,12 @@ public class SystemGUI extends Application {
 		ArrayList<String> artworkDetails = new ArrayList<>();
 		for(int i = 0; i < auctions.size(); i++) {
 			
-			if(auctions.get(i).getAuctionedArtwork().getArtType() == filterSelected || filterSelected == null) {
+			String artworkType = auctions.get(i).getAuctionedArtwork().getArtType();
+			if(artworkType == filterSelected || filterSelected == null) {
 			
-				System.out.println(auctions.get(i).getAuctionedArtwork().getArtType());
+				System.out.println("Loaded is of type: "+artworkType);
+				System.out.println("Filter is " + filterSelected);
+				System.out.println("Are they the same? " + auctions.get(i).getAuctionedArtwork().getArtType() == filterSelected);
 				final ImageView previewArt = new ImageView();
 				previewArt.setImage(setArtImage(auctions.get(i).getCurrentArtTitle()));
 				previewArt.setFitHeight(128);
@@ -1805,6 +1808,11 @@ public class SystemGUI extends Application {
 		return scroll;
 	}
 	
+	//private void verifyNewAuctionDetails(String type, String artName, String artCreator, String creationYear, String maxBidders, String reserveBid,
+	//		String height, String width, String depth, String mainMaterial, boolean imageSelected) {
+	//	if(newAuctionExistence)
+	//}
+	
 	/**
 	 * Method when called prompts the user with a file chooser window, the selected image
 	 * is duplicated and saved locally with the artworks name for efficent search / storage.
@@ -2034,7 +2042,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to check if all fields ahve been filled out when creating a new auction
+	 * Method to check if all fields have been filled out when creating a new auction
 	 * @param auctionNameInput The name input
 	 * @param artCreatorInput The creator input
 	 * @param artCreationYearInput The creation year input

@@ -5,22 +5,21 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
- * LoadData.java
- * This class searches for an existing file and takes the information
- * out of that file and puts it into the system.
+ * LoadData.java This class searches for an existing file and takes the
+ * information out of that file and puts it into the system.
+ * 
  * @author Tom Durman
  */
 public class LoadData {
-	private static final String PROFILE_DATA_PATH = "ArtataweProfiles.txt";			//The Constant File path for the system data.
-	private static final String PROFILE_FAVORITE_PATH = "_FavoriteProfiles.txt";	//The Constant File path to save all the data to.
-	private static final String ARTWORK_FAVORITE_PATH = "Artworks.txt";				//The Constant File path to the Artwork data (including bidding info).
+	private static final String PROFILE_DATA_PATH = "ArtataweProfiles.txt"; // The Constant File path for the system data.
+	private static final String PROFILE_FAVORITE_PATH = "_FavoriteProfiles.txt"; // The Constant File path to save all the data to.
+	private static final String ARTWORK_FAVORITE_PATH = "Artworks.txt"; // The Constant File path to the Artwork data (including bidding info).
 
-	/** The input stream connected to the given file. */
-	private static Scanner inputStream;
+	private static Scanner inputStream; // The input stream connected to the given file.
 
 	/**
-	 * Static Method that can be called to load the data from the
-	 * file to the system.
+	 * Static Method that can be called to load the data from the file to the
+	 * system.
 	 */
 	public static void loadSystemData() {
 		openProfileFile(PROFILE_DATA_PATH);
@@ -29,8 +28,8 @@ public class LoadData {
 	}
 
 	/**
-	 * Static Method that can be called to get an arraylist
-	 * of all user favorites to be loaded into the system.
+	 * Static Method that can be called to get an arraylist of all user
+	 * favorites to be loaded into the system.
 	 * @param user The current user object
 	 * @return ArrayList of use objects.
 	 */
@@ -38,7 +37,7 @@ public class LoadData {
 		try {
 			openProfileFile(user.getUsername() + PROFILE_FAVORITE_PATH);
 		} catch (Exception e) {
-				return null;
+			return null;
 		}
 		return readUserfavoritesFile();
 	}
@@ -59,8 +58,8 @@ public class LoadData {
 	}
 
 	/**
-	 * Static Method to read the File and take out data,
-	 * constructing appropriate objects in the system.
+	 * Static Method to read the File and take out data, constructing
+	 * appropriate objects in the system.
 	 */
 	private static void readProfileFile() {
 		while (inputStream.hasNext()) {
@@ -75,14 +74,14 @@ public class LoadData {
 			inputStream.nextLine();
 
 			@SuppressWarnings("unused")
-			UserProfile loadedUser = new UserProfile(username, firstname,
-					lastname, street, postcode, cityTown, phoneNo, false);
+			UserProfile loadedUser = new UserProfile(username, firstname, lastname, street, postcode, cityTown, phoneNo,
+					false);
 		}
 	}
 
 	/**
-	 * Static Method which reads the current users favorite users
-	 * and returns an ArrayList of user objects to be loaded in.
+	 * Static Method which reads the current users favorite users and returns an
+	 * ArrayList of user objects to be loaded in.
 	 * @return the array list
 	 */
 	private static ArrayList<UserProfile> readUserfavoritesFile() {
@@ -100,7 +99,8 @@ public class LoadData {
 	}
 
 	/**
-	 * Method to read the File and take out data, constructing appropriate artwork objects in the system.
+	 * Method to read the File and take out data, constructing appropriate
+	 * artwork objects in the system.
 	 */
 	private static void readArtworksFile() {
 		Scanner fileScanner = null;
@@ -119,7 +119,7 @@ public class LoadData {
 				String artType = lineScanner.next();
 
 				// Checking artwork type (Painting / Sculpture)
-				if(artType.equalsIgnoreCase("Painting")) {
+				if (artType.equalsIgnoreCase("Painting")) {
 					String title = lineScanner.next();
 					String creator = lineScanner.next();
 					int artCreationYear = lineScanner.nextInt();
@@ -130,30 +130,24 @@ public class LoadData {
 					boolean status = lineScanner.nextBoolean();
 					String curBidder = lineScanner.next();
 					double curBid = lineScanner.nextDouble();
-				
-					@SuppressWarnings("unused")
-					Artwork loadedPainting = new Painting(auctioner, title, creator,
-							artCreationYear, reservePrice, numBidsAllowed, width,
-							height, false, status);
 
-				
-	
-					while(lineScanner.hasNext()) {
-						if(status == true) {
-						Auction.getGivenAuction(title).addExistingBids(lineScanner.next(),
-								lineScanner.next(), lineScanner.next());
-					}  else { 
-						lineScanner.next();
-					}
-					}
-						
-						if(status == true) {
-					
-							Auction.setGivenWonArtworks(title, curBidder, curBid);
-							System.out.println("Highest Bidder set in completed: " + curBidder);
+					@SuppressWarnings("unused")
+					Artwork loadedPainting = new Painting(auctioner, title, creator, artCreationYear, reservePrice,
+							numBidsAllowed, width, height, false, status);
+
+					while (lineScanner.hasNext()) {
+						if (status == true) {
+							Auction.getGivenAuction(title).addExistingBids(lineScanner.next(), lineScanner.next(),
+									lineScanner.next());
+						} else {
+							lineScanner.next();
 						}
-					
-					
+					}
+
+					if (status == true) {
+						Auction.setGivenWonArtworks(title, curBidder, curBid);
+						System.out.println("Highest Bidder set in completed: " + curBidder);
+					}
 				} else {
 					String title = lineScanner.next();
 					String creator = lineScanner.next();
@@ -167,29 +161,24 @@ public class LoadData {
 					boolean status = lineScanner.nextBoolean();
 					String curBidder = lineScanner.next();
 					double curBid = lineScanner.nextDouble();
-					
+
 					@SuppressWarnings("unused")
-					Artwork loadedPainting = new Sculpture(auctioner, title, creator,
-							artCreationYear, reservePrice, numBidsAllowed, width,
-							height, depth, material, false, status);
-				
-					
-					
-					
-					while(lineScanner.hasNext()) {
-						if(status == true) {
-							Auction.getGivenAuction(title).addExistingBids(lineScanner.next(),
-								lineScanner.next(), lineScanner.next());
-					} else { 
-						lineScanner.next();
-					}
-					}
-						if(status == false) {
-							Auction.setGivenWonArtworks(title, curBidder, curBid);
-							System.out.println("Highest Bidder set in completed: " + curBidder);
+					Artwork loadedPainting = new Sculpture(auctioner, title, creator, artCreationYear, reservePrice,
+							numBidsAllowed, width, height, depth, material, false, status);
+
+					while (lineScanner.hasNext()) {
+						if (status == true) {
+							Auction.getGivenAuction(title).addExistingBids(lineScanner.next(), lineScanner.next(),
+									lineScanner.next());
+						} else {
+							lineScanner.next();
 						}
 					}
-				
+					if (status == false) {
+						Auction.setGivenWonArtworks(title, curBidder, curBid);
+						System.out.println("Highest Bidder set in completed: " + curBidder);
+					}
+				}
 			}
 			closeFile(lineScanner);
 		}

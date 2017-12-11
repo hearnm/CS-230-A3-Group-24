@@ -100,7 +100,6 @@ public class SaveData {
 
 	/**
 	 * Method to save a new Profile to a locally stored file.
-	 *
 	 * @param outputStream The file which the data is being stored
 	 */
 	private static void addProfileData(PrintWriter outputStream) {
@@ -218,7 +217,6 @@ public class SaveData {
 				String currentBidder = currentAuctions.get(i).getCurrentBidder();
 				double currentBid = currentAuctions.get(i).getCurrentBid();
 
-				
 				outputStream.print(auctioneer + "," + artType + "," + title + "," + creator + "," + artCreationYear + "," 
 						+ reservePrice + "," + numBidsAllowed + "," + width + "," + height + "," + status + "," + currentBidder + "," + currentBid + ",");
 
