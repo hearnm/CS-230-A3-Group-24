@@ -811,14 +811,18 @@ public class SystemGUI extends Application {
 		return root;
 	}
 
+	/**
+	 * Method to check if a user is marked by the current user as a favorite
+	 * @param username The username to be checked
+	 * @return True if user is marked as favorite, False if not marked
+	 */
 	private boolean checkIfMarked(String username) {
 		
-		for(int i = 0; i < currentUserObject.getFavoriteUsers().size(); i++) {
+		for (int i = 0; i < currentUserObject.getFavoriteUsers().size(); i++) {
 			if(username.equalsIgnoreCase(currentUserObject.getFavoriteUsers().get(i).getUsername())) {
 				return true;
 			}
 		}
-		
 		return false;
 	}
 	
@@ -1867,9 +1871,11 @@ public class SystemGUI extends Application {
 		VBox leftVBar = new VBox(10);
 		VBox leftVBar2 = new VBox(10);
 		VBox rightVBar = new VBox(10);
-		rightVBar.setId("INFORMATIONHIGHLIGHTER");
 		VBox bidTableMain = new VBox(10);
 		HBox bidTableTitle = new HBox(10);
+		
+		bidTableMain.setBorder(new Border(new BorderStroke(Color.BLACK, 
+				BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 	
 		leftVBar2.setPadding(new Insets(25,0,0,0));
 		mainTop.setPadding(new Insets(20,50,10,10));
@@ -1898,18 +1904,6 @@ public class SystemGUI extends Application {
 		Text bidHistoryBid = new Text("Bid Amount");
 		Text bidHistoryDate = new Text("Date of Bid");
 		
-		subTitle.setId("TEXTFORMAT");
-		currentBid.setId("TEXTFORMATWHITE");
-		artAuctioneer.setId("TEXTFORMATWHITE");
-		artCreator.setId("TEXTFORMATWHITE");
-		artYear.setId("TEXTFORMATWHITE");
-		artHeight.setId("TEXTFORMATWHITE");
-		artWidth.setId("TEXTFORMATWHITE");
-		artDepth.setId("TEXTFORMATWHITE");
-		artMaterial.setId("TEXTFORMATWHITE");
-		bidHistoryName.setId("TEXTFORMATWHITE");
-		bidHistoryBid.setId("TEXTFORMATWHITE");
-		bidHistoryDate.setId("TEXTFORMATWHITE");
 		bidInput.setPromptText("Enter your bid");
 		
 		Button bid = new Button("Bid on Artwork");
