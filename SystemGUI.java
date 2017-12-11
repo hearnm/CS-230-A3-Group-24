@@ -1,4 +1,3 @@
-import java.awt.Point;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,7 +6,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.logging.Level;
 
 import javax.imageio.ImageIO;
 
@@ -551,15 +549,15 @@ public class SystemGUI extends Application {
 				previewArt.setFitWidth(128);	
 				previewArt.setId("" + i);
 				
-				artworkDetails.add(auctions.get(i).getAuctionedArtwork().getTitle());
-				artworkDetails.add(auctions.get(i).getAuctionedArtwork().getArtType());
-				artworkDetails.add(auctions.get(i).getAuctionedArtwork().getAuctioneer());
+				final String detailBlock = auctions.get(i).getAuctionedArtwork().getTitle() + "\n" + auctions.get(i).getAuctionedArtwork().getArtType()
+						+ "\n" + auctions.get(i).getAuctionedArtwork().getAuctioneer();
+				
+				artworkDetails.add(detailBlock);
 				artworkPreview.add(previewArt);
 			}
 		}
 		for (int k = 0; k < artworkPreview.size(); k++) {
 			
-			//if(auctions.get(k).getAuctionedArtwork().getArtType() == filterSelected || filterSelected == null) {
 
 				artworkPreview.get(k).setOnMouseClicked(new EventHandler<MouseEvent>() {
 					@Override
@@ -571,26 +569,21 @@ public class SystemGUI extends Application {
 						window.setScene(selectedAuctionView);
 					};
 				});
-			//}
 		}
 	
 		for (int n = 0; n < artworkPreview.size(); n++) {
 			
-			//if(auctions.get(n).getAuctionedArtwork().getArtType() == filterSelected || filterSelected == null) {
 	
 				final VBox previewDetails = new VBox(2);
-				final Text previewTitle = new Text(auctions.get(n).getAuctionedArtwork().getTitle());
-				final Text previewType = new Text(auctions.get(n).getAuctionedArtwork().getArtType());
-				final Text previewAuctioneer = new Text(auctions.get(n).getAuctionedArtwork().getAuctioneer());
+				final Text detailsBlock = new Text(artworkDetails.get(n));
 				previewDetails.setAlignment(Pos.BASELINE_CENTER);
-				previewDetails.getChildren().addAll(previewTitle, previewType, previewAuctioneer);
+				previewDetails.getChildren().add(detailsBlock);
 				
 				GridPane.setConstraints(artworkPreview.get(n), n, 0);
 				GridPane.setConstraints(previewDetails, n, 1);
 				
 				newAuctionBlock.getChildren().addAll(artworkPreview.get(n), previewDetails);
 				System.out.println("Artwork Loaded");
-			//}
 		}
 		Button createNewAuctionButton = new Button("Create a new auction");
 		
