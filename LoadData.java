@@ -136,13 +136,8 @@ public class LoadData {
 							artCreationYear, reservePrice, numBidsAllowed, width,
 							height, false, status);
 
-					
-					if(status == true) {
-						Auction.getGivenAuction(title).setCurrentBidder(curBidder);
-					} else if(Auction.getGivenWonArtworks(title) != null) {
-						Auction.getGivenWonArtworks(title).setCurrentBidder(curBidder);
-					}
-					
+				
+	
 					while(lineScanner.hasNext()) {
 						if(status == true) {
 						Auction.getGivenAuction(title).addExistingBids(lineScanner.next(),
@@ -151,6 +146,14 @@ public class LoadData {
 						lineScanner.next();
 					}
 					}
+						
+						if(status == true) {
+					
+							Auction.setGivenWonArtworks(title, curBidder);
+							System.out.println("Highest Bidder set in completed: " + curBidder);
+						}
+					
+					
 				} else {
 					String title = lineScanner.next();
 					String creator = lineScanner.next();
@@ -171,11 +174,7 @@ public class LoadData {
 							height, depth, material, false, status);
 				
 					
-					if(status == true) {
-						Auction.getGivenAuction(title).setCurrentBidder(curBidder);
-					} else if (Auction.getGivenWonArtworks(title) != null) {
-						Auction.getGivenWonArtworks(title).setCurrentBidder(curBidder);
-					}
+					
 					
 					while(lineScanner.hasNext()) {
 						if(status == true) {
@@ -183,10 +182,14 @@ public class LoadData {
 								lineScanner.next(), lineScanner.next());
 					} else { 
 						lineScanner.next();
-						
 					}
 					}
-				}
+						if(status == false) {
+							Auction.setGivenWonArtworks(title, curBidder);
+							System.out.println("Highest Bidder set in completed: " + curBidder);
+						}
+					}
+				
 			}
 			closeFile(lineScanner);
 		}

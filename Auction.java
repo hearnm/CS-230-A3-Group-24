@@ -48,6 +48,7 @@ public class Auction {
 		if(this.auctionedArtwork.getOnAuction() == true) {
 			auctions.add(this);
 		} else {
+			
 			completedAuctions.add(this);
 		}
 	}
@@ -62,15 +63,15 @@ public class Auction {
 		return usersWonArtworks;
 	}
 	
-	public static Auction getGivenWonArtworks(String title) {
+	public static void setGivenWonArtworks(String title, String curBidder) {
 		
 		
 		for(int i = 0; i < completedAuctions.size(); i++) {
 			if(title.equalsIgnoreCase(completedAuctions.get(i).getAuctionedArtwork().getTitle())) {
-				return completedAuctions.get(i);
+				completedAuctions.get(i).setCurrentBidder(curBidder);
 			}
 		}
-		return null;
+	
 	}
 	
 	
@@ -131,7 +132,7 @@ public class Auction {
 		// Check if the bid is valid and the final bid
 		if (checkIfBidValid(newBidder, newBid)
 				&& this.remainingBids == 1) {
-			completedAuctions.add(this);
+			
 			auctionedArtwork.setOnAuction(false);
 			this.currentBidder = newBidder;
 			this.currentBid = newBid;
@@ -140,6 +141,7 @@ public class Auction {
 			Bidding bid = new Bidding(newBidder, newBid,
 					generateDateTime());
 			this.bidHistory.add(bid);
+			completedAuctions.add(this);
 			return "win";
 		}
 
