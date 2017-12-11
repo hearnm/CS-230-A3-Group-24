@@ -1514,14 +1514,13 @@ public class SystemGUI extends Application {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		getColorChoice(colorOption);
 		
-		if(drawEraser == true) {
+		if (drawEraser == true) {
 			gc.clearRect(mouseX, mouseY, sliderValue, sliderValue);
-			} else if(drawParticle == true && shape == "Circle") {
+			} else if (drawParticle == true && shape == "Circle") {
 				gc.fillOval(mouseX, mouseY, sliderValue, sliderValue);
-			} else if(drawParticle == true && shape == "Square") {
+			} else if (drawParticle == true && shape == "Square") {
 				gc.fillRect(mouseX, mouseY, sliderValue, sliderValue);
 		} 
-		
 	}
 	
 	/**
@@ -1550,9 +1549,9 @@ public class SystemGUI extends Application {
 	private String shapeChoice(ChoiceBox<String> shapeOption) {
 		String shapeChoice = shapeOption.getValue();
 		
-		if(shapeChoice == "Circle") {
+		if (shapeChoice == "Circle") {
 			return "Circle";
-		} else if(shapeChoice == "Square") {
+		} else if (shapeChoice == "Square") {
 			return "Square";
 		}
 		return null;
@@ -1569,7 +1568,7 @@ public class SystemGUI extends Application {
 		getPreviewColorChoice(color);
 		gc2.clearRect(0, 0, PREVIEW_CANVAS_WIDTH, PREVIEW_CANVAS_HEIGHT);
 		
-		if(shapeOption == "Circle") {
+		if (shapeOption == "Circle") {
 			gc2.fillOval(PREVIEW_CANVAS_DRAW_X, PREVIEW_CANVAS_DRAW_Y, sliderValue, sliderValue);
 		} else if (shapeOption == "Square") {
 			gc2.fillRect(PREVIEW_CANVAS_DRAW_X, PREVIEW_CANVAS_DRAW_Y, sliderValue, sliderValue);
@@ -1703,7 +1702,6 @@ public class SystemGUI extends Application {
             	preview.setFitWidth(100);
             }
 		});
-
 		ToggleGroup radioSelectionToggle = new ToggleGroup();
 		
 		RadioButton paintingRadio = new RadioButton("Painting");
@@ -1715,7 +1713,6 @@ public class SystemGUI extends Application {
 			depthBox.setEditable(true);
 			depthBox.setOpacity(1);
 		});
-		
 		paintingRadio.setOnAction(e -> {
 			mainMaterialBox.setEditable(false);
 			mainMaterialBox.setOpacity(0.5);
@@ -1724,15 +1721,14 @@ public class SystemGUI extends Application {
 			depthBox.setOpacity(0.5);
 			depthBox.clear();
 		});
-		
 		paintingRadio.setToggleGroup(radioSelectionToggle);
 		sculptureRadio.setToggleGroup(radioSelectionToggle);
 		sculptureRadio.setSelected(true);
 		
 		createAuctionButton.setOnAction(e -> {
-			if(newAuctionInputExistenceCheck(artNameBox.getText(), artCreatorBox.getText(), artCreationYearBox.getText(), maxBiddersBox.getText()) == true) {
+			if (newAuctionInputExistenceCheck(artNameBox.getText(), artCreatorBox.getText(), artCreationYearBox.getText(), maxBiddersBox.getText()) == true) {
 				
-				if(paintingRadio.isSelected() == true) {
+				if (paintingRadio.isSelected() == true) {
 					Artwork newPainting = new Painting(currentUserObject.getUsername(), artNameBox.getText(), artCreatorBox.getText(), Integer.parseInt(artCreationYearBox.getText()), 
 														Double.parseDouble(reservePriceBox.getText()), Integer.parseInt(maxBiddersBox.getText()), Double.parseDouble(widthBox.getText()), 
 														Double.parseDouble(heightBox.getText()), true, true);
@@ -1740,7 +1736,7 @@ public class SystemGUI extends Application {
 					SaveData.saveNewArtwork(newPainting);
 					home = new Scene(buildHomePageGUI(), HOME_STAGE_WIDTH, HOME_STAGE_HEIGHT);
 					window.setScene(home);
-				} else if(sculptureRadio.isSelected() == true) {
+				} else if (sculptureRadio.isSelected() == true) {
 					Artwork newSculpture = new Sculpture(currentUserObject.getUsername(), artNameBox.getText(), artCreatorBox.getText(), Integer.parseInt(artCreationYearBox.getText()), 
 							Double.parseDouble(reservePriceBox.getText()), Integer.parseInt(maxBiddersBox.getText()), Double.parseDouble(widthBox.getText()), 
 							Double.parseDouble(heightBox.getText()), Double.parseDouble(depthBox.getText()), mainMaterialBox.getText(), true, true);
@@ -1765,7 +1761,6 @@ public class SystemGUI extends Application {
 		vert.getChildren().addAll(title, subTitle, toggles, artNameTxt, artNameBox, artCreatorTxt, artCreatorBox, artCreationYearTxt, 
 									artCreationYearBox, maxBiddersTxt, maxBiddersBox, reservePriceTxt, reservePriceBox, 
 									imgContainer, dimensions1, dimensions2, mainMaterialTxt, mainMaterialBox, uploadImg, createAuctionButton, back);
-		
 
 		root.setTop(vert);
 		scroll.setContent(root);
@@ -1883,7 +1878,7 @@ public class SystemGUI extends Application {
 		ArrayList<Bidding> currentBids = new ArrayList<>();
 		currentBids = selectedAuction.getBids();
 		
-		for(int i = 0; i < currentBids.size(); i++) {
+		for (int i = 0; i < currentBids.size(); i++) {
 			HBox newRow = new HBox(10);
 			
 			Text name = new Text(currentBids.get(i).getUsername());
@@ -1896,19 +1891,16 @@ public class SystemGUI extends Application {
 		
 		bid.setOnAction(e -> {
 			double userBid = convertBidInput(bidInput.getText());
-			if(attemptBid(selectedAuction, userBid) == true) {
+			if (attemptBid(selectedAuction, userBid) == true) {
 			SaveData.updateAuction(auctions, selectedAuction);
 			selectedAuctionView = new Scene(buildDetailedAuctionViewGUI(), AUCTION_DETAILS_STAGE_WIDTH, AUCTION_DETAILS_STAGE_HEIGHT);
 			window.setScene(selectedAuctionView);
 			}
-
 		});
-		
 		back.setOnAction(e -> {
 			selectedAuction = null;
 			window.setScene(home);
 		});
-		
         title.setScaleX(4);
 		title.setScaleY(4);
 		artName.setScaleX(2.5);
@@ -1923,8 +1915,7 @@ public class SystemGUI extends Application {
 
 		title.setTextAlignment(TextAlignment.LEFT);
 		
-		
-		if(selectedAuction.getAuctionedArtwork().getArtType().equalsIgnoreCase("Painting")) {
+		if (selectedAuction.getAuctionedArtwork().getArtType().equalsIgnoreCase("Painting")) {
 			artDepth.setVisible(false);
 			artMaterial.setVisible(false);
 		}
