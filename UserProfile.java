@@ -22,7 +22,8 @@ public class UserProfile {
 	private boolean newAccount;	// A check to see if an account is new or pre-existing
 	private static ArrayList<UserProfile> profiles = new ArrayList<UserProfile>();  // An ArrayList of all profiles in the system
 	private ArrayList<UserProfile> favoriteUsers = new ArrayList<UserProfile>();	// An Array of users marked as favorite by one instance of a user
-
+	private ArrayList<Bidding> bidHistory = new ArrayList<Bidding>();
+	
 	/**
 	 * Constructor for UserProfile which creates new Users.
 	 * When a User Profile is created a check is made to see if
@@ -57,6 +58,16 @@ public class UserProfile {
 		}
 	}
 
+	
+	public ArrayList<Bidding> getBidHistory() {
+		return this.bidHistory;
+	}
+	
+	public void addBid(Bidding newBid) {
+		this.bidHistory.add(newBid);
+	}
+	
+	
 	/**
 	 * Method to get the newAccount Attribute.
 	 * @return newAccount True if new account, false if pre-existing.

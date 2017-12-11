@@ -15,13 +15,16 @@ public class SaveData {
 	private static final String PROFILE_DATA_PATH = "ArtataweProfiles.txt";			//The Constant File path for the system data.
 	private static final String PROFILE_FAVORITE_PATH = "_FavoriteProfiles.txt";	//The Constant File path to save all the data to.
 	private static final String ARTWORK_FAVORITE_PATH = "Artworks.txt";				//The Constant File path to the artworks data (including bidding info).
-
+	private static final String USER_BID_HISTORY_PATH = "_BidHistory.txt";	//The Constant File path to save all the data to.
+	
 	private static UserProfile currentUser;		//The current user that is logged onto the system.
 	private static Artwork currentArtwork;		//The current artwork.
+	private static Auction currentAuction;
 	private static PrintWriter printWriter;		//The print writer for writing to a file.
 
 	private static ArrayList<Auction> currentAuctions = new ArrayList<>();	//The current auctions to be saved/updated.
 	private static ArrayList<UserProfile> allUsers = new ArrayList<>();		//The users to be saved/updated.
+	private static ArrayList<Bidding> currentBidHistory  = new ArrayList<>();		
 
 	/**
 	 * Static Method that saves the system according to a given Username.
@@ -41,6 +44,17 @@ public class SaveData {
 		allUsers = allUsersUpdated;
 		openProfileFile(PROFILE_DATA_PATH, true);
 		updateProfileData(printWriter);
+	}
+	
+	/**
+	 * Static Method to update the current users bid history.
+	 * @param allUsersUpdated An ArrayList of all users
+	 */
+	public static void updateBidHistory(ArrayList<UserProfile> allUsersUpdated) {
+		allUsers = allUsersUpdated;
+		
+		openProfileFile(USER_BID_HISTORY_PATH, true);
+		updateBidHistoryData(printWriter);
 	}
 
 	/**
@@ -154,6 +168,25 @@ public class SaveData {
 		}
 		closeFile(outputStream);
 	}
+	
+	/**
+	 * Method to update the current users bid history
+	 * @param outputStream The file which the data is being stored
+	 */
+	private static void updateBidHistoryData(PrintWriter outputStream) {
+		ArrayList<Bidding> bidHistory = new ArrayList<>();
+		bidHistory = currentUser.getBidHistory();
+
+		for (int i = 0; i < bidHistory.size(); i++) {
+			outputStream.print(bidHistory.get(i).getUsername() + ",");
+		}
+		closeFile(outputStream);
+	}
+	
+	
+	
+	
+	
 
 	/**
 	 * Static Method of adding a new Artwork to the system.

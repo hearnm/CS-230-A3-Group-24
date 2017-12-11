@@ -61,7 +61,7 @@ public class Auction {
 	public static ArrayList<Auction> getGivenSellersCompletedAuctions(String username) {
 		ArrayList<Auction> usersWonArtworks = new ArrayList<>();
 		
-		for(int i = 0; i < completedAuctions.size(); i++) {
+		for (int i = 0; i < completedAuctions.size(); i++) {
 			if(username.equalsIgnoreCase(completedAuctions.get(i).getAuctionedArtwork().getAuctioneer())) {
 	
 				usersWonArtworks.add(completedAuctions.get(i));

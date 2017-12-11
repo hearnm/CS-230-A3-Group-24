@@ -68,7 +68,7 @@ import javafx.stage.Stage;
  */
 public class SystemGUI extends Application {
 	private static final int HOME_STAGE_WIDTH = 840;			// Width of the Main Stage
-	private static final int HOME_STAGE_HEIGHT= 800;			// Height of the Main Stage
+	private static final int HOME_STAGE_HEIGHT= 550;			// Height of the Main Stage
 	private static final int SIGNUP_STAGE_WIDTH = 600;			// Width of the Signup Stage
 	private static final int SIGNUP_STAGE_HEIGHT= 600;			// Height of the Signup Stage
 	private static final int PROFILE_STAGE_WIDTH = 750;			// Width of the Signup Stage
@@ -461,8 +461,8 @@ public class SystemGUI extends Application {
 		HBox searchBlock = new HBox(5);
 		StackPane mainCenter = new StackPane();
 
-		//mainCenter.setBorder(new Border(new BorderStroke(Color.BLACK, 
-	   //         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+		scroll.setBorder(new Border(new BorderStroke(Color.BLACK, 
+	           BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		
 		root.setPadding(new Insets(25,10,10,10));
 		mainTop.setPadding(new Insets(25,10,10,10));
@@ -644,7 +644,8 @@ public class SystemGUI extends Application {
 		optionsBlock.getChildren().addAll(options, optionsMenu, createNewAuctionButton);
 		titleBlock.getChildren().addAll(title, subTitle, searchBlock);
 		mainTop.getChildren().addAll(titleBlock, optionsBlock);
-		mainCenter.getChildren().addAll(newAuctionBlock);
+		scroll.setContent(newAuctionBlock);
+		mainCenter.getChildren().addAll(scroll);
 		
 		root.setTop(mainTop);
 		root.setCenter(mainCenter);
