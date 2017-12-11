@@ -401,7 +401,7 @@ public class SystemGUI extends Application {
 	*/
 	public boolean phoneNoChecker(String phoneNo) {
 		System.out.println("Phone No: "+phoneNo);
-		if(phoneNo.matches("[0-9]{11}")) {
+		if (phoneNo.matches("[0-9]{11}")) {
 			System.out.println("why are we matching");
 			return true;
 		} else {
@@ -416,8 +416,8 @@ public class SystemGUI extends Application {
 	 * @return True if there is a duplicate, False if it is unique
 	 */
 	private boolean usernameDuplicationCheck(String username) {
-		for(int i = 0; i < allUsers.size(); i++) {
-			if(username.equalsIgnoreCase(allUsers.get(i).getUsername())) {
+		for (int i = 0; i < allUsers.size(); i++) {
+			if (username.equalsIgnoreCase(allUsers.get(i).getUsername())) {
 				return true;
 			}
 		}
@@ -425,7 +425,7 @@ public class SystemGUI extends Application {
 	}
 	
 	/**
-	 * Method to check the existence of input for the signup GUI
+	 * Method to check the existence of input for the signup GUI.
 	 * @param username Entered username
 	 * @param firstname Entered firstname
 	 * @param lastname Entered lastname
@@ -437,7 +437,7 @@ public class SystemGUI extends Application {
 	 */
 	private boolean signupInputExistenceCheck(String username, String firstname, String lastname, String street, 
 														String postcode, String citytown, String phoneNo) {
-		if(username.length() == 0 || firstname.length() == 0  || lastname.length() == 0
+		if (username.length() == 0 || firstname.length() == 0  || lastname.length() == 0
 				|| street.length() == 0  || postcode.length() == 0  
 				|| citytown.length() == 0  || phoneNo.length() == 0) {
 			notificationBox("Sign-Up Notification", "Input Error", "All fields must be filled out");
@@ -450,7 +450,7 @@ public class SystemGUI extends Application {
 	 * Method to build the Home Page GUI window.
 	 * @return root The Constructed Pane with all the Home Page GUI elements
 	 */
-	private Pane buildHomePageGUI(){
+	private Pane buildHomePageGUI() {
 		window.setResizable(true);
 		BorderPane root = new BorderPane();
 		root.getStylesheets().add("artatawe.css");
@@ -497,57 +497,52 @@ public class SystemGUI extends Application {
 		textSculptures.setId("TEXTFORMAT");
 
 		searchBtn.setOnAction(e -> {
-			for(int i = 0; i < auctions.size(); i++) {
-				if(search.getText().equalsIgnoreCase(auctions.get(i).getAuctionedArtwork().getTitle())) {
+			for (int i = 0; i < auctions.size(); i++) {
+				if (search.getText().equalsIgnoreCase(auctions.get(i).getAuctionedArtwork().getTitle())) {
 					selectedAuction = auctions.get(i);
 					selectedAuctionView = new Scene(buildDetailedAuctionViewGUI(), AUCTION_DETAILS_STAGE_WIDTH, AUCTION_DETAILS_STAGE_HEIGHT);
 					window.setScene(selectedAuctionView);
 				}
 			}
 		});
-		
 		ToggleGroup radioSelectionToggle = new ToggleGroup();
 		
 		RadioButton filterAll = new RadioButton();
 		RadioButton filterPaintings = new RadioButton();
 		RadioButton filterSculptures = new RadioButton();
 		
-		if(filterSelected == null) {
+		if (filterSelected == null) {
 			filterAll.setSelected(true);
 		} else if (filterSelected == "Painting") {
 			filterPaintings.setSelected(true);
 		} else if (filterSelected == "Sculpture") {
 			filterSculptures.setSelected(true);
 		}
-		
 		filterPaintings.setOnAction(e -> {
 			filterSelected = "Painting";
 			home = new Scene(buildHomePageGUI(), HOME_STAGE_WIDTH, HOME_STAGE_HEIGHT);
 			System.out.println("reload");
 			window.setScene(home);
 		});
-		
 		filterSculptures.setOnAction(e -> {
 			filterSelected = "Sculpture";
 			home = new Scene(buildHomePageGUI(), HOME_STAGE_WIDTH, HOME_STAGE_HEIGHT);
 			window.setScene(home);
 		});
-		
 		filterAll.setOnAction(e -> {
 			filterSelected = null;
 			home = new Scene(buildHomePageGUI(), HOME_STAGE_WIDTH, HOME_STAGE_HEIGHT);
 			window.setScene(home);
 		});
-		
 		filterAll.setToggleGroup(radioSelectionToggle);
 		filterPaintings.setToggleGroup(radioSelectionToggle);
 		filterSculptures.setToggleGroup(radioSelectionToggle);
 	
 		ArrayList<ImageView> artworkPreview = new ArrayList<>();
 		ArrayList<String> artworkDetails = new ArrayList<>();
-		for(int i = 0; i < auctions.size(); i++) {
+		for (int i = 0; i < auctions.size(); i++) {
 			
-			if(auctions.get(i).getAuctionedArtwork().getArtType() == filterSelected || filterSelected == null) {
+			if (auctions.get(i).getAuctionedArtwork().getArtType() == filterSelected || filterSelected == null) {
 			
 				System.out.println(auctions.get(i).getAuctionedArtwork().getArtType());
 				final ImageView previewArt = new ImageView();
@@ -562,8 +557,7 @@ public class SystemGUI extends Application {
 				artworkPreview.add(previewArt);
 			}
 		}
-		
-		for(int k = 0; k < artworkPreview.size(); k++) {
+		for (int k = 0; k < artworkPreview.size(); k++) {
 			
 			//if(auctions.get(k).getAuctionedArtwork().getArtType() == filterSelected || filterSelected == null) {
 
@@ -580,7 +574,7 @@ public class SystemGUI extends Application {
 			//}
 		}
 	
-		for(int n = 0; n < artworkPreview.size(); n++) {
+		for (int n = 0; n < artworkPreview.size(); n++) {
 			
 			//if(auctions.get(n).getAuctionedArtwork().getArtType() == filterSelected || filterSelected == null) {
 	
@@ -598,7 +592,6 @@ public class SystemGUI extends Application {
 				System.out.println("Artwork Loaded");
 			//}
 		}
-		
 		Button createNewAuctionButton = new Button("Create a new auction");
 		
 		createNewAuctionButton.setOnAction(e -> {
@@ -640,7 +633,6 @@ public class SystemGUI extends Application {
 			optionsMenu.setValue("Select an Option"); 
 			
 		});
-		
 		titleBlock.setAlignment(Pos.BASELINE_CENTER);
 		
 		searchBlock.getChildren().addAll(search,searchBtn, buttonBar);
@@ -661,16 +653,16 @@ public class SystemGUI extends Application {
 	 * @param selection The selected option
 	 */
 	private void optionsMenuSelection(String selection) {
-		if(selection == "My Account") {
+		if (selection == "My Account") {
 			Pane draw = buildProfileGUI();
 			profile = new Scene(draw, PROFILE_STAGE_WIDTH, PROFILE_STAGE_HEIGHT);
 			window.setScene(profile);
-		} else if(selection == "Logout") {
+		} else if (selection == "Logout") {
 			logoutConfirmation();
-		} else if(selection == "View Users") {
+		} else if (selection == "View Users") {
 			viewUsers = new Scene(buildUserListGUI(), VIEW_STAGE_WIDTH, VIEW_STAGE_HEIGHT);
 			window.setScene(viewUsers);
-		} else if(selection == "My Favorite Users") {
+		} else if (selection == "My Favorite Users") {
 			favoriteUsersList = new Scene(buildFavoriteUserListGUI(), VIEW_STAGE_WIDTH, VIEW_STAGE_HEIGHT);
 			window.setScene(favoriteUsersList);
 		}
