@@ -740,13 +740,10 @@ public class SystemGUI extends Application {
 		back.setOnAction(e -> {
 			saveFavorites();
 			window.setScene(home);
-			
 		});
-		
-		for(int i = 0; i < allUsers.size(); i++) {
+		for (int i = 0; i < allUsers.size(); i++) {
 			try {
-				if(allUsers.get(i).getUsername() != currentUserObject.getUsername()) {
-					
+				if (allUsers.get(i).getUsername() != currentUserObject.getUsername()) {
 					final Label listUsername = new Label(allUsers.get(i).getUsername());
 					listUsername.setScaleX(1.5);
 					listUsername.setScaleY(1.5);
@@ -759,18 +756,15 @@ public class SystemGUI extends Application {
 					final Button mark = new Button();
 					mark.setId(allUsers.get(i).getUsername());
 					
-					if(checkIfMarked(mark.getId())) {
+					if (checkIfMarked(mark.getId())) {
 						mark.setText("Unmark as Favorite");
-					
 					} else {
 						mark.setText("Mark as Favorite");
 					}
-					
 					mark.setOnMouseClicked(new EventHandler<MouseEvent>() {
 						@Override
 						public void handle(MouseEvent event) {
-
-							if(checkIfMarked(mark.getId())) {
+							if (checkIfMarked(mark.getId())) {
 								removeUserFavorite(mark.getId());
 								System.out.println("User Removed");
 								mark.setText("Mark as Favorite");
@@ -781,23 +775,20 @@ public class SystemGUI extends Application {
 							}
 						};
 					});
-						
 					listname.add(listUsername);
 					listPic.add(listUserImg);
 					buttons.add(mark);
 				} 
 			} catch (Exception e) {
 				System.out.println("user does not exist");
-				}
+			}
 		}
-	
-		for(int j = 0; j < allUsers.size() - 1; j++) {
+		for (int j = 0; j < allUsers.size() - 1; j++) {
 			GridPane.setConstraints(listPic.get(j), 0, j);
 			GridPane.setConstraints(listname.get(j), 1, j);
 			GridPane.setConstraints(buttons.get(j), 6, j);
 			center.getChildren().addAll(listname.get(j), listPic.get(j), buttons.get(j));
 		}
-		
 		topBar.setAlignment(Pos.BASELINE_CENTER);
 		topBar.getChildren().addAll(title, subTitle, back);
 		mainSection.setTop(topBar);
@@ -813,9 +804,8 @@ public class SystemGUI extends Application {
 	 * @return True if user is marked as favorite, False if not marked
 	 */
 	private boolean checkIfMarked(String username) {
-		
 		for (int i = 0; i < currentUserObject.getFavoriteUsers().size(); i++) {
-			if(username.equalsIgnoreCase(currentUserObject.getFavoriteUsers().get(i).getUsername())) {
+			if (username.equalsIgnoreCase(currentUserObject.getFavoriteUsers().get(i).getUsername())) {
 				return true;
 			}
 		}
@@ -826,7 +816,7 @@ public class SystemGUI extends Application {
 	 * Method to save the current favorites as they are added
 	 */
 	private void saveFavorites() {
-		if(currentUserObject.getFavoriteUsers() != null) {
+		if (currentUserObject.getFavoriteUsers() != null) {
 		SaveData.saveProfileFavorites(currentUserObject);
 		} else {
 			
