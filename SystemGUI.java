@@ -561,7 +561,7 @@ public class SystemGUI extends Application {
 		
 		for(int k = 0; k < artworkPreview.size(); k++) {
 			
-			if(auctions.get(k).getAuctionedArtwork().getArtType() == filterSelected || filterSelected == null) {
+			//if(auctions.get(k).getAuctionedArtwork().getArtType() == filterSelected || filterSelected == null) {
 
 				artworkPreview.get(k).setOnMouseClicked(new EventHandler<MouseEvent>() {
 					@Override
@@ -573,12 +573,12 @@ public class SystemGUI extends Application {
 						window.setScene(selectedAuctionView);
 					};
 				});
-			}
+			//}
 		}
 	
 		for(int n = 0; n < artworkPreview.size(); n++) {
 			
-			if(auctions.get(n).getAuctionedArtwork().getArtType() == filterSelected || filterSelected == null) {
+			//if(auctions.get(n).getAuctionedArtwork().getArtType() == filterSelected || filterSelected == null) {
 	
 				final VBox previewDetails = new VBox(2);
 				final Text previewTitle = new Text(auctions.get(n).getAuctionedArtwork().getTitle());
@@ -592,7 +592,7 @@ public class SystemGUI extends Application {
 				
 				newAuctionBlock.getChildren().addAll(artworkPreview.get(n), previewDetails);
 				System.out.println("Artwork Loaded");
-			}
+			//}
 		}
 		
 		Button createNewAuctionButton = new Button("Create a new auction");
